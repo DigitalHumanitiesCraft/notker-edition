@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="goh">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Notkers Psalmenkommentar – Psalm 2 (Digitale Edition, Prototyp)</title>
+        <author>Notker III. von St. Gallen (ca. 950–1022)</author>
+        <editor xml:id="pfeifer">Philipp Pfeifer</editor>
+        <respStmt>
+          <resp>Digitale Aufbereitung</resp>
+          <orgName>Digital Humanities Craft OG</orgName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc xml:id="csg0021">
+          <msIdentifier>
+            <settlement>St. Gallen</settlement>
+            <repository>Stiftsbibliothek</repository>
+            <idno>CSg 0021</idno>
+          </msIdentifier>
+        </msDesc>
+        <bibl xml:id="tax_sehrt">Tax, Petrus W. / Sehrt, Edward H.: Notker der Deutsche – Der Psalter (1979), S. R10–R13</bibl>
+        <bibl xml:id="wiener_notker">Wiener Notker: ÖNB Cod. 2681, Edition Heinzle &amp; Scherrer</bibl>
+        <bibl xml:id="rea_corpus">Referenzkorpus Altdeutsch (DDD), DOI: 10.34644/laudatio-dev-MiXVDnMB7CArCQ9CABmW</bibl>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <classDecl>
+        <taxonomy xml:id="textfunction">
+          <category xml:id="fn-psalm">
+            <catDesc>Psalmzitation: Lateinischer Vulgata-Text, wie Notker ihn zitiert</catDesc>
+          </category>
+          <category xml:id="fn-transl">
+            <catDesc>Übersetzung: Althochdeutsche Wiedergabe der Psalmzitate</catDesc>
+          </category>
+          <category xml:id="fn-comm">
+            <catDesc>Kommentar: Notkers Exegese (ahd. und lat. gemischt)</catDesc>
+          </category>
+          <category xml:id="fn-gloss">
+            <catDesc>Interlinearglosse: Einzelwort- oder Kurzübersetzung</catDesc>
+          </category>
+        </taxonomy>
+        <taxonomy xml:id="sources">
+          <category xml:id="src-A">
+            <catDesc>Augustinus, Enarrationes in Psalmos</catDesc>
+          </category>
+          <category xml:id="src-C">
+            <catDesc>Cassiodor, Expositio Psalmorum</catDesc>
+          </category>
+          <category xml:id="src-R">
+            <catDesc>Remigius</catDesc>
+          </category>
+          <category xml:id="src-Br">
+            <catDesc>Breviarium</catDesc>
+          </category>
+          <category xml:id="src-RII" cert="low">
+            <catDesc>RII – ungeklärt, vermutlich zweite Remigius-Quelle</catDesc>
+          </category>
+          <category xml:id="src-N" cert="low">
+            <catDesc>N – ungeklärt</catDesc>
+          </category>
+        </taxonomy>
+        <taxonomy xml:id="psalter_witnesses">
+          <category xml:id="wit-G">
+            <catDesc>Gallicanum</catDesc>
+          </category>
+          <category xml:id="wit-R">
+            <catDesc>Romanum</catDesc>
+          </category>
+          <category xml:id="wit-H">
+            <catDesc>Hebraicum (iuxta Hebraeos), Bamberg Ms. 44</catDesc>
+          </category>
+          <category xml:id="wit-A-psa">
+            <catDesc>Augustinus-Psalter, St. Gallen Cod. 162</catDesc>
+          </category>
+          <category xml:id="wit-C-psa">
+            <catDesc>Cassiodor-Psalter, St. Gallen Cod. 200</catDesc>
+          </category>
+        </taxonomy>
+      </classDecl>
+      <projectDesc>
+        <p>Prototyp für einen Drittmittelantrag. Nur Psalm 2 (13 Verse). Auftraggeber: Dr. Philipp Pfeifer, Universität Graz.</p>
+      </projectDesc>
+    </encodingDesc>
+    <profileDesc>
+      <langUsage>
+        <language ident="goh">Althochdeutsch</language>
+        <language ident="la">Latein</language>
+        <language ident="de">Neuhochdeutsch</language>
+      </langUsage>
+    </profileDesc>
+  </teiHeader>
+  <facsimile>
+    <surface xml:id="facs-p11" source="https://www.e-codices.unifr.ch/de/csg/0021/11/0/">
+      <graphic url="https://www.e-codices.unifr.ch/loris/csg/csg-0021/csg-0021_011.jp2/full/max/0/default.jpg"/>
+    </surface>
+  </facsimile>
+  <text>
+    <front>
+      <div type="introduction">
+        <p>Diese digitale Edition zeigt Psalm 2 aus Notkers Psalmenkommentar als Prototyp für eine vollständige Edition aller 150 Psalmen. Der Text basiert auf der Handschrift CSg 0021 (Stiftsbibliothek St. Gallen) und der kritischen Edition von Tax/Sehrt (1979).</p>
+      </div>
+    </front>
+    <body>
+      <div type="psalm" n="2">
+        <head>Psalm 2</head>
+        <div type="verse" n="1-2">
+          <ab n="1">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">PSALVS DAVID. </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="2">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">QVARE FREMVERVNT GENTES. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Ziu grís-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab ana="#fn-gloss" n="3">
+            <gloss xml:lang="goh">iúdon diêt</gloss>
+            <note type="translation_gloss" xml:lang="de">Juden Volk</note>
+          </ab>
+          <ab n="4">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">cramoton an <foreign xml:lang="la">christum</foreign> ebraicȩ gentes? </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg1a" part="I" next="#v1_2-seg1b">Et populi medi-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab n="5">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg1b" part="F" prev="#v1_2-seg1a">tati sunt inania . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">
+              <foreign xml:lang="la">idest</foreign> frustura? </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg2a" part="I" next="#v1_2-seg2b">Vnde ziu dâh-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R, A</note>
+          </ab>
+          <ab n="6">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg2b" part="F" prev="#v1_2-seg2a">ton sîne liûte ardingun . ín ze irloschenne? </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg3a" part="I" next="#v1_2-seg3b">Sie dâhton</seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab n="7">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg3b" part="F" prev="#v1_2-seg3a">des ín ubelo spuên solta. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg4a" part="I" next="#v1_2-seg4b">Astiterunt reges terrȩ . et principes</seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="8">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg4b" part="F" prev="#v1_2-seg4a">conuenerunt <foreign xml:lang="goh">in</foreign> unum aduersus dominum et aduersus christum eivs. </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab ana="#fn-gloss" n="9">
+            <gloss xml:lang="goh">in gotes martyro</gloss>
+            <note type="translation_gloss" xml:lang="de">in Gottes Martyrium</note>
+          </ab>
+          <ab n="10">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Tie lánt-chuninga uuâren gágenuuerte in <foreign xml:lang="la">passione domini</foreign>
+            </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg5a" part="I" next="#v1_2-seg5b">. nals</seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab n="11">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg5b" part="F" prev="#v1_2-seg5a">ána sehendo . nube iro uuíllen oûgendo . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg6a" part="I" next="#v1_2-seg6b">unde <foreign xml:lang="la">principes</foreign> sacer-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab n="12">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg6b" part="F" prev="#v1_2-seg6a">
+              <foreign xml:lang="la">dotum</foreign> gesamenoton sih uuider trúhtene .</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg7a" part="I" next="#v1_2-seg7b">unde uuíder sîne-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="13">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg7b" part="F" prev="#v1_2-seg7a">mo geuuiêchten. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- Juden Volk teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. in Gottes Martyrium Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum <hi rend="bold">causas</hi>
+                <hi rend="bold">iracundiae</hi> non haberent.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">In vier Teilen ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Grüde des Zorns nicht hatten.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Pro eo dictum est utquid, ac si diceretur: <hi rend="bold">frustra</hi>; non enim impleuerunt quod uoluerunt, ut Christus exstingueretur.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dafür wurde gesagt „was denn“, als ob gesagt worden wäre „vergeblich“. Denn nicht erfüllten sie, was sie wollten, dass Christus ausgelöscht worden wäre.</note>
+            </cit>
+            <cit ana="#src-R">
+              <bibl>Remigius</bibl>
+              <quote xml:lang="la">Sed hoc meditatio inanis fuit, quia ad nullum effectum peruenit. Quod enim amplius nomen eius obscurare uolerunt, eo amplius per uniuersum mundum dilatatum est.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich  seinen Namen mehr verdecken wollten, ist dieser mehr über die Welt der Erde ausgebreitet.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Meditati sunt quoque inania, quia scripturas diuinas sine fructu intellegentiae frequenter intrabant. Prophetatum est enim in innumeris locis de Domino Saluatore Messiam esse uenturum, quem illi maximo errore decepti non uenisse, sed adhuc uenturum esse confidunt.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Die Überlegungen sind auch sinnlos, weil (sie) häufig in die heiligen Schriften ohne den Samen der Intelligent eintreten. Voraussgesagt ist nämlich an unzähligen Stellen über den Herrn, den Retter, dass der Messias ankommen wird, den jene von größtem Fehler Getäuschten glaubten nicht gekommen (zu sein), sondern erst noch kommend zu sein.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Astiterunt non <hi rend="bold">praesentiam</hi> significat sed <hi rend="bold">uoluntatem</hi>. Nam in passione Domini constat coram regibus omnimodo non fuisse. Reges autem terrae Herodem uult intellegi, qui persequendo Dominum necauit infantes, alterum uero Herodem nepotem eius, qui Pontio Pilato in Saluatoris nece consentit. Merito ergo astitisse dicti sunt, qui sacrilegis mentibus consentientes in uno scelere conuenerunt. <hi rend="bold">Principes</hi> autem de <hi rend="bold">pharisaeis</hi> dicit. [...] Conuenerunt in unum, in unam uoluntatem, non in unum conuentum, nam diuersis conciliabulis hoc scelus leguntur fuisse machinati.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">„Sie traten hinzu“ drückt nicht Präsenz aus, sondern Willen. Denn in der Passion des Herren steht fest, dass (sie) in keiner Weise in der Gegewart von Königen nicht stattfand. (Als) Könige der Erde aber will (er) das verstanden wird Herodes, der den Herrn verfolgend Kleinkinder tötete, (und) freilich der andere Herodes, seinen Enkel der Pontius Pilatus bei der Hinrichtung des Retters zustimmte. Passend also sind sind sie gesagt, dass sie hinzugetreten sind, die in frevelhaftem Denken zustimmend in einem Verbrechen zusammenkamen. Fürsten aber sagt er von den Pharisäern. [...]Sie kamen zusamen in einem, in einem Willen, nicht in einer Versammlung, denn auf verschiedenen Vesammlungsplätzen lesen sie, dass dieses Verbrechen geplant wurde.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="3-5">
+          <ab n="1">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg1a" part="I" next="#v3_5-seg1b">Disrum-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="2">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg1b" part="F" prev="#v3_5-seg1a">pamus uincula eorum . et proiciamus a nobis iugum ipsorum . </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="3">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">
+              <foreign xml:lang="la">idest christi et apostolorum.</foreign> Sús einoton sie sic(h). </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg2a" part="I" next="#v3_5-seg2b">Prechen chádensie íro</seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab n="4">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg2b" part="F" prev="#v3_5-seg2a">gebénde . unde uuerfen ába uns íro ioch.</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh"> Ne-lâzen unsich</seg>
+          </ab>
+          <ab ana="#fn-gloss" n="5">
+            <gloss xml:lang="goh">christis           uobunga</gloss>
+            <note type="translation_gloss" xml:lang="de">Christi Glauben</note>
+          </ab>
+          <ab n="6">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">nieht ána <foreign xml:lang="la">christianam religionem.</foreign>
+            </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg3a" part="I" next="#v3_5-seg3b">Qui habitat <foreign xml:lang="goh">in</foreign> celis irrid-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">A, G, R</note>
+          </ab>
+          <ab n="7">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg3b" part="F" prev="#v3_5-seg3a">bit eos . et dominus subsannabit eos. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg4a" part="I" next="#v3_5-seg4b">Ter in hímile bûet . ter spót-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="8">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg4b" part="F" prev="#v3_5-seg4a">tot íro . unde násesnûdet an_sîe. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v3_5-seg5a" part="I" next="#v3_5-seg5b">Nals taz got mit munde </seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v3_5-seg5b" part="F" prev="#v3_5-seg5a">unde mit násun dehêinen hûoh tûe . nube daz iz huôh-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab ana="#fn-gloss" n="10">
+            <gloss xml:lang="goh">penêmida</gloss>
+            <note type="translation_gloss" xml:lang="de">Vorherbestimmung</note>
+          </ab>
+          <ab n="11">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">lîch uuas . daz sie sîna <foreign xml:lang="la">prȩdistinationem</foreign> dâhton ze iruuen-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab ana="#fn-gloss" n="12">
+            <gloss xml:lang="goh">.i. ténchende in uppe</gloss>
+            <note type="translation_gloss" xml:lang="de">das heißt Denkende vergeblich</note>
+          </ab>
+          <ab n="13">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">denne. Dâr ána uuâren sie <foreign xml:lang="la">meditantes inania.</foreign>
+            </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg6a" part="I" next="#v3_5-seg6b">Tunc loquetur</seg>
+            <note type="sigle" place="margin">C,G,R,H</note>
+          </ab>
+          <ab n="14">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg6b" part="F" prev="#v3_5-seg6a">ad eos <foreign xml:lang="goh">in</foreign> ira sua . et <foreign xml:lang="goh">in</foreign> furore suo conturbabit eos. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg7a" part="I" next="#v3_5-seg7b">Tanne</seg>
+            <note type="sigle" place="margin">G, H</note>
+          </ab>
+          <ab n="15">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg7b" part="F" prev="#v3_5-seg7a">spríchet er in zû mit zórne . unde mit hêizmûote getrûo-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab ana="#fn-gloss" n="16">
+            <gloss xml:lang="goh">in ubertêilido                                       lon            sundon</gloss>
+            <note type="translation_gloss" xml:lang="de">im (jüngsten)Gericht                                      Lohn             Sünden</note>
+          </ab>
+          <ab n="17">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">bet er sie. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">In <foreign xml:lang="la">iudicio</foreign> tuôt er iz . so <foreign xml:lang="la">retributio peccatorum</foreign> ist. </seg>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>erlaubte es. Deshalb geht ihnen der Wille, gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein Christi Glauben auf die christliche Religion. Der lebt im Himmel wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- Vorherbestimmung wert war, das sie seine Vorherbestimmung glaubten zu ver- das heißt Denkende vergeblich ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- im (jüngsten)Gericht                                      Lohn             Sünden wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Eorum namque ad Christum pertinet et ad apostolos eius [...]</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">„Deren“ nämlich bezieht sich auf Christus und seine Apostel.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis <hi rend="bold">christiana</hi>
+                <hi rend="bold">religio</hi>.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit uns nicht verplfichtet noch uns aufgezwungen wird die christliche Religion.</note>
+            </cit>
+            <cit ana="#src-Br">
+              <bibl>Breviarium</bibl>
+              <quote xml:lang="la">Subsannatio proprie rugata fronte et contracto naso exprimitur.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Verachtung wird passend durch gerunzelte Stirn und zusammengezogene Nase ausgedrückt.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Nihil horum tamen sapere oportet carnaliter, quasi aut <hi rend="bold">buccis</hi> Deus irrideat, aut <hi rend="bold">naso</hi> subsannet; sed ea uis accipienda est, quam dat sanctis suis, ut futura cernentes, id est, nomen Christi et dominationem peruagaturam in posteros et uniuersas gentes obtenturam, <hi rend="bold">illios</hi>
+                <hi rend="bold">inania</hi>
+                <hi rend="bold">meditatos</hi>
+                <hi rend="bold"> esse </hi>
+                <hi rend="bold">intellegant</hi>. Haec enim uis qua ista praescita sunt, irrisio Dei est in subsannatio. [...] Caelos si animas sanctas accipiamus, per has eos, utique <hi rend="bold">praesciens</hi> quid futurum sit, deridebit Deus et subsannabit.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Nicht davon gehört es sich so köperlich zu verstehen, so wie Gott sowohl mit dem Mund verlacht, als auch mit der Nase verachtet, sondern dieses ist als Kraft zu verstehen, wie er tat seinen Heiligen, sodass die das Zukünftige erkennend, das heißt den Namen Christi und die sich ausdehnen werdenen Macht in späteren und allen Völkern sich behaupten werdend, verstehen, dass die Überlegungen derselben sinnlos sind. Diese Kraft nämlich, durch die dieselben Vorhesehungen sind, ist der Spott Gottes in Verhöhnung. [...] Wenn wir die Himmel als heilige Seelen verstehen, durch die Gott diese, gewiss vorhersehend, was in Zukunft sei, verlacht und verhöhnt.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Ira ergo Die uocatur <hi rend="bold">retributio</hi>
+                <hi rend="bold">peccatorum</hi> [...] Tunc loquetur illud tempus significat, cum <hi rend="bold">iudicare</hi> uenerit mundum.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Der Zorn Gottes folglich wird Vergeltung der Sünden genannt. [...] „Dann wird gesagt“ bezeichnet jene Zeit, wenn (er), (um zu) richten auf die Erde kommen wird.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="6">
+          <ab n="1">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1a" part="I" next="#v6-seg1b">VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon</seg>
+          </ab>
+          <ab n="2">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1b" part="F" prev="#v6-seg1a">montem sanctum eius prȩdicans prȩceptum eius. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2a" part="I" next="#v6-seg2b">Ih pin áber fóne</seg>
+          </ab>
+          <ab n="3">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2b" part="M" next="#v6-seg3b" prev="#v6-seg2a">mînemo fáter íro úndanches ze chúninge gesezzet uber </seg>
+          </ab>
+          <ab n="4">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg3b" part="F" prev="#v6-seg2b">sînen hêiligen berg . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">daz ist ȩcclesia . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">sîn gebot ságende </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4a" part="I" next="#v6-seg4b">. daz</seg>
+          </ab>
+          <ab n="5">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4b" part="M" next="#v6-seg5b" prev="#v6-seg4a">chît <foreign xml:lang="la">euangelium</foreign> lêrende. Syon stât in <foreign xml:lang="la">ierusalem</foreign> . unde uuan-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="6">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg5b" part="F" prev="#v6-seg4b">da man ferro dar ába séhen mag . pedîu hêizzet er syon . </seg>
+          </ab>
+          <ab n="7">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6a" part="I" next="#v6-seg6b">daz chit <foreign xml:lang="la">latine specula</foreign> . in únsera uuîs uuarta. Der bezêichne-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="8">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6b" part="F" prev="#v6-seg6a">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
+          </ab>
+          <ab ana="#fn-gloss" n="9">
+            <gloss xml:lang="goh">ze_gótes sélbes ána-sihte. [...]</gloss>
+          </ab>
+          <note type="sources">
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Ex persona domini nostri lesu Christi ista manifesta sunt.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Aus der Person unseres Herrn Jesus Christus sind diese [Worte] offenkundig.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">verba refert Domini Salutoris, qui se <hi rend="bold">regem</hi>
+                <hi rend="bold">a </hi>
+                <hi rend="bold">Patrem</hi>
+                <hi rend="bold">constitutm</hi>
+                <hi rend="bold"> esse</hi> testatur. Quod etiam scriptura est de ipso in titulo passionis: Rex Iudaeorum (Ioh 19,19). Hoc nec Pilauts deleri passus est, qui eum Iudaeis cruci tradidit affrigendum.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Die Worte bezieht sich auf den Herrn den Retter, der bezeugt, dass er als König vom Vater eingesetzt ist. Weil nämlich geschrieben wird über ihn selbst auf dem Titulus der Passion [d.h. des Kreuzes]: König der Juden (Joh. 19,19). Pilatus, der ihn den Juden zur Kruzigung übergab, erlaubte nicht, dass dieses entfernt wurde.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">SION autem, se speculationem, ut quidam interpretantur significat, nihil magis quam <hi rend="bold">Ecclesiam</hi> debemus accipere, ubi quotidie intentio erigitur speculandae claritatis Dei</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Zion aber, wenn es „Betrachtung“ bezeichne, wie manche interpretieren, müssen wir als nichts anderes als „die Kirche“ verstehen, wo täglich die Absicht erhoben wird, die Herrlichkeit Gottes zu betrachten.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Ergo iste sensus est: <hi rend="bold">ego</hi>
+                <hi rend="bold">autem</hi>
+                <hi rend="bold">consitutus</hi>
+                <hi rend="bold">sum</hi>
+                <hi rend="bold">rex</hi>
+                <hi rend="bold"> ab </hi>
+                <hi rend="bold">eo</hi>
+                <hi rend="bold"> super</hi> Ecclesiam <hi rend="bold">sanctam</hi>
+                <hi rend="bold">eius</hi>, quam montem appellat propter eminentiam et firmitatem.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Darum ist dies zu verstehen: Ich aber bin eingesetzt als König von ihm über seine heilige Kirche, die (er) mit Berg anspricht wegen dem Hervorragen und der Stabilität.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Sion hic Ecclesiam debemus accipere, quam mοntem appellat propter eminentiam honoris et firmitatem fidei.Sion enim hebraea lingua dicitur specula, quae competenter aptatur Ecclesiae, quoniam <hi rend="bold">ad </hi>
+                <hi rend="bold">futuras</hi>
+                <hi rend="bold">spes</hi>
+                <hi rend="bold">sufficienter</hi> instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Zion müssen wir hier als Kirche verstehen, die (er) als Berg bezeichnet wegen dem Hervorragen der Ehre und der Festigkeit des Glaubens. „Zion“ nämlich in hebräischer Sprache wird „specula [Warte]“ genannt, was zutreffend angepasst wird an die Kirche, weil (sie) zu zukünftigen Hoffnungen ausreichend ausgebildet die Versprechen des Herren mit Voraussicht des Geistes betrachet, und nicht so sehr die gegenwärtigen, sondern die zukünftigen Wohltaten ehrt.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">praedicans praeceptum Domini. Quod fecit euangelium docens.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Verkündigend das Gebot des Herrn. Das tat er, das Evangelium lehrend.</note>
+            </cit>
+            <cit ana="#src-RII">
+              <bibl>RII</bibl>
+              <note type="editorial">Sigle RII ist ungeklärt.</note>
+              <quote xml:lang="la">Sion autem arx est <hi rend="bold">altissima</hi>
+                <hi rend="bold"> in </hi>
+                <hi rend="bold">Ierusalem</hi>; hac per hoc significat sanctam Ecclesiam, <hi rend="bold">quia</hi>
+                <hi rend="bold"> sancta Ecclesia terrena </hi>
+                <hi rend="bold">despiciens</hi>
+                <hi rend="bold"> ad </hi>
+                <hi rend="bold">caelestia</hi>
+                <hi rend="bold">subleuatur</hi>
+                <hi rend="bold">.</hi>
+              </quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Zion aber ist der höchste Berg in Jerusalem; dadurch bezeichnet (er) die heilige Kirche, weil die heilige Kirche auf das Irdische hinabschauend [nämlich vom Berg Zion] zu den Himmlischen erhoben wird.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="7">
+          <ab n="1">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">[...] </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Dominus dixit ad me . filius meus es tu . ego </seg>
+            <note type="sigle" place="margin">G, R, H</note>
+          </ab>
+          <ab ana="#fn-gloss" n="2">
+            <gloss xml:lang="goh">âna     zît</gloss>
+            <note type="translation_gloss" xml:lang="de">ohne  Zeit</note>
+          </ab>
+          <ab n="3">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">hodie genui te . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">
+              <foreign xml:lang="la">idest sine tempore.</foreign>
+            </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Min fáter chád ze mír .</seg>
+            <note type="sigle" place="margin">C</note>
+          </ab>
+          <ab ana="#fn-gloss" n="4">
+            <gloss xml:lang="goh">irgân-</gloss>
+            <note type="translation_gloss" xml:lang="de">vergan-</note>
+          </ab>
+          <ab n="5">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">mîn sun bist du . hiûto gebár ih tih. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">Góte neist ne-hêin zît prȩteri-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab ana="#fn-gloss" n="6">
+            <gloss xml:lang="goh">gen                  chúnftîg</gloss>
+            <note type="translation_gloss" xml:lang="de">gen                                künftig</note>
+          </ab>
+          <ab n="7">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v7-seg1a" part="I" next="#v7-seg1b">tum noh <foreign xml:lang="la">futurum.</foreign> Ímo ist hiûto . al daz îo geschah . alde noh </seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab n="8">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v7-seg1b" part="F" prev="#v7-seg1a">geschêhen sol. Pediû ist sin sun hiûto gebórn. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Postula a me et </seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>Der Herr sagte zu mir: Mein Sohn bist du, ich habe ohne  Zeit dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir vergan- mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gen                                künftig gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Dominum significat <hi rend="bold">Patrem</hi> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">„Herr“ steht für den Vater [...]„Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">[...] tamen hodie quia praesentiam significat atque in aeternitate nec <hi rend="bold">praeteritum</hi> quidquam est, quasi esse desierit, nec <hi rend="bold">futurum</hi>, quasi <hi rend="bold">nondum</hi>
+                <hi rend="bold">sit</hi>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <hi rend="bold">Filius</hi>, fides sincerissima et catholica praedicat.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit er das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="8-9">
+          <ab n="1">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">dabo tibi gentes hereditatem tuam. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Píte mih . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg1a" part="I" next="#v8_9-seg1b">uuanda dû mén-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R, H</note>
+          </ab>
+          <ab n="2">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg1b" part="F" prev="#v8_9-seg1a">nischo bist . unde an diû mín mínnero bist . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">sô gîbo ih tîr dîn érbe</seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab ana="#fn-gloss" n="3">
+            <gloss xml:lang="goh">alle liûte</gloss>
+            <note type="translation_gloss" xml:lang="de">alle Völker</note>
+          </ab>
+          <ab n="4">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">VVélez ist daz? Gentes. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Et possessionem tuam terminos terrȩ.</seg>
+            <note type="sigle" place="margin">G, R, H</note>
+          </ab>
+          <ab n="5">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde gíbo ih tir ze_besízzene . énde déro erdo . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">déro dû bítest.</seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab n="6">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg2a" part="I" next="#v8_9-seg2b">Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er</seg>
+          </ab>
+          <ab n="7">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg2b" part="F" prev="#v8_9-seg2a">sih sélben umbe sie PATRI ópferota. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v8_9-seg3a" part="I" next="#v8_9-seg3b">Reges eos <foreign xml:lang="goh">in</foreign> virga ferre-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="8">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v8_9-seg3b" part="F" prev="#v8_9-seg3a">a .</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">
+              <foreign xml:lang="la">idest</foreign> in-flexibili iustitia. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Tiê rihtest tu mit îseninro gérto . </seg>
+            <note type="sigle" place="margin">G, R</note>
+          </ab>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg4a" part="I" next="#v8_9-seg4b">daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nie- <lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab n="10">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg4b" part="F" prev="#v8_9-seg4a">man genemen. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Tamquam uas figuli confringes eos. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Sámoso</seg>
+          </ab>
+          <ab ana="#fn-gloss" n="11">
+            <gloss xml:lang="goh">uuerlt-lúste</gloss>
+            <note type="translation_gloss" xml:lang="de">Weltlüste</note>
+          </ab>
+          <ab n="12">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">háfenâres faz ferbríchest tû sie. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg5a" part="I" next="#v8_9-seg5b">
+              <foreign xml:lang="la">Terrenas concupiscentias</foreign> fér-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">A</note>
+          </ab>
+          <ab n="13">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg5b" part="F" prev="#v8_9-seg5a">bríchest tu an ín.</seg>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe alle Völker Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Weltlüste Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Hoc iam temporaliter secundum susceptum hominem [...] ut scilicet gentes nomini christiano copulentur atque ita a morte redimantur, et possideantur a deo.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...] sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut <hi rend="bold">petat</hi> secundum <hi rend="bold">naturam</hi>
+                <hi rend="bold"> inferiorem</hi> et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unerlegenden Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Reges eos in uirga ferrea, [in] <hi rend="bold">inflexibli</hi>
+                <hi rend="bold">iustitia</hi>
+              </quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Du beherrscht sie mit eisernem Stab, [mit] unbeugsamer Gerechtigkeit</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">id est, conteres in eis <hi rend="bold">terrenas</hi>
+                <hi rend="bold">cupiditates</hi>
+              </quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Das heißt, du wirst in ihnen vertilgen die weltlichen Begierden.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="10-11">
+          <ab n="1">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg1a" part="I" next="#v10_11-seg1b">VOX PROPHETȨ. Et nunc reges intel-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G, R, C</note>
+          </ab>
+          <ab n="2">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg1b" part="F" prev="#v10_11-seg1a">legite. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde nu fernément chúninga.</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh"> Chúninga déro erdo . </seg>
+          </ab>
+          <ab n="3">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg2a" part="I" next="#v10_11-seg2b">chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT</seg>
+            <note type="sigle" place="margin">A, C</note>
+          </ab>
+          <ab n="4">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg2b" part="F" prev="#v10_11-seg2a">ten lîchamen. Gehôrrent mînen rat. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg3a" part="I" next="#v10_11-seg3b">Erudimini qui iudicatis </seg>
+            <note type="sigle" place="margin">A, C</note>
+          </ab>
+          <ab n="5">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg3b" part="F" prev="#v10_11-seg3a">terram. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Lâzent îuch lêren lantrechtara.</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg4a" part="I" next="#v10_11-seg4b"> Mêistera des lîcha-<lb break="no"/>
+            </seg>
+            <note type="sigle" place="margin">G</note>
+          </ab>
+          <ab n="6">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg4b" part="F" prev="#v10_11-seg4a">men fernément. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Seruite domino <foreign xml:lang="goh">in</foreign> timore. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v10_11-seg5a" part="I" next="#v10_11-seg5b">Diênont góte mit </seg>
+            <note type="sigle" place="margin">A, C</note>
+          </ab>
+          <ab n="7">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v10_11-seg5b" part="F" prev="#v10_11-seg5a">fórhtun. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">Daz nehéue iûuh . daz ir <foreign xml:lang="la">reges</foreign> kenámot pirnt. </seg>
+            <note type="sigle" place="margin">Br</note>
+          </ab>
+          <ab n="8">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Et exultate ei cum tremore. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde rîdono sînt ímo frô. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg6a" part="I" next="#v10_11-seg6b">Ímo</seg>
+            <note type="sigle" place="margin">R</note>
+          </ab>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg6b" part="F" prev="#v10_11-seg6a">danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun. </seg>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Köper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und  zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Venit ad tertium membrum, in quo <hi rend="bold">propheta</hi> commonet...</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Er kommt zum dritten Glied, in dem der Prophet mahnt:</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">nunc intellegite iam reges, id est, iam valentes regere quidquid in uobis seruile atque bestiale est, et iam ualentes pugnare, non quasi aerem caedentes, sed <hi rend="bold">castigantes</hi>
+                <hi rend="bold">uestra</hi>
+                <hi rend="bold"> corpore</hi> in seruituti subicentes.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Nun erkennt schon, Könige, das heißt, schon Fähige zu beherrschen, was auch immer in euch sklavisch oder animalisch ist, und schon Fähige zu kämpfen, nicht wie Luft Schlagende, sondern im Zaum Haltende euren Körper und und in Untertänigkeit Unterworfene.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Erudire docere est [...] Quod illis bene dicitur, qui iam carnalia delicta domuerunt. Ipsi enim bene iudicant terram, quando repressis uitiis, <hi rend="bold">corporis</hi> suis, fauente Domino, praecepta legis imponunt.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Belehren ist lehren [...], weil jene gesegnet werden, die bereits fleischliche Sünde bezwangen. Diese selbst nämlich richten die Welt gut, (wenn sie) mit stets unterdrückten Kräften ihrer Körper, mit dem Wohlwollen des Herrn, die Gebote des Gesetzes aufstellen.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Seruite Domino in timore, ne in superbiam uertat quod dictum est: Reges qui <hi rend="bold">iudicatis</hi>
+                <hi rend="bold">terram</hi>.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dient dem Herrn in Furcht, damit er nicht in Hochmut umkehrt, was gesagt ist: Könige, die die Erde richten.</note>
+            </cit>
+            <cit ana="#src-Br">
+              <bibl>Breviarium</bibl>
+              <quote xml:lang="la">Timore dixit, ut elationem eis tolleret, quia reges eos appellarat.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">„Angst“ sagt er, damit er deren Erhebung entfernt, weil er diese als Könige ansprach.</note>
+            </cit>
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Et iterum, ne haec exultatio negligens redderetur, addidit: cum <hi rend="bold">tremore</hi>, ut utraque sociata caelestem reuerentiam competenter experimerent.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Und wiederum, damit dieser jubel nicht vernachlässigend zurückgegeben wird, ergänzt er „mit Beben“, damit sie in gemeinsamer Verbindung die himmlische Ehrfurcht angemessen erfahren.</note>
+            </cit>
+          </note>
+        </div>
+        <div type="verse" n="12">
+          <ab n="1">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v12-seg1a" part="I" next="#v12-seg1b">Apprehendite disciplinam nequando irascatur dominus . et pere-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="2">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v12-seg1b" part="F" prev="#v12-seg1a">atis de uia iusta. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">Lírnent zúht . unde uuésent in égi .</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg2a" part="I" next="#v12-seg2b">daz </seg>
+          </ab>
+          <ab n="3">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg2b" part="M" next="#v12-seg3b" prev="#v12-seg2a">sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába re-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab n="4">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg3b" part="F" prev="#v12-seg2b">htemo uuége. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v12-seg4a" part="I" next="#v12-seg4b">CHRISTVS ist ter uueg . an démo mánnolich kân</seg>
+          </ab>
+          <ab n="5">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v12-seg4b" part="F" prev="#v12-seg4a">sôl. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">Cum exarserit <foreign xml:lang="goh">in</foreign> breui ira eius . beati omnes qui con-<lb break="no"/>
+            </seg>
+          </ab>
+          <ab ana="#fn-gloss" n="6">
+            <gloss xml:lang="goh">kerich</gloss>
+            <note type="translation_gloss" xml:lang="de">Gericht?</note>
+          </ab>
+          <ab n="7">
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la">fidunt <foreign xml:lang="goh">in</foreign> eo. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">So sîn zorn irhêizzet in spûote </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">. unde <foreign xml:lang="la">uindicta</foreign>
+            </seg>
+          </ab>
+          <ab ana="#fn-gloss" n="8">
+            <gloss xml:lang="goh">in slago dero brâuuo</gloss>
+            <note type="translation_gloss" xml:lang="de">im Schlag der Brauen</note>
+          </ab>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">chúmet in <foreign xml:lang="la">ictu oculi</foreign> . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh">so sint sâlig . diê sih ze_ímo fersêhent. </seg>
+          </ab>
+          <ab n="10">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh">(Staatsbibliothek Bamberg Ms. 44)</seg>
+          </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht ableitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- Gericht? trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe im Schlag der Brauen kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</p>
+          </note>
+          <note type="sources">
+            <cit ana="#src-C">
+              <bibl>Cassiodor</bibl>
+              <quote xml:lang="la">Et pereatis de uia iusta, id est, a <hi rend="bold">caelesti</hi>
+                <hi rend="bold"> Rege Christo</hi>, quia via est <hi rend="bold">recte</hi>
+                <hi rend="bold">ambulantium</hi> ad uitam, dux euntium, iter ad beatitudinem festinantium.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Und ihr abweicht vom gerechten Weg, das heißt, vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden.</note>
+            </cit>
+            <cit ana="#src-A">
+              <bibl>Augustinus</bibl>
+              <quote xml:lang="la">Id est, cum <hi rend="bold">uindicta</hi>
+                <hi rend="bold">uenerit</hi>, [...] Quod autem positum est <hi rend="bold">in </hi>
+                <hi rend="bold">breui</hi>, hoc significare arbitror, quia repentinum aliquid erit, dum hoc remotum et longe futurum peccatores existimabunt.</quote>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Das heißt, wenn die Strafe kommen wird [...], weil aber gesagt ist „in Kürze“, dieses erachte ich zu bedeuten, weil etwas plötzlich sein wird, während die Sünder dieses entfernt und weit in der Zukunft vermuten.</note>
+            </cit>
+          </note>
+        </div>
+      </div>
+    </body>
+    <back>
+      <div type="psalm_comparison">
+        <head>Synoptischer Vergleich der Psalmtext-Versionen</head>
+        <listWit>
+          <witness xml:id="wit-G-full">Gallicanum</witness>
+          <witness xml:id="wit-R-full">Romanum</witness>
+          <witness xml:id="wit-H-full">Hebraicum (iuxta Hebraeos), Bamberg Ms. 44</witness>
+          <witness xml:id="wit-A-full">Augustinus-Psalter</witness>
+          <witness xml:id="wit-C-full">Cassiodor-Psalter</witness>
+        </listWit>
+        <app>
+          <rdg wit="#wit-G-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
+          <rdg wit="#wit-R-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum.</rdg>
+          <rdg wit="#wit-H-full" xml:lang="la">1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium.</rdg>
+          <rdg wit="#wit-A-full" xml:lang="la">Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
+          <rdg wit="#wit-C-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo.</rdg>
+        </app>
+      </div>
+      <div type="parallel_tradition" source="#wiener_notker">
+        <head>Wiener Notker (ÖNB Cod. 2681, Edition Heinzle &amp; Scherrer)</head>
+        <ab>1Quare fremuerunt gentes, et populi meditati sunt inania? [...] Unde zuuiu dahton sine liute aruungen in zerlesgenne? si dahton des in ubelo spuon scolta. 2Astiterunt reges terrae, et principes conuenerunt in unum aduersus dominum et aduersus Christum eius. Die lantchuniga uuaren gagenuurtigi in dero gotes martira niuuuiht ana se | hendo suntir iro uuillen ougendo. und die fursten dero euuarton kesamenoton sih uuider unserun trohtinen unde uuider sinemo geuuihton. ein Herodes uuolta in slahen, der ander hanctiz: pediu get der uuillo, samso die uuerh. 3Disrumpamus uincula eorum, et proiciamus a nobis iugum ipsorum. Sus einoton sie sih: prechen uuir iro gebente, unde uuerfen ab uns iro ioh. nelazen unsih nieht ana die christinlichen ehalde. 4Qui habitat in caelis irridebit eos, et dominus subsannabit eos. Der in himili buet der spottot iro unde nasesnudet iro. nals daz got mit munde unde mit nasun dehein huoh tuo, suntir daz iz huolih uuas daz sie sine pemeindi kedahton zeuuendenne: dar ana uuaren sie uppigheit ahtenti. 5Tunc loquetur ad eos in ira sua, et | in furore suo conturbabit eos. Danne sprichet er in zuo mit zorna, unde mit heizmuoti ketruobet er sie in dero urteili, so daz Ion dero sundigono ist. 6Ego autem constitutus sum rex ab eo super Sion montem sanctum eius, praedicans praeceptum eius. Ih pin auer fone minemo uater iro undanches ze chunige kesezzet uber sinen heiligun berc, daz ist diu christenheit; sin gebot sagendo, daz chuit euangelium lerende. Sion stet in Hierusalem: uuande man dar aba sehen mac, pediu heizet er Sion, daz chuit uualhiscon spiegel, in unsero uuis uuarta. der bizeichinot ecclesiam, uuande iro gedinke ist daz si irhohet uuerdo ze gotes selbes anasihte. 7Dominus dixit ad me: filius meus es tu, ego hodie genui te. Min uater sprah ze mir: min sun bistu, hiuto | kebar ih dih. gote neist nehein zit feuarnez noh chumftigiz, imo ist hiuto gagenuurtic al daz io geskah ode noh geskehen scol: pediu ist sin sun hiuto geborn. 8Postula a me, et dabo tibi gentes hereditatem tuam et possessionem tuam terminos terrae. Pite mih: uuanda du mennisco bist unde ana diu minnero bist [...] daz ist uone diu gesprochen, uuanda Christus bat iro gnoto, do er sih selben umbe sie demo uater opferota. 9Reges eos in uirga ferrea, tanquam uas figuli confringes eos. Die rihtest tu mit iseninero gerta, daz chuit mit unuuendigemo rehte: dih nemac dar aba nioman keneman. samso hauenaris faz ferbrichest tu sie, die irdiscon giridi uerbrichest tu an in. 10Et nunc reges intelligite, erudimini qui iudicatis terrain. | Unde nu uernemet chuniga, chuniga dero erdo, chuniga dero erdo, chuniga des fleisges, chuniga uone diu uuanda ir doubet den lichinamen: gehoret minen rat. lazet iuuuih leren, lantrihtari; meistere des lichinamen, uernemet. 11Seruite domino in timore et exultate ei cum tremore. Dienet gote mit uorhten: daz neheue iuuuih, daz ir chuniga kenamot uuerdet. unde bibonda siet imo fro: imo danchet soliches namen ioh mit frouui ioh mit uorhtun. 12Adprehendite disciplinary ne quando irascatur dominus et pereatis de uia iusta, Lirnet zuht unde uueset in egi, daz got sih etteuuenne ne beige unde ir slipfat aba rehtemo uuege. Christus ist der uuec an demo manniglih ken scol. 13Cum exarserit in breui ira eius, beati omnes qui con5a fidunt in eo. | So sin zorn irheizet in spuote unde diu racha chumet in demo slage des ougen, so sint salic alle die sih ze imo uersehent.</ab>
+      </div>
+    </back>
+  </text>
+</TEI>

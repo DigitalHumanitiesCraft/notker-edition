@@ -679,25 +679,21 @@ Traversiert TEI-XML, erzeugt das JSON-Schema aus [[Technik]]. Dieses Script ist 
 
 ---
 
-## 5. Rückfragen an die Orchestration
+## 5. Getroffene Modellierungsentscheidungen (23.03.)
 
-### 5.1 Kommentar-Segmentierung: Zeile oder Sinneinheit?
+Die folgenden Fragen wurden mit der Orchestration geklärt. Leitprinzip: **Verlustfreie Kodierung** – Information immer bewahren, weil man aggregieren, aber nie disaggregieren kann.
 
-**Option A (Empfehlung für Prototyp):** Jede DOCX-Tabellenzeile = ein `<ab>`. Bewahrt 1:1-Abbildung, verlustfrei.
+### 5.1 Segmentierung: Beides (entschieden)
 
-**Option B (Gesamtprojekt):** Segmente über Zeilengrenzen zusammenführen. Semantisch reicher, braucht manuelle Korrektur.
+Physische Struktur (`<ab>` = DOCX-Zeile) UND logische Struktur (`@part` + `@next`/`@prev` für zeilenübergreifende Segmente) koexistieren. Keine Information geht verloren. Die UI entscheidet, welche Ebene sie rendert.
 
-→ **Ist Option A akzeptabel?**
+### 5.2 Sprachmischung: `<foreign>` in allen Schichten (entschieden)
 
-### 5.2 Sprachmischung in grüner Schicht
-
-Die grüne Übersetzung enthält lat. Wörter (z.B. `cramoton an christum ebraicȩ gentes?`).
-
-**Option A (Empfehlung):** Gesamten grünen Run als `<seg type="translation" xml:lang="goh">`. Lat. Wörter sind integraler Teil von Notkers ahd. Text.
-
-**Option B:** `<foreign xml:lang="la">` für jedes lat. Wort in grünen Segmenten. Genauer, braucht LLM.
-
-→ **Genügt die funktionale Kodierung, oder soll die Sprachmischung aufgelöst werden?**
+Sprachwechsel werden überall mit `<foreign xml:lang="...">` kodiert – in grünen Übersetzungssegmenten genauso wie im schwarzen Kommentar. Begründung:
+- Nachträglich hinzufügen erfordert Neuanalyse aller Psalmen
+- Ermöglicht korpuslinguistische Auswertung (Latein-Anteil, Einsprengsel-Verteilung)
+- `<foreign>` kann von der UI/XSLT trivial ignoriert werden
+- Die Handschrift unterscheidet die Sprachen explizit (rot/schwarz) – wir überführen diese Information in Struktur
 
 ---
 
