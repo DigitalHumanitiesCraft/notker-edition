@@ -488,13 +488,13 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
     segments = runs_to_segments(text_runs)
 
     # nhd-Spalte und Siglen-Spalte ermitteln.
-    # Spalten-Layout hängt von der Tabellenbreite ab:
-    #   5-6 Spalten: Col 0-2 = merged Haupttext, Col 3 = nhd, Col 4 = Siglen
-    #   4 Spalten:   Col 0-2 = merged Haupttext, Col 3 = nhd (keine Siglen-Spalte)
+    # Spalten-Layout hängt von der Tabellenbreite und dem Merge-Pattern ab.
+    # Merge-Varianten:
+    #   5-6 Spalten: Col 0-2 merged, Col 3 = nhd, Col 4 = Siglen
+    #   4 Spalten:   Col 0-1 merged, Col 2 = nhd, Col 3 = Siglen
     #   3 Spalten:   Col 0 = Haupttext, Col 1 = nhd, Col 2 = Siglen (wenn nicht merged)
     nhd = ''
     sigles = ''
-    merged = is_merged_row(row)
     haupttext = cell_text(cells[0])
 
     if ncols >= 5:
@@ -505,10 +505,25 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
         if len(sigles_candidate) <= 15:
             sigles = sigles_candidate
     elif ncols == 4:
-        nhd_candidate = cell_text(cells[3])
-        if nhd_candidate != haupttext:
-            nhd = nhd_candidate
-    elif ncols == 3 and not merged:
+        # 4-Spalten: Col 0-1 könnten gemergt sein (Col 0 == Col 1)
+        # Dann: Col 2 = nhd, Col 3 = Siglen
+        # Oder: Col 0-2 gemergt, Col 3 = nhd (unwahrscheinlich bei ncols=4)
+        col0 = cell_text(cells[0])
+        col1 = cell_text(cells[1])
+        if col0 == col1:
+            # Cols 0-1 gemergt → Col 2 = nhd, Col 3 = Siglen
+            nhd_candidate = cell_text(cells[2])
+            sigles_candidate = cell_text(cells[3])
+            if nhd_candidate != haupttext:
+                nhd = nhd_candidate
+            if len(sigles_candidate) <= 15:
+                sigles = sigles_candidate
+        else:
+            # Nicht gemergt → Col 3 = nhd (Fallback)
+            nhd_candidate = cell_text(cells[3])
+            if nhd_candidate != haupttext:
+                nhd = nhd_candidate
+    elif ncols == 3 and not is_merged_row(row):
         nhd = cell_text(cells[1])
         sigles = cell_text(cells[2])
 

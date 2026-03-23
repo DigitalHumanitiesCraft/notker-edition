@@ -335,40 +335,48 @@
         <div type="verse" n="6">
           <ab n="1">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1a" part="I" next="#v6-seg1b">VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon</seg>
+            <note type="sigle" place="margin">G [A, C]</note>
           </ab>
           <ab n="2">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1b" part="F" prev="#v6-seg1a">montem sanctum eius prȩdicans prȩceptum eius. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2a" part="I" next="#v6-seg2b">Ih pin áber fóne</seg>
+            <note type="sigle" place="margin">G</note>
           </ab>
           <ab n="3">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2b" part="M" next="#v6-seg3b" prev="#v6-seg2a">mînemo fáter íro úndanches ze chúninge gesezzet uber </seg>
+            <note type="sigle" place="margin">G, C</note>
           </ab>
           <ab n="4">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg3b" part="F" prev="#v6-seg2b">sînen hêiligen berg . </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">daz ist ȩcclesia . </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">sîn gebot ságende </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4a" part="I" next="#v6-seg4b">. daz</seg>
+            <note type="sigle" place="margin">G, A, C</note>
           </ab>
           <ab n="5">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4b" part="M" next="#v6-seg5b" prev="#v6-seg4a">chît <foreign xml:lang="la">euangelium</foreign> lêrende. Syon stât in <foreign xml:lang="la">ierusalem</foreign> . unde uuan-<lb break="no"/>
             </seg>
+            <note type="sigle" place="margin">C, R</note>
           </ab>
           <ab n="6">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg5b" part="F" prev="#v6-seg4b">da man ferro dar ába séhen mag . pedîu hêizzet er syon . </seg>
+            <note type="sigle" place="margin">R, N</note>
           </ab>
           <ab n="7">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6a" part="I" next="#v6-seg6b">daz chit <foreign xml:lang="la">latine specula</foreign> . in únsera uuîs uuarta. Der bezêichne-<lb break="no"/>
             </seg>
+            <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="8">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6b" part="F" prev="#v6-seg6a">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
+            <note type="sigle" place="margin">A, C</note>
           </ab>
           <ab ana="#fn-gloss" n="9">
             <gloss xml:lang="goh">ze_gótes sélbes ána-sihte. [...]</gloss>
-            <note type="translation_gloss" xml:lang="de">A, C</note>
+            <note type="translation_gloss" xml:lang="de">zu Gottes eigenem Angesicht. [...]</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>G [A, C] G G, C G, A, C C, R R, N C A, C A, C</p>
+            <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]</p>
           </note>
           <note type="sources">
             <cit ana="#src-A">
