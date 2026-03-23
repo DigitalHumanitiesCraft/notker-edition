@@ -58,8 +58,8 @@ notker-edition/
 ├── scripts/
 │   ├── parse_probeseite.py            # Probeseite → JSON
 │   └── parse_annis.py                 # ANNIS-HTML → Rohtext (optional)
-└── app/
-    └── index.html                     # Single-File-Anwendung
+└── docs/
+    └── index.html                     # Single-File-Anwendung (GitHub Pages)
 ```
 
 ## Arbeitspakete
