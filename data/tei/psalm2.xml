@@ -365,7 +365,11 @@
           </ab>
           <ab ana="#fn-gloss" n="9">
             <gloss xml:lang="goh">ze_gótes sélbes ána-sihte. [...]</gloss>
+            <note type="translation_gloss" xml:lang="de">A, C</note>
           </ab>
+          <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
+            <p>G [A, C] G G, C G, A, C C, R R, N C A, C A, C</p>
+          </note>
           <note type="sources">
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
@@ -743,7 +747,7 @@
         <listWit>
           <witness xml:id="wit-G-full">Gallicanum</witness>
           <witness xml:id="wit-R-full">Romanum</witness>
-          <witness xml:id="wit-H-full">Hebraicum (iuxta Hebraeos), Bamberg Ms. 44</witness>
+          <witness xml:id="wit-H-full">Hebraicum (iuxta Hebraeos)</witness>
           <witness xml:id="wit-A-full">Augustinus-Psalter</witness>
           <witness xml:id="wit-C-full">Cassiodor-Psalter</witness>
         </listWit>

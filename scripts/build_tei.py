@@ -189,39 +189,53 @@ FUNCTION_TO_ANA = {
 }
 
 
-def build_text_with_foreign(parent_el, seg: EnrichedSegment):
-    """Baut Text mit <foreign>-Elementen für Sprachwechsel."""
-    text = seg.text
-    if not seg.foreign_spans:
+def build_mixed_content(parent_el, text: str, spans: list, make_element):
+    """
+    Generische Mixed-Content-Erzeugung: Text mit Inline-Elementen.
+
+    Args:
+        parent_el: Das übergeordnete XML-Element
+        text: Der Gesamttext
+        spans: Liste von (start, end, data)-Tupeln, sortiert nach Position
+        make_element: Callable(parent, data) → erzeugt das Inline-Element und gibt es zurück
+    """
+    if not spans:
         parent_el.text = text
         return
 
-    # Sortiere Spans nach Position
-    spans = sorted(seg.foreign_spans, key=lambda s: s.start)
-
     pos = 0
     last_el = None
-    for span in spans:
-        # Text vor dem foreign-Span
-        pre_text = text[pos:span.start]
+    for start, end, data in sorted(spans, key=lambda s: s[0]):
+        if start >= len(text) or end > len(text):
+            continue
+
+        pre_text = text[pos:start]
         if last_el is None:
             parent_el.text = (parent_el.text or '') + pre_text
         else:
             last_el.tail = (last_el.tail or '') + pre_text
 
-        # <foreign> Element
-        foreign = SE(parent_el, 'foreign')
-        set_xml_attr(foreign, 'lang', span.lang)
-        foreign.text = text[span.start:span.end]
-        last_el = foreign
-        pos = span.end
+        inline_el = make_element(parent_el, data)
+        inline_el.text = text[start:end]
+        last_el = inline_el
+        pos = end
 
-    # Restlicher Text
     if pos < len(text):
         if last_el is not None:
             last_el.tail = (last_el.tail or '') + text[pos:]
         else:
             parent_el.text = (parent_el.text or '') + text[pos:]
+
+
+def build_text_with_foreign(parent_el, seg: EnrichedSegment):
+    """Baut Text mit <foreign>-Elementen für Sprachwechsel."""
+    def make_foreign(parent, span_data):
+        el = SE(parent, 'foreign')
+        set_xml_attr(el, 'lang', span_data.lang)
+        return el
+
+    spans = [(s.start, s.end, s) for s in seg.foreign_spans]
+    build_mixed_content(parent_el, seg.text, spans, make_foreign)
 
 
 def build_verse_div(vg: EnrichedVerseGroup, parent):
@@ -349,33 +363,10 @@ def build_source_entry(src: SourceEntry, parent):
 
 def build_text_with_bold(parent_el, text, bold_spans):
     """Baut Text mit <hi rend="bold">-Elementen."""
-    if not bold_spans:
-        parent_el.text = text
-        return
+    def make_bold(parent, _data):
+        return SE(parent, 'hi', rend='bold')
 
-    pos = 0
-    last_el = None
-    for start, end, bold_text in sorted(bold_spans):
-        # Sicherheitscheck
-        if start >= len(text) or end > len(text):
-            continue
-
-        pre = text[pos:start]
-        if last_el is None:
-            parent_el.text = (parent_el.text or '') + pre
-        else:
-            last_el.tail = (last_el.tail or '') + pre
-
-        hi = SE(parent_el, 'hi', rend='bold')
-        hi.text = text[start:end]
-        last_el = hi
-        pos = end
-
-    if pos < len(text):
-        if last_el is not None:
-            last_el.tail = (last_el.tail or '') + text[pos:]
-        else:
-            parent_el.text = (parent_el.text or '') + text[pos:]
+    build_mixed_content(parent_el, text, bold_spans, make_bold)
 
 
 # ---------------------------------------------------------------------------

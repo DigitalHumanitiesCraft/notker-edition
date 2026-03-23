@@ -104,8 +104,7 @@ COLOR_MAP = {
     None: 'commentary',       # schwarz → Kommentar
 }
 
-KNOWN_SIGLES = {'A', 'C', 'R', 'Br', 'RII', 'N'}
-# Extended: in the DOCX, "R II" appears as two runs "R " + "II"
+# In the DOCX, "R II" appears as two runs "R " + "II"
 SIGLE_PATTERN = re.compile(r'^(A|C|R|Br|RII|R\s*II|N)$')
 
 
@@ -364,42 +363,6 @@ def parse_verse_ref(text: str) -> Optional[tuple[str, list[int]]]:
     # Bei Gleichstand: kürzere Textform bevorzugen
     candidates.sort(key=lambda c: (-len(c[1]), len(c[0])))
     return candidates[0]
-    # 2,3-2,5 (Psalm.Vers - Psalm.Vers)
-    m = re.match(r'^(\d+),(\d+)\s*-\s*\d+,(\d+)$', text)
-    if m:
-        start, end = int(m.group(2)), int(m.group(3))
-        return f'{start}-{end}', list(range(start, end + 1))
-
-    # 2,1-2 (Psalm, VerseStart-VerseEnd)
-    m = re.match(r'^(\d+),(\d+)\s*-\s*(\d+)$', text)
-    if m:
-        start, end = int(m.group(2)), int(m.group(3))
-        return f'{start}-{end}', list(range(start, end + 1))
-
-    # 2,6 (Psalm, Vers)
-    m = re.match(r'^(\d+),(\d+)$', text)
-    if m:
-        v = int(m.group(2))
-        return str(v), [v]
-
-    # Fallback: versuche aus dem verdreifachten Text das erste gültige Muster
-    for pat, ngroups in [
-        (r'(\d+),(\d+)\s*-\s*\d+,(\d+)', 3),
-        (r'(\d+),(\d+)\s*-\s*(\d+)', 3),
-        (r'(\d+),(\d+)', 2),
-    ]:
-        m = re.search(pat, text)
-        if m:
-            if ngroups == 3:
-                start, end = int(m.group(2)), int(m.group(3))
-                if end < 20 and start <= end:  # Plausibilitätscheck
-                    return f'{start}-{end}', list(range(start, end + 1))
-            elif ngroups == 2:
-                v = int(m.group(2))
-                if v < 20:
-                    return str(v), [v]
-
-    return None
 
 
 # ---------------------------------------------------------------------------
@@ -524,35 +487,30 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
 
     segments = runs_to_segments(text_runs)
 
-    # nhd-Spalte: vorletzte oder letzte nicht-identische Spalte
+    # nhd-Spalte und Siglen-Spalte ermitteln.
+    # Spalten-Layout hängt von der Tabellenbreite ab:
+    #   5-6 Spalten: Col 0-2 = merged Haupttext, Col 3 = nhd, Col 4 = Siglen
+    #   4 Spalten:   Col 0-2 = merged Haupttext, Col 3 = nhd (keine Siglen-Spalte)
+    #   3 Spalten:   Col 0 = Haupttext, Col 1 = nhd, Col 2 = Siglen (wenn nicht merged)
     nhd = ''
     sigles = ''
+    merged = is_merged_row(row)
+    haupttext = cell_text(cells[0])
 
-    if ncols >= 4:
-        # Bei 5-Spalten-Tabellen: Col 3 = nhd, Col 4 = Siglen
-        # Bei 3-Spalten-Tabellen (nicht merged): Col 1 = nhd, Col 2 = Siglen
-        nhd_col = min(3, ncols - 2) if ncols >= 5 else 1
-        sigles_col = min(4, ncols - 1) if ncols >= 5 else 2
-
-        nhd_candidate = cell_text(cells[nhd_col])
-        sigles_candidate = cell_text(cells[sigles_col])
-
-        # Validierung: nhd sollte länger sein, Siglen kurz
+    if ncols >= 5:
+        nhd_candidate = cell_text(cells[3])
+        sigles_candidate = cell_text(cells[4])
+        if nhd_candidate != haupttext:
+            nhd = nhd_candidate
         if len(sigles_candidate) <= 15:
             sigles = sigles_candidate
-        if nhd_candidate != cell_text(cells[0]):  # Nicht identisch mit Haupttext
+    elif ncols == 4:
+        nhd_candidate = cell_text(cells[3])
+        if nhd_candidate != haupttext:
             nhd = nhd_candidate
-    elif ncols == 3:
-        # 3-Spalten: Col 1 = nhd, Col 2 = Siglen (wenn nicht merged)
-        if not is_merged_row(row):
-            nhd = cell_text(cells[1])
-            sigles = cell_text(cells[2])
-        else:
-            # Merged 3-Spalten: keine nhd/Siglen-Spalte sichtbar
-            pass
-    elif ncols >= 5:
-        nhd = cell_text(cells[3])
-        sigles = cell_text(cells[4])
+    elif ncols == 3 and not merged:
+        nhd = cell_text(cells[1])
+        sigles = cell_text(cells[2])
 
     # Glossen-Erkennung
     if detect_gloss_line(text_runs, nhd, sigles):
@@ -581,67 +539,75 @@ def is_psalter_header_row(row, ncols: int) -> bool:
     return sigles_found >= 3
 
 
+PSALTER_NAMES = {
+    'G': ('Gallicanum', ''),
+    'R': ('Romanum', ''),
+    'H': ('Hebraicum (iuxta Hebraeos)', 'Bamberg Ms. 44'),
+    'A': ('Augustinus-Psalter', 'St. Gallen Cod. 162'),
+    'C': ('Cassiodor-Psalter', 'St. Gallen Cod. 200'),
+}
+
+
+def _add_psalter_witness(psalm: PsalmData, sigle: str, text: str = ''):
+    """Fügt einen Psalter-Zeugen hinzu, dedupliziert nach Sigle."""
+    # Existierenden Zeugen aktualisieren statt duplizieren
+    for wit in psalm.psalter_witnesses:
+        if wit.sigle == sigle:
+            if text and not wit.text:
+                wit.text = text
+            return
+    name, ms = PSALTER_NAMES.get(sigle, (sigle, ''))
+    psalm.psalter_witnesses.append(PsalterWitness(
+        sigle=sigle, name=name, manuscript=ms, text=text,
+    ))
+
+
 def parse_psalter_inline(table, rows, header_row, psalm: PsalmData):
     """Parst den Psaltervergleich aus einer Tabelle mit Siglen-Header."""
     cells = header_row.cells
     ncols = len(cells)
-
-    # Sigle pro Spalte
     sigles = [cell_text(c).strip() for c in cells[:ncols]]
 
-    # Nächste Zeile(n) enthalten den Text
     header_idx = rows.index(header_row)
     for row in rows[header_idx + 1:]:
         if is_empty_row(row):
             continue
         for ci in range(min(ncols, len(row.cells))):
-            if ci < len(sigles) and sigles[ci]:
+            if ci < len(sigles) and sigles[ci] in PSALTER_NAMES:
                 text = cell_text(row.cells[ci]).strip()
                 if text and len(text) > 10:
-                    psalm.psalter_witnesses.append(PsalterWitness(
-                        sigle=sigles[ci],
-                        text=text,
-                    ))
-        break  # Nur eine Textzeile erwartet
+                    _add_psalter_witness(psalm, sigles[ci], text)
+        break
 
 
 def parse_psalter_table(table, psalm: PsalmData):
-    """Parst eine eigenständige Psalter-Vergleichstabelle (T11)."""
-    for row in table.rows:
-        cells = row.cells
-        if len(cells) >= 2:
-            for cell in cells:
-                ct = cell_text(cell).strip()
-                if 'Cod. 162' in ct:
-                    psalm.psalter_witnesses.append(PsalterWitness(
-                        sigle='A',
-                        name='Augustinus-Psalter',
-                        manuscript='St. Gallen Cod. 162',
-                    ))
-                elif 'Cod. 200' in ct:
-                    psalm.psalter_witnesses.append(PsalterWitness(
-                        sigle='C',
-                        name='Cassiodor-Psalter',
-                        manuscript='St. Gallen Cod. 200',
-                    ))
-        # Text-Zeile (2. Reihe)
-        if len(cells) >= 2:
-            for i, wit in enumerate(psalm.psalter_witnesses):
-                if wit.sigle in ('A', 'C') and not wit.text:
-                    # Versuche den Text aus der nächsten Zeile zu holen
-                    pass
+    """Parst eine eigenständige Psalter-Vergleichstabelle (T11: A-Psalter, C-Psalter)."""
+    # Zeile 0: Header mit Handschriften-Info
+    if table.rows:
+        for cell in table.rows[0].cells:
+            ct = cell_text(cell).strip()
+            if 'Cod. 162' in ct:
+                _add_psalter_witness(psalm, 'A')
+            elif 'Cod. 200' in ct:
+                _add_psalter_witness(psalm, 'C')
 
-    # Zweite Zeile hat den eigentlichen Text
+    # Zeile 1: Texte (eine Zelle pro Zeuge, Position = Spalte)
     if len(table.rows) > 1:
         text_row = table.rows[1]
-        for ci, cell in enumerate(text_row.cells):
+        # Zuordnung: Spalte 0 → erster Header-Zeuge, Spalte 1 → zweiter
+        header_sigles = []
+        for cell in table.rows[0].cells:
             ct = cell_text(cell).strip()
-            if ct and len(ct) > 20:
-                # Zuordnung über Position
-                for wit in psalm.psalter_witnesses:
-                    if wit.sigle in ('A', 'C') and not wit.text:
-                        wit.text = ct
-                        break
+            if 'Cod. 162' in ct:
+                header_sigles.append('A')
+            elif 'Cod. 200' in ct:
+                header_sigles.append('C')
+
+        for ci, sigle in enumerate(header_sigles):
+            if ci < len(text_row.cells):
+                ct = cell_text(text_row.cells[ci]).strip()
+                if ct and len(ct) > 20:
+                    _add_psalter_witness(psalm, sigle, ct)
 
 
 # ---------------------------------------------------------------------------
