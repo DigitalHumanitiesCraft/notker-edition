@@ -63,10 +63,20 @@ Inhalt: 13 Tabellen mit Haupttext (inkl. Farbcodierung), nhd. Übersetzung, Quel
 
 ### 2. ANNIS-HTML-Scrape (Sekundärquelle)
 
-Quelle: Referenzkorpus Altdeutsch (DDD), Corpus `DDD-AD-Z-Notker-Psalmen_1.2`, ANNIS4.
-Lizenz: CC-BY-NC-SA.
+Quelle: Referenzkorpus Altdeutsch (ReA), ein tiefenannotiertes Mehrebenenkorpus aller althochdeutschen und altniederdeutschen Texte (ca. 750–1050), Teil des Verbunds "Deutsch Diachron Digital" (DDD). Ca. 650.000 Textwörter, Version 1.2 (Oktober 2022), Lizenz CC-BY-NC-SA. Zugang weltweit kostenfrei über ANNIS4: https://korpling.german.hu-berlin.de/annis/ddd
 
-Liefert Handschriften-Zeilenreferenzen und dient zur Validierung der Textgestalt. Daten noch nicht im Repository (`data/raw/annis_psalm2.html` fehlt).
+**Annotationsebenen:**
+- Primärtext ("edition"): handschriftengetreue Wiedergabe
+- Normalisierung ("text"): segmentierte Schreibung
+- POS-Tagging (DDDTS, kompatibel mit STTS)
+- Morphologie (Kasus, Numerus, Genus, Tempus, Modus etc.)
+- Lemmatisierung und Übersetzung
+- Satzstruktur (Satzspannen)
+- Metadaten (Entstehungszeit, Sprachraum, Überlieferungskontext)
+
+**Notker im ReA:** Notkers Gesamtwerk umfasst ca. 350.000 Wortformen — mehr als die Hälfte der gesamten altdeutschen Textüberlieferung. Relevantes Korpus: `DDD-AD-Z-Notker-Psalmen_1.2` (167.583 Tokens). Lateinische Vorlagen sind mit aufgenommen, annotiert und mit den ahd. Daten aligniert.
+
+**Technischer Zugang:** Daten im HTML scrapebar (Token als `textval`-Attribute in `<span>`-Elementen). Liefert Handschriften-Zeilenreferenzen und dient zur Validierung der Textgestalt. Daten noch nicht im Repository (`data/raw/annis_psalm2.html` fehlt).
 
 ### 3. Facsimile
 
@@ -137,4 +147,3 @@ Zeige, Lars Erik; Schnelle, Gohar; Klotz, Martin; Donhauser, Karin; Gippert, Jos
 - [[Research Plan]] — Gesamtplan
 - [[Probeseite Analyse]] — Detaillierte DOCX-Analyse
 - [[Anforderungen]] — Was der Prototyp können muss
-- [[Referenzkorpus Altdeutsch]] — Datenquelle für den Haupttext

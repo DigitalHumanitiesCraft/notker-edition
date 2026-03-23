@@ -7,58 +7,67 @@ tags: [notker, technical, tei, pipeline]
 
 # Technik: Notker Psalmenkommentar Prototyp
 
-## Architekturprinzip
+Technische Referenz für Pipeline, TEI-Modell, JSON-Schema und Web-Stack. Für editorische Kodierungsregeln siehe [[Editionsrichtlinien]].
 
-**TEI-XML ist die kanonische Datenquelle.** JSON ist ein abgeleitetes Format für die Web-UI. Die Pipeline verläuft:
+## 1. Pipeline
+
+**TEI-XML ist die kanonische Datenquelle.** JSON wird daraus für die Web-UI abgeleitet.
 
 ```
 Probeseite_Notker.docx
-        │
-        ▼
-┌─────────────────────────┐
-│  parse_probeseite.py     │  DOCX → Python-Zwischenformat
-│  Regelbasiert: Farben,   │  (Dataclasses: Run, Segment,
-│  Merged Cells, Zeilen-   │   TextLine, GlossLine, SourceEntry)
-│  typen, Vers-Zuordnung   │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│  classify_layers.py      │  Anreicherung
-│  Sprachwechsel (<foreign>)│  Regelbasiert + Heuristik
-│  Segment-Verkettung      │  (LLM-Stub für Kommentar)
-│  Glossen-Validierung     │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│  build_tei.py            │  → data/tei/psalm2.xml
-│  lxml.etree              │  Kanonisches Format
-│  TEI-All RelaxNG         │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│  tei_to_json.py          │  → data/processed/psalm2.json
-│  TEI → JSON für Web-UI   │  Abgeleitetes Format
-│  (noch nicht gebaut)     │
-└────────────┬────────────┘
-             ▼
-         docs/index.html
+  → parse_probeseite.py    DOCX → Python (Dataclasses)     Regelbasiert
+  → classify_layers.py     Sprachwechsel, Verkettung        Regel + Heuristik
+  → build_tei.py           → data/tei/psalm2.xml            lxml, TEI-All RNG
+  → tei_to_json.py         → data/processed/psalm2.json     Abgeleitetes Format
+  → docs/index.html        Single-File-Webanwendung
 ```
 
-## Web-Stack
+### 1.1 DOCX-Parsing (`parse_probeseite.py`)
 
-| Komponente | Technologie | Begründung |
+13 Tabellen in 3 Gruppen (Details in [[Probeseite Analyse]]):
+
+| Gruppe | Tables | Erkennung |
 |---|---|---|
-| Frontend | Vanilla JS + HTML/CSS | Kein Build-Step, keine Dependencies, Langlebigkeit |
-| Typografie | Gentium Book Plus (Google Fonts), Inter (UI) | Ahd.-Sonderzeichen, akademische Ästhetik |
-| IIIF-Viewer | OpenSeadragon 4.1 (CDN) | Standard für Handschriftendigitalisate |
-| Deployment | GitHub Pages (`/docs`) | Kostenlos, kein Server-Setup |
-| Datenaufbereitung | Python (python-docx, lxml) | DOCX-Parsing, TEI-Generierung |
+| Haupttext + Quellen | T1, T3, T4, T7, T11 | Cols 0–2 identisch, ≥4 Spalten |
+| Nur Haupttext | T2, T5, T8, T10 | Cols 0–2 identisch, 3 Spalten |
+| Eigenständig | T6, T9, T12, T13 | Verschiedene Strukturen |
 
-Single-File-Prinzip: `docs/index.html` enthält CSS und JS eingebettet.
+**Farbextraktion** auf Run-Ebene (nicht Paragraph):
+```python
+COLOR_MAP = {
+    '806000': 'psalm',       # olive → Psalmzitation
+    '00B050': 'translation',  # grün → Übersetzung
+    None: 'commentary',       # schwarz → Kommentar
+}
+```
 
-## TEI-XML-Modell
+**Vers-Zuordnung** aus Paragraphen zwischen Tabellen (Regex `2,\d+`).
 
-### Dokumentstruktur
+### 1.2 Schichtenklassifikation (`classify_layers.py`)
+
+| Methode | Aufgabe | Genauigkeit |
+|---|---|---|
+| Regelbasiert | Farbe → Funktion, Siglen, Bold | Sicher |
+| Heuristik | Glossen-Erkennung (≤5 Wörter, schwarz, kurze nhd) | Mittel |
+| Regelbasiert | Sprachwechsel in Übersetzung/Kommentar (Wörterbuch + Morphologie) | >95% |
+| Regelbasiert | Segment-Verkettung (`@part` bei Farb-Kontinuität + Silbentrennung) | Sicher |
+
+### 1.3 TEI-Generierung (`build_tei.py`)
+
+`lxml.etree`, Validierung gegen TEI-All RelaxNG nach Generierung.
+
+### 1.4 TEI→JSON (`tei_to_json.py`)
+
+Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten und Silbentrennungen auf. Interface-Vertrag mit der UI.
+
+### 1.5 Validierung und Tests
+
+- `validate_tei.py`: RelaxNG-Validierung + Strukturstatistik
+- `test_pipeline.py`: 25 Tests (DOCX↔TEI↔JSON), Ground-Truth-Vergleich
+
+## 2. TEI-XML-Modell
+
+### 2.1 Dokumentstruktur
 
 ```xml
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="goh">
@@ -66,13 +75,14 @@ Single-File-Prinzip: `docs/index.html` enthält CSS und JS eingebettet.
     <!-- Taxonomien: #fn-psalm, #fn-transl, #fn-comm, #fn-gloss -->
     <!-- Quellen: #src-A, #src-C, #src-R, #src-Br, #src-RII, #src-N -->
     <!-- Psalter-Zeugen: #wit-G, #wit-R, #wit-H, #wit-A-psa, #wit-C-psa -->
+    <!-- variantEncoding method="parallel-segmentation" -->
   </teiHeader>
   <facsimile><!-- IIIF-Surfaces --></facsimile>
   <text>
     <front><div type="introduction"/></front>
     <body>
       <div type="psalm" n="2">
-        <!-- 8 × <div type="verse"> mit <ab>-Zeilen -->
+        <!-- 7 × <div type="verse"> mit <ab>-Zeilen -->
       </div>
     </body>
     <back>
@@ -83,96 +93,118 @@ Single-File-Prinzip: `docs/index.html` enthält CSS und JS eingebettet.
 </TEI>
 ```
 
-### Encoding-Entscheidungen
+### 2.2 Kernmodell: Vers → Zeile → Segment
 
-| DOCX-Element | TEI-Element | Methode |
-|---|---|---|
-| Olive Runs (`#806000`) | `<seg type="psalm" ana="#fn-psalm" xml:lang="la">` | Regel (Farbe) |
-| Grüne Runs (`#00B050`) | `<seg type="translation" ana="#fn-transl" xml:lang="goh">` | Regel (Farbe) |
-| Schwarze Runs | `<seg type="commentary" ana="#fn-comm">` + `<foreign>` | Regel + Heuristik |
-| Glossen-Zeile | `<ab ana="#fn-gloss"><gloss>` | Heuristik (Zeilenlänge) |
-| Quellenapparat-Zeile | `<cit ana="#src-X"><quote>` + `<note type="translation">` | Regel (Sigle in Spalte 0) |
-| Siglen-Spalte | `<note type="sigle" place="margin" cert="low">` | Regel |
-| Silbentrennung | `<lb break="no"/>` | Regel (Zeilenende mit `-`) |
-| Zeilenübergreifend | `@part`/`@next`/`@prev` auf `<seg>` | Regel |
-| Psaltervergleich | `<app><rdg wit="#...">` | Struktur (T11, T12) |
-| Wiener Notker | `<div type="parallel_tradition">` Rohtext | Struktur (T13) |
+**Designprinzip: Verlustfreie Kodierung.** Physische und logische Struktur koexistieren — man kann aggregieren, aber nie disaggregieren.
 
-**Warum `<seg>` statt `<quote>` für Psalmzitate?** Notker paraphrasiert gelegentlich. `<seg type="psalm">` ist ehrlicher.
+```xml
+<div type="verse" n="1-2">
+  <ab n="2">
+    <seg type="psalm" ana="#fn-psalm" xml:lang="la">QVARE FREMVERVNT GENTES.</seg>
+    <seg type="translation" ana="#fn-transl" xml:lang="goh">Ziu grís-<lb break="no"/></seg>
+    <note type="sigle" place="margin">G, R</note>
+  </ab>
+  <ab ana="#fn-gloss" n="3">
+    <gloss xml:lang="goh">iúdon diêt</gloss>
+    <note type="translation_gloss" xml:lang="de">Juden Volk</note>
+  </ab>
+  <ab n="4">
+    <seg type="translation" ana="#fn-transl" xml:lang="goh"
+         >cramoton an <foreign xml:lang="la">christum</foreign> ebraicȩ gentes?</seg>
+    <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Et populi medi-<lb break="no"/></seg>
+  </ab>
+  <ab n="5">
+    <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">tati sunt inania.</seg>
+    <seg type="commentary" ana="#fn-comm" xml:lang="goh">
+      <foreign xml:lang="la">idest</foreign> frustura?</seg>
+  </ab>
+  <!-- nhd. Übersetzung, Quellenapparat -->
+</div>
+```
 
-**Warum `<cit>` statt `<app>` für Quellen?** Die Quellen sind Notkers Vorlagen, keine textkritischen Varianten. `<app>` wird nur im Psaltervergleich verwendet.
+### 2.3 Vollständiges DOCX→TEI Mapping
 
-### Ungeklärte Siglen
+| DOCX-Struktur | Erkennung | TEI-Element | Methode |
+|---|---|---|---|
+| Vers-Paragraph | Regex `\d+,\d+` | Vers-Zuordnung | Regel |
+| Olive Runs (`#806000`) | Run-Farbe | `<seg type="psalm" xml:lang="la">` | Regel |
+| Grüne Runs (`#00B050`) | Run-Farbe | `<seg type="translation" xml:lang="goh">` | Regel |
+| Schwarze Runs | Default | `<seg type="commentary">` + `<foreign>` | Regel + Heuristik |
+| Kursiv in nhd-Spalte | Formatting | `<note type="translation_nhd">` | Regel |
+| Siglen-Spalte | Letzte Spalte | `<note type="sigle" place="margin">` | Regel |
+| Quellenapparat | Col 0 = Sigle | `<cit>` + `<quote>` + `<note>` | Regel |
+| Bold in Quellen | Run bold | `<hi rend="bold">` | Regel |
+| Glossen-Zeile | Kurz, schwarz, keine Sigle | `<ab ana="#fn-gloss"><gloss>` | Heuristik |
+| Psaltervergleich | T11, T12 | `<app><rdg wit="#...">` | Regel |
+| Wiener Notker | T13 | `<div type="parallel_tradition">` | Regel |
+| Silbentrennung | `-` am Zeilenende | `<lb break="no"/>` | Regel |
+| Zeilenübergreifend | Gleicher Typ fortsetzend | `@part="I"/"M"/"F"` | Regel |
 
-RII und N mit `@cert="low"` in der Taxonomie. Im Text: `<note type="editorial">ungeklärt</note>`.
+### 2.4 Kodierungsebenen
 
-## JSON-Schema (Interface-Vertrag mit UI)
+| Ebene | TEI-Element | Bewahrt | Erweiterbar durch |
+|---|---|---|---|
+| Physische Zeile | `<ab>` | DOCX-Tabellenstruktur 1:1 | Faksimile-Verlinkung |
+| Funktionale Schicht | `<seg @type @ana>` | Farbcodierung Probeseite | Weitere Schichttypen |
+| Logische Einheit | `@part` | Zusammengehörigkeit über Zeilengrenzen | Satzextraktion |
+| Sprachwechsel | `<foreign xml:lang>` | Sprachgrenzen auf Wortebene | Lemmatisierung, POS |
+| Silbentrennung | `<lb break="no"/>` | Trennstellen der Probeseite | Alignment mit HS |
 
-Das JSON wird aus dem TEI abgeleitet (`tei_to_json.py`, noch nicht gebaut). Die Web-UI erwartet:
+### 2.5 Encoding-Entscheidungen
+
+**`<seg>` statt `<quote>` für Psalmzitate:** Notker paraphrasiert gelegentlich. `<seg type="psalm">` ist ehrlicher.
+
+**`<cit>` statt `<app>` für Quellen:** Die Quellen sind Notkers Vorlagen, keine textkritischen Varianten. `<app>` nur im Psaltervergleich.
+
+**`<foreign>` in allen Schichten:** Verlustfrei — nachträglich hinzufügen erfordert Neuanalyse aller 150 Psalmen. `<foreign>` kann von UI/XSLT trivial ignoriert werden.
+
+**Nur `@part`, nicht `@next`/`@prev`:** TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter, Reihenfolge implizit.
+
+**Ungeklärte Siglen:** RII und N mit `@cert="low"` in Taxonomie + `<note type="editorial">ungeklärt</note>`.
+
+## 3. JSON-Schema
 
 ```json
 {
   "psalm": 2,
-  "metadata": {
-    "title": "Psalm 2",
-    "manuscript": "CSg 0021",
-    "iiif_manifest": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json",
-    "facsimile_start_canvas": "...canvas/csg-0021_011.json",
-    "edition_pages": "R10–R13"
-  },
-  "verses": [
-    {
-      "number": 1,
-      "edition_page": "R10",
-      "sections": [
-        {
-          "type": "psalm_citation | translation | commentary",
-          "text": "...",
-          "language": "lat | ahd | ahd_lat_mixed",
-          "source_sigles": ["G", "R"]
-        }
-      ],
-      "glosses": [
-        { "text": "iúdon diêt", "translation_nhd": "Juden Volk", "relates_to": "gentes" }
-      ],
-      "translation_nhd": "...",
-      "sources": [
-        { "sigle": "C", "name": "Cassiodor, ...", "latin_text": "...", "german_translation": "..." }
-      ]
-    }
-  ],
+  "metadata": { "title", "manuscript", "iiif_manifest", "facsimile_start_canvas", "edition_pages" },
+  "verses": [{
+    "number": 1,
+    "edition_page": "R10",
+    "sections": [{ "type": "psalm_citation|translation|commentary|gloss", "text", "language", "source_sigles" }],
+    "glosses": [{ "text", "translation_nhd", "relates_to" }],
+    "translation_nhd": "...",
+    "sources": [{ "sigle", "name", "latin_text", "german_translation" }]
+  }],
   "psalm_text_comparison": { "witnesses": [...] },
   "wiener_notker": { "text": "..." }
 }
 ```
 
-### TEI → JSON Mapping
+Silbentrennungen werden im JSON aufgelöst. Die Zeilenstruktur bleibt nur im TEI.
 
-| TEI-Element | JSON-Feld |
-|---|---|
-| `<div type="verse" n="X">` | `verses[].number` |
-| `<seg type="psalm">` | `sections[].type: "psalm_citation"` |
-| `<seg type="translation">` | `sections[].type: "translation"` |
-| `<seg type="commentary">` | `sections[].type: "commentary"` |
-| `<ab ana="#fn-gloss"><gloss>` | `glosses[]` |
-| `<cit ana="#src-X">` | `sources[]` |
-| `<note type="translation_nhd">` | `translation_nhd` |
-| `<app>/<rdg>` | `psalm_text_comparison.witnesses[]` |
+## 4. Web-Stack
 
-Silbentrennungen (`<lb break="no"/>`) werden im JSON aufgelöst (zusammengeführt). Die Zeilenstruktur der Probeseite bleibt nur im TEI erhalten.
+| Komponente | Technologie | Begründung |
+|---|---|---|
+| Frontend | Vanilla JS + HTML/CSS | Kein Build-Step, Langlebigkeit |
+| Typografie | Gentium Book Plus, Inter | Ahd.-Sonderzeichen |
+| IIIF-Viewer | OpenSeadragon 4.1 (CDN) | Standard für Handschriften |
+| Deployment | GitHub Pages (`/docs`) | Kostenlos, statisch |
+| Pipeline | Python (python-docx, lxml) | DOCX-Parsing, TEI |
 
-## IIIF-Integration
+Single-File-Prinzip: `docs/index.html` enthält CSS und JS eingebettet.
+
+## 5. IIIF-Integration
 
 | Eigenschaft | Wert |
 |---|---|
 | Manifest | `https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json` |
 | API-Version | IIIF Presentation 2.0 |
-| Label | St. Gallen, Stiftsbibliothek, Cod. Sang. 21 |
 | Psalm 2 Start | Seite 11 (Canvas-Index 10, 0-basiert) |
-| Canvas-Pattern | `csg-0021_011.json`, `csg-0021_012.json` etc. |
-| Text-Bild-Synopse | Seiten-Ebene: Vers-Klick navigiert zum korrekten Canvas |
+| Text-Bild-Synopse | Seiten-Ebene: Vers-Klick → korrekter Canvas |
 
-Vers→Seite-Mapping (vorläufig, gegen Facsimile zu verifizieren):
+Vers→Seite-Mapping (vorläufig):
 
 | Verse | MS-Seite | Canvas-Index |
 |---|---|---|
@@ -181,52 +213,14 @@ Vers→Seite-Mapping (vorläufig, gegen Facsimile zu verifizieren):
 | 7–9 | 13 | 12 |
 | 10–13 | 14 | 13 |
 
-## Dateistruktur (Ist-Stand)
+## 6. Offene technische Fragen
 
-```
-notker-edition/
-├── CLAUDE.md                          # Projektprompt
-├── ReadMe.md
-├── knowledge/                         # Research Vault (Obsidian)
-│   ├── Research Plan.md
-│   ├── Domänenwissen.md
-│   ├── Probeseite Analyse.md
-│   ├── Anforderungen.md
-│   ├── Design.md
-│   ├── Technik.md                     # ← dieses Dokument
-│   ├── implementation.md              # TEI-Modell im Detail
-│   ├── Editionsrichtlinien.md         # Editorische Richtlinien
-│   ├── Journal.md
-│   ├── 2026-02-24 Erstgespräch.md
-│   └── Referenzkorpus Altdeutsch.md
-├── data/
-│   ├── Probeseite_Notker.docx         # Primärdatenquelle
-│   ├── tei/
-│   │   └── psalm2.xml                 # Kanonisches TEI-XML (767 Z.)
-│   ├── processed/
-│   │   └── psalm2.json                # Abgeleitetes JSON (1.106 Z.)
-│   └── schema/
-│       └── tei_all.rng                # TEI RelaxNG Schema
-├── scripts/
-│   ├── parse_probeseite.py            # DOCX → Zwischenformat (698 Z.)
-│   ├── classify_layers.py             # Anreicherung (371 Z.)
-│   ├── build_tei.py                   # → TEI-XML (573 Z.)
-│   ├── tei_to_json.py                 # TEI → JSON (432 Z.)
-│   └── validate_tei.py                # TEI-Validierung (116 Z.)
-└── docs/
-    └── index.html                     # Single-File-Webanwendung (~2.500 Z.)
-```
-
-## Offene technische Fragen
-
-- [x] ~~`tei_to_json.py` schreiben~~ → fertig, Vers-Gruppen + Hyphenation gefixt
-- [x] ~~IIIF-Manifest-URL verifizieren~~ → funktioniert (Presentation v2)
-- [x] ~~Silbentrennungen im JSON~~ → merge_hyphenated + post-merge pass
-- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren (vorläufig: V1–3→S.11, V4–6→S.12, V7–9→S.13, V10–13→S.14)
+- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren
 - [ ] Farbüberlagerung Textschicht × Quellenfilter testen (D-11)
 
 ## Verknüpfungen
 
+- [[Editionsrichtlinien]] — Kodierungsregeln für TEI
 - [[Design]] — UI-Konzept, Toggle-System, Farbsystem
 - [[Probeseite Analyse]] — DOCX-Struktur und Parsing-Implikationen
 - [[Research Plan]] — Arbeitsphasen und Abhängigkeiten

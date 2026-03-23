@@ -146,7 +146,14 @@ def detect_foreign_spans(text: str, default_lang: str) -> list[ForeignSpan]:
     """
     Erkennt Sprachwechsel innerhalb eines Textsegments.
     Regelbasiert für häufige Fälle, markiert unsichere Stellen.
+
+    Psalmzitate (default_lang='la') erhalten keine <foreign>-Annotation,
+    da sie per Definition rein lateinisch sind.
     """
+    # Psalmzitate sind rein lateinisch — kein Sprachwechsel nötig
+    if default_lang == 'la':
+        return []
+
     words = re.findall(r'\S+', text)
     if not words:
         return []

@@ -317,11 +317,14 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
             # Wir sammeln nhd pro Vers, nicht pro Zeile (siehe unten)
             pass
 
-    # nhd. Übersetzung gesammelt pro Versgruppe
+    # nhd. Übersetzung gesammelt pro Versgruppe (ohne Glossen-nhd)
     nhd_parts = []
     for line in vg.lines:
-        if line.nhd:
-            nhd_parts.append(line.nhd.strip())
+        if not line.is_gloss and line.nhd:
+            # Whitespace normalisieren (DOCX-Artefakte)
+            clean_nhd = ' '.join(line.nhd.split())
+            if clean_nhd:
+                nhd_parts.append(clean_nhd)
     if nhd_parts:
         nhd_note = SE(div, 'note', type='translation_nhd', resp='#pfeifer')
         set_xml_attr(nhd_note, 'lang', 'de')

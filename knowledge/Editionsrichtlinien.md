@@ -343,5 +343,5 @@ Die Kodierung ist für Psalm 2 entwickelt, aber auf alle 150 Psalmen skalierbar:
 
 - [[Probeseite Analyse]] — Empirische Grundlage (Tabellenstruktur, Farben, Glossen)
 - [[Domänenwissen]] — Textschichten, Siglen, Referenzsysteme
-- [[implementation]] — TEI-Modell und Pipeline-Details
+- [[Technik]] — Pipeline, TEI-Modell und technische Details
 - [[Technik]] — JSON-Schema und Web-Stack

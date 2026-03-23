@@ -30,6 +30,29 @@ def text_content(el) -> str:
     return ''.join(el.itertext())
 
 
+def rich_text_content(el) -> str:
+    """Extrahiert Text mit <b>-Tags für <hi rend='bold'> Elemente.
+
+    Nur <hi rend="bold"> wird erhalten, alle anderen Tags werden als
+    reiner Text extrahiert. Ergebnis ist sicheres HTML (kein XSS-Risiko,
+    da nur <b>-Tags erzeugt werden).
+    """
+    parts = []
+    if el.text:
+        parts.append(el.text)
+    for child in el:
+        local = etree.QName(child.tag).localname if isinstance(child.tag, str) else ''
+        if local == 'hi' and child.get('rend') == 'bold':
+            inner = text_content(child)
+            parts.append(f'<b>{inner}</b>')
+        else:
+            # Rekursiv: <hi> kann in <quote> verschachtelt sein
+            parts.append(rich_text_content(child))
+        if child.tail:
+            parts.append(child.tail)
+    return ''.join(parts)
+
+
 def get_lang(el) -> str:
     """Liest xml:lang eines Elements."""
     return el.get(f'{{{XML_NS}}}lang', '')
@@ -71,6 +94,22 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+def parse_sigles(text: str) -> list[str]:
+    """
+    Parst Siglen-Text aus TEI <note type="sigle">.
+
+    Unterstützt Formate wie:
+      'G, R'          → ['G', 'R']
+      'G [A, C]'      → ['G', 'A', 'C']
+      'C,G,R,H'       → ['C', 'G', 'R', 'H']
+      'G, A, C'       → ['G', 'A', 'C']
+
+    Extrahiert alle bekannten Siglen-Muster (Großbuchstabe + optionaler
+    Kleinbuchstabe oder II-Suffix) und ignoriert Klammern/Kommas.
+    """
+    return list(dict.fromkeys(re.findall(r'[A-Z][a-z]*(?:II)?(?:-psa)?', text)))
+
+
 def merge_hyphenated(text_a: str, text_b: str) -> str:
     """
     Führt zwei Texte zusammen, die durch Silbentrennung getrennt sind.
@@ -90,19 +129,34 @@ def merge_hyphenated(text_a: str, text_b: str) -> str:
 
 def collect_segments(verse_div) -> list[dict]:
     """
-    Sammelt alle <seg>-Elemente eines Vers-divs und führt verkettete
-    Segmente zusammen. Gibt eine Liste von Section-Dicts zurück.
+    Sammelt alle <seg>- und <gloss>-Elemente eines Vers-divs und führt
+    verkettete Segmente zusammen. Glossen werden als type="gloss" Einträge
+    an ihrer korrekten Position im Textfluss beibehalten.
     """
-    # Phase 1: Alle Segmente sammeln
+    # Phase 1: Alle Segmente sammeln (inkl. Glossen als Marker)
     raw_segments = []
 
     for ab in verse_div.findall(f'{{{TEI_NS}}}ab'):
         sigle_note = ab.find(f'{{{TEI_NS}}}note[@type="sigle"]')
         line_sigles = []
         if sigle_note is not None and sigle_note.text:
-            line_sigles = [s.strip() for s in sigle_note.text.split(',') if s.strip()]
+            line_sigles = parse_sigles(sigle_note.text)
 
         if ab.get('ana') == '#fn-gloss':
+            # Glosse als Marker in den Segment-Stream einfügen
+            gloss_el = ab.find(f'{{{TEI_NS}}}gloss')
+            nhd_note = ab.find(f'{{{TEI_NS}}}note[@type="translation_gloss"]')
+            if gloss_el is not None:
+                raw_segments.append({
+                    'text': clean_text(text_content(gloss_el)),
+                    'type': '_gloss',
+                    'lang': get_lang(gloss_el),
+                    'part': '',
+                    'has_foreign': False,
+                    'sigles': [],
+                    '_gloss_nhd': clean_text(text_content(nhd_note)) if nhd_note is not None else '',
+                    '_gloss_target': gloss_el.get('target', '').lstrip('#'),
+                })
             continue
 
         for seg in ab.findall(f'{{{TEI_NS}}}seg'):
@@ -118,10 +172,24 @@ def collect_segments(verse_div) -> list[dict]:
     # Phase 2: Verkettete Segmente zusammenführen
     # @part="I" beginnt eine Kette, "M" setzt fort, "F" beendet.
     # Aufeinanderfolgende Segmente gleichen Typs mit I→M→...→F werden zusammengeführt.
+    # Gloss-Marker (_gloss) werden unverändert durchgereicht.
     merged = []
     i = 0
     while i < len(raw_segments):
         seg = raw_segments[i]
+
+        # Gloss-Marker direkt durchreichen (mit Schema-konformen Feldern)
+        if seg['type'] == '_gloss':
+            merged.append({
+                'type': 'gloss',
+                'text': seg['text'],
+                'language': tei_lang_to_json_lang(seg.get('lang', 'goh'), False),
+                'source_sigles': [],
+                'translation_nhd': seg.get('_gloss_nhd', ''),
+                'relates_to': seg.get('_gloss_target', ''),
+            })
+            i += 1
+            continue
 
         if seg['part'] == 'I':
             # Kette sammeln: I → (M →)* F
@@ -131,6 +199,10 @@ def collect_segments(verse_div) -> list[dict]:
             j = i + 1
             while j < len(raw_segments):
                 nxt = raw_segments[j]
+                # Gloss-Marker in Ketten überspringen (werden separat gehandhabt)
+                if nxt['type'] == '_gloss':
+                    j += 1
+                    continue
                 if nxt['type'] == seg['type'] and nxt['part'] in ('M', 'F'):
                     chain_text = merge_hyphenated(chain_text, nxt['text'])
                     chain_sigles.extend(nxt['sigles'])
@@ -176,16 +248,34 @@ def collect_segments(verse_div) -> list[dict]:
 
     # Phase 3: Unchained trailing hyphens zusammenführen
     # Wenn aufeinanderfolgende Sections gleichen Typs enden/beginnen mit Trennung
+    # Gloss-Marker werden bei der Hyphen-Suche übersprungen, da Glossen
+    # keine Wörter unterbrechen (z.B. "grís-" [Glosse] "cramoton")
     result = []
     for sec in merged:
-        if result and result[-1]['type'] == sec['type'] and result[-1]['text'].endswith('-'):
-            result[-1]['text'] = merge_hyphenated(result[-1]['text'], sec['text'])
+        if sec['type'] == 'gloss':
+            # Gloss-Marker temporär behalten für korrekte Hyphen-Logik
+            result.append(sec)
+            continue
+
+        # Finde den letzten Nicht-Gloss-Eintrag für Hyphen-Merge
+        prev = None
+        for r in reversed(result):
+            if r['type'] != 'gloss':
+                prev = r
+                break
+
+        if (prev is not None
+                and prev['type'] == sec['type']
+                and prev['text'].endswith('-')):
+            prev['text'] = merge_hyphenated(prev['text'], sec['text'])
             for s in sec['source_sigles']:
-                if s not in result[-1]['source_sigles']:
-                    result[-1]['source_sigles'].append(s)
+                if s not in prev['source_sigles']:
+                    prev['source_sigles'].append(s)
         else:
             result.append(sec)
 
+    # Gloss-Einträge bleiben in sections[] an ihrer korrekten Position
+    # Die UI rendert type="gloss" Sections inline im Textfluss
     return result
 
 
@@ -236,7 +326,7 @@ def collect_sources(verse_div) -> list[dict]:
         sigle, name = sigle_to_name.get(ana, (ana, ana))
 
         quote = cit.find(f'{{{TEI_NS}}}quote')
-        latin = clean_text(text_content(quote)) if quote is not None else ''
+        latin = clean_text(rich_text_content(quote)) if quote is not None else ''
 
         tr_note = cit.find(f'{{{TEI_NS}}}note[@type="translation"]')
         german = clean_text(text_content(tr_note)) if tr_note is not None else ''
@@ -310,6 +400,40 @@ def collect_wiener_notker(tei_root) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Cross-verse hyphenation fix
+# ---------------------------------------------------------------------------
+
+def fix_cross_verse_hyphens(verses: list[dict]):
+    """
+    Löst Silbentrennungen an Versgruppen-Grenzen auf.
+    Wenn der letzte Section-Text eines Verses mit '-' endet und der
+    nächste Vers (mit Daten) eine erste Section gleichen Typs hat,
+    werden die Texte zusammengeführt.
+    """
+    real_verses = [v for v in verses if v.get('sections')]
+    for i in range(len(real_verses) - 1):
+        curr = real_verses[i]
+        nxt = real_verses[i + 1]
+
+        if not curr['sections'] or not nxt['sections']:
+            continue
+
+        last_sec = curr['sections'][-1]
+        first_sec = nxt['sections'][0]
+
+        if last_sec['text'].rstrip().endswith('-') and last_sec['type'] == first_sec['type']:
+            # Merge: "han-" + "gta iz..." → "hangta iz..."
+            merged = merge_hyphenated(last_sec['text'], first_sec['text'])
+            last_sec['text'] = merged
+            # Sigles zusammenführen
+            for s in first_sec.get('source_sigles', []):
+                if s not in last_sec.get('source_sigles', []):
+                    last_sec.setdefault('source_sigles', []).append(s)
+            # Erste Section des nächsten Verses entfernen
+            nxt['sections'] = nxt['sections'][1:]
+
+
+# ---------------------------------------------------------------------------
 # Hauptfunktion
 # ---------------------------------------------------------------------------
 
@@ -379,6 +503,10 @@ def tei_to_json(tei_path: str) -> dict:
                     'translation_nhd': '',
                     'sources': [],
                 })
+
+    # Post-Processing: Silbentrennungen an Versgruppen-Grenzen auflösen
+    # z.B. V1-2 endet "han-", V3-5 beginnt "gta iz" → "hangta iz"
+    fix_cross_verse_hyphens(result['verses'])
 
     # Vers 13 fehlt in der DOCX-Versstruktur (Probeseite hat nur "2,12" als
     # Überschrift, aber der Text deckt Verse 12 und 13 ab). Vers 13 ergänzen.

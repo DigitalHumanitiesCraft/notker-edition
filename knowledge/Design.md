@@ -52,7 +52,7 @@ Quellenfarben: A (Augustinus) = Blau, C (Cassiodor) = Grün, R (Remigius) = Oran
 
 ### 2.3 Facsimile-Anbindung
 
-Rechtes Panel, ein-/ausklappbar, standardmäßig eingeklappt. IIIF-Viewer für CSg 0021 (e-codices). Navigation ab Seite 11.
+Rechtes Panel, ein-/ausklappbar, standardmäßig geöffnet (Gutachter sehen sofort Text + Handschrift). IIIF-Viewer für CSg 0021 (e-codices). Navigation ab Seite 11.
 
 **Text-Bild-Synopse.** Versklick navigiert den Viewer zur korrekten Handschriftenseite (Seiten-Synopse, nicht Zeilensynopse). Mapping: Vers → Seite.
 
@@ -100,11 +100,11 @@ Drei Farblogiken existieren im Projekt (vgl. [[Domänenwissen#Drei überlagernde
 | Schicht | Farbe | HSL | Begründung |
 |---|---|---|---|
 | Psalmzitation | Terracotta | hsl(15, 60%, 40%) | Reminiszenz an rote Tinte der Handschrift |
-| Übersetzung | Schwarzbraun | hsl(30, 20%, 15%) | Reminiszenz an schwarze Tinte, visuell "Hauptstimme" |
-| Kommentar | Mittelgrau | hsl(0, 0%, 45%) | Tritt zurück |
+| Übersetzung | Schwarzbraun | hsl(25, 30%, 18%) | Reminiszenz an schwarze Tinte, visuell "Hauptstimme" |
+| Kommentar | Dunkelgrau | hsl(0, 0%, 35%) | Notkers eigene Stimme, lesbar aber nicht dominant |
 | Glossen | Blaugrau | hsl(210, 20%, 50%) | Eigene Farbe, abgesetzt vom Textfluss |
 
-**Funktionsfarben:** Aktiver Vers hsl(40, 10%, 96%), nhd. Übersetzung hsl(0, 0%, 55%), Hauptfläche weiß, Quellen-Panel hsl(0, 0%, 97%), Facsimile-Panel schwarz.
+**Funktionsfarben:** Aktiver Vers hsl(40, 15%, 96%) mit Terracotta-Akzentlinie links, nhd. Übersetzung hsl(0, 0%, 55%), Hauptfläche weiß, Quellen-Panel hsl(0, 0%, 97.5%), Facsimile-Panel schwarz.
 
 **Gesamtästhetik.** Seriös-akademisch. Neutrale Basis, Farbe ausschließlich funktional. Kein Dekor, keine Gradienten. Das Interface soll wie ein philologisches Werkzeug aussehen.
 

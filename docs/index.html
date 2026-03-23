@@ -108,24 +108,26 @@
    ======================================================================== */
 
 :root {
-  /* Text layer colors (Design.md §2.3) */
-  --color-psalm:       hsl(15, 60%, 40%);    /* Terracotta — Psalmzitation */
+  /* Text layer colors — functional, not language-based */
+  --color-psalm:       hsl(15, 60%, 40%);    /* Terracotta — Psalmzitation (Reminiszenz rote Tinte) */
   --color-translation: hsl(25, 30%, 18%);    /* Warmes Schwarzbraun — Übersetzung */
-  --color-commentary:  hsl(0, 0%, 52%);      /* Mittelgrau, heller — Kommentar */
+  --color-commentary:  hsl(0, 0%, 35%);      /* Dunkelgrau — Kommentar (Notkers Stimme) */
   --color-gloss:       hsl(210, 20%, 50%);   /* Blaugrau — Interlinearglossen */
   --color-nhd:         hsl(0, 0%, 55%);      /* Hellgrau — nhd. Übersetzung */
 
-  /* Source highlight colors */
+  /* Source highlight colors (Quellenapparat) */
   --color-src-A:  hsl(215, 50%, 55%);  /* Augustinus — Blau */
   --color-src-C:  hsl(150, 40%, 42%);  /* Cassiodor — Grün */
   --color-src-R:  hsl(25, 70%, 50%);   /* Remigius — Orange */
   --color-src-Br: hsl(280, 40%, 55%);  /* Breviarium — Violett */
 
   /* Functional colors */
-  --color-active-verse: hsl(40, 10%, 96%);
-  --color-panel-bg:     hsl(0, 0%, 97%);
+  --color-active-verse: hsl(40, 15%, 96%);
+  --color-panel-bg:     hsl(0, 0%, 97.5%);
   --color-border:       hsl(0, 0%, 88%);
   --color-border-light: hsl(0, 0%, 93%);
+  --color-text:         hsl(0, 0%, 15%);
+  --color-muted:        hsl(0, 0%, 55%);
 
   /* Typography */
   --font-edition: 'Gentium Book Plus', 'Palatino Linotype', Palatino, Georgia, serif;
@@ -137,6 +139,20 @@
   --size-gloss:   0.85rem;
   --size-ui:      0.8rem;
   --size-ui-sm:   0.75rem;
+
+  /* Spacing scale */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+
+  /* Layout */
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-pill: 12px;
 }
 
 /* Reset */
@@ -193,8 +209,8 @@ body {
   justify-content: center;
   font-size: 0.65rem;
   border-radius: 3px;
-  color: hsl(0, 0%, 75%);
-  background: hsl(0, 0%, 96%);
+  color: hsl(0, 0%, 55%);
+  background: hsl(0, 0%, 93%);
   cursor: default;
   user-select: none;
 }
@@ -265,7 +281,7 @@ body {
 }
 .panel-toggle:hover { background: hsl(0, 0%, 92%); }
 .panel-toggle.left { right: -22px; }
-.panel-toggle.right { left: -22px; }
+.panel-toggle.right { right: 0; }
 
 /* ========================================================================
    SOURCES PANEL (left)
@@ -332,16 +348,43 @@ body {
 .source-entry:last-child { border-bottom: none; }
 .source-sigle {
   font-family: var(--font-ui);
-  font-size: var(--size-ui);
+  font-size: var(--size-ui-sm);
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--sp-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.source-sigle .sigle-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 var(--sp-1);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--size-ui-sm);
+  color: #fff;
+  background: currentColor;
+}
+.source-sigle .sigle-chip span { color: #fff; }
+.source-sigle .source-name {
+  color: var(--color-muted);
+  font-weight: 400;
 }
 .source-latin {
   font-family: var(--font-edition);
   font-size: var(--size-nhd);
-  color: hsl(0, 0%, 30%);
-  margin-bottom: 0.4rem;
-  line-height: 1.5;
+  color: hsl(0, 0%, 25%);
+  margin-bottom: var(--sp-2);
+  line-height: 1.55;
+}
+.source-latin b { font-weight: 700; }
+.source-divider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--sp-2) 0;
 }
 .source-german {
   font-family: var(--font-edition);
@@ -468,8 +511,12 @@ body {
   cursor: pointer;
   transition: background 0.15s;
 }
-.verse:hover { background: hsl(0, 0%, 98%); }
-.verse.active { background: var(--color-active-verse); }
+.verse:hover { background: hsl(0, 0%, 98.5%); }
+.verse.active {
+  background: var(--color-active-verse);
+  border-left: 3px solid var(--color-psalm);
+  padding-left: calc(2.5rem - 3px);
+}
 
 /* Verse number */
 .verse-number {
@@ -566,6 +613,17 @@ body {
   border-bottom: 1px solid var(--color-border-light);
   margin-bottom: 0.4rem;
 }
+/* Glosses span both columns in split view */
+.verse-split .split-gloss {
+  grid-column: 1 / -1;
+  font-family: var(--font-edition);
+  font-size: var(--size-gloss);
+  color: var(--color-gloss);
+  padding: 0.15rem 0 0.15rem 1.25rem;
+  line-height: 1.5;
+}
+.verse-split .split-gloss .gloss-arrow { margin: 0 0.3rem; opacity: 0.5; }
+.verse-split .split-gloss .gloss-nhd { font-style: italic; }
 .verse-split .split-col {
   font-family: var(--font-edition);
   line-height: 1.7;
@@ -797,12 +855,12 @@ body {
         <strong>Psalm 2</strong> – Notker III. von St. Gallen (ca. 950–1022) verschränkt in seinem
         Psalmenkommentar lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen
         Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
-        einzeln sichtbar und navigierbar. Handschrift: St. Gallen, Stiftsbibliothek, CSg 0021.
-        Edition: Tax/Sehrt, Seiten R10–R13.
-        <span style="margin-left: 0.5rem;">·</span>
-        <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none; margin-left: 0.5rem;">Editionsrichtlinien</a>
-        <span>·</span>
-        <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a>
+        einzeln sichtbar und navigierbar.
+        <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L).
+        Klicken Sie auf einen Vers, um den Quellenapparat und das Digitalisat zu synchronisieren.</span>
+        <span style="display:block; margin-top: 0.4rem;">Hs.: CSg 0021 · Ed.: Tax/Sehrt, S. R10–R13 ·
+        <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none;">Editionsrichtlinien</a> ·
+        <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a></span>
       </div>
       <!-- Content tabs -->
       <div class="content-tabs" id="content-tabs">
@@ -828,7 +886,7 @@ body {
   <div class="panel-divider" id="divider-right"></div>
 
   <!-- Facsimile Panel -->
-  <aside class="facsimile-panel collapsed" id="facsimile-panel">
+  <aside class="facsimile-panel" id="facsimile-panel">
     <div class="facsimile-header">
       <span>CSg 0021 – <span id="facsimile-page-indicator">Seite 11</span></span>
       <span class="facsimile-close" onclick="togglePanel('facsimile')" title="Panel schließen">&#x2715;</span>
@@ -837,18 +895,17 @@ body {
   </aside>
 
   <!-- Facsimile open button (visible when panel collapsed) -->
-  <button class="panel-toggle right" id="facsimile-toggle-btn" onclick="togglePanel('facsimile')" title="Handschrift CSg 0021 anzeigen" style="width:auto; padding: 0 8px; font-size: 0.7rem; white-space: nowrap;">
+  <button class="panel-toggle right" id="facsimile-toggle-btn" onclick="togglePanel('facsimile')" title="Handschrift CSg 0021 anzeigen" style="display:none; width:auto; padding: 0 8px; font-size: 0.7rem; white-space: nowrap;">
     Handschrift &#x25B6;
   </button>
 </div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
-  <span>Notker Psalmenkommentar, Psalm 2 – Prototyp für Drittmittelantrag</span>
-  <span>Aufbereitung: Dr. Philipp Pfeifer (Universität Graz)</span>
+  <span>Pfeifer, Philipp (Hrsg.): Notkers Psalmenkommentar, Psalm 2. Digitale Edition (Prototyp). Graz 2026.</span>
   <span>Umsetzung: <a href="https://dhcraft.org">Digital Humanities Craft OG</a></span>
-  <span>Korpus: <a href="https://doi.org/10.34644/laudatio-dev-MiXVDnMB7CArCQ9CABmW">ReA/DDD (CC-BY-NC-SA)</a></span>
-  <span>Facsimile: <a href="https://www.e-codices.unifr.ch/de/csg/0021">e-codices</a></span>
+  <span>Textdaten: <a href="https://doi.org/10.34644/laudatio-dev-MiXVDnMB7CArCQ9CABmW">ReA/DDD</a> (CC-BY-NC-SA)</span>
+  <span>Digitalisat: <a href="https://www.e-codices.unifr.ch/de/csg/0021">e-codices, CSg 0021</a></span>
 </footer>
 
 <script>
@@ -891,20 +948,21 @@ const FALLBACK_DATA = {
         },
         {
           "type": "translation",
-          "text": "Ziu grís-",
+          "text": "Ziu gríscramoton an christum ebraicȩ gentes?",
           "language": "ahd",
           "source_sigles": [
             "G",
-            "R"
+            "R",
+            "C"
           ]
         },
         {
-          "type": "translation",
-          "text": "cramoton an christum ebraicȩ gentes?",
-          "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ]
+          "type": "gloss",
+          "text": "iúdon diêt",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "Juden Volk",
+          "relates_to": ""
         },
         {
           "type": "psalm_citation",
@@ -939,7 +997,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Sie dâhtondes ín ubelo spuên solta.",
+          "text": "Sie dâhton des ín ubelo spuên solta.",
           "language": "ahd",
           "source_sigles": [
             "A",
@@ -949,12 +1007,20 @@ const FALLBACK_DATA = {
         },
         {
           "type": "psalm_citation",
-          "text": "Astiterunt reges terrȩ . et principesconuenerunt in unum aduersus dominum et aduersus christum eivs.",
-          "language": "ahd_lat_mixed",
+          "text": "Astiterunt reges terrȩ . et principes conuenerunt in unum aduersus dominum et aduersus christum eivs.",
+          "language": "lat",
           "source_sigles": [
             "G",
             "R"
           ]
+        },
+        {
+          "type": "gloss",
+          "text": "in gotes martyro",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "in Gottes Martyrium",
+          "relates_to": ""
         },
         {
           "type": "translation",
@@ -966,7 +1032,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": ". nalsána sehendo . nube iro uuíllen oûgendo .",
+          "text": ". nals ána sehendo . nube iro uuíllen oûgendo .",
           "language": "ahd",
           "source_sigles": [
             "C"
@@ -990,10 +1056,12 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Êin herodes uuolta ín slâhen . anderer han-",
+          "text": "Êin herodes uuolta ín slâhen . anderer hangta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
           "language": "ahd",
           "source_sigles": [
-            "C"
+            "C",
+            "G",
+            "R"
           ]
         }
       ],
@@ -1009,18 +1077,18 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- Juden Volk teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. in Gottes Martyrium Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer",
+      "translation_nhd": "PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer",
       "sources": [
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum causas iracundiae non haberent.",
+          "latin_text": "Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum <b>causas</b> <b>iracundiae</b> non haberent.",
           "german_translation": "In vier Teilen ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Grüde des Zorns nicht hatten."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Pro eo dictum est utquid, ac si diceretur: frustra; non enim impleuerunt quod uoluerunt, ut Christus exstingueretur.",
+          "latin_text": "Pro eo dictum est utquid, ac si diceretur: <b>frustra</b>; non enim impleuerunt quod uoluerunt, ut Christus exstingueretur.",
           "german_translation": "Dafür wurde gesagt „was denn“, als ob gesagt worden wäre „vergeblich“. Denn nicht erfüllten sie, was sie wollten, dass Christus ausgelöscht worden wäre."
         },
         {
@@ -1038,32 +1106,24 @@ const FALLBACK_DATA = {
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Astiterunt non praesentiam significat sed uoluntatem. Nam in passione Domini constat coram regibus omnimodo non fuisse. Reges autem terrae Herodem uult intellegi, qui persequendo Dominum necauit infantes, alterum uero Herodem nepotem eius, qui Pontio Pilato in Saluatoris nece consentit. Merito ergo astitisse dicti sunt, qui sacrilegis mentibus consentientes in uno scelere conuenerunt. Principes autem de pharisaeis dicit. [...] Conuenerunt in unum, in unam uoluntatem, non in unum conuentum, nam diuersis conciliabulis hoc scelus leguntur fuisse machinati.",
+          "latin_text": "Astiterunt non <b>praesentiam</b> significat sed <b>uoluntatem</b>. Nam in passione Domini constat coram regibus omnimodo non fuisse. Reges autem terrae Herodem uult intellegi, qui persequendo Dominum necauit infantes, alterum uero Herodem nepotem eius, qui Pontio Pilato in Saluatoris nece consentit. Merito ergo astitisse dicti sunt, qui sacrilegis mentibus consentientes in uno scelere conuenerunt. <b>Principes</b> autem de <b>pharisaeis</b> dicit. [...] Conuenerunt in unum, in unam uoluntatem, non in unum conuentum, nam diuersis conciliabulis hoc scelus leguntur fuisse machinati.",
           "german_translation": "„Sie traten hinzu“ drückt nicht Präsenz aus, sondern Willen. Denn in der Passion des Herren steht fest, dass (sie) in keiner Weise in der Gegewart von Königen nicht stattfand. (Als) Könige der Erde aber will (er) das verstanden wird Herodes, der den Herrn verfolgend Kleinkinder tötete, (und) freilich der andere Herodes, seinen Enkel der Pontius Pilatus bei der Hinrichtung des Retters zustimmte. Passend also sind sind sie gesagt, dass sie hinzugetreten sind, die in frevelhaftem Denken zustimmend in einem Verbrechen zusammenkamen. Fürsten aber sagt er von den Pharisäern. [...]Sie kamen zusamen in einem, in einem Willen, nicht in einer Versammlung, denn auf verschiedenen Vesammlungsplätzen lesen sie, dass dieses Verbrechen geplant wurde."
         }
       ]
     },
     {
       "number": 2,
+      "included_in": 1,
       "edition_page": "R10",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 1)",
+      "translation_nhd": "",
       "sources": []
     },
     {
       "number": 3,
       "edition_page": "R10",
       "sections": [
-        {
-          "type": "commentary",
-          "text": "gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
-          "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R"
-          ]
-        },
         {
           "type": "psalm_citation",
           "text": "Disrumpamus uincula eorum . et proiciamus a nobis iugum ipsorum .",
@@ -1083,7 +1143,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "translation",
-          "text": "Prechen chádensie írogebénde . unde uuerfen ába uns íro ioch.",
+          "text": "Prechen chádensie íro gebénde . unde uuerfen ába uns íro ioch.",
           "language": "ahd",
           "source_sigles": [
             "C"
@@ -1094,6 +1154,14 @@ const FALLBACK_DATA = {
           "text": "Ne-lâzen unsich",
           "language": "ahd",
           "source_sigles": []
+        },
+        {
+          "type": "gloss",
+          "text": "christis uobunga",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "Christi Glauben",
+          "relates_to": ""
         },
         {
           "type": "commentary",
@@ -1108,7 +1176,7 @@ const FALLBACK_DATA = {
         {
           "type": "psalm_citation",
           "text": "Qui habitat in celis irridbit eos . et dominus subsannabit eos.",
-          "language": "ahd_lat_mixed",
+          "language": "lat",
           "source_sigles": [
             "A",
             "G",
@@ -1125,35 +1193,35 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôh-",
+          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôhlîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuendenne. Dâr ána uuâren sie meditantes inania.",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ]
-        },
-        {
-          "type": "commentary",
-          "text": "lîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuen-",
-          "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ]
-        },
-        {
-          "type": "commentary",
-          "text": "denne. Dâr ána uuâren sie meditantes inania.",
-          "language": "ahd_lat_mixed",
           "source_sigles": [
             "C",
             "G",
             "R",
             "H"
           ]
+        },
+        {
+          "type": "gloss",
+          "text": "penêmida",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "Vorherbestimmung",
+          "relates_to": ""
+        },
+        {
+          "type": "gloss",
+          "text": ".i. ténchende in uppe",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "das heißt Denkende vergeblich",
+          "relates_to": ""
         },
         {
           "type": "psalm_citation",
-          "text": "Tunc loqueturad eos in ira sua . et in furore suo conturbabit eos.",
-          "language": "ahd_lat_mixed",
+          "text": "Tunc loquetur ad eos in ira sua . et in furore suo conturbabit eos.",
+          "language": "lat",
           "source_sigles": [
             "C",
             "G",
@@ -1163,7 +1231,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "translation",
-          "text": "Tannespríchet er in zû mit zórne . unde mit hêizmûote getrûo-",
+          "text": "Tanne spríchet er in zû mit zórne . unde mit hêizmûote getrûobet er sie.",
           "language": "ahd",
           "source_sigles": [
             "G",
@@ -1171,10 +1239,12 @@ const FALLBACK_DATA = {
           ]
         },
         {
-          "type": "translation",
-          "text": "bet er sie.",
+          "type": "gloss",
+          "text": "in ubertêilido lon sundon",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
+          "relates_to": ""
         },
         {
           "type": "commentary",
@@ -1205,7 +1275,7 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "erlaubte es. Deshalb geht ihnen der Wille, gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein Christi Glauben auf die christliche Religion. Der lebt im Himmel wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- Vorherbestimmung wert war, das sie seine Vorherbestimmung glaubten zu ver- das heißt Denkende vergeblich ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- im (jüngsten)Gericht Lohn Sünden wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
+      "translation_nhd": "erlaubte es. Deshalb geht ihnen der Wille, gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, das sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
       "sources": [
         {
           "sigle": "C",
@@ -1216,7 +1286,7 @@ const FALLBACK_DATA = {
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis christiana religio.",
+          "latin_text": "Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis <b>christiana</b> <b>religio</b>.",
           "german_translation": "Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit uns nicht verplfichtet noch uns aufgezwungen wird die christliche Religion."
         },
         {
@@ -1228,31 +1298,33 @@ const FALLBACK_DATA = {
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Nihil horum tamen sapere oportet carnaliter, quasi aut buccis Deus irrideat, aut naso subsannet; sed ea uis accipienda est, quam dat sanctis suis, ut futura cernentes, id est, nomen Christi et dominationem peruagaturam in posteros et uniuersas gentes obtenturam, illios inania meditatos esse intellegant. Haec enim uis qua ista praescita sunt, irrisio Dei est in subsannatio. [...] Caelos si animas sanctas accipiamus, per has eos, utique praesciens quid futurum sit, deridebit Deus et subsannabit.",
+          "latin_text": "Nihil horum tamen sapere oportet carnaliter, quasi aut <b>buccis</b> Deus irrideat, aut <b>naso</b> subsannet; sed ea uis accipienda est, quam dat sanctis suis, ut futura cernentes, id est, nomen Christi et dominationem peruagaturam in posteros et uniuersas gentes obtenturam, <b>illios</b> <b>inania</b> <b>meditatos</b> <b> esse </b> <b>intellegant</b>. Haec enim uis qua ista praescita sunt, irrisio Dei est in subsannatio. [...] Caelos si animas sanctas accipiamus, per has eos, utique <b>praesciens</b> quid futurum sit, deridebit Deus et subsannabit.",
           "german_translation": "Nicht davon gehört es sich so köperlich zu verstehen, so wie Gott sowohl mit dem Mund verlacht, als auch mit der Nase verachtet, sondern dieses ist als Kraft zu verstehen, wie er tat seinen Heiligen, sodass die das Zukünftige erkennend, das heißt den Namen Christi und die sich ausdehnen werdenen Macht in späteren und allen Völkern sich behaupten werdend, verstehen, dass die Überlegungen derselben sinnlos sind. Diese Kraft nämlich, durch die dieselben Vorhesehungen sind, ist der Spott Gottes in Verhöhnung. [...] Wenn wir die Himmel als heilige Seelen verstehen, durch die Gott diese, gewiss vorhersehend, was in Zukunft sei, verlacht und verhöhnt."
         },
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Ira ergo Die uocatur retributio peccatorum [...] Tunc loquetur illud tempus significat, cum iudicare uenerit mundum.",
+          "latin_text": "Ira ergo Die uocatur <b>retributio</b> <b>peccatorum</b> [...] Tunc loquetur illud tempus significat, cum <b>iudicare</b> uenerit mundum.",
           "german_translation": "Der Zorn Gottes folglich wird Vergeltung der Sünden genannt. [...] „Dann wird gesagt“ bezeichnet jene Zeit, wenn (er), (um zu) richten auf die Erde kommen wird."
         }
       ]
     },
     {
       "number": 4,
+      "included_in": 3,
       "edition_page": "R11",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 3)",
+      "translation_nhd": "",
       "sources": []
     },
     {
       "number": 5,
+      "included_in": 3,
       "edition_page": "R11",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 3)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -1261,17 +1333,17 @@ const FALLBACK_DATA = {
       "sections": [
         {
           "type": "psalm_citation",
-          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syonmontem sanctum eius prȩdicans prȩceptum eius.",
+          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon montem sanctum eius prȩdicans prȩceptum eius.",
           "language": "lat",
           "source_sigles": [
-            "G [A",
-            "C]",
-            "G"
+            "G",
+            "A",
+            "C"
           ]
         },
         {
           "type": "translation",
-          "text": "Ih pin áber fónemînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
+          "text": "Ih pin áber fóne mînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
           "language": "ahd",
           "source_sigles": [
             "G",
@@ -1301,7 +1373,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": ". dazchît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
+          "text": ". daz chît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "G",
@@ -1319,6 +1391,14 @@ const FALLBACK_DATA = {
             "C",
             "A"
           ]
+        },
+        {
+          "type": "gloss",
+          "text": "ze_gótes sélbes ána-sihte. [...]",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "zu Gottes eigenem Angesicht. [...]",
+          "relates_to": ""
         }
       ],
       "glosses": [
@@ -1328,7 +1408,7 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]",
+      "translation_nhd": "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde",
       "sources": [
         {
           "sigle": "A",
@@ -1339,25 +1419,25 @@ const FALLBACK_DATA = {
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "verba refert Domini Salutoris, qui se regem a Patrem constitutm esse testatur. Quod etiam scriptura est de ipso in titulo passionis: Rex Iudaeorum (Ioh 19,19). Hoc nec Pilauts deleri passus est, qui eum Iudaeis cruci tradidit affrigendum.",
+          "latin_text": "verba refert Domini Salutoris, qui se <b>regem</b> <b>a </b> <b>Patrem</b> <b>constitutm</b> <b> esse</b> testatur. Quod etiam scriptura est de ipso in titulo passionis: Rex Iudaeorum (Ioh 19,19). Hoc nec Pilauts deleri passus est, qui eum Iudaeis cruci tradidit affrigendum.",
           "german_translation": "Die Worte bezieht sich auf den Herrn den Retter, der bezeugt, dass er als König vom Vater eingesetzt ist. Weil nämlich geschrieben wird über ihn selbst auf dem Titulus der Passion [d.h. des Kreuzes]: König der Juden (Joh. 19,19). Pilatus, der ihn den Juden zur Kruzigung übergab, erlaubte nicht, dass dieses entfernt wurde."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "SION autem, se speculationem, ut quidam interpretantur significat, nihil magis quam Ecclesiam debemus accipere, ubi quotidie intentio erigitur speculandae claritatis Dei",
+          "latin_text": "SION autem, se speculationem, ut quidam interpretantur significat, nihil magis quam <b>Ecclesiam</b> debemus accipere, ubi quotidie intentio erigitur speculandae claritatis Dei",
           "german_translation": "Zion aber, wenn es „Betrachtung“ bezeichne, wie manche interpretieren, müssen wir als nichts anderes als „die Kirche“ verstehen, wo täglich die Absicht erhoben wird, die Herrlichkeit Gottes zu betrachten."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Ergo iste sensus est: ego autem consitutus sum rex ab eo super Ecclesiam sanctam eius, quam montem appellat propter eminentiam et firmitatem.",
+          "latin_text": "Ergo iste sensus est: <b>ego</b> <b>autem</b> <b>consitutus</b> <b>sum</b> <b>rex</b> <b> ab </b> <b>eo</b> <b> super</b> Ecclesiam <b>sanctam</b> <b>eius</b>, quam montem appellat propter eminentiam et firmitatem.",
           "german_translation": "Darum ist dies zu verstehen: Ich aber bin eingesetzt als König von ihm über seine heilige Kirche, die (er) mit Berg anspricht wegen dem Hervorragen und der Stabilität."
         },
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Sion hic Ecclesiam debemus accipere, quam mοntem appellat propter eminentiam honoris et firmitatem fidei.Sion enim hebraea lingua dicitur specula, quae competenter aptatur Ecclesiae, quoniam ad futuras spes sufficienter instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur",
+          "latin_text": "Sion hic Ecclesiam debemus accipere, quam mοntem appellat propter eminentiam honoris et firmitatem fidei.Sion enim hebraea lingua dicitur specula, quae competenter aptatur Ecclesiae, quoniam <b>ad </b> <b>futuras</b> <b>spes</b> <b>sufficienter</b> instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur",
           "german_translation": "Zion müssen wir hier als Kirche verstehen, die (er) als Berg bezeichnet wegen dem Hervorragen der Ehre und der Festigkeit des Glaubens. „Zion“ nämlich in hebräischer Sprache wird „specula [Warte]“ genannt, was zutreffend angepasst wird an die Kirche, weil (sie) zu zukünftigen Hoffnungen ausreichend ausgebildet die Versprechen des Herren mit Voraussicht des Geistes betrachet, und nicht so sehr die gegenwärtigen, sondern die zukünftigen Wohltaten ehrt."
         },
         {
@@ -1369,7 +1449,7 @@ const FALLBACK_DATA = {
         {
           "sigle": "RII",
           "name": "RII (ungeklärt)",
-          "latin_text": "Sion autem arx est altissima in Ierusalem; hac per hoc significat sanctam Ecclesiam, quia sancta Ecclesia terrena despiciens ad caelestia subleuatur .",
+          "latin_text": "Sion autem arx est <b>altissima</b> <b> in </b> <b>Ierusalem</b>; hac per hoc significat sanctam Ecclesiam, <b>quia</b> <b> sancta Ecclesia terrena </b> <b>despiciens</b> <b> ad </b> <b>caelestia</b> <b>subleuatur</b> <b>.</b>",
           "german_translation": "Zion aber ist der höchste Berg in Jerusalem; dadurch bezeichnet (er) die heilige Kirche, weil die heilige Kirche auf das Irdische hinabschauend [nämlich vom Berg Zion] zu den Himmlischen erhoben wird."
         }
       ]
@@ -1399,6 +1479,14 @@ const FALLBACK_DATA = {
           ]
         },
         {
+          "type": "gloss",
+          "text": "âna zît",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "ohne Zeit",
+          "relates_to": ""
+        },
+        {
           "type": "psalm_citation",
           "text": "hodie genui te .",
           "language": "lat",
@@ -1423,6 +1511,14 @@ const FALLBACK_DATA = {
           ]
         },
         {
+          "type": "gloss",
+          "text": "irgân-",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "vergan-",
+          "relates_to": ""
+        },
+        {
           "type": "translation",
           "text": "mîn sun bist du . hiûto gebár ih tih.",
           "language": "ahd",
@@ -1432,19 +1528,19 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Góte neist ne-hêin zît prȩteri-",
+          "text": "Góte neist ne-hêin zît prȩteritum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
           "language": "ahd",
           "source_sigles": [
             "A"
           ]
         },
         {
-          "type": "commentary",
-          "text": "tum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
-          "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "A"
-          ]
+          "type": "gloss",
+          "text": "gen chúnftîg",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "gen künftig",
+          "relates_to": ""
         },
         {
           "type": "psalm_citation",
@@ -1472,18 +1568,18 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe ohne Zeit dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir vergan- mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gen künftig gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
+      "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
       "sources": [
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Dominum significat Patrem [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.",
+          "latin_text": "Dominum significat <b>Patrem</b> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.",
           "german_translation": "„Herr“ steht für den Vater [...]„Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "[...] tamen hodie quia praesentiam significat atque in aeternitate nec praeteritum quidquam est, quasi esse desierit, nec futurum, quasi nondum sit, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus Filius, fides sincerissima et catholica praedicat.",
+          "latin_text": "[...] tamen hodie quia praesentiam significat atque in aeternitate nec <b>praeteritum</b> quidquam est, quasi esse desierit, nec <b>futurum</b>, quasi <b>nondum</b> <b>sit</b>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <b>Filius</b>, fides sincerissima et catholica praedicat.",
           "german_translation": "[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit er das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt."
         }
       ]
@@ -1532,6 +1628,14 @@ const FALLBACK_DATA = {
           ]
         },
         {
+          "type": "gloss",
+          "text": "alle liûte",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "alle Völker",
+          "relates_to": ""
+        },
+        {
           "type": "translation",
           "text": "VVélez ist daz? Gentes.",
           "language": "ahd",
@@ -1569,7 +1673,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô ersih sélben umbe sie PATRI ópferota.",
+          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er sih sélben umbe sie PATRI ópferota.",
           "language": "ahd",
           "source_sigles": [
             "G",
@@ -1579,7 +1683,7 @@ const FALLBACK_DATA = {
         {
           "type": "psalm_citation",
           "text": "Reges eos in virga ferrea .",
-          "language": "ahd_lat_mixed",
+          "language": "lat",
           "source_sigles": [
             "G",
             "R"
@@ -1624,6 +1728,14 @@ const FALLBACK_DATA = {
           "source_sigles": []
         },
         {
+          "type": "gloss",
+          "text": "uuerlt-lúste",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "Weltlüste",
+          "relates_to": ""
+        },
+        {
           "type": "translation",
           "text": "háfenâres faz ferbríchest tû sie.",
           "language": "ahd",
@@ -1652,7 +1764,7 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe alle Völker Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Weltlüste Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
+      "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
       "sources": [
         {
           "sigle": "A",
@@ -1663,29 +1775,30 @@ const FALLBACK_DATA = {
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut petat secundum naturam inferiorem et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas",
+          "latin_text": "Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut <b>petat</b> secundum <b>naturam</b> <b> inferiorem</b> et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas",
           "german_translation": "Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unerlegenden Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Reges eos in uirga ferrea, [in] inflexibli iustitia",
+          "latin_text": "Reges eos in uirga ferrea, [in] <b>inflexibli</b> <b>iustitia</b>",
           "german_translation": "Du beherrscht sie mit eisernem Stab, [mit] unbeugsamer Gerechtigkeit"
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "id est, conteres in eis terrenas cupiditates",
+          "latin_text": "id est, conteres in eis <b>terrenas</b> <b>cupiditates</b>",
           "german_translation": "Das heißt, du wirst in ihnen vertilgen die weltlichen Begierden."
         }
       ]
     },
     {
       "number": 9,
+      "included_in": 8,
       "edition_page": "R12",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 8)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -1716,7 +1829,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNTten lîchamen. Gehôrrent mînen rat.",
+          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
           "language": "ahd",
           "source_sigles": [
             "A",
@@ -1754,7 +1867,7 @@ const FALLBACK_DATA = {
         {
           "type": "psalm_citation",
           "text": "Seruite domino in timore.",
-          "language": "ahd_lat_mixed",
+          "language": "lat",
           "source_sigles": [
             "A",
             "C"
@@ -1796,7 +1909,7 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "Ímodanchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
+          "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
           "language": "ahd",
           "source_sigles": [
             "R"
@@ -1809,25 +1922,25 @@ const FALLBACK_DATA = {
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Venit ad tertium membrum, in quo propheta commonet...",
+          "latin_text": "Venit ad tertium membrum, in quo <b>propheta</b> commonet...",
           "german_translation": "Er kommt zum dritten Glied, in dem der Prophet mahnt:"
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "nunc intellegite iam reges, id est, iam valentes regere quidquid in uobis seruile atque bestiale est, et iam ualentes pugnare, non quasi aerem caedentes, sed castigantes uestra corpore in seruituti subicentes.",
+          "latin_text": "nunc intellegite iam reges, id est, iam valentes regere quidquid in uobis seruile atque bestiale est, et iam ualentes pugnare, non quasi aerem caedentes, sed <b>castigantes</b> <b>uestra</b> <b> corpore</b> in seruituti subicentes.",
           "german_translation": "Nun erkennt schon, Könige, das heißt, schon Fähige zu beherrschen, was auch immer in euch sklavisch oder animalisch ist, und schon Fähige zu kämpfen, nicht wie Luft Schlagende, sondern im Zaum Haltende euren Körper und und in Untertänigkeit Unterworfene."
         },
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Erudire docere est [...] Quod illis bene dicitur, qui iam carnalia delicta domuerunt. Ipsi enim bene iudicant terram, quando repressis uitiis, corporis suis, fauente Domino, praecepta legis imponunt.",
+          "latin_text": "Erudire docere est [...] Quod illis bene dicitur, qui iam carnalia delicta domuerunt. Ipsi enim bene iudicant terram, quando repressis uitiis, <b>corporis</b> suis, fauente Domino, praecepta legis imponunt.",
           "german_translation": "Belehren ist lehren [...], weil jene gesegnet werden, die bereits fleischliche Sünde bezwangen. Diese selbst nämlich richten die Welt gut, (wenn sie) mit stets unterdrückten Kräften ihrer Körper, mit dem Wohlwollen des Herrn, die Gebote des Gesetzes aufstellen."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Seruite Domino in timore, ne in superbiam uertat quod dictum est: Reges qui iudicatis terram.",
+          "latin_text": "Seruite Domino in timore, ne in superbiam uertat quod dictum est: Reges qui <b>iudicatis</b> <b>terram</b>.",
           "german_translation": "Dient dem Herrn in Furcht, damit er nicht in Hochmut umkehrt, was gesagt ist: Könige, die die Erde richten."
         },
         {
@@ -1839,17 +1952,18 @@ const FALLBACK_DATA = {
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Et iterum, ne haec exultatio negligens redderetur, addidit: cum tremore, ut utraque sociata caelestem reuerentiam competenter experimerent.",
+          "latin_text": "Et iterum, ne haec exultatio negligens redderetur, addidit: cum <b>tremore</b>, ut utraque sociata caelestem reuerentiam competenter experimerent.",
           "german_translation": "Und wiederum, damit dieser jubel nicht vernachlässigend zurückgegeben wird, ergänzt er „mit Beben“, damit sie in gemeinsamer Verbindung die himmlische Ehrfurcht angemessen erfahren."
         }
       ]
     },
     {
       "number": 11,
+      "included_in": 10,
       "edition_page": "R13",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 10)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -1876,21 +1990,23 @@ const FALLBACK_DATA = {
         },
         {
           "type": "commentary",
-          "text": "CHRISTVS ist ter uueg . an démo mánnolich kânsôl.",
+          "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
           "language": "ahd",
           "source_sigles": []
         },
         {
           "type": "psalm_citation",
-          "text": "Cum exarserit in breui ira eius . beati omnes qui con-",
-          "language": "ahd_lat_mixed",
+          "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
+          "language": "lat",
           "source_sigles": []
         },
         {
-          "type": "psalm_citation",
-          "text": "fidunt in eo.",
-          "language": "ahd_lat_mixed",
-          "source_sigles": []
+          "type": "gloss",
+          "text": "kerich",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "Gericht?",
+          "relates_to": ""
         },
         {
           "type": "translation",
@@ -1903,6 +2019,14 @@ const FALLBACK_DATA = {
           "text": ". unde uindicta",
           "language": "ahd_lat_mixed",
           "source_sigles": []
+        },
+        {
+          "type": "gloss",
+          "text": "in slago dero brâuuo",
+          "language": "ahd",
+          "source_sigles": [],
+          "translation_nhd": "im Schlag der Brauen",
+          "relates_to": ""
         },
         {
           "type": "commentary",
@@ -1935,28 +2059,29 @@ const FALLBACK_DATA = {
           "relates_to": ""
         }
       ],
-      "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht ableitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- Gericht? trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe im Schlag der Brauen kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
+      "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht ableitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
       "sources": [
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
-          "latin_text": "Et pereatis de uia iusta, id est, a caelesti Rege Christo, quia via est recte ambulantium ad uitam, dux euntium, iter ad beatitudinem festinantium.",
+          "latin_text": "Et pereatis de uia iusta, id est, a <b>caelesti</b> <b> Rege Christo</b>, quia via est <b>recte</b> <b>ambulantium</b> ad uitam, dux euntium, iter ad beatitudinem festinantium.",
           "german_translation": "Und ihr abweicht vom gerechten Weg, das heißt, vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
-          "latin_text": "Id est, cum uindicta uenerit, [...] Quod autem positum est in breui, hoc significare arbitror, quia repentinum aliquid erit, dum hoc remotum et longe futurum peccatores existimabunt.",
+          "latin_text": "Id est, cum <b>uindicta</b> <b>uenerit</b>, [...] Quod autem positum est <b>in </b> <b>breui</b>, hoc significare arbitror, quia repentinum aliquid erit, dum hoc remotum et longe futurum peccatores existimabunt.",
           "german_translation": "Das heißt, wenn die Strafe kommen wird [...], weil aber gesagt ist „in Kürze“, dieses erachte ich zu bedeuten, weil etwas plötzlich sein wird, während die Sünder dieses entfernt und weit in der Zukunft vermuten."
         }
       ]
     },
     {
       "number": 13,
+      "included_in": 12,
       "edition_page": "R13",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(Vers 13 ist in Vers 12 enthalten)",
+      "translation_nhd": "",
       "sources": []
     }
   ],
@@ -2017,6 +2142,104 @@ async function loadEditionData() {
   }
   console.warn('Using embedded fallback data (run "python -m http.server" for full data)');
   return false;
+}
+
+// ============================================================================
+// DATA DIAGNOSTICS — Compact console output for pipeline verification
+// ============================================================================
+
+function diagnoseData() {
+  const d = EDITION_DATA;
+  const issues = [];
+  const stats = {};
+
+  // 1. Verse
+  const verses = d.verses || [];
+  const realVerses = verses.filter(v => !v.included_in);
+  const refVerses = verses.filter(v => v.included_in);
+  stats.verses = `${verses.length} total (${realVerses.length} with data, ${refVerses.length} refs)`;
+
+  // 2. Sections by type
+  const typeCounts = {};
+  let emptySections = 0;
+  let trailingHyphens = [];
+  verses.forEach(v => {
+    (v.sections || []).forEach(s => {
+      typeCounts[s.type] = (typeCounts[s.type] || 0) + 1;
+      if (!s.text || !s.text.trim()) emptySections++;
+      if (s.text && s.text.trim().endsWith('-'))
+        trailingHyphens.push(`V${v.number}: "${s.text.slice(-30)}"`);
+    });
+  });
+  stats.sections = Object.entries(typeCounts).map(([k,v]) => `${k}:${v}`).join(', ');
+  if (emptySections) issues.push(`${emptySections} leere Sections`);
+  if (trailingHyphens.length) issues.push(`${trailingHyphens.length} offene Silbentrennungen: ${trailingHyphens.join('; ')}`);
+
+  // 3. Glosses
+  let totalGlosses = 0, emptyGlossText = 0, emptyGlossNhd = 0;
+  verses.forEach(v => {
+    (v.glosses || []).forEach(g => {
+      totalGlosses++;
+      if (!g.text || !g.text.trim()) emptyGlossText++;
+      if (!g.translation_nhd || !g.translation_nhd.trim()) emptyGlossNhd++;
+    });
+  });
+  stats.glosses = `${totalGlosses} (erwartet: 14)`;
+  if (totalGlosses !== 14) issues.push(`Glossenanzahl: ${totalGlosses} statt 14`);
+  if (emptyGlossText) issues.push(`${emptyGlossText} Glossen ohne Text`);
+  if (emptyGlossNhd) issues.push(`${emptyGlossNhd} Glossen ohne nhd`);
+
+  // 4. Sources
+  let totalSources = 0;
+  const sourceSigles = new Set();
+  verses.forEach(v => {
+    (v.sources || []).forEach(s => {
+      totalSources++;
+      sourceSigles.add(s.sigle);
+    });
+  });
+  stats.sources = `${totalSources} (Siglen: ${[...sourceSigles].sort().join(', ')})`;
+  ['A', 'C', 'R', 'Br'].forEach(s => {
+    if (!sourceSigles.has(s)) issues.push(`Sigle ${s} fehlt im Quellenapparat`);
+  });
+
+  // 5. nhd translations
+  let versesWithNhd = 0, versesWithoutNhd = 0;
+  realVerses.forEach(v => {
+    if (v.translation_nhd && v.translation_nhd.trim()) versesWithNhd++;
+    else versesWithoutNhd++;
+  });
+  stats.nhd = `${versesWithNhd}/${realVerses.length} Versgruppen mit nhd`;
+
+  // 6. Psalter comparison
+  const witnesses = (d.psalm_text_comparison || {}).witnesses || [];
+  stats.psalter = `${witnesses.length} Zeugen (${witnesses.map(w => w.sigle).join(', ')})`;
+  if (witnesses.length !== 5) issues.push(`Psaltervergleich: ${witnesses.length} statt 5 Zeugen`);
+  witnesses.forEach(w => {
+    if (!w.text || w.text.length < 50) issues.push(`Zeuge ${w.sigle}: Text zu kurz (${(w.text||'').length} Zeichen)`);
+  });
+
+  // 7. Wiener Notker
+  const wn = d.wiener_notker || {};
+  stats.wiener_notker = `${(wn.text || '').length} Zeichen`;
+  if (!wn.text || wn.text.length < 100) issues.push('Wiener Notker: Text fehlt oder zu kurz');
+
+  // 8. Metadata
+  const m = d.metadata || {};
+  ['title', 'manuscript', 'iiif_manifest', 'edition_pages'].forEach(k => {
+    if (!m[k]) issues.push(`metadata.${k} fehlt`);
+  });
+
+  // Output
+  console.group('%c[Notker Diagnostik]', 'color: #806000; font-weight: bold');
+  Object.entries(stats).forEach(([k, v]) => console.log(`  ${k}: ${v}`));
+  if (issues.length === 0) {
+    console.log('%c  Keine Probleme gefunden', 'color: green');
+  } else {
+    console.warn(`  ${issues.length} Problem(e):`);
+    issues.forEach(i => console.warn(`    - ${i}`));
+  }
+  console.groupEnd();
 }
 
 // ============================================================================
@@ -2103,7 +2326,7 @@ const state = {
   showNhd: false,
   splitLanguages: false,
   sourceFilter: new Set(),
-  panels: { sources: true, facsimile: false }
+  panels: { sources: true, facsimile: true }
 };
 
 // ============================================================================
@@ -2112,6 +2335,7 @@ const state = {
 
 async function init() {
   await loadEditionData();
+  diagnoseData();
   parseUrlHash();
   renderPsalmNav();
   renderSourceFilters();
@@ -2133,7 +2357,9 @@ function syncUiToState() {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
   });
   if (!state.panels.sources) togglePanel('sources');
-  if (state.panels.facsimile) togglePanel('facsimile');
+  if (!state.panels.facsimile) togglePanel('facsimile');
+  // Initialize IIIF viewer if facsimile panel is open (default)
+  if (state.panels.facsimile && !window._osdInitialized) initOSD();
   if (state.showNhd) document.querySelectorAll('.nhd-translation').forEach(el => el.classList.add('visible'));
   if (state.splitLanguages) {
     document.querySelectorAll('.verse-interleaved').forEach(el => el.classList.add('hidden-by-split'));
@@ -2222,20 +2448,25 @@ function renderVerses() {
     const interleaved = document.createElement('div');
     interleaved.className = 'verse-interleaved';
 
-    // Sections + Glosses (glosses rendered in JSON order after all sections)
+    // Sections + inline glosses (interleaved in correct reading order from JSON)
     verse.sections.forEach(sec => {
-      const secEl = document.createElement('div');
-      secEl.className = 'section';
-      secEl.dataset.type = sec.type;
-      secEl.dataset.language = sec.language;
-      if (sec.source_sigles) secEl.dataset.sigles = sec.source_sigles.join(',');
-      secEl.textContent = sec.text;
-      if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
-      interleaved.appendChild(secEl);
+      if (sec.type === 'gloss') {
+        // Gloss section — render inline at its correct position
+        interleaved.appendChild(createGlossElement(sec));
+      } else {
+        const secEl = document.createElement('div');
+        secEl.className = 'section';
+        secEl.dataset.type = sec.type;
+        secEl.dataset.language = sec.language;
+        if (sec.source_sigles) secEl.dataset.sigles = sec.source_sigles.join(',');
+        secEl.textContent = sec.text;
+        if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
+        interleaved.appendChild(secEl);
+      }
     });
 
-    // Glosses as block after sections (JSON delivers them in reading order)
-    if (verse.glosses.length > 0) {
+    // Fallback: if old-format JSON has glosses in separate array (backward compat)
+    if (verse.glosses.length > 0 && !verse.sections.some(s => s.type === 'gloss')) {
       verse.glosses.forEach(gloss => {
         interleaved.appendChild(createGlossElement(gloss));
       });
@@ -2243,30 +2474,42 @@ function renderVerses() {
 
     el.appendChild(interleaved);
 
-    // Split view container
+    // Split view — two-column grid with glosses spanning both columns
     const splitView = document.createElement('div');
     splitView.className = 'verse-split';
 
-    const latCol = document.createElement('div');
-    latCol.innerHTML = '<div class="split-col-header">Latein</div>';
-    const latContent = document.createElement('div');
-    latContent.className = 'split-col split-lat';
-    verse.sections.filter(s => s.language === 'lat' || s.language === 'ahd_lat_mixed')
-      .filter(s => state.visibleLayers.has(s.type))
-      .forEach(s => { latContent.innerHTML += `<div>${s.text}</div>`; });
-    latCol.appendChild(latContent);
+    // Column headers
+    splitView.innerHTML = '<div class="split-col-header">Latein</div><div class="split-col-header">Althochdeutsch</div>';
 
-    const ahdCol = document.createElement('div');
-    ahdCol.innerHTML = '<div class="split-col-header">Althochdeutsch</div>';
-    const ahdContent = document.createElement('div');
-    ahdContent.className = 'split-col split-ahd';
-    verse.sections.filter(s => s.language === 'ahd' || s.language === 'ahd_lat_mixed')
-      .filter(s => state.visibleLayers.has(s.type))
-      .forEach(s => { ahdContent.innerHTML += `<div>${s.text}</div>`; });
-    ahdCol.appendChild(ahdContent);
+    // Walk sections in order, placing each in correct column
+    verse.sections.forEach(sec => {
+      if (sec.type === 'gloss') {
+        // Glosses span both columns
+        if (state.visibleLayers.has('glosses')) {
+          const glossEl = document.createElement('div');
+          glossEl.className = 'split-gloss';
+          glossEl.innerHTML = `${escHtml(sec.text)}<span class="gloss-arrow">\u2192</span><span class="gloss-nhd">${escHtml(sec.translation_nhd || '')}</span>`;
+          splitView.appendChild(glossEl);
+        }
+      } else if (!state.visibleLayers.has(sec.type)) {
+        // Hidden layer — skip
+      } else if (sec.language === 'lat') {
+        const d = document.createElement('div');
+        d.className = 'split-col split-lat';
+        d.textContent = sec.text;
+        splitView.appendChild(d);
+        // Empty right cell
+        splitView.appendChild(document.createElement('div'));
+      } else {
+        // ahd or ahd_lat_mixed → right column
+        splitView.appendChild(document.createElement('div'));
+        const d = document.createElement('div');
+        d.className = 'split-col split-ahd';
+        d.textContent = sec.text;
+        splitView.appendChild(d);
+      }
+    });
 
-    splitView.appendChild(latCol);
-    splitView.appendChild(ahdCol);
     el.appendChild(splitView);
 
     // NHD translation (Design D-2: below verse)
@@ -2295,6 +2538,14 @@ function escHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+function safeBoldHtml(str) {
+  // Escape everything, then restore only <b> and </b> tags
+  // (Pipeline produces only <b>...</b> from TEI <hi rend="bold">)
+  return escHtml(str)
+    .replace(/&lt;b&gt;/g, '<b>')
+    .replace(/&lt;\/b&gt;/g, '</b>');
 }
 
 // ============================================================================
@@ -2426,8 +2677,9 @@ function updateSourcesPanel() {
   container.innerHTML = `<div class="sources-verse-label">${verseLabel}</div>` +
     filtered.map(s => `
       <div class="source-entry">
-        <div class="source-sigle" style="color: var(--color-src-${s.sigle})">${s.sigle} — ${escHtml(s.name)}</div>
-        <div class="source-latin">${escHtml(s.latin_text)}</div>
+        <div class="source-sigle" style="color: var(--color-src-${s.sigle})"><span class="sigle-chip"><span>${s.sigle}</span></span><span class="source-name">${escHtml(s.name)}</span></div>
+        <div class="source-latin">${safeBoldHtml(s.latin_text)}</div>
+        <div class="source-divider"></div>
         <div class="source-german">${escHtml(s.german_translation)}</div>
       </div>
     `).join('');

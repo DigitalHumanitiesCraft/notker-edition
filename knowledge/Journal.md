@@ -9,14 +9,26 @@ tags: [notker, project-log]
 
 ## 2026-02-24 – Erstgespräch und Exploration
 
-Philipp Pfeifer (Germanistik, Uni Graz) hat uns via Georg Vogeler und Bernhard Bauer (ZIM Graz) kontaktiert. Ziel: funktionsfähiger Prototyp für Gutachter.
+Erstes Gespräch (Videokonferenz) mit Dr. Philipp Pfeifer (Germanistik, Uni Graz). Kontakt über [[Georg Vogeler]] und [[Bernhard Bauer]] (ZIM Graz). Ziel: Testseite als Proof of Concept für Drittmittelantrag.
 
-Siehe [[2026-02-24 Erstgespräch]] für die vollständige Gesprächsnotiz.
+**Vision Auftraggeber:** Haupttext (ahd./lat. gemischt) mit selektiv einblendbaren Sekundärquellen (Augustinus, Cassiodor u.a.), Toggle für lat./dt. Trennung, Quellenverlinkung auf Satzebene, nhd. Übersetzung daneben. Nutzer/in wählt selbst, was sichtbar sein soll.
+
+**Datenlage:**
+- Haupttext: gedruckte Editionen (1970er), kaum OCR-fähig; digital im Referenzkorpus Altdeutsch (ReA) auf ANNIS (167.583 Tokens, scrapebar)
+- Sekundärquellen: nur Buch/PDF, Zuordnung über Psalm + Vers, Liste unvollständig
+
+**Unsere Einschätzung:** Interface ist klassisches TEI-Projekt; Kernproblem ist Datenaufbereitung/-modellierung. TEI-XML als Single Source of Truth empfohlen. Budget-Hausnummer: 4.000–5.000 € für Prototyp.
+
+**Vereinbart:** Auftraggeber liefert Requirements-Dokument, Psalm-Auswahl und PDF mit Sekundärquellen + Zuordnungserklärung. Wir liefern dann Kostenvoranschlag.
+
+**Offene Punkte (historisch):** Förderlinie/Geldgeber unklar; Absprache mit ReA-Team (Karin Donhauser, HU Berlin) nötig; Urheberrecht an Textgestalt der 1970er-Edition klären.
 
 **Entscheidungen:**
 - Psalm 2 als Demonstrationsobjekt
 - Statische Seite statt Backend
 - JSON statt TEI-XML für den Prototyp *(später revidiert, siehe 23.03.)*
+
+Vollständige Gesprächsnotiz war zuvor in eigenem Dokument; konsolidiert am 23.03.2026.
 
 ## 2026-02-27 – Angebot versendet
 

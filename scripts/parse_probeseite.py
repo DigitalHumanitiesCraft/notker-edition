@@ -530,9 +530,12 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
     # Glossen-Erkennung
     if detect_gloss_line(text_runs, nhd, sigles):
         full_text = ''.join(r.text for r in text_runs).strip()
+        # Whitespace normalisieren (DOCX merged cells erzeugen Tabs/Mehrfach-Leerzeichen)
+        full_text = ' '.join(full_text.split())
+        nhd_clean = ' '.join(nhd.split()) if nhd else nhd
         group.lines.append(GlossLine(
             text=full_text,
-            nhd=nhd,
+            nhd=nhd_clean,
             sigles=sigles,
         ))
     else:
