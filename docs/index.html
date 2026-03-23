@@ -746,11 +746,10 @@ body {
 
 <script>
 // ============================================================================
+// DATA LOADING — Fetch JSON from TEI pipeline, fall back to minimal demo
 // ============================================================================
-// ============================================================================
-// EDITION DATA — Generated from data/tei/psalm2.xml via tei_to_json.py
-// ============================================================================
-const EDITION_DATA = {
+
+const FALLBACK_DATA = {
   "psalm": 2,
   "metadata": {
     "title": "Psalm 2",
@@ -1895,10 +1894,81 @@ const EDITION_DATA = {
   }
 };
 
+let EDITION_DATA = FALLBACK_DATA;
+
+async function loadEditionData() {
+  const path = '../data/processed/psalm2.json';
+  try {
+    const resp = await fetch(path);
+    if (resp.ok) {
+      EDITION_DATA = await resp.json();
+      console.log('Edition data loaded from', path);
+      return true;
+    }
+  } catch (e) {
+    // file:// throws CORS error — expected, use fallback
+  }
+  console.warn('Using embedded fallback data (run "python -m http.server" for full data)');
+  return false;
+}
+
+// ============================================================================
+// URL HASH PERSISTENCE — Deep links for grant reviewers
+// ============================================================================
+
+const LAYER_SHORT = { psalm_citation: 'psalm', translation: 'trans', commentary: 'comm', glosses: 'gloss' };
+const LAYER_LONG = Object.fromEntries(Object.entries(LAYER_SHORT).map(([k,v]) => [v,k]));
+
+function stateToHash() {
+  const p = new URLSearchParams();
+  p.set('v', state.activeVerse);
+  const layers = [...state.visibleLayers].map(l => LAYER_SHORT[l]).filter(Boolean).join(',');
+  if (layers) p.set('layers', layers);
+  if (state.showNhd) p.set('nhd', '1');
+  if (state.splitLanguages) p.set('split', '1');
+  const src = [...state.sourceFilter].join(',');
+  if (src) p.set('src', src);
+  const panels = [];
+  if (state.panels.sources) panels.push('src');
+  if (state.panels.facsimile) panels.push('facs');
+  if (panels.length) p.set('panels', panels.join(','));
+  return '#' + p.toString();
+}
+
+function parseUrlHash() {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return;
+  const p = new URLSearchParams(hash);
+
+  if (p.has('v')) {
+    const v = parseInt(p.get('v'), 10);
+    if (v >= 1 && v <= 13) state.activeVerse = v;
+  }
+  if (p.has('layers')) {
+    state.visibleLayers.clear();
+    p.get('layers').split(',').forEach(s => { const l = LAYER_LONG[s]; if (l) state.visibleLayers.add(l); });
+  }
+  state.showNhd = p.get('nhd') === '1';
+  state.splitLanguages = p.get('split') === '1';
+  if (p.has('src')) {
+    state.sourceFilter.clear();
+    p.get('src').split(',').forEach(s => { if (s) state.sourceFilter.add(s); });
+  }
+  if (p.has('panels')) {
+    const pn = p.get('panels').split(',');
+    state.panels.sources = pn.includes('src');
+    state.panels.facsimile = pn.includes('facs');
+  }
+}
+
+function updateUrlHash() {
+  history.replaceState(null, '', stateToHash());
+}
+
 // ============================================================================
 // STATE
 // ============================================================================
-// ============================================================================
+
 // VERSE → MANUSCRIPT PAGE MAPPING (Text-Bild-Synopse)
 // Maps verse numbers to CSg 0021 manuscript page numbers.
 // Page numbers are 0-indexed for OpenSeadragon (page 11 = index 10).
@@ -1933,13 +2003,36 @@ const state = {
 // RENDERING
 // ============================================================================
 
-function init() {
+async function init() {
+  await loadEditionData();
+  parseUrlHash();
   renderPsalmNav();
   renderSourceFilters();
   renderVerses();
-  selectVerse(1);
+  selectVerse(state.activeVerse);
   setupKeyboardShortcuts();
   setupDividerDrag();
+  // Apply parsed URL state to UI
+  syncUiToState();
+}
+
+function syncUiToState() {
+  document.querySelectorAll('.toggle-btn[data-layer]').forEach(btn => {
+    btn.classList.toggle('active', state.visibleLayers.has(btn.dataset.layer));
+  });
+  document.querySelector('.toggle-btn[data-toggle="nhd"]')?.classList.toggle('active', state.showNhd);
+  document.querySelector('.toggle-btn[data-toggle="split"]')?.classList.toggle('active', state.splitLanguages);
+  document.querySelectorAll('.source-filter').forEach(el => {
+    el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
+  });
+  if (!state.panels.sources) togglePanel('sources');
+  if (state.panels.facsimile) togglePanel('facsimile');
+  if (state.showNhd) document.querySelectorAll('.nhd-translation').forEach(el => el.classList.add('visible'));
+  if (state.splitLanguages) {
+    document.querySelectorAll('.verse-interleaved').forEach(el => el.classList.add('hidden-by-split'));
+    document.querySelectorAll('.verse-split').forEach(el => el.classList.add('visible'));
+  }
+  updateSourceHighlights();
 }
 
 function renderPsalmNav() {
@@ -1985,16 +2078,26 @@ function renderVerses() {
   const container = document.getElementById('verses-container');
   container.innerHTML = '';
 
+  // Build verse group labels: find which verses are included in others
+  const groupEnd = {};
+  EDITION_DATA.verses.forEach(v => {
+    if (v.included_in != null) groupEnd[v.included_in] = Math.max(groupEnd[v.included_in] || 0, v.number);
+  });
+
   EDITION_DATA.verses.forEach(verse => {
+    // Skip verses that are part of a group (included_in another)
+    if (verse.included_in != null) return;
+
     const el = document.createElement('div');
     el.className = 'verse';
     el.dataset.verse = verse.number;
     el.onclick = () => selectVerse(verse.number);
 
-    // Verse number
+    // Verse number (show range if group)
     const numEl = document.createElement('div');
     numEl.className = 'verse-number';
-    numEl.textContent = verse.number;
+    const endVerse = groupEnd[verse.number];
+    numEl.textContent = endVerse ? `${verse.number}–${endVerse}` : verse.number;
     el.appendChild(numEl);
 
     // Page marker
@@ -2108,6 +2211,7 @@ function selectVerse(num) {
   });
   updateSourcesPanel();
   navigateFacsimile(num);
+  updateUrlHash();
 }
 
 function navigateFacsimile(verseNum) {
@@ -2143,6 +2247,7 @@ function toggleLayer(layer) {
   }
   // Re-render split view if active
   if (state.splitLanguages) renderVerses();
+  updateUrlHash();
 }
 
 function toggleNhd() {
@@ -2151,6 +2256,7 @@ function toggleNhd() {
   document.querySelectorAll('.nhd-translation').forEach(el => {
     el.classList.toggle('visible', state.showNhd);
   });
+  updateUrlHash();
 }
 
 function toggleSplit() {
@@ -2162,7 +2268,8 @@ function toggleSplit() {
   document.querySelectorAll('.verse-split').forEach(el => {
     el.classList.toggle('visible', state.splitLanguages);
   });
-  if (state.splitLanguages) renderVerses(); // re-render to apply layer filters to split view
+  if (state.splitLanguages) renderVerses();
+  updateUrlHash();
 }
 
 function toggleSourceFilter(sigle) {
@@ -2171,13 +2278,12 @@ function toggleSourceFilter(sigle) {
   } else {
     state.sourceFilter.add(sigle);
   }
-  // Update filter button
   document.querySelectorAll('.source-filter').forEach(el => {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
   });
-  // Highlight sections in main text
   updateSourceHighlights();
   updateSourcesPanel();
+  updateUrlHash();
 }
 
 function updateSourceHighlights() {
@@ -2234,6 +2340,7 @@ function togglePanel(panel) {
     document.getElementById('facsimile-toggle-btn').style.display = state.panels.facsimile ? 'none' : '';
     if (state.panels.facsimile && !window._osdInitialized) initOSD();
   }
+  updateUrlHash();
 }
 
 // ============================================================================

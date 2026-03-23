@@ -2,7 +2,7 @@
 type: design
 created: 2026-02-27
 updated: 2026-03-23
-status: active
+status: draft
 tags: [notker, ui-design, edition-interface]
 ---
 
@@ -10,341 +10,206 @@ tags: [notker, ui-design, edition-interface]
 
 ## Leitgedanke
 
-Der Prototyp muss Gutachtern eines Drittmittelantrags in wenigen Minuten vermitteln: *Diese digitale Edition löst ein reales philologisches Problem — die Schichtentrennung in Notkers Psalmenkommentar — auf eine Weise, die gedruckte Editionen nicht können.* Jede Designentscheidung dient diesem Demonstrationszweck.
+Der Prototyp vermittelt Gutachtern eines Drittmittelantrags: *Diese digitale Edition löst ein reales philologisches Problem — die Schichtentrennung in Notkers Psalmenkommentar — auf eine Weise, die gedruckte Editionen nicht können.* Jede Designentscheidung dient diesem Demonstrationszweck.
 
-Die zentrale editorische Leistung ist nicht die Textpräsentation allein, sondern die **Sichtbarmachung von Informationsschichten**, die in der Handschrift verschränkt, in der Probeseite farbcodiert und in bisherigen Druckeditionen unaufgelöst geblieben sind.
+Die zentrale editorische Leistung ist die **Sichtbarmachung von Informationsschichten**, die in der Handschrift verschränkt, in der Probeseite farbcodiert und in bisherigen Druckeditionen unaufgelöst geblieben sind. Das Interface trennt nach **Textfunktion** (Zitat/Übersetzung/Kommentar), nicht nach Sprache (lat./ahd.) — das ist die philologisch bedeutsamere Unterscheidung und der Kern der editorischen Entscheidung. Sprachbasierte Trennung wird als sekundäre Ansicht angeboten.
 
 ---
 
-## 1. Editionsinterface-Konzept
+## 1. Synoptische Darstellung
 
-### 1.1 Synoptische Darstellung
+Notkers Text ist ein Geflecht aus drei funktionalen Schichten (vgl. [[Probeseite Analyse#Farbcodierung]]):
 
-Notkers Text ist ein **Geflecht aus drei funktionalen Schichten** (vgl. [[Probeseite Analyse#Farbcodierung]]):
-
-| Schicht | Funktion | In der Handschrift | In der Probeseite |
+| Schicht | Funktion | Handschrift | Probeseite |
 |---|---|---|---|
-| Psalmzitation | Notker zitiert den lat. Psalmvers | Rot (= Latein) | Olive (#806000) |
-| Übersetzung | Notker überträgt den Psalmvers ins Ahd. | Schwarz (= Deutsch) | Grün (#00B050) |
-| Kommentar | Notker kommentiert exegetisch (ahd. + lat.) | Schwarz (= Deutsch) | Schwarz (default) |
+| Psalmzitation | Notker zitiert den lat. Psalmvers | Rot | Olive (#806000) |
+| Übersetzung | Notker überträgt ins Ahd. | Schwarz | Grün (#00B050) |
+| Kommentar | Notker kommentiert exegetisch (ahd. + lat.) | Schwarz | Schwarz |
 
-Die Handschrift trennt nach **Sprache** (rot/schwarz). Die Probeseite trennt nach **Textfunktion** (Zitat/Übersetzung/Kommentar). Das UI muss die funktionale Logik umsetzen, weil sie die philologisch bedeutsamere Unterscheidung ist. Sprachbasierte Trennung (lat./ahd.) wird als sekundäre Ansicht angeboten.
+Drei Ansichtsmodi bauen aufeinander auf:
 
-**Standardansicht (verschränkt):** Alle drei Schichten sind sichtbar, farblich differenziert, in der Reihenfolge des Originaltextes. So liest man Notker, wie er geschrieben hat — ein Vers entfaltet sich als Psalmzitat → Übersetzung → Kommentar. Der Gutachter sieht sofort die Komplexität und Mehrschichtigkeit.
+**Standardansicht (verschränkt).** Alle drei Schichten sichtbar, farblich differenziert, in Originalreihenfolge. Ein Vers entfaltet sich als Psalmzitat → Übersetzung → Kommentar. Der Gutachter sieht sofort die Mehrschichtigkeit.
 
-**Gefilterte Ansichten (per Toggle):** Jede Schicht einzeln ab- oder zuschaltbar. Ein Gutachter, der nur wissen will, *was* Notker aus dem Psalm macht, blendet den Kommentar aus und sieht nur Zitat + Übersetzung. Ein Forscher, der die Exegese untersucht, blendet die Psalmzitation aus und sieht nur Kommentar.
+**Gefilterte Ansichten (per Toggle).** Jede Schicht einzeln ab-/zuschaltbar. Ein Forscher, der die Exegese untersucht, blendet die Psalmzitation aus und sieht nur Kommentar.
 
-**Zweispaltige Ansicht (lat./ahd.-Split):** Orthogonal zu den Schicht-Toggles. Trennt den sichtbaren Text nach Sprache in zwei synchron scrollende Spalten. Funktioniert unabhängig davon, welche Schichten aktiv sind. Das ist das "Killer-Feature" für Gutachter: ein Klick verwandelt den verschränkten Text in ein übersichtliches Nebeneinander.
-
-### 1.2 Glossierung
-
-14 Interlinearglossen in Psalm 2 (vgl. [[Probeseite Analyse#Interlinearglossen]]). Sie stehen zwischen Token und Kommentar: Kurzübersetzungen einzelner lateinischer Fachtermini.
-
-**Darstellungsprinzip:** Glossen erscheinen **inline** an der Position, an der sie im Textfluss stehen. Sie sind visuell als Annotationstyp erkennbar — nicht als Haupttext, nicht als Fußnote, sondern als "dritte Ebene" zwischen Zeile und Rand.
-
-**Konkrete Umsetzung:**
-
-```
-[Haupttextzeile]
-  penêmida → Vorherbestimmung          ← Glosse, eingerückt, kleinere Schrift
-[nächste Haupttextzeile mit prȩdistinationem]
-```
-
-Die Glosse zeigt: ahd. Glossenwort, Pfeil, nhd. Übersetzung. Der lateinische Bezugsbegriff ist im Haupttext an der darüber- oder darunterliegenden Stelle erkennbar. Eine explizite Verbindungslinie wäre visuell überladen.
-
-**Toggle:** Glossen sind separat ein-/ausblendbar ([[Anforderungen#Epic 4|US-4.2]]). Standard: AN. Wenn ausgeblendet, fließt der Haupttext ohne Unterbrechung.
-
-### 1.3 Navigation
-
-**Versnavigation:** 13 Verse, nummeriert am linken Rand. Klick auf eine Versnummer scrollt den Vers in den sichtbaren Bereich und aktualisiert das Quellen-Panel. Der aktive Vers erhält einen subtilen Hintergrund-Highlight.
-
-**Psalmnavigation (Skalierbarkeit):** Im Header eine horizontale Leiste mit Psalm-Nummern 1–150. Nur Psalm 2 ist aktiv, alle anderen sind ausgegraut. Das signalisiert Gutachtern: die Vision skaliert. Kein funktionaler Aufwand, nur visuelles Signal.
-
-**Editions-Seitenumbrüche:** Die Seitenreferenzen R10–R13 (Tax/Sehrt-Edition) werden als dezente Randnotiz an der entsprechenden Stelle im Text markiert, damit Forscher von der digitalen Edition in die gedruckte springen können.
-
-### 1.4 Quellenapparat
-
-**Sidebar-Prinzip:** Quellen werden nicht als Popup oder Tooltip gezeigt, sondern in einem persistenten Panel links vom Haupttext. Begründung: Gutachter und Forscher wollen Quelle und Text **gleichzeitig** lesen, nicht flüchtig einblenden.
-
-**Aufbau des Quellen-Panels:**
-1. **Filterbereich** (oben): Checkboxen pro Quellen-Sigle (A, C, R, Br). Aktive Filter heben die zugehörigen Stellen im Haupttext farblich hervor.
-2. **Quelleneinträge** (darunter): Pro aktiver Quelle zum ausgewählten Vers ein Block mit:
-   - Sigle und vollständiger Quellenname (z.B. "C — Cassiodor, Expositio Psalmorum")
-   - Lateinischer Originaltext
-   - Deutsche Übersetzung (Philipps Arbeit)
-
-**Quellen-Highlight im Haupttext:** Wenn ein Quellenfilter aktiv ist, werden die Haupttext-Zeilen, die mit dieser Quelle assoziiert sind (über `source_sigles`), mit einem dezenten farbigen Seitenstreifen markiert. Farbzuordnung pro Quelle:
-
-| Sigle | Farbe (Vorschlag) |
-|---|---|
-| A (Augustinus) | Blau |
-| C (Cassiodor) | Grün |
-| R (Remigius) | Orange |
-| Br (Breviarium) | Violett |
-
-### 1.5 Facsimile-Anbindung
-
-**Panel rechts**, ein-/ausklappbar. Zeigt das Digitalisat von CSg 0021 (e-codices) via IIIF-Viewer. Standardmäßig **eingeklappt**, um auf Laptop-Bildschirmen Platz für Text und Quellen zu lassen. Ein Gutachter, der die Handschrift sehen will, klappt es auf — das ist ein bewusster Akt, kein Default.
-
-Zoom und Pan über den eingebetteten Viewer. Navigation zwischen den relevanten Seiten (ab Seite 11). Keine Verknüpfung auf Zeilenebene im Prototyp (wäre wünschenswert, aber Aufwand übersteigt Budget).
-
-### 1.6 Neuhochdeutsche Übersetzung
-
-Philipps nhd. Arbeitsübersetzung ist einblendbar per Toggle. Darstellung: **unterhalb jedes Verses** als kursiver Block in gedämpftem Grauton. Nicht als eigene Spalte (zu viel Platz), nicht als Tooltip (zu flüchtig).
-
-Standard: AUS. Gutachter ohne Althochdeutsch-Kenntnisse können sie bei Bedarf zuschalten.
+**Zweispaltige Ansicht (lat./ahd.-Split).** Orthogonal zu den Schicht-Toggles. Trennt den sichtbaren Text nach Sprache in zwei synchron scrollende Spalten. Das ist das Demonstrationsfeature für Gutachter: ein Klick verwandelt den verschränkten Text in ein übersichtliches Nebeneinander.
 
 ---
 
-## 2. UI-Architektur und Designsystem
+## 2. Komponenten
 
-### 2.1 Gesamtlayout
+### 2.1 Glossierung
 
-Dreispaltiges Grundraster mit flexiblen Proportionen:
+14 Interlinearglossen in Psalm 2 (vgl. [[Probeseite Analyse#Interlinearglossen]]). Darstellung **inline**, eingerückt, in reduziertem Schriftgrad (0.85rem), Blaugrau. Per Toggle abschaltbar (Standard: AN). So erscheinen Glossen als das, was sie sind: eine Annotationsebene zwischen Zeile und Rand, weder Haupttext noch Fußnote.
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  HEADER                                                  │
-│  Projekttitel · Psalm-Leiste [1 ··· 2 ··· 150]          │
-├───────────┬───────────────────────────┬─────────────────┤
-│           │                           │                 │
-│  QUELLEN  │      HAUPTTEXT            │   FACSIMILE     │
-│  ~25%     │      ~50%                 │   ~25%          │
-│           │                           │   (einklappbar) │
-│           │  ┌─────────────────────┐  │                 │
-│           │  │ Toggle-Toolbar      │  │                 │
-│           │  ├─────────────────────┤  │                 │
-│           │  │ Vers 1              │  │                 │
-│           │  │ Vers 2              │  │                 │
-│           │  │ ...                 │  │                 │
-│           │  └─────────────────────┘  │                 │
-│           │                           │                 │
-├───────────┴───────────────────────────┴─────────────────┤
-│  FOOTER                                                  │
-│  Zitierhinweis · Projektkontext · Lizenz                 │
-└─────────────────────────────────────────────────────────┘
-```
+### 2.2 Quellenapparat
 
-Panels sind durch verschiebbare Trenner getrennt (Drag-to-resize). Quellen-Panel und Facsimile-Panel können unabhängig ein-/ausgeklappt werden. Wenn beide eingeklappt sind, nimmt der Haupttext die volle Breite ein.
+Persistentes Panel links vom Haupttext. Begründung: Gutachter und Forscher lesen Quelle und Text gleichzeitig, nicht flüchtig per Tooltip.
 
-### 2.2 Typografie
+Aufbau: Filterbereich oben (Checkboxen pro Sigle), darunter Quelleneinträge zum ausgewählten Vers mit Sigle, Quellenname, lateinischem Text und deutscher Übersetzung. Aktive Filter markieren zugehörige Haupttext-Zeilen mit farbigem Seitenstreifen.
 
-**Editionstext (Haupttext):** Serifen-Schrift. Akademische Konvention, erhöht Lesbarkeit langer Textpassagen. Muss altgermanistische Sonderzeichen unterstützen: ȩ, û, ô, î, ê, â, é, á, ó, í. Kandidaten: Junicode, Gentium Plus, oder ein systemnaher Fallback (Georgia, Palatino).
+Quellenfarben: A (Augustinus) = Blau, C (Cassiodor) = Grün, R (Remigius) = Orange, Br (Breviarium) = Violett. Diese Farben sind bewusst als dezente Seitenstreifen umgesetzt, um Interferenz mit den Textschicht-Farben zu minimieren. Das Überlagerungsrisiko bei mehreren gleichzeitig aktiven Filtern bleibt ein offener Testpunkt (→ D-11).
 
-**Psalmzitation:** Gleiche Serifenschrift, etwas größerer Schriftgrad oder Kapitälchen für VERSALIEN-Psalmzitate. Farblich abgesetzt (warm-rötlich).
+### 2.3 Facsimile-Anbindung
 
-**Interlinearglossen:** Gleiche Serifenschrift, um ~20% reduzierter Schriftgrad. Einrückung, visuell als Annotation erkennbar.
+Rechtes Panel, ein-/ausklappbar, standardmäßig eingeklappt. IIIF-Viewer für CSg 0021 (e-codices). Navigation ab Seite 11.
 
-**Quellenapparat:** Gleiche Serifenschrift wie Editionstext. Lateinischer Text und deutsche Übersetzung visuell getrennt (lat. regulär, dt. kursiv oder umgekehrt).
+**Text-Bild-Synopse.** Versklick navigiert den Viewer zur korrekten Handschriftenseite (Seiten-Synopse, nicht Zeilensynopse). Mapping: Vers → Seite.
 
-**nhd. Übersetzung:** Kursiv, gedämpfter Grauton. Gleiche Serifenschrift.
+Einschränkung, die benannt werden muss: Auf einer dicht beschriebenen Handschriftenseite muss der Nutzer den Vers selbst finden. Zeilenverknüpfung wäre wünschenswert, erfordert aber manuelle Koordinaten-Annotation (geschätzt 4–8h) und übersteigt das Prototyp-Budget. Die Seiten-Synopse demonstriert das Prinzip und skaliert.
 
-**UI-Elemente (Toggles, Filter, Navigation):** Serifenlose Schrift. Klein, funktional, soll nicht vom Editionstext ablenken. Labels in Deutsch.
+### 2.4 Neuhochdeutsche Übersetzung
 
-**Schriftgrößen-Hierarchie:**
+Per Toggle zuschaltbar (Standard: AUS). Darstellung unterhalb jedes Verses, kursiv, gedämpfter Grauton. Nicht als Spalte (zu viel Platz im 3-Panel-Layout), nicht als Tooltip (zu flüchtig).
 
-| Ebene | Relativ | Verwendung |
+### 2.5 Navigation
+
+**Versnavigation.** 13 Verse, nummeriert am linken Rand. Klick scrollt und aktualisiert das Quellen-Panel. Aktiver Vers erhält subtilen Hintergrund-Highlight.
+
+**Psalmleiste.** Horizontale Leiste im Header, Psalm 1–150. Nur Psalm 2 aktiv, alle anderen ausgegraut. Rein visuelles Skalierungssignal für Gutachter.
+
+**Editions-Seitenumbrüche.** Referenzen R10–R13 (Tax/Sehrt-Edition) als dezente Randnotiz.
+
+---
+
+## 3. Layout und Designsystem
+
+### 3.1 Gesamtlayout
+
+Dreispaltiges Grundraster: Quellen (~25%) · Haupttext (~50%) · Facsimile (~25%, einklappbar). Panels durch verschiebbare Trenner getrennt (*drag-to-resize*). Quellen- und Facsimile-Panel unabhängig ein-/ausklappbar. Header mit Projekttitel und Psalmleiste, Footer mit Zitierhinweis, Projektkontext, Lizenz.
+
+### 3.2 Typografie
+
+Editionstext in Serifenschrift (Gentium Book Plus via Google Fonts, Fallback Palatino → Georgia). Muss altgermanistische Sonderzeichen unterstützen (ȩ, û, ô, î, ê, â, é, á, ó, í). UI-Elemente (Toggles, Filter, Navigation) serifenlos, klein, funktional.
+
+| Ebene | Größe | Verwendung |
 |---|---|---|
-| H1 | 1.5rem | Projekttitel (nur Header) |
-| Psalmzitat (Versalien) | 1.1rem | QVARE FREMVERVNT GENTES |
-| Haupttext | 1.0rem (Basis) | Übersetzung, Kommentar |
-| Glossen | 0.85rem | Interlinearglossen |
+| H1 | 1.5rem | Projekttitel |
+| Psalmzitat | 1.1rem | QVARE FREMVERVNT GENTES |
+| Haupttext | 1.0rem | Übersetzung, Kommentar |
 | nhd. Übersetzung | 0.9rem | Philipps Arbeitsübersetzung |
+| Glossen | 0.85rem | Interlinearglossen |
 | UI-Labels | 0.8rem | Toggles, Filter, Fußzeile |
 
-### 2.3 Farbsystem
+### 3.3 Farbsystem
 
 Drei Farblogiken existieren im Projekt (vgl. [[Domänenwissen#Drei überlagernde Farblogiken]]). Das UI definiert die dritte:
 
-**Primärfarben (Textschichten):**
+**Textschicht-Farben:**
 
-| Schicht | Farbe | HSL-Bereich | Begründung |
+| Schicht | Farbe | HSL | Begründung |
 |---|---|---|---|
-| Psalmzitation | Terracotta / warmes Rot | hsl(15, 60%, 40%) | Reminiszenz an die rote Tinte der Handschrift |
-| Übersetzung | Dunkles Schwarzbraun | hsl(30, 20%, 15%) | Reminiszenz an die schwarze Tinte; visuell "Hauptstimme" |
-| Kommentar | Mittelgrau | hsl(0, 0%, 45%) | Tritt zurück, dominiert nicht |
-| Interlinearglossen | Gedämpftes Blaugrau | hsl(210, 20%, 50%) | Eigene Farbe, klar abgesetzt vom Textfluss |
+| Psalmzitation | Terracotta | hsl(15, 60%, 40%) | Reminiszenz an rote Tinte der Handschrift |
+| Übersetzung | Schwarzbraun | hsl(30, 20%, 15%) | Reminiszenz an schwarze Tinte, visuell "Hauptstimme" |
+| Kommentar | Mittelgrau | hsl(0, 0%, 45%) | Tritt zurück |
+| Glossen | Blaugrau | hsl(210, 20%, 50%) | Eigene Farbe, abgesetzt vom Textfluss |
 
-**Sekundärfarben (Quellen-Highlighting):**
+**Funktionsfarben:** Aktiver Vers hsl(40, 10%, 96%), nhd. Übersetzung hsl(0, 0%, 55%), Hauptfläche weiß, Quellen-Panel hsl(0, 0%, 97%), Facsimile-Panel schwarz.
 
-| Sigle | Farbe | Verwendung |
-|---|---|---|
-| A (Augustinus) | Blau, dezent | Seitenstreifen im Haupttext bei aktivem Filter |
-| C (Cassiodor) | Grün, dezent | dto. |
-| R (Remigius) | Orange, dezent | dto. |
-| Br (Breviarium) | Violett, dezent | dto. |
+**Gesamtästhetik.** Seriös-akademisch. Neutrale Basis, Farbe ausschließlich funktional. Kein Dekor, keine Gradienten. Das Interface soll wie ein philologisches Werkzeug aussehen.
 
-**Funktionsfarben:**
+### 3.4 Responsivität
 
-| Element | Farbe |
-|---|---|
-| Aktiver Vers (Hintergrund) | Sehr helles Warmgrau, hsl(40, 10%, 96%) |
-| nhd. Übersetzung | Hellgrau, hsl(0, 0%, 55%) |
-| Hintergrund Hauptfläche | Weiß |
-| Hintergrund Quellen-Panel | Sehr helles Grau, hsl(0, 0%, 97%) |
-| Hintergrund Facsimile-Panel | Schwarz (IIIF-Viewer-Konvention) |
-
-**Gesamtästhetik:** Seriös-akademisch. Neutrale Basis, Farbe ausschließlich funktional. Kein Dekor, keine Illustrationen, keine Gradienten. Das Interface soll wie ein philologisches Werkzeug aussehen, nicht wie eine App.
-
-### 2.4 Responsivität
-
-**Primäre Zielgröße:** Laptop-Bildschirm (1280–1440px Breite). Der Prototyp wird Gutachtern auf einem Laptop oder großen Monitor präsentiert, nicht auf Mobilgeräten.
-
-**Breakpoints:**
-
-| Breite | Layout |
-|---|---|
-| ≥ 1200px | Drei Panels nebeneinander (Standard) |
-| 900–1199px | Zwei Panels (Quellen oder Facsimile eingeklappt) |
-| < 900px | Einzelpanel mit Tab-Navigation (Haupttext / Quellen / Facsimile) |
-
-Mobile-Optimierung ist für den Prototyp kein Ziel. Die schmalen Breakpoints sind ein Fallback, kein Feature.
+Primäre Zielgröße: Laptop (1280–1440px). ≥1200px drei Panels, 900–1199px zwei Panels, <900px Einzelpanel mit Tabs. Mobile ist kein Ziel.
 
 ---
 
-## 3. Informationshierarchie
+## 4. Interaktion
 
-Die Edition hat **sechs Informationstypen** (vgl. [[Domänenwissen#Textfunktionale Schichten]]). Sie sind hierarchisch geordnet nach visueller Prominenz:
+### 4.1 Toggle-System
+
+Sechs Toggles in zwei orthogonalen Gruppen:
+
+**Gruppe A — Textschichten:** Psalmzitation (1), Übersetzung (2), Kommentar (3), Glossen (4). Alle initial AN.
+
+**Gruppe B — Darstellung:** nhd. Übersetzung (N), lat./ahd. trennen (L). Beide initial AUS.
+
+Die Gruppen sind frei kombinierbar. Beispielszenarien:
+
+| Ziel | Gruppe A | Gruppe B |
+|---|---|---|
+| Erstbesuch | Alle AN | Alle AUS |
+| Nur den Psalm | Nur Psalmzitat | — |
+| Zweisprachig | Psalmzitat + Übersetzung | lat./ahd. Split AN |
+| Ohne Ahd.-Kenntnisse | Alle AN | nhd. AN |
+
+Aktive Toggles farblich gefüllt (Pillbutton). Beim Umschalten Opacity-Übergang, kein hartes Erscheinen/Verschwinden.
+
+### 4.2 Zustandsmodell
 
 ```
-Ebene 1 (immer sichtbar, Zentrum)
-  └── Haupttext: Psalmzitation + Übersetzung + Kommentar
-        │
-        ├── 1a. Psalmzitation (farblich hervorgehoben, Versalien)
-        ├── 1b. Übersetzung (farblich hervorgehoben, Fließtext)
-        └── 1c. Kommentar (zurückgenommen, Fließtext)
-
-Ebene 2 (eingebettet, abschaltbar)
-  └── Interlinearglossen (inline, kleiner, eigene Farbe)
-
-Ebene 3 (flankierend, persistent)
-  └── Quellenapparat (Sidebar links, aktualisiert bei Vers-Klick)
-
-Ebene 4 (optional, zuschaltbar)
-  ├── nhd. Übersetzung (unterhalb der Verse, per Toggle)
-  └── Facsimile (Panel rechts, ein-/ausklappbar)
-
-Ebene 5 (Kontext, statisch)
-  └── Editions-Seitenumbrüche, Zitierhinweise, Einleitungstext
+activeVerse: number (1–13)
+visibleLayers: Set<'psalm_citation' | 'translation' | 'commentary' | 'glosses'>
+showNhd: boolean
+splitLanguages: boolean
+sourceFilter: Set<string>
+panelState: { sources: 'open' | 'closed', facsimile: 'open' | 'closed' }
 ```
 
-**Prinzip: Progressive Disclosure.** Der Standardzustand zeigt Ebene 1–3. Ebene 4 wird aktiv zugeschaltet. So sieht ein Gutachter beim ersten Laden ein lesbares Interface, nicht ein überfrachtetes. Die Komplexität entfaltet sich bei Interaktion.
+**URL-Persistenz.** Zustand wird in URL-Fragment kodiert. Ermöglicht dem Antragsteller, Gutachter gezielt auf bestimmte Verse mit bestimmter Toggle-Konfiguration zu verlinken. Das ist kein Luxus, sondern direkt relevant für die Begutachtungssituation.
 
-### Visueller Rhythmus innerhalb eines Verses
-
-Ein einzelner Vers ist die atomare Einheit der Edition. So baut er sich visuell auf:
+### 4.3 Visueller Rhythmus eines Verses
 
 ```
 ┌─────────────────────────────────────────┐
-│ 1  ← Versnummer (Randnotiz)             │
-│                                          │
-│ QVARE FREMVERVNT GENTES.               │ ← Psalmzitation (Terracotta)
-│ Ziu grís-cramoton an christum ebraicȩ   │ ← Übersetzung (Schwarzbraun)
+│ 1                                        │  Versnummer
+│ QVARE FREMVERVNT GENTES.               │  Psalmzitation (Terracotta)
+│ Ziu grís-cramoton an christum ebraicȩ   │  Übersetzung (Schwarzbraun)
 │ gentes?                                  │
-│   iúdon diêt → Juden Volk              │ ← Glosse (Blaugrau, eingerückt)
-│ Et populi meditati sunt inania.         │ ← Psalmzitation
-│ Vnde ziu dâhton sîne liûte ardingun.   │ ← Übersetzung
+│   iúdon diêt → Juden Volk              │  Glosse (Blaugrau, eingerückt)
+│ Et populi meditati sunt inania.         │  Psalmzitation
+│ Vnde ziu dâhton sîne liûte ardingun.   │  Übersetzung
 │ ín ze irloschenne? Sie dâhton           │
-│ des ín ubelo spuên solta.              │ ← Kommentar (Mittelgrau)
-│                                          │
-│ Warum wüteten an Christus die           │ ← nhd. Übersetzung (optional,
-│ hebräischen Völker? ...                  │    hellgrau kursiv)
-│                                     R10 │ ← Editions-Seitenreferenz
+│ des ín ubelo spuên solta.              │  Kommentar (Mittelgrau)
+│ Warum wüteten an Christus die           │  nhd. (optional, hellgrau kursiv)
+│ hebräischen Völker? ...                  │
+│                                     R10 │  Editions-Seitenreferenz
 └─────────────────────────────────────────┘
 ```
 
 ---
 
-## 4. Interaktionskonzept
+## 5. Informationshierarchie
 
-### 4.1 Toggle-System
+Fünf Ebenen, geordnet nach visueller Prominenz. **Progressive Disclosure**: Standardzustand zeigt Ebene 1–3, Ebene 4 wird aktiv zugeschaltet. Ein Gutachter sieht beim ersten Laden ein lesbares Interface, nicht ein überfrachtetes.
 
-Sechs Toggles, gruppiert in einer Toolbar über dem Haupttext:
-
-**Gruppe A — Textschichten (Was sehe ich?)**
-
-| Toggle | Initialzustand | Tastenkürzel |
+| Ebene | Inhalt | Sichtbarkeit |
 |---|---|---|
-| Psalmzitation | ● AN | 1 |
-| Übersetzung | ● AN | 2 |
-| Kommentar | ● AN | 3 |
-| Interlinearglossen | ● AN | 4 |
-
-**Gruppe B — Darstellung (Wie sehe ich es?)**
-
-| Toggle | Initialzustand | Tastenkürzel |
-|---|---|---|
-| nhd. Übersetzung | ○ AUS | N |
-| lat./ahd. trennen | ○ AUS | L |
-
-**Verhalten:** Die Toggles der Gruppe A und B sind orthogonal. Beispielkombinationen:
-
-| Szenario | Gruppe A | Gruppe B | Ergebnis |
-|---|---|---|---|
-| Erstbesuch | Alle AN | Alle AUS | Volltext, verschränkt, ohne nhd. |
-| "Nur den Psalm zeigen" | Nur Psalmzitat AN | — | Nur die lat. Psalmverse sichtbar |
-| "Zweisprachig" | Psalmzitat + Übersetzung AN | lat./ahd. trennen AN | Zwei Spalten: lat. Psalm links, ahd. Übersetzung rechts |
-| "Ich verstehe kein Ahd." | Alle AN | nhd. AN | Volltext mit nhd. Übersetzung unter jedem Vers |
-
-**Visuelles Feedback:** Aktive Toggles sind farblich gefüllt (Pillbutton-Stil). Beim Umschalten animiert der Text sanft (Opacity-Übergang, kein hartes Erscheinen/Verschwinden).
-
-### 4.2 Vers-Interaktion
-
-| Aktion | Auslöser | Wirkung |
-|---|---|---|
-| Vers auswählen | Klick auf Versnummer oder Textbereich | Quellen-Panel aktualisiert sich, Vers erhält Hintergrund-Highlight |
-| Quellenfilter setzen | Checkbox im Quellen-Panel | Gefilterte Quellen angezeigt, zugehörige Haupttext-Zeilen markiert |
-| Quellenfilter löschen | Checkbox erneut klicken oder "Alle"-Button | Filter entfernt, Markierung entfernt |
-
-### 4.3 Panel-Interaktion
-
-| Aktion | Auslöser | Wirkung |
-|---|---|---|
-| Quellen-Panel ein/aus | Klick auf Panel-Rand oder Shortcut | Panel klappt ein/aus, Haupttext nimmt den Platz ein |
-| Facsimile ein/aus | Klick auf Panel-Rand oder Shortcut | dto. |
-| Panel-Breite ändern | Drag am Trenner | Proportionen verschieben sich |
-
-### 4.4 Zustandsmodell
-
-Der gesamte UI-Zustand ist durch wenige Variablen beschrieben:
-
-- `activeVerse: number` (1–13)
-- `visibleLayers: Set<'psalm_citation' | 'translation' | 'commentary' | 'glosses'>`
-- `showNhd: boolean`
-- `splitLanguages: boolean`
-- `sourceFilter: Set<string>` (Siglen)
-- `panelState: { sources: 'open' | 'closed', facsimile: 'open' | 'closed' }`
-
-**URL-Persistenz (nice-to-have):** Zustand in URL-Fragment kodiert, damit ein Gutachter einen bestimmten Vers mit bestimmter Toggle-Kombination als Link teilen kann.
+| 1 | Haupttext (Psalmzitation, Übersetzung, Kommentar) | Immer sichtbar, Zentrum |
+| 2 | Interlinearglossen | Eingebettet, abschaltbar |
+| 3 | Quellenapparat | Flankierend, persistent |
+| 4 | nhd. Übersetzung, Facsimile | Optional, zuschaltbar |
+| 5 | Editions-Seitenumbrüche, Zitierhinweise | Kontext, statisch |
 
 ---
 
-## 5. Offene Designentscheidungen
+## 6. Offene Designentscheidungen
 
-### Gelöst bei Implementierung (23.03.)
+### Vor Implementierung
 
-| Nr. | Frage | Entscheidung | Umgesetzt in |
-|---|---|---|---|
-| D-1 | Glossen: Inline oder Tooltip? | **Inline**, eingerückt, 0.85rem, Blaugrau, mit Pfeil-Separator | `docs/index.html` |
-| D-2 | nhd. Übersetzung: Unter dem Vers oder als Spalte? | **Unterhalb**, kursiv, gestrichelte Trennlinie | `docs/index.html` |
-| D-3 | Quellenfilter: Farbe pro Sigle oder einheitlich? | **Individuelle Farben** (A=Blau, C=Grün, R=Orange, Br=Violett) als 3px-Seitenstreifen | `docs/index.html` |
-| D-4 | Serifenschrift: Welche konkret? | **Gentium Book Plus** via Google Fonts, Fallback Palatino → Georgia → serif | `docs/index.html` |
-
-### Entscheidung abhängig von Scope-Klärung mit Philipp
-
-| Nr. | Frage | Abhängigkeit |
+| Nr. | Frage | Entscheidung |
 |---|---|---|
-| D-5 | Psalmtext-Vergleich: Eigener Tab oder Unter-Panel? | Scope/Budget-Entscheidung |
-| D-6 | Wiener Notker: Paralleltext neben Haupttext oder eigener Tab? | Scope/Budget-Entscheidung |
-| D-7 | Querverweise auf Bibelstellen: Eigener Reiter? Wo im Layout? | Daten fehlen; Philipps Lieferung abwarten |
+| D-1 | Glossen-Darstellung | Inline eingerückt (sichtbarer als Tooltip, ehrlicher gegenüber Textcharakter) |
+| D-2 | nhd. Übersetzung Position | Unterhalb des Verses (platzsparender als Spalte) |
+| D-3 | Quellenfilter-Farbe | Individuelle Sigle-Farben (ermöglicht mehrere Filter gleichzeitig) |
+| D-4 | Serifenschrift | Gentium Book Plus (frei, gute ahd.-Zeichenabdeckung) |
 
-### Entscheidung erst bei Implementierung
+### Abhängig von Scope-Klärung mit Philipp
 
-| Nr. | Frage | Grund |
-|---|---|---|
-| D-8 | Exakte Farbwerte für Textschichten | Muss am Bildschirm getestet werden (Kontrastverhältnisse, Barrierefreiheit) |
-| D-9 | Animation bei Toggle-Umschaltung: Dauer und Art | Muss sich im Prototyp "richtig anfühlen" |
-| D-10 | Facsimile-Panel: Standardbreite und -zustand | Abhängig von tatsächlicher Bildqualität des IIIF-Streams |
+| Nr. | Frage |
+|---|---|
+| D-5 | Psalmtext-Vergleich: Eigener Tab oder Unter-Panel? |
+| D-6 | Wiener Notker: Paralleltext oder eigener Tab? |
+| D-7 | Querverweise auf Bibelstellen: Wo im Layout? |
+
+### Bei Implementierung testbar
+
+| Nr. | Frage |
+|---|---|
+| D-8 | Exakte Farbwerte (Kontrastverhältnisse, Barrierefreiheit) |
+| D-9 | Toggle-Animation (Dauer, Art) |
+| D-10 | Facsimile-Panel Standardbreite und -zustand |
+| D-11 | Farbüberlagerung Textschicht-Farben × Quellenfilter-Farben bei mehreren aktiven Filtern |
 
 ---
 
@@ -354,4 +219,4 @@ Der gesamte UI-Zustand ist durch wenige Variablen beschrieben:
 - [[Probeseite Analyse]] — Datengrundlage für Farblogik und Glosseninventar
 - [[Domänenwissen]] — Textschichten und Farblogiken
 - [[Research Plan]] — Arbeitsphasen und Scope-Bewertung
-- [[Technik]] — Pipeline (TEI→JSON), Web-Stack, IIIF-Integration
+- [[Technik]] — Stack, Datenmodell, Pipeline

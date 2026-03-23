@@ -65,6 +65,16 @@ Bewusst kein Framework — maximale Langlebigkeit. Der Prototyp muss in zwei Jah
 
 Das Projekt folgt der [Promptotyping](https://dhcraft.org)-Methode. Alle Designentscheidungen und Domänenwissen sind in den Wissensdokumenten unter `knowledge/` dokumentiert.
 
+## Erweiterbarkeit
+
+Der Prototyp demonstriert drei Ausbaustufen der Text-Bild-Verknüpfung:
+
+1. **Seiten-Synopse (implementiert):** Vers-Klick navigiert den IIIF-Viewer zur korrekten Handschriftenseite.
+2. **Zeilen-Synopse (nächste Stufe):** Vers-Klick zoomt auf die exakte Zeile in der Handschrift. Erfordert manuelle Koordinaten-Annotation (~4–8h pro Psalm) oder automatisierte Layoutanalyse.
+3. **Token-Synopse (Gesamtprojekt):** Mouse-Over auf ein Wort hebt die korrespondierende Stelle im Digitalisat hervor (vgl. Elwood-Viewer-Methode).
+
+Das orthogonale Toggle-System (Textschichten x Darstellungsmodi) skaliert auf alle 150 Psalmen. Die TEI-XML-Pipeline ist so gebaut, dass weitere Psalmen nur die Probeseite-Daten als Input benötigen.
+
 ## Zitierhinweis
 
 Haupttext-Daten basieren auf dem [Referenzkorpus Altdeutsch (ReA/DDD)](https://korpling.german.hu-berlin.de/annis/ddd):

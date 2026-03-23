@@ -79,11 +79,22 @@ Probeseite erstmals vollständig maschinell geparst (python-docx, Run-Level-Farb
 
 Vault-Struktur: **9 Dokumente**, keine Redundanzen.
 
+## 2026-03-23 – Pipeline komplett, UI mit echten Daten
+
+`tei_to_json.py` gefixt (Vers-Gruppierung, Silbentrennung-Merge), regeneriert: 79 Sections, 14 Glossen, 31 Quellen. UI auf async Fetch umgestellt (Fallback auf eingebettete Demo-Daten für file://).
+
+URL-Persistenz implementiert: Zustand als Hash-Fragment kodiert. Gutachter können Deep Links auf bestimmte Verse mit bestimmter Toggle-Konfiguration teilen.
+
+EVT-Abgrenzung als Kommentarblock im HTML dokumentiert (orthogonale Schichtentrennung, persistentes Quellen-Panel, Single-File).
+
+**Hinweis für Übergabe:** Alvite-Díez (2025), *Int. J. Digital Humanities*, schlägt einen Evaluationsrahmen für UI-Qualität digitaler Editionen vor (Dimensionen: Informationsarchitektur, Navigation, Interaktion, visuelle Gestaltung, Zugänglichkeit). Nützlich als Checkliste vor der Übergabe an Philipp.
+
 ## Offene Fragen
 
 ### Nächste Schritte
-- [ ] `tei_to_json.py` schreiben
-- [ ] Echte Daten ins UI laden
+- [x] ~~`tei_to_json.py` schreiben~~ → fertig, Vers-Gruppen + Hyphenation gefixt
+- [x] ~~Echte Daten ins UI laden~~ → async Fetch mit Fallback
+- [x] ~~URL-Persistenz~~ → Hash-Fragment-Encoding
 - [ ] Vers→Seite-Mapping gegen Facsimile verifizieren
 - [ ] GitHub Pages aktivieren und deployen
 - [ ] Übergabe an Philipp
