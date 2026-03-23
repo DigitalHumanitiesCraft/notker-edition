@@ -33,18 +33,11 @@
         },
         {
           "type": "translation",
-          "text": "Ziu grís-",
+          "text": "Ziu gríscramoton an christum ebraicȩ gentes?",
           "language": "ahd",
           "source_sigles": [
             "G",
-            "R"
-          ]
-        },
-        {
-          "type": "translation",
-          "text": "cramoton an christum ebraicȩ gentes?",
-          "language": "ahd_lat_mixed",
-          "source_sigles": [
+            "R",
             "C"
           ]
         },
@@ -81,7 +74,7 @@
         },
         {
           "type": "commentary",
-          "text": "Sie dâhtondes ín ubelo spuên solta.",
+          "text": "Sie dâhton des ín ubelo spuên solta.",
           "language": "ahd",
           "source_sigles": [
             "A",
@@ -91,7 +84,7 @@
         },
         {
           "type": "psalm_citation",
-          "text": "Astiterunt reges terrȩ . et principesconuenerunt in unum aduersus dominum et aduersus christum eivs.",
+          "text": "Astiterunt reges terrȩ . et principes conuenerunt in unum aduersus dominum et aduersus christum eivs.",
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "G",
@@ -108,7 +101,7 @@
         },
         {
           "type": "commentary",
-          "text": ". nalsána sehendo . nube iro uuíllen oûgendo .",
+          "text": ". nals ána sehendo . nube iro uuíllen oûgendo .",
           "language": "ahd",
           "source_sigles": [
             "C"
@@ -187,10 +180,11 @@
     },
     {
       "number": 2,
+      "included_in": 1,
       "edition_page": "R10",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 1)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -225,7 +219,7 @@
         },
         {
           "type": "translation",
-          "text": "Prechen chádensie írogebénde . unde uuerfen ába uns íro ioch.",
+          "text": "Prechen chádensie íro gebénde . unde uuerfen ába uns íro ioch.",
           "language": "ahd",
           "source_sigles": [
             "C"
@@ -267,24 +261,8 @@
         },
         {
           "type": "commentary",
-          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôh-",
+          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôhlîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuendenne. Dâr ána uuâren sie meditantes inania.",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ]
-        },
-        {
-          "type": "commentary",
-          "text": "lîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuen-",
-          "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ]
-        },
-        {
-          "type": "commentary",
-          "text": "denne. Dâr ána uuâren sie meditantes inania.",
-          "language": "ahd_lat_mixed",
           "source_sigles": [
             "C",
             "G",
@@ -294,7 +272,7 @@
         },
         {
           "type": "psalm_citation",
-          "text": "Tunc loqueturad eos in ira sua . et in furore suo conturbabit eos.",
+          "text": "Tunc loquetur ad eos in ira sua . et in furore suo conturbabit eos.",
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "C",
@@ -305,18 +283,12 @@
         },
         {
           "type": "translation",
-          "text": "Tannespríchet er in zû mit zórne . unde mit hêizmûote getrûo-",
+          "text": "Tanne spríchet er in zû mit zórne . unde mit hêizmûote getrûobet er sie.",
           "language": "ahd",
           "source_sigles": [
             "G",
             "H"
           ]
-        },
-        {
-          "type": "translation",
-          "text": "bet er sie.",
-          "language": "ahd",
-          "source_sigles": []
         },
         {
           "type": "commentary",
@@ -383,18 +355,20 @@
     },
     {
       "number": 4,
+      "included_in": 3,
       "edition_page": "R11",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 3)",
+      "translation_nhd": "",
       "sources": []
     },
     {
       "number": 5,
+      "included_in": 3,
       "edition_page": "R11",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 3)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -403,7 +377,7 @@
       "sections": [
         {
           "type": "psalm_citation",
-          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syonmontem sanctum eius prȩdicans prȩceptum eius.",
+          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon montem sanctum eius prȩdicans prȩceptum eius.",
           "language": "lat",
           "source_sigles": [
             "G [A",
@@ -413,7 +387,7 @@
         },
         {
           "type": "translation",
-          "text": "Ih pin áber fónemînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
+          "text": "Ih pin áber fóne mînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
           "language": "ahd",
           "source_sigles": [
             "G",
@@ -443,7 +417,7 @@
         },
         {
           "type": "commentary",
-          "text": ". dazchît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
+          "text": ". daz chît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "G",
@@ -574,16 +548,8 @@
         },
         {
           "type": "commentary",
-          "text": "Góte neist ne-hêin zît prȩteri-",
+          "text": "Góte neist ne-hêin zît prȩteritum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ]
-        },
-        {
-          "type": "commentary",
-          "text": "tum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
-          "language": "ahd_lat_mixed",
           "source_sigles": [
             "A"
           ]
@@ -711,7 +677,7 @@
         },
         {
           "type": "commentary",
-          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô ersih sélben umbe sie PATRI ópferota.",
+          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er sih sélben umbe sie PATRI ópferota.",
           "language": "ahd",
           "source_sigles": [
             "G",
@@ -824,10 +790,11 @@
     },
     {
       "number": 9,
+      "included_in": 8,
       "edition_page": "R12",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 8)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -858,7 +825,7 @@
         },
         {
           "type": "commentary",
-          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNTten lîchamen. Gehôrrent mînen rat.",
+          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
           "language": "ahd",
           "source_sigles": [
             "A",
@@ -938,7 +905,7 @@
         },
         {
           "type": "commentary",
-          "text": "Ímodanchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
+          "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
           "language": "ahd",
           "source_sigles": [
             "R"
@@ -988,10 +955,11 @@
     },
     {
       "number": 11,
+      "included_in": 10,
       "edition_page": "R13",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(siehe Vers 10)",
+      "translation_nhd": "",
       "sources": []
     },
     {
@@ -1018,19 +986,13 @@
         },
         {
           "type": "commentary",
-          "text": "CHRISTVS ist ter uueg . an démo mánnolich kânsôl.",
+          "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
           "language": "ahd",
           "source_sigles": []
         },
         {
           "type": "psalm_citation",
-          "text": "Cum exarserit in breui ira eius . beati omnes qui con-",
-          "language": "ahd_lat_mixed",
-          "source_sigles": []
-        },
-        {
-          "type": "psalm_citation",
-          "text": "fidunt in eo.",
+          "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
           "language": "ahd_lat_mixed",
           "source_sigles": []
         },
@@ -1095,10 +1057,11 @@
     },
     {
       "number": 13,
+      "included_in": 12,
       "edition_page": "R13",
       "sections": [],
       "glosses": [],
-      "translation_nhd": "(Vers 13 ist in Vers 12 enthalten)",
+      "translation_nhd": "",
       "sources": []
     }
   ],
@@ -1106,31 +1069,31 @@
     "witnesses": [
       {
         "sigle": "G",
-        "name": "Gallicanum",
+        "name": "G",
         "manuscript": null,
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
       },
       {
         "sigle": "R",
-        "name": "Romanum",
+        "name": "R",
         "manuscript": null,
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum."
       },
       {
         "sigle": "H",
-        "name": "Hebraicum (iuxta Hebraeos)",
+        "name": "H",
         "manuscript": null,
         "text": "1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium."
       },
       {
-        "sigle": "A",
-        "name": "Augustinus-Psalter",
+        "sigle": "A-psa",
+        "name": "A-psa",
         "manuscript": null,
         "text": "Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
       },
       {
-        "sigle": "C",
-        "name": "Cassiodor-Psalter",
+        "sigle": "C-psa",
+        "name": "C-psa",
         "manuscript": null,
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo."
       }

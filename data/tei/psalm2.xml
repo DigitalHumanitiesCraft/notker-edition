@@ -28,9 +28,44 @@
         <bibl xml:id="tax_sehrt">Tax, Petrus W. / Sehrt, Edward H.: Notker der Deutsche – Der Psalter (1979), S. R10–R13</bibl>
         <bibl xml:id="wiener_notker">Wiener Notker: ÖNB Cod. 2681, Edition Heinzle &amp; Scherrer</bibl>
         <bibl xml:id="rea_corpus">Referenzkorpus Altdeutsch (DDD), DOI: 10.34644/laudatio-dev-MiXVDnMB7CArCQ9CABmW</bibl>
+        <listWit>
+          <head>Psalter-Textzeugen (synoptischer Vergleich)</head>
+          <witness xml:id="wit-G">Gallicanum</witness>
+          <witness xml:id="wit-R">Romanum</witness>
+          <witness xml:id="wit-H">Hebraicum (iuxta Hebraeos), Staatsbibliothek Bamberg Ms. 44</witness>
+          <witness xml:id="wit-A-psa">Augustinus-Psalter, St. Gallen Cod. 162</witness>
+          <witness xml:id="wit-C-psa">Cassiodor-Psalter, St. Gallen Cod. 200</witness>
+        </listWit>
+        <listBibl>
+          <head>Kommentarquellen (Notkers Vorlagen)</head>
+          <bibl xml:id="src-A">
+            <author>Augustinus</author>
+            <title>Enarrationes in Psalmos</title>
+          </bibl>
+          <bibl xml:id="src-C">
+            <author>Cassiodor</author>
+            <title>Expositio Psalmorum</title>
+          </bibl>
+          <bibl xml:id="src-R">
+            <author>Remigius</author>
+          </bibl>
+          <bibl xml:id="src-Br">
+            <title>Breviarium</title>
+          </bibl>
+          <bibl xml:id="src-RII" cert="low">
+            <title>RII</title>
+          </bibl>
+          <bibl xml:id="src-N" cert="low">
+            <title>N</title>
+          </bibl>
+        </listBibl>
       </sourceDesc>
     </fileDesc>
     <encodingDesc>
+      <segmentation>
+        <p>Der Text ist in funktionale Schichten segmentiert, die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und Kommentar (Notkers Exegese, ahd. und lat. gemischt). Interlinearglossen bilden einen vierten Annotationstyp. Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.</p>
+      </segmentation>
+      <variantEncoding method="parallel-segmentation" location="internal"/>
       <classDecl>
         <taxonomy xml:id="textfunction">
           <category xml:id="fn-psalm">
@@ -44,43 +79,6 @@
           </category>
           <category xml:id="fn-gloss">
             <catDesc>Interlinearglosse: Einzelwort- oder Kurzübersetzung</catDesc>
-          </category>
-        </taxonomy>
-        <taxonomy xml:id="sources">
-          <category xml:id="src-A">
-            <catDesc>Augustinus, Enarrationes in Psalmos</catDesc>
-          </category>
-          <category xml:id="src-C">
-            <catDesc>Cassiodor, Expositio Psalmorum</catDesc>
-          </category>
-          <category xml:id="src-R">
-            <catDesc>Remigius</catDesc>
-          </category>
-          <category xml:id="src-Br">
-            <catDesc>Breviarium</catDesc>
-          </category>
-          <category xml:id="src-RII" cert="low">
-            <catDesc>RII – ungeklärt, vermutlich zweite Remigius-Quelle</catDesc>
-          </category>
-          <category xml:id="src-N" cert="low">
-            <catDesc>N – ungeklärt</catDesc>
-          </category>
-        </taxonomy>
-        <taxonomy xml:id="psalter_witnesses">
-          <category xml:id="wit-G">
-            <catDesc>Gallicanum</catDesc>
-          </category>
-          <category xml:id="wit-R">
-            <catDesc>Romanum</catDesc>
-          </category>
-          <category xml:id="wit-H">
-            <catDesc>Hebraicum (iuxta Hebraeos), Bamberg Ms. 44</catDesc>
-          </category>
-          <category xml:id="wit-A-psa">
-            <catDesc>Augustinus-Psalter, St. Gallen Cod. 162</catDesc>
-          </category>
-          <category xml:id="wit-C-psa">
-            <catDesc>Cassiodor-Psalter, St. Gallen Cod. 200</catDesc>
           </category>
         </taxonomy>
       </classDecl>
@@ -127,30 +125,30 @@
           </ab>
           <ab n="4">
             <seg type="translation" ana="#fn-transl" xml:lang="goh">cramoton an <foreign xml:lang="la">christum</foreign> ebraicȩ gentes? </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg1a" part="I" next="#v1_2-seg1b">Et populi medi-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Et populi medi-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="5">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg1b" part="F" prev="#v1_2-seg1a">tati sunt inania . </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">tati sunt inania . </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">
               <foreign xml:lang="la">idest</foreign> frustura? </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg2a" part="I" next="#v1_2-seg2b">Vnde ziu dâh-<lb break="no"/>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Vnde ziu dâh-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R, A</note>
           </ab>
           <ab n="6">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg2b" part="F" prev="#v1_2-seg2a">ton sîne liûte ardingun . ín ze irloschenne? </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg3a" part="I" next="#v1_2-seg3b">Sie dâhton</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">ton sîne liûte ardingun . ín ze irloschenne? </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Sie dâhton</seg>
             <note type="sigle" place="margin">A</note>
           </ab>
           <ab n="7">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg3b" part="F" prev="#v1_2-seg3a">des ín ubelo spuên solta. </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg4a" part="I" next="#v1_2-seg4b">Astiterunt reges terrȩ . et principes</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">des ín ubelo spuên solta. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Astiterunt reges terrȩ . et principes</seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab n="8">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v1_2-seg4b" part="F" prev="#v1_2-seg4a">conuenerunt <foreign xml:lang="goh">in</foreign> unum aduersus dominum et aduersus christum eivs. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">conuenerunt <foreign xml:lang="goh">in</foreign> unum aduersus dominum et aduersus christum eivs. </seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab ana="#fn-gloss" n="9">
@@ -160,23 +158,23 @@
           <ab n="10">
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Tie lánt-chuninga uuâren gágenuuerte in <foreign xml:lang="la">passione domini</foreign>
             </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg5a" part="I" next="#v1_2-seg5b">. nals</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">. nals</seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="11">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v1_2-seg5b" part="F" prev="#v1_2-seg5a">ána sehendo . nube iro uuíllen oûgendo . </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg6a" part="I" next="#v1_2-seg6b">unde <foreign xml:lang="la">principes</foreign> sacer-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ána sehendo . nube iro uuíllen oûgendo . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">unde <foreign xml:lang="la">principes</foreign> sacer-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="12">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg6b" part="F" prev="#v1_2-seg6a">
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">
               <foreign xml:lang="la">dotum</foreign> gesamenoton sih uuider trúhtene .</seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg7a" part="I" next="#v1_2-seg7b">unde uuíder sîne-<lb break="no"/>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">unde uuíder sîne-<lb break="no"/>
             </seg>
           </ab>
           <ab n="13">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v1_2-seg7b" part="F" prev="#v1_2-seg7a">mo geuuiêchten. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">mo geuuiêchten. </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
@@ -216,22 +214,22 @@
         <div type="verse" n="3-5">
           <ab n="1">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg1a" part="I" next="#v3_5-seg1b">Disrum-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Disrum-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab n="2">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg1b" part="F" prev="#v3_5-seg1a">pamus uincula eorum . et proiciamus a nobis iugum ipsorum . </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">pamus uincula eorum . et proiciamus a nobis iugum ipsorum . </seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab n="3">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">
               <foreign xml:lang="la">idest christi et apostolorum.</foreign> Sús einoton sie sic(h). </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg2a" part="I" next="#v3_5-seg2b">Prechen chádensie íro</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Prechen chádensie íro</seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="4">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg2b" part="F" prev="#v3_5-seg2a">gebénde . unde uuerfen ába uns íro ioch.</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">gebénde . unde uuerfen ába uns íro ioch.</seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh"> Ne-lâzen unsich</seg>
           </ab>
           <ab ana="#fn-gloss" n="5">
@@ -241,22 +239,22 @@
           <ab n="6">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">nieht ána <foreign xml:lang="la">christianam religionem.</foreign>
             </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg3a" part="I" next="#v3_5-seg3b">Qui habitat <foreign xml:lang="goh">in</foreign> celis irrid-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Qui habitat <foreign xml:lang="goh">in</foreign> celis irrid-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A, G, R</note>
           </ab>
           <ab n="7">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg3b" part="F" prev="#v3_5-seg3a">bit eos . et dominus subsannabit eos. </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg4a" part="I" next="#v3_5-seg4b">Ter in hímile bûet . ter spót-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">bit eos . et dominus subsannabit eos. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Ter in hímile bûet . ter spót-<lb break="no"/>
             </seg>
           </ab>
           <ab n="8">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg4b" part="F" prev="#v3_5-seg4a">tot íro . unde násesnûdet an_sîe. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v3_5-seg5a" part="I" next="#v3_5-seg5b">Nals taz got mit munde </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">tot íro . unde násesnûdet an_sîe. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Nals taz got mit munde </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="9">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v3_5-seg5b" part="F" prev="#v3_5-seg5a">unde mit násun dehêinen hûoh tûe . nube daz iz huôh-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">unde mit násun dehêinen hûoh tûe . nube daz iz huôh-<lb break="no"/>
             </seg>
           </ab>
           <ab ana="#fn-gloss" n="10">
@@ -275,16 +273,16 @@
           <ab n="13">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">denne. Dâr ána uuâren sie <foreign xml:lang="la">meditantes inania.</foreign>
             </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg6a" part="I" next="#v3_5-seg6b">Tunc loquetur</seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Tunc loquetur</seg>
             <note type="sigle" place="margin">C,G,R,H</note>
           </ab>
           <ab n="14">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v3_5-seg6b" part="F" prev="#v3_5-seg6a">ad eos <foreign xml:lang="goh">in</foreign> ira sua . et <foreign xml:lang="goh">in</foreign> furore suo conturbabit eos. </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg7a" part="I" next="#v3_5-seg7b">Tanne</seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">ad eos <foreign xml:lang="goh">in</foreign> ira sua . et <foreign xml:lang="goh">in</foreign> furore suo conturbabit eos. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Tanne</seg>
             <note type="sigle" place="margin">G, H</note>
           </ab>
           <ab n="15">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v3_5-seg7b" part="F" prev="#v3_5-seg7a">spríchet er in zû mit zórne . unde mit hêizmûote getrûo-<lb break="no"/>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">spríchet er in zû mit zórne . unde mit hêizmûote getrûo-<lb break="no"/>
             </seg>
           </ab>
           <ab ana="#fn-gloss" n="16">
@@ -334,41 +332,41 @@
         </div>
         <div type="verse" n="6">
           <ab n="1">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1a" part="I" next="#v6-seg1b">VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon</seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon</seg>
             <note type="sigle" place="margin">G [A, C]</note>
           </ab>
           <ab n="2">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v6-seg1b" part="F" prev="#v6-seg1a">montem sanctum eius prȩdicans prȩceptum eius. </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2a" part="I" next="#v6-seg2b">Ih pin áber fóne</seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">montem sanctum eius prȩdicans prȩceptum eius. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Ih pin áber fóne</seg>
             <note type="sigle" place="margin">G</note>
           </ab>
           <ab n="3">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg2b" part="M" next="#v6-seg3b" prev="#v6-seg2a">mînemo fáter íro úndanches ze chúninge gesezzet uber </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="M">mînemo fáter íro úndanches ze chúninge gesezzet uber </seg>
             <note type="sigle" place="margin">G, C</note>
           </ab>
           <ab n="4">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v6-seg3b" part="F" prev="#v6-seg2b">sînen hêiligen berg . </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">sînen hêiligen berg . </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">daz ist ȩcclesia . </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">sîn gebot ságende </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4a" part="I" next="#v6-seg4b">. daz</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">. daz</seg>
             <note type="sigle" place="margin">G, A, C</note>
           </ab>
           <ab n="5">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg4b" part="M" next="#v6-seg5b" prev="#v6-seg4a">chît <foreign xml:lang="la">euangelium</foreign> lêrende. Syon stât in <foreign xml:lang="la">ierusalem</foreign> . unde uuan-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="M">chît <foreign xml:lang="la">euangelium</foreign> lêrende. Syon stât in <foreign xml:lang="la">ierusalem</foreign> . unde uuan-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C, R</note>
           </ab>
           <ab n="6">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg5b" part="F" prev="#v6-seg4b">da man ferro dar ába séhen mag . pedîu hêizzet er syon . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">da man ferro dar ába séhen mag . pedîu hêizzet er syon . </seg>
             <note type="sigle" place="margin">R, N</note>
           </ab>
           <ab n="7">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6a" part="I" next="#v6-seg6b">daz chit <foreign xml:lang="la">latine specula</foreign> . in únsera uuîs uuarta. Der bezêichne-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">daz chit <foreign xml:lang="la">latine specula</foreign> . in únsera uuîs uuarta. Der bezêichne-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="8">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v6-seg6b" part="F" prev="#v6-seg6a">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
           <ab ana="#fn-gloss" n="9">
@@ -474,11 +472,11 @@
             <note type="translation_gloss" xml:lang="de">gen                                künftig</note>
           </ab>
           <ab n="7">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v7-seg1a" part="I" next="#v7-seg1b">tum noh <foreign xml:lang="la">futurum.</foreign> Ímo ist hiûto . al daz îo geschah . alde noh </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">tum noh <foreign xml:lang="la">futurum.</foreign> Ímo ist hiûto . al daz îo geschah . alde noh </seg>
             <note type="sigle" place="margin">A</note>
           </ab>
           <ab n="8">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v7-seg1b" part="F" prev="#v7-seg1a">geschêhen sol. Pediû ist sin sun hiûto gebórn. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">geschêhen sol. Pediû ist sin sun hiûto gebórn. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Postula a me et </seg>
             <note type="sigle" place="margin">A</note>
           </ab>
@@ -503,12 +501,12 @@
           <ab n="1">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">dabo tibi gentes hereditatem tuam. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Píte mih . </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg1a" part="I" next="#v8_9-seg1b">uuanda dû mén-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">uuanda dû mén-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R, H</note>
           </ab>
           <ab n="2">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg1b" part="F" prev="#v8_9-seg1a">nischo bist . unde an diû mín mínnero bist . </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">nischo bist . unde an diû mín mínnero bist . </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">sô gîbo ih tîr dîn érbe</seg>
             <note type="sigle" place="margin">A</note>
           </ab>
@@ -527,28 +525,28 @@
             <note type="sigle" place="margin">A</note>
           </ab>
           <ab n="6">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg2a" part="I" next="#v8_9-seg2b">Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er</seg>
           </ab>
           <ab n="7">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg2b" part="F" prev="#v8_9-seg2a">sih sélben umbe sie PATRI ópferota. </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v8_9-seg3a" part="I" next="#v8_9-seg3b">Reges eos <foreign xml:lang="goh">in</foreign> virga ferre-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">sih sélben umbe sie PATRI ópferota. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Reges eos <foreign xml:lang="goh">in</foreign> virga ferre-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab n="8">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v8_9-seg3b" part="F" prev="#v8_9-seg3a">a .</seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">a .</seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">
               <foreign xml:lang="la">idest</foreign> in-flexibili iustitia. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Tiê rihtest tu mit îseninro gérto . </seg>
             <note type="sigle" place="margin">G, R</note>
           </ab>
           <ab n="9">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg4a" part="I" next="#v8_9-seg4b">daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nie- <lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nie- <lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A</note>
           </ab>
           <ab n="10">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg4b" part="F" prev="#v8_9-seg4a">man genemen. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">man genemen. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Tamquam uas figuli confringes eos. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Sámoso</seg>
           </ab>
@@ -558,13 +556,13 @@
           </ab>
           <ab n="12">
             <seg type="translation" ana="#fn-transl" xml:lang="goh">háfenâres faz ferbríchest tû sie. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg5a" part="I" next="#v8_9-seg5b">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">
               <foreign xml:lang="la">Terrenas concupiscentias</foreign> fér-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A</note>
           </ab>
           <ab n="13">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v8_9-seg5b" part="F" prev="#v8_9-seg5a">bríchest tu an ín.</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">bríchest tu an ín.</seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe alle Völker Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Weltlüste Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.</p>
@@ -599,50 +597,50 @@
         </div>
         <div type="verse" n="10-11">
           <ab n="1">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg1a" part="I" next="#v10_11-seg1b">VOX PROPHETȨ. Et nunc reges intel-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">VOX PROPHETȨ. Et nunc reges intel-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R, C</note>
           </ab>
           <ab n="2">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg1b" part="F" prev="#v10_11-seg1a">legite. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">legite. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde nu fernément chúninga.</seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh"> Chúninga déro erdo . </seg>
           </ab>
           <ab n="3">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg2a" part="I" next="#v10_11-seg2b">chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT</seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
           <ab n="4">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg2b" part="F" prev="#v10_11-seg2a">ten lîchamen. Gehôrrent mînen rat. </seg>
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg3a" part="I" next="#v10_11-seg3b">Erudimini qui iudicatis </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ten lîchamen. Gehôrrent mînen rat. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Erudimini qui iudicatis </seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
           <ab n="5">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v10_11-seg3b" part="F" prev="#v10_11-seg3a">terram. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">terram. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Lâzent îuch lêren lantrechtara.</seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg4a" part="I" next="#v10_11-seg4b"> Mêistera des lîcha-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I"> Mêistera des lîcha-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G</note>
           </ab>
           <ab n="6">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg4b" part="F" prev="#v10_11-seg4a">men fernément. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">men fernément. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Seruite domino <foreign xml:lang="goh">in</foreign> timore. </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v10_11-seg5a" part="I" next="#v10_11-seg5b">Diênont góte mit </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Diênont góte mit </seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
           <ab n="7">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v10_11-seg5b" part="F" prev="#v10_11-seg5a">fórhtun. </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">fórhtun. </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">Daz nehéue iûuh . daz ir <foreign xml:lang="la">reges</foreign> kenámot pirnt. </seg>
             <note type="sigle" place="margin">Br</note>
           </ab>
           <ab n="8">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Et exultate ei cum tremore. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde rîdono sînt ímo frô. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg6a" part="I" next="#v10_11-seg6b">Ímo</seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Ímo</seg>
             <note type="sigle" place="margin">R</note>
           </ab>
           <ab n="9">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v10_11-seg6b" part="F" prev="#v10_11-seg6a">danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun. </seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Köper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und  zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.</p>
@@ -685,24 +683,24 @@
         </div>
         <div type="verse" n="12">
           <ab n="1">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v12-seg1a" part="I" next="#v12-seg1b">Apprehendite disciplinam nequando irascatur dominus . et pere-<lb break="no"/>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Apprehendite disciplinam nequando irascatur dominus . et pere-<lb break="no"/>
             </seg>
           </ab>
           <ab n="2">
-            <seg type="psalm" ana="#fn-psalm" xml:lang="la" xml:id="v12-seg1b" part="F" prev="#v12-seg1a">atis de uia iusta. </seg>
+            <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">atis de uia iusta. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Lírnent zúht . unde uuésent in égi .</seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg2a" part="I" next="#v12-seg2b">daz </seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">daz </seg>
           </ab>
           <ab n="3">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg2b" part="M" next="#v12-seg3b" prev="#v12-seg2a">sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába re-<lb break="no"/>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="M">sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába re-<lb break="no"/>
             </seg>
           </ab>
           <ab n="4">
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" xml:id="v12-seg3b" part="F" prev="#v12-seg2b">htemo uuége. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v12-seg4a" part="I" next="#v12-seg4b">CHRISTVS ist ter uueg . an démo mánnolich kân</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">htemo uuége. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">CHRISTVS ist ter uueg . an démo mánnolich kân</seg>
           </ab>
           <ab n="5">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" xml:id="v12-seg4b" part="F" prev="#v12-seg4a">sôl. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">sôl. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Cum exarserit <foreign xml:lang="goh">in</foreign> breui ira eius . beati omnes qui con-<lb break="no"/>
             </seg>
           </ab>
@@ -752,19 +750,12 @@
     <back>
       <div type="psalm_comparison">
         <head>Synoptischer Vergleich der Psalmtext-Versionen</head>
-        <listWit>
-          <witness xml:id="wit-G-full">Gallicanum</witness>
-          <witness xml:id="wit-R-full">Romanum</witness>
-          <witness xml:id="wit-H-full">Hebraicum (iuxta Hebraeos)</witness>
-          <witness xml:id="wit-A-full">Augustinus-Psalter</witness>
-          <witness xml:id="wit-C-full">Cassiodor-Psalter</witness>
-        </listWit>
         <app>
-          <rdg wit="#wit-G-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
-          <rdg wit="#wit-R-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum.</rdg>
-          <rdg wit="#wit-H-full" xml:lang="la">1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium.</rdg>
-          <rdg wit="#wit-A-full" xml:lang="la">Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
-          <rdg wit="#wit-C-full" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo.</rdg>
+          <rdg wit="#wit-G" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
+          <rdg wit="#wit-R" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum.</rdg>
+          <rdg wit="#wit-H" xml:lang="la">1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium.</rdg>
+          <rdg wit="#wit-A-psa" xml:lang="la">Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo.</rdg>
+          <rdg wit="#wit-C-psa" xml:lang="la">1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo.</rdg>
         </app>
       </div>
       <div type="parallel_tradition" source="#wiener_notker">

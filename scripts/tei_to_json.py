@@ -81,7 +81,7 @@ def merge_hyphenated(text_a: str, text_b: str) -> str:
     a = text_a.rstrip()
     if a.endswith('-'):
         return a[:-1] + text_b.lstrip()
-    return text_a + text_b
+    return a + ' ' + text_b.lstrip()
 
 
 # ---------------------------------------------------------------------------
@@ -93,97 +93,65 @@ def collect_segments(verse_div) -> list[dict]:
     Sammelt alle <seg>-Elemente eines Vers-divs und führt verkettete
     Segmente zusammen. Gibt eine Liste von Section-Dicts zurück.
     """
-    # Phase 1: Alle Segmente sammeln mit Verkettungs-Info
+    # Phase 1: Alle Segmente sammeln
     raw_segments = []
-    current_sigles = []
 
     for ab in verse_div.findall(f'{{{TEI_NS}}}ab'):
-        # Siglen aus <note type="sigle"> dieser Zeile
         sigle_note = ab.find(f'{{{TEI_NS}}}note[@type="sigle"]')
         line_sigles = []
         if sigle_note is not None and sigle_note.text:
             line_sigles = [s.strip() for s in sigle_note.text.split(',') if s.strip()]
 
-        # Glossen überspringen (werden separat verarbeitet)
         if ab.get('ana') == '#fn-gloss':
             continue
 
         for seg in ab.findall(f'{{{TEI_NS}}}seg'):
-            seg_text = text_content(seg)
-            seg_type = seg.get('type', '')
-            seg_lang = get_lang(seg)
-            seg_id = get_xml_id(seg)
-            part = seg.get('part', '')
-            next_id = seg.get('next', '').lstrip('#')
-            prev_id = seg.get('prev', '').lstrip('#')
-            has_for = has_foreign(seg)
-
             raw_segments.append({
-                'text': seg_text,
-                'type': seg_type,
-                'lang': seg_lang,
-                'xml_id': seg_id,
-                'part': part,
-                'next_id': next_id,
-                'prev_id': prev_id,
-                'has_foreign': has_for,
+                'text': text_content(seg),
+                'type': seg.get('type', ''),
+                'lang': get_lang(seg),
+                'part': seg.get('part', ''),
+                'has_foreign': has_foreign(seg),
                 'sigles': list(line_sigles),
             })
 
     # Phase 2: Verkettete Segmente zusammenführen
-    # Baue Ketten: I → M → ... → F
+    # @part="I" beginnt eine Kette, "M" setzt fort, "F" beendet.
+    # Aufeinanderfolgende Segmente gleichen Typs mit I→M→...→F werden zusammengeführt.
     merged = []
-    consumed = set()
-
-    for i, seg in enumerate(raw_segments):
-        if i in consumed:
-            continue
+    i = 0
+    while i < len(raw_segments):
+        seg = raw_segments[i]
 
         if seg['part'] == 'I':
-            # Kette starten
+            # Kette sammeln: I → (M →)* F
             chain_text = seg['text']
             chain_sigles = list(seg['sigles'])
             chain_has_foreign = seg['has_foreign']
-            next_id = seg['next_id']
-
-            # Folge der Kette
-            while next_id:
-                found = False
-                for j, other in enumerate(raw_segments):
-                    if j in consumed and j != i:
-                        continue
-                    if other['xml_id'] == next_id:
-                        consumed.add(j)
-                        chain_text = merge_hyphenated(chain_text, other['text'])
-                        chain_sigles.extend(other['sigles'])
-                        chain_has_foreign = chain_has_foreign or other['has_foreign']
-                        next_id = other.get('next_id', '')
-                        found = True
+            j = i + 1
+            while j < len(raw_segments):
+                nxt = raw_segments[j]
+                if nxt['type'] == seg['type'] and nxt['part'] in ('M', 'F'):
+                    chain_text = merge_hyphenated(chain_text, nxt['text'])
+                    chain_sigles.extend(nxt['sigles'])
+                    chain_has_foreign = chain_has_foreign or nxt['has_foreign']
+                    if nxt['part'] == 'F':
+                        j += 1
                         break
-                if not found:
-                    break
+                    j += 1
+                else:
+                    break  # Kette unterbrochen
 
             merged.append({
                 'type': tei_type_to_json_type(seg['type']),
                 'text': clean_text(chain_text),
                 'language': tei_lang_to_json_lang(seg['lang'], chain_has_foreign),
-                'source_sigles': list(dict.fromkeys(chain_sigles)),  # dedupliziert, Reihenfolge bewahrt
+                'source_sigles': list(dict.fromkeys(chain_sigles)),
             })
+            i = j
 
-        elif seg['part'] in ('', None) and seg['part'] != 'F' and seg['part'] != 'M':
-            # Eigenständiges Segment (nicht Teil einer Kette)
-            text = clean_text(seg['text'])
-            if not text:
-                continue
-            merged.append({
-                'type': tei_type_to_json_type(seg['type']),
-                'text': text,
-                'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
-                'source_sigles': list(seg['sigles']),
-            })
-        # F und M ohne vorhergehendes I: werden in der Kette oben konsumiert
-        # Falls sie nicht konsumiert wurden (Fehler in der Verkettung), einzeln aufnehmen
-        elif i not in consumed and seg['part'] in ('F', 'M'):
+        elif seg['part'] in ('', None):
+            # Eigenständiges Segment
             text = clean_text(seg['text'])
             if text:
                 merged.append({
@@ -192,8 +160,33 @@ def collect_segments(verse_div) -> list[dict]:
                     'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
                     'source_sigles': list(seg['sigles']),
                 })
+            i += 1
 
-    return merged
+        else:
+            # Verwaiste M/F-Segmente (sollte nicht vorkommen)
+            text = clean_text(seg['text'])
+            if text:
+                merged.append({
+                    'type': tei_type_to_json_type(seg['type']),
+                    'text': text,
+                    'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
+                    'source_sigles': list(seg['sigles']),
+                })
+            i += 1
+
+    # Phase 3: Unchained trailing hyphens zusammenführen
+    # Wenn aufeinanderfolgende Sections gleichen Typs enden/beginnen mit Trennung
+    result = []
+    for sec in merged:
+        if result and result[-1]['type'] == sec['type'] and result[-1]['text'].endswith('-'):
+            result[-1]['text'] = merge_hyphenated(result[-1]['text'], sec['text'])
+            for s in sec['source_sigles']:
+                if s not in result[-1]['source_sigles']:
+                    result[-1]['source_sigles'].append(s)
+        else:
+            result.append(sec)
+
+    return result
 
 
 def collect_glosses(verse_div) -> list[dict]:
@@ -379,10 +372,11 @@ def tei_to_json(tei_path: str) -> dict:
                 # Zusätzliche Verse in der Gruppe: Verweis auf Hauptvers
                 result['verses'].append({
                     'number': vn,
+                    'included_in': verse_numbers[0],
                     'edition_page': verse_page_map.get(str(vn), ''),
                     'sections': [],
                     'glosses': [],
-                    'translation_nhd': f'(siehe Vers {verse_numbers[0]})',
+                    'translation_nhd': '',
                     'sources': [],
                 })
 
@@ -392,10 +386,11 @@ def tei_to_json(tei_path: str) -> dict:
     if 13 not in existing_numbers:
         result['verses'].append({
             'number': 13,
+            'included_in': 12,
             'edition_page': verse_page_map.get('13', ''),
             'sections': [],
             'glosses': [],
-            'translation_nhd': '(Vers 13 ist in Vers 12 enthalten)',
+            'translation_nhd': '',
             'sources': [],
         })
 

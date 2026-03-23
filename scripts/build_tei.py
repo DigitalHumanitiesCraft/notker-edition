@@ -97,8 +97,60 @@ def build_header():
     set_xml_attr(bib3, 'id', 'rea_corpus')
     bib3.text = 'Referenzkorpus Altdeutsch (DDD), DOI: 10.34644/laudatio-dev-MiXVDnMB7CArCQ9CABmW'
 
+    # Fix 4: <listWit> für Psalter-Zeugen und <listBibl> für Kommentarquellen
+    # TEI P5 Kap. 13: Textzeugen gehören als <listWit> in <sourceDesc>
+    lw = SE(sd, 'listWit')
+    SE(lw, 'head').text = 'Psalter-Textzeugen (synoptischer Vergleich)'
+    for wit_id, desc in [
+        ('wit-G', 'Gallicanum'),
+        ('wit-R', 'Romanum'),
+        ('wit-H', 'Hebraicum (iuxta Hebraeos), Staatsbibliothek Bamberg Ms. 44'),
+        ('wit-A-psa', 'Augustinus-Psalter, St. Gallen Cod. 162'),
+        ('wit-C-psa', 'Cassiodor-Psalter, St. Gallen Cod. 200'),
+    ]:
+        wit = SE(lw, 'witness')
+        set_xml_attr(wit, 'id', wit_id)
+        wit.text = desc
+
+    # Kommentarquellen als <listBibl> (Werke, nicht Textzeugen)
+    lb = SE(sd, 'listBibl')
+    SE(lb, 'head').text = 'Kommentarquellen (Notkers Vorlagen)'
+    for bib_id, author, title, cert in [
+        ('src-A', 'Augustinus', 'Enarrationes in Psalmos', None),
+        ('src-C', 'Cassiodor', 'Expositio Psalmorum', None),
+        ('src-R', 'Remigius', None, None),
+        ('src-Br', None, 'Breviarium', None),
+        ('src-RII', None, 'RII', 'low'),
+        ('src-N', None, 'N', 'low'),
+    ]:
+        bibl = SE(lb, 'bibl')
+        set_xml_attr(bibl, 'id', bib_id)
+        if cert:
+            bibl.set('cert', cert)
+        if author:
+            SE(bibl, 'author').text = author
+        if title:
+            SE(bibl, 'title').text = title
+
     # encodingDesc
     enc = SE(header, 'encodingDesc')
+
+    # Fix 1: <segmentation> — TEI P5 Kap. 17 fordert dies bei <seg>-Verwendung
+    segmentation = SE(enc, 'segmentation')
+    SE(segmentation, 'p').text = (
+        'Der Text ist in funktionale Schichten segmentiert, '
+        'die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. '
+        'Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), '
+        'Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und '
+        'Kommentar (Notkers Exegese, ahd. und lat. gemischt). '
+        'Interlinearglossen bilden einen vierten Annotationstyp. '
+        'Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: '
+        'olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.'
+    )
+
+    # Fix 5: <variantEncoding> — TEI P5 fordert dies bei <app>/<rdg>-Verwendung
+    SE(enc, 'variantEncoding', method='parallel-segmentation', location='internal')
+
     cd = SE(enc, 'classDecl')
 
     # Taxonomy: Textfunktionen
@@ -111,37 +163,6 @@ def build_header():
         ('fn-gloss', 'Interlinearglosse: Einzelwort- oder Kurzübersetzung'),
     ]:
         cat = SE(tax_fn, 'category')
-        set_xml_attr(cat, 'id', cat_id)
-        SE(cat, 'catDesc').text = desc
-
-    # Taxonomy: Quellen-Siglen
-    tax_src = SE(cd, 'taxonomy')
-    set_xml_attr(tax_src, 'id', 'sources')
-    for cat_id, desc, cert in [
-        ('src-A', 'Augustinus, Enarrationes in Psalmos', None),
-        ('src-C', 'Cassiodor, Expositio Psalmorum', None),
-        ('src-R', 'Remigius', None),
-        ('src-Br', 'Breviarium', None),
-        ('src-RII', 'RII – ungeklärt, vermutlich zweite Remigius-Quelle', 'low'),
-        ('src-N', 'N – ungeklärt', 'low'),
-    ]:
-        cat = SE(tax_src, 'category')
-        set_xml_attr(cat, 'id', cat_id)
-        if cert:
-            cat.set('cert', cert)
-        SE(cat, 'catDesc').text = desc
-
-    # Taxonomy: Psalter-Zeugen
-    tax_wit = SE(cd, 'taxonomy')
-    set_xml_attr(tax_wit, 'id', 'psalter_witnesses')
-    for cat_id, desc in [
-        ('wit-G', 'Gallicanum'),
-        ('wit-R', 'Romanum'),
-        ('wit-H', 'Hebraicum (iuxta Hebraeos), Bamberg Ms. 44'),
-        ('wit-A-psa', 'Augustinus-Psalter, St. Gallen Cod. 162'),
-        ('wit-C-psa', 'Cassiodor-Psalter, St. Gallen Cod. 200'),
-    ]:
-        cat = SE(tax_wit, 'category')
         set_xml_attr(cat, 'id', cat_id)
         SE(cat, 'catDesc').text = desc
 
@@ -272,15 +293,10 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
                 seg_el.set('ana', FUNCTION_TO_ANA.get(seg.function, '#fn-comm'))
                 set_xml_attr(seg_el, 'lang', seg.lang)
 
-                # @part / @next / @prev für Verkettung
-                if seg.xml_id:
-                    set_xml_attr(seg_el, 'id', seg.xml_id)
+                # Fix 2: Nur @part (I/M/F) für Verkettung, nicht @next/@prev
+                # TEI P5: Beide Methoden sind äquivalent, @part ist kompakter
                 if seg.part:
                     seg_el.set('part', seg.part)
-                if seg.next_id:
-                    seg_el.set('next', f'#{seg.next_id}')
-                if seg.prev_id:
-                    seg_el.set('prev', f'#{seg.prev_id}')
 
                 # Text mit <foreign>-Spans
                 build_text_with_foreign(seg_el, seg)
@@ -376,37 +392,26 @@ def build_text_with_bold(parent_el, text, bold_spans):
 def build_back(psalm: PsalmData, parent):
     """Erstellt den <back>-Bereich mit Psaltervergleich und Wiener Notker."""
 
-    # Psaltervergleich
+    # Psaltervergleich — Zeugen sind in <sourceDesc>/<listWit> deklariert,
+    # hier nur die Readings als <app>/<rdg> mit Verweis auf die Header-IDs
     if psalm.psalter_witnesses:
         div = SE(parent, 'div', type='psalm_comparison')
         head = SE(div, 'head')
         head.text = 'Synoptischer Vergleich der Psalmtext-Versionen'
 
-        # Witnesses
-        lw = SE(div, 'listWit')
-        seen = set()
-        for wit in psalm.psalter_witnesses:
-            if wit.sigle in seen:
-                continue
-            seen.add(wit.sigle)
-            witness = SE(lw, 'witness')
-            set_xml_attr(witness, 'id', f'wit-{wit.sigle}-full')
-            name = wit.name or {
-                'G': 'Gallicanum', 'R': 'Romanum',
-                'H': 'Hebraicum (iuxta Hebraeos), Bamberg Ms. 44',
-                'A': 'Augustinus-Psalter, St. Gallen Cod. 162',
-                'C': 'Cassiodor-Psalter, St. Gallen Cod. 200',
-            }.get(wit.sigle, wit.sigle)
-            witness.text = name
-
-        # Readings als <app>
         app = SE(div, 'app')
         seen = set()
         for wit in psalm.psalter_witnesses:
             if wit.sigle in seen or not wit.text:
                 continue
             seen.add(wit.sigle)
-            rdg = SE(app, 'rdg', wit=f'#wit-{wit.sigle}-full')
+            # Sigle → Header-ID Mapping
+            wit_id_map = {
+                'G': 'wit-G', 'R': 'wit-R', 'H': 'wit-H',
+                'A': 'wit-A-psa', 'C': 'wit-C-psa',
+            }
+            wit_id = wit_id_map.get(wit.sigle, f'wit-{wit.sigle}')
+            rdg = SE(app, 'rdg', wit=f'#{wit_id}')
             set_xml_attr(rdg, 'lang', 'la')
             rdg.text = wit.text
 
