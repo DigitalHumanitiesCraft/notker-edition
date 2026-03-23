@@ -67,8 +67,9 @@ def build_header():
     org = SE(resp, 'orgName')
     org.text = 'Digital Humanities Craft OG'
 
-    # publicationStmt
+    # publicationStmt — TEI erfordert <authority> oder <publisher> vor <availability>
     ps = SE(fd, 'publicationStmt')
+    SE(ps, 'authority').text = 'Digital Humanities Craft OG'
     avail = SE(ps, 'availability')
     lic = SE(avail, 'licence', target='https://creativecommons.org/licenses/by-nc-sa/4.0/')
     lic.text = 'CC-BY-NC-SA 4.0'
@@ -135,19 +136,6 @@ def build_header():
     # encodingDesc
     enc = SE(header, 'encodingDesc')
 
-    # Fix 1: <segmentation> — TEI P5 Kap. 17 fordert dies bei <seg>-Verwendung
-    segmentation = SE(enc, 'segmentation')
-    SE(segmentation, 'p').text = (
-        'Der Text ist in funktionale Schichten segmentiert, '
-        'die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. '
-        'Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), '
-        'Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und '
-        'Kommentar (Notkers Exegese, ahd. und lat. gemischt). '
-        'Interlinearglossen bilden einen vierten Annotationstyp. '
-        'Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: '
-        'olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.'
-    )
-
     # Fix 5: <variantEncoding> — TEI P5 fordert dies bei <app>/<rdg>-Verwendung
     SE(enc, 'variantEncoding', method='parallel-segmentation', location='internal')
 
@@ -165,6 +153,20 @@ def build_header():
         cat = SE(tax_fn, 'category')
         set_xml_attr(cat, 'id', cat_id)
         SE(cat, 'catDesc').text = desc
+
+    # editorialDecl > segmentation — TEI P5: <segmentation> ist Kind von <editorialDecl>
+    ed = SE(enc, 'editorialDecl')
+    segmentation = SE(ed, 'segmentation')
+    SE(segmentation, 'p').text = (
+        'Der Text ist in funktionale Schichten segmentiert, '
+        'die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. '
+        'Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), '
+        'Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und '
+        'Kommentar (Notkers Exegese, ahd. und lat. gemischt). '
+        'Interlinearglossen bilden einen vierten Annotationstyp. '
+        'Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: '
+        'olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.'
+    )
 
     # projectDesc
     pd = SE(enc, 'projectDesc')

@@ -8,71 +8,69 @@ Repository: https://github.com/DigitalHumanitiesCraft/notker-edition
 
 ## Methode
 
-Das Projekt folgt der *Promptotyping*-Methode. Alle Designentscheidungen, Domänenwissen und Implementierungsdetails sind in einem Obsidian-basierten Research Vault unter `knowledge/` erfasst. Diese Dokumente sind der *Context Stream*, also die maßgebliche Wissensgrundlage für jede Arbeitseinheit. Lies sie vollständig, bevor du Code schreibst oder Entscheidungen triffst.
+Das Projekt folgt der *Promptotyping*-Methode. Alle Designentscheidungen, Domänenwissen und Implementierungsdetails sind in einem Obsidian-basierten Research Vault unter `knowledge/` erfasst. Lies die Wissensdokumente, bevor du Code schreibst.
 
 ## Wissensdokumente
 
-| Dokument | Lies zuerst, wenn du ... |
+| Dokument | Inhalt |
 |---|---|
-| `knowledge/Research Plan.md` | ... den Gesamtplan, Scope-Bewertung und aktuelle Arbeitsphasen sehen willst |
-| `knowledge/Domänenwissen.md` | ... verstehen willst, was Notkers Psalmenkommentar ist, welche Textschichten und Datenquellen existieren |
-| `knowledge/Probeseite Analyse.md` | ... die Tabellenstruktur, Farbcodierung und Parsing-Implikationen der Primärdatenquelle nachschlagen willst |
-| `knowledge/Anforderungen.md` | ... wissen willst, was der Prototyp können muss und wie die Features priorisiert sind |
-| `knowledge/Design.md` | ... nachvollziehen willst, wie das Interface aufgebaut ist, welche Toggles es gibt und wie das Farbkonzept funktioniert |
-| `knowledge/Technik.md` | ... die Pipeline (DOCX→TEI→JSON), das TEI-XML-Modell, das JSON-Schema und den Web-Stack verstehen willst |
-| `knowledge/Journal.md` | ... die Projektchronologie, Entscheidungen und offenen Fragen nachschlagen willst |
+| `knowledge/Research Plan.md` | Gesamtplan, Scope-Bewertung, Arbeitsphasen |
+| `knowledge/Domänenwissen.md` | Notkers Psalmenkommentar, Textschichten, Datenquellen |
+| `knowledge/Probeseite Analyse.md` | DOCX-Struktur, Farbcodierung, 14 Glossen, Siglen |
+| `knowledge/Anforderungen.md` | 7 Epics, 13 User Stories, Priorisierung |
+| `knowledge/Design.md` | Editionsinterface, Toggles, Farbsystem, Informationshierarchie |
+| `knowledge/Technik.md` | Pipeline (DOCX→TEI→JSON), JSON-Schema, Web-Stack, IIIF |
+| `knowledge/implementation.md` | TEI-XML-Modell im Detail, Encoding-Entscheidungen, DOCX→TEI-Mapping |
+| `knowledge/Editionsrichtlinien.md` | Editorische Richtlinien für die TEI-Codierung |
+| `knowledge/Journal.md` | Projektchronologie, Entscheidungen, offene Fragen |
+| `knowledge/2026-02-24 Erstgespräch.md` | Gesprächsnotiz Erstgespräch |
+| `knowledge/Referenzkorpus Altdeutsch.md` | ReA/DDD-Korpus, Annotationsebenen |
 
-## Stack
+## Architektur
 
-- Vanilla JS + HTML/CSS (kein Framework, kein Build-Step)
-- Tailwind CSS via CDN
-- OpenSeadragon via CDN (IIIF-Viewer)
-- JSON als Datenmodell (kein Backend, kein Server)
-- Deployment auf GitHub Pages oder als lokale HTML-Datei
-- Datenaufbereitung in Python (python-docx)
+**TEI-XML ist die kanonische Datenquelle.** JSON wird daraus abgeleitet.
 
-Die bewusste Entscheidung gegen Frameworks folgt dem Prinzip maximaler Langlebigkeit. Der Prototyp muss in zwei Jahren noch funktionieren, ohne dass jemand `npm install` ausführt.
+```
+Probeseite_Notker.docx → parse_probeseite.py → classify_layers.py → build_tei.py → psalm2.xml
+                                                                                        ↓
+                                                                                  tei_to_json.py
+                                                                                        ↓
+                                                                                  psalm2.json → docs/index.html
+```
+
+Web-Stack: Vanilla JS + HTML/CSS, Gentium Book Plus (Google Fonts), OpenSeadragon (CDN), GitHub Pages. Single-File-Prinzip: `docs/index.html` enthält alles.
 
 ## Dateistruktur
 
 ```
 notker-edition/
-├── CLAUDE.md                          # Projektprompt für Claude Code
-├── README.md
-├── knowledge/                         # Research Vault (Obsidian)
-│   ├── Research Plan.md
-│   ├── Domänenwissen.md
-│   ├── Probeseite Analyse.md
-│   ├── Anforderungen.md
-│   ├── Design.md
-│   ├── Technik.md
-│   ├── Journal.md
-│   ├── 2026-02-24 Erstgespräch.md
-│   └── Referenzkorpus Altdeutsch.md
+├── CLAUDE.md
+├── ReadMe.md
+├── index.html                             # Root-Redirect → docs/index.html (GitHub Pages)
+├── .gitignore
+├── knowledge/                             # Research Vault (11 Obsidian-Dokumente)
 ├── data/
-│   ├── Probeseite_Notker.docx         # Primärdatenquelle
-│   └── processed/
-│       └── psalm2.json                # Aufbereitetes Datenmodell
+│   ├── Probeseite_Notker.docx             # Primärdatenquelle
+│   ├── tei/
+│   │   └── psalm2.xml                     # Kanonisches TEI-XML
+│   ├── processed/
+│   │   └── psalm2.json                    # Abgeleitetes JSON für Web-UI
+│   └── schema/
+│       └── tei_all.rng                    # TEI RelaxNG Schema
 ├── scripts/
-│   ├── parse_probeseite.py            # Probeseite → JSON
-│   └── parse_annis.py                 # ANNIS-HTML → Rohtext (optional)
+│   ├── parse_probeseite.py                # DOCX → Python-Zwischenformat
+│   ├── classify_layers.py                 # Sprachwechsel, Segment-Verkettung
+│   ├── build_tei.py                       # → psalm2.xml
+│   ├── tei_to_json.py                     # → psalm2.json
+│   └── validate_tei.py                    # TEI-Validierung gegen RelaxNG
 └── docs/
-    └── index.html                     # Single-File-Anwendung (GitHub Pages)
+    └── index.html                         # Single-File-Webanwendung
 ```
-
-## Arbeitspakete
-
-**AP1 – Datenaufbereitung (4–6h).** Probeseite parsen (Farbcodierung extrahieren, Textschichten klassifizieren, Glossen und Quellenapparat trennen), JSON aufbauen. Die Probeseite (`data/Probeseite_Notker.docx`) ist die maßgebliche Ground Truth.
-
-**AP2 – Weboberfläche (5–7h).** Multi-Panel-Interface mit Haupttext, Quellen-Panel und IIIF-Viewer. Kernfeatures: sechs Toggles (Psalmzitat/Übersetzung/Kommentar/Glossen/nhd./lat.-ahd.-Trennung), Quellenfilter, Facsimile.
-
-**AP3 – Dokumentation und Übergabe (2–3h).** README, Zitierhinweise, Übergabe an Philipp.
 
 ## Regeln
 
-1. **Analyse vor Produktion.** Lies die Wissensdokumente in `knowledge/`, bevor du Code schreibst. Wenn dir Informationen fehlen, frag nach, statt Annahmen zu treffen.
+1. **TEI ist kanonisch.** Bei Widersprüchen zwischen JSON und TEI gilt das TEI.
 2. **Probeseite ist Ground Truth.** Bei Widersprüchen zwischen Dokumenten und der Probeseite gilt die Probeseite.
-3. **Keine ungeklärten Siglen erfinden.** Die Siglen RII, N und H (als Quellen-Sigle) sind noch nicht abschließend geklärt. Modelliere sie im Datenmodell, aber kennzeichne sie als ungeklärt.
-4. **Single-File-Prinzip.** Die Webanwendung ist eine HTML-Datei. CSS und JS sind eingebettet, nicht ausgelagert.
-5. **Wissensdokumente aktuell halten.** Wenn du eine Designentscheidung triffst oder ein Problem löst, trage es in das zuständige Dokument in `knowledge/` ein.
-6. **Drei Textschichten beachten.** Der Haupttext hat drei funktionale Schichten: Psalmzitation (olive), Übersetzung (grün), Kommentar (schwarz). Diese Klassifikation basiert auf der Farbcodierung der Probeseite und ist im JSON als `section.type` modelliert.
+3. **Keine ungeklärten Siglen erfinden.** RII, N und H (als Quellen-Sigle) sind ungeklärt. Kennzeichne sie als solche.
+4. **Single-File-Prinzip.** Die Webanwendung ist eine HTML-Datei. CSS und JS eingebettet.
+5. **Drei Textschichten.** Psalmzitation (olive), Übersetzung (grün), Kommentar (schwarz). Funktionale Klassifikation, nicht sprachbasiert. Im TEI als `<seg type="psalm|translation|commentary">`, im JSON als `section.type`.

@@ -89,17 +89,28 @@ EVT-Abgrenzung als Kommentarblock im HTML dokumentiert (orthogonale Schichtentre
 
 **Hinweis für Übergabe:** Alvite-Díez (2025), *Int. J. Digital Humanities*, schlägt einen Evaluationsrahmen für UI-Qualität digitaler Editionen vor (Dimensionen: Informationsarchitektur, Navigation, Interaktion, visuelle Gestaltung, Zugänglichkeit). Nützlich als Checkliste vor der Übergabe an Philipp.
 
-## Offene Fragen
+## 2026-03-23 – UI-Bugs gefixt, Features ergänzt, Doku synchronisiert
+
+8 UI-Fixes: Glossen-Positionierung (nach Sections statt Heuristik), Farbkontrast Kommentar/Übersetzung erhöht, Psalm-Navigation minimalistisch (1, [2], 3, ···, 50, 100, 150), Facsimile-Button beschriftet ("Handschrift ▶"), Quellen-Panel Vers-Gruppen-Label, Scroll-Indikator.
+
+2 neue Features: Psalmtext-Vergleich als Tab (5 Zeugen tabellarisch), Wiener Notker als Tab (Paralleltext).
+
+Dokumentation gegen Code-Stand synchronisiert: CLAUDE.md (komplett neu, 11 Docs + Dateistruktur), ReadMe.md (Architektur, lokale Nutzung, Erweiterbarkeit), Research Plan (alle Phasen 1–3 ✓), Technik.md (offene Fragen aktualisiert).
+
+## Offene Punkte
 
 ### Nächste Schritte
-- [x] ~~`tei_to_json.py` schreiben~~ → fertig, Vers-Gruppen + Hyphenation gefixt
-- [x] ~~Echte Daten ins UI laden~~ → async Fetch mit Fallback
-- [x] ~~URL-Persistenz~~ → Hash-Fragment-Encoding
-- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren
-- [ ] GitHub Pages aktivieren und deployen
+- [ ] Push auf GitHub
+- [ ] GitHub Pages aktivieren
 - [ ] Übergabe an Philipp
 
-### Mit Philipp zu klären (niedrige Priorität)
+### Bekannte Limitationen
+- Vers→Seite-Mapping vorläufig (gegen Facsimile verifizieren)
+- Trailing Hyphen an Vers-Grenze V1→V3 (TEI-Strukturproblem)
+- Farbüberlagerung Textschicht × Quellenfilter (D-11, am Bildschirm testen)
+- `relates_to` in Glossen leer (TEI-Pipeline setzt kein `@target`)
+
+### Mit Philipp zu klären
 - [ ] Querverweise auf Bibelstellen: welche Daten existieren?
 - [ ] SAP-Bestellnummer
 

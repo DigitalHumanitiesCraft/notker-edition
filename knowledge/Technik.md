@@ -194,28 +194,36 @@ notker-edition/
 │   ├── Anforderungen.md
 │   ├── Design.md
 │   ├── Technik.md                     # ← dieses Dokument
+│   ├── implementation.md              # TEI-Modell im Detail
+│   ├── Editionsrichtlinien.md         # Editorische Richtlinien
 │   ├── Journal.md
 │   ├── 2026-02-24 Erstgespräch.md
 │   └── Referenzkorpus Altdeutsch.md
 ├── data/
 │   ├── Probeseite_Notker.docx         # Primärdatenquelle
-│   └── tei/
-│       └── psalm2.xml                 # Kanonisches TEI-XML (764 Zeilen)
+│   ├── tei/
+│   │   └── psalm2.xml                 # Kanonisches TEI-XML (767 Z.)
+│   ├── processed/
+│   │   └── psalm2.json                # Abgeleitetes JSON (1.106 Z.)
+│   └── schema/
+│       └── tei_all.rng                # TEI RelaxNG Schema
 ├── scripts/
-│   ├── parse_probeseite.py            # DOCX → Zwischenformat (717 Z.)
+│   ├── parse_probeseite.py            # DOCX → Zwischenformat (698 Z.)
 │   ├── classify_layers.py             # Anreicherung (371 Z.)
-│   └── build_tei.py                   # Zwischenformat → TEI-XML (577 Z.)
+│   ├── build_tei.py                   # → TEI-XML (573 Z.)
+│   ├── tei_to_json.py                 # TEI → JSON (432 Z.)
+│   └── validate_tei.py                # TEI-Validierung (116 Z.)
 └── docs/
-    └── index.html                     # Single-File-Webanwendung (GitHub Pages)
+    └── index.html                     # Single-File-Webanwendung (~2.500 Z.)
 ```
 
 ## Offene technische Fragen
 
-- [ ] `tei_to_json.py` schreiben (Brücke TEI → JSON → UI)
-- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren
-- [ ] Silbentrennungen im JSON auflösen
-- [ ] Glossen-Erkennung: Schwellwert für Zeilenlänge kalibrieren
+- [x] ~~`tei_to_json.py` schreiben~~ → fertig, Vers-Gruppen + Hyphenation gefixt
 - [x] ~~IIIF-Manifest-URL verifizieren~~ → funktioniert (Presentation v2)
+- [x] ~~Silbentrennungen im JSON~~ → merge_hyphenated + post-merge pass
+- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren (vorläufig: V1–3→S.11, V4–6→S.12, V7–9→S.13, V10–13→S.14)
+- [ ] Farbüberlagerung Textschicht × Quellenfilter testen (D-11)
 
 ## Verknüpfungen
 

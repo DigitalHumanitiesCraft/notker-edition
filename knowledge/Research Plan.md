@@ -10,81 +10,61 @@ tags: [digital-humanities, notker, research-plan]
 
 ## Projektkontext
 
-Prototyp einer digitalen Edition von Notkers Psalmenkommentar (Notker III. von St. Gallen, ca. 950–1022). Demonstrationsobjekt: Psalm 2 (13 Verse). Zweck: funktionsfähiger Proof of Concept für Gutachter eines Drittmittelantrags.
+Prototyp einer digitalen Edition von Notkers Psalmenkommentar. Psalm 2 (13 Verse). Proof of Concept für Drittmittelantrag.
 
 | Rolle | Person / Organisation |
 |---|---|
-| Auftraggeber | Dr. Philipp Pfeifer, Institut für Germanistik, Universität Graz |
+| Auftraggeber | Dr. Philipp Pfeifer, Universität Graz |
 | Kooperation | Georg Vogeler, Bernhard Bauer (ZIM Graz) |
 | Auftragnehmer | Digital Humanities Craft OG |
 | Operative Kommunikation | Christian Steiner (office@dhcraft.org) |
 
-Budget: 2.000 € netto pauschal (Angebot Nr. 11/26). Geschätzter Aufwand: 11–16 Stunden.
-Abrechnung: SAP-Bestellung über Dekanat Uni Graz — SAP-Nummer per 21.03. noch offen.
-
-## Stand des Wissens
-
-Siehe [[Probeseite Analyse]] für die vollständige Quellenanalyse.
-
-### Gesicherte Erkenntnisse
-
-1. **Primärdatenquelle:** Philipps Probeseite enthält alle 13 Verse vollständig aufbereitet.
-2. **Dreischichtiges Textmodell.** Psalmzitation / Übersetzung / Kommentar (funktional, nicht sprachbasiert).
-3. **TEI-XML ist kanonisch.** Vollständige TEI-Edition liegt vor (`data/tei/psalm2.xml`, 764 Zeilen). JSON wird daraus abgeleitet.
-4. **Quellenapparat vollständig.** 4 gesicherte + 2 ungeklärte Siglen. Lat. + dt. Übersetzung.
-5. **IIIF verifiziert.** Manifest v2 funktioniert. Seite 11 = Beginn Psalm 2.
-6. **UI steht.** Editions-Interface mit 6 Toggles, Quellenapparat, IIIF-Viewer, Text-Bild-Synopse.
-
-### Ungeklärte Fragen
-
-| Frage | Priorität | Selbst lösbar? |
-|---|---|---|
-| Siglen RII, N | Niedrig | Ja — als "ungeklärt" markiert, für Prototyp ausreichend |
-| H in Siglen-Spalte | Niedrig | Ja — textkritische Zuordnung (Hebraicum), ableitbar aus Psalmtext-Vergleich |
-| G, R in Siglen-Spalte | Niedrig | Ja — markieren Psalmtext-Version, ableitbar |
-| Querverweise auf Bibelstellen | Mittel | Nein — Daten fehlen, Platzhalter im UI |
-| SAP-Bestellnummer | Administrativ | Irrelevant für Entwicklung |
+Budget: 2.000 € netto pauschal. SAP-Bestellnummer per 21.03. noch offen.
 
 ## Arbeitsphasen
 
 ### Phase 1 – Dokumentation & Klärung ✓
 
-- [x] Probeseite vollständig analysiert
-- [x] Research Vault aufgebaut (9 Dokumente)
-- [x] Repository-Struktur bereinigt
-- [x] Architekturentscheidung: TEI-XML kanonisch
+- [x] Probeseite vollständig analysiert (13 Tabellen, 3 Farben, 14 Glossen)
+- [x] Research Vault aufgebaut (11 Dokumente)
+- [x] Architekturentscheidung: TEI-XML kanonisch, JSON abgeleitet
 
 ### Phase 2 – Datenaufbereitung (AP1) ✓
 
-- [x] `parse_probeseite.py` (717 Z.): DOCX → Zwischenformat
-- [x] `classify_layers.py` (371 Z.): Sprachwechsel, Segment-Verkettung
-- [x] `build_tei.py` (577 Z.): → `data/tei/psalm2.xml` (764 Z.)
-- [x] Alle 13 Verse, Quellen, Glossen, Psalmtext-Vergleich, Wiener Notker
-- [ ] `tei_to_json.py`: TEI → JSON für Web-UI (fehlt)
+- [x] `parse_probeseite.py`: DOCX → Python-Zwischenformat
+- [x] `classify_layers.py`: Sprachwechsel, Segment-Verkettung
+- [x] `build_tei.py`: → `data/tei/psalm2.xml` (767 Zeilen)
+- [x] `tei_to_json.py`: → `data/processed/psalm2.json` (1.106 Zeilen)
+- [x] `validate_tei.py`: TEI-Validierung gegen RelaxNG
 
-### Phase 3 – Interface (AP2) ← aktuell
+### Phase 3 – Interface (AP2) ✓
 
-- [x] Multi-Panel-Layout (Quellen | Haupttext | Facsimile)
-- [x] 6 Toggles (Psalmzitat, Übersetzung, Kommentar, Glossen, nhd., lat./ahd.-Split)
-- [x] Quellenapparat mit Sigle-Filtern und farbigen Seitenstreifen
-- [x] IIIF-Viewer (OpenSeadragon, Manifest eingebunden)
-- [x] Text-Bild-Synopse (Vers-Klick → korrekte MS-Seite)
-- [x] Keyboard-Shortcuts, Drag-to-Resize, Responsive Breakpoints
-- [ ] Echte Daten laden (Verse 4–13 sind Stubs, warten auf `tei_to_json.py`)
-- [ ] Feinschliff: Psalmtext-Vergleich als Tab, Wiener Notker als Tab
+- [x] 3-Panel-Layout (Quellen | Haupttext | Facsimile)
+- [x] 6 Toggles + Keyboard-Shortcuts
+- [x] Quellenapparat mit Sigle-Filtern
+- [x] IIIF-Viewer mit Text-Bild-Synopse (Seiten-Ebene)
+- [x] Psalmtext-Vergleich (5 Zeugen) als Tab
+- [x] Wiener Notker als Tab
+- [x] URL-Persistenz (Hash-Fragment für Deep Links)
+- [x] Async JSON-Fetch mit file://-Fallback
 
-### Phase 4 – Übergabe (AP3)
+### Phase 4 – Übergabe (AP3) ← aktuell
 
 - [x] ReadMe.md geschrieben
-- [ ] Deployment auf GitHub Pages aktivieren
-- [ ] Push auf Remote
+- [x] Knowledge Vault synchronisiert
+- [ ] Push auf GitHub
+- [ ] GitHub Pages aktivieren (Settings → Pages → Source: main, Folder: /)
 - [ ] Übergabe an Philipp
 
-## Kritischer Pfad
+## Offene Punkte (niedrige Priorität)
 
-```
-tei_to_json.py (fehlt) ──→ Echte Daten im UI ──→ Feinschliff ──→ Deploy ──→ Übergabe
-```
+| Frage | Status |
+|---|---|
+| Querverweise auf Bibelstellen | Daten fehlen, Platzhalter im Datenmodell |
+| SAP-Bestellnummer | Administrativ, kein Entwicklungsblocker |
+| Vers→Seite-Mapping verifizieren | Vorläufig, gegen Facsimile prüfen |
+| Trailing Hyphen an Vers-Grenze (V1 sec[12]) | Bekannte Limitation, TEI-Strukturproblem |
+| Farbüberlagerung Textschicht × Quellenfilter (D-11) | Am Bildschirm zu testen |
 
 ## Verknüpfungen
 

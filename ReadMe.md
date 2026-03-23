@@ -12,68 +12,81 @@ Prototyp einer digitalen Edition von Notkers Psalmenkommentar (Notker III. von S
 
 ## Was der Prototyp zeigt
 
-Notkers Psalmenkommentar verschränkt **lateinischen Psalmtext**, **althochdeutsche Übersetzung** und **exegetischen Kommentar** in einem einzigen Textfluss. Bisherige Druckeditionen lösen diese Schichten nicht auf. Der Prototyp macht sie sichtbar:
+Notkers Psalmenkommentar verschränkt lateinischen Psalmtext, althochdeutsche Übersetzung und exegetischen Kommentar in einem Textfluss. Das Interface macht diese Schichten einzeln sichtbar:
 
 - **Drei funktionale Textschichten** farblich unterschieden (Psalmzitat / Übersetzung / Kommentar)
-- **Sechs unabhängige Toggles** zum Ein-/Ausblenden von Schichten, nhd. Übersetzung und lat./ahd.-Trennung
-- **Quellenapparat** mit patristischen Quellen (Augustinus, Cassiodor, Remigius, Breviarium) – lateinisch und deutsch
+- **Sechs unabhängige Toggles** (Schichten, nhd. Übersetzung, lat./ahd.-Trennung)
+- **Quellenapparat** mit patristischen Quellen (Augustinus, Cassiodor, Remigius, Breviarium)
 - **14 Interlinearglossen** inline dargestellt
-- **Facsimile** der Handschrift CSg 0021 via IIIF (e-codices)
-- **Synoptischer Psalmtext-Vergleich** (5 Textzeugen) und Wiener Notker als Paralleltext
+- **Facsimile** der Handschrift CSg 0021 via IIIF (e-codices) mit Seiten-Synopse
+- **Synoptischer Psalmtext-Vergleich** (5 Textzeugen: Gallicanum, Romanum, Hebraicum, A-Psalter, C-Psalter)
+- **Wiener Notker** als Paralleltext (ÖNB Cod. 2681)
+- **URL-Persistenz** — Deep Links für Gutachter auf bestimmte Verse mit Toggle-Konfiguration
 
-## Datengrundlage
+## Architektur
 
-Die maßgebliche Primärdatenquelle ist Philipps Probeseite (`data/Probeseite_Notker.docx`), eine tabellarische Aufbereitung von Psalm 2 mit Farbcodierung der Textschichten. Das Python-Script `scripts/parse_probeseite.py` extrahiert daraus das strukturierte JSON-Datenmodell (`data/processed/psalm2.json`).
+TEI-XML ist die kanonische Datenquelle. JSON wird daraus für die Web-UI abgeleitet.
+
+```
+Probeseite_Notker.docx
+  → parse_probeseite.py → classify_layers.py → build_tei.py
+  → data/tei/psalm2.xml (kanonisch)
+  → tei_to_json.py → data/processed/psalm2.json (abgeleitet)
+  → docs/index.html (Single-File-UI)
+```
 
 ## Struktur
 
 ```
 notker-edition/
-├── CLAUDE.md              # Projektprompt für Claude Code
-├── ReadMe.md
-├── knowledge/             # Research Vault (Obsidian-kompatibel)
-│   ├── Research Plan.md   # Gesamtplan, Scope, Arbeitsphasen
-│   ├── Domänenwissen.md   # Notker, Textschichten, Siglen
-│   ├── Probeseite Analyse.md  # DOCX-Analyse: Tabellen, Farben, Glossen
-│   ├── Anforderungen.md   # 7 Epics, 13 User Stories
-│   ├── Design.md          # Editionsinterface, Typografie, Toggles
-│   ├── Technik.md         # JSON-Schema, Web-Stack, Parsing
-│   ├── implementation.md  # TEI-XML-Modell, DOCX→TEI-Pipeline
-│   ├── Journal.md         # Projektchronologie
-│   ├── 2026-02-24 Erstgespräch.md
-│   └── Referenzkorpus Altdeutsch.md
+├── knowledge/                         # Research Vault (11 Obsidian-Dokumente)
 ├── data/
-│   ├── Probeseite_Notker.docx      # Primärdatenquelle
-│   └── processed/
-│       └── psalm2.json             # Aufbereitetes Datenmodell
+│   ├── Probeseite_Notker.docx         # Primärdatenquelle (Philipp Pfeifer)
+│   ├── tei/psalm2.xml                 # Kanonisches TEI-XML
+│   ├── processed/psalm2.json          # JSON für Web-UI
+│   └── schema/tei_all.rng             # TEI RelaxNG Schema
 ├── scripts/
-│   └── parse_probeseite.py         # DOCX → JSON
-└── app/
-    └── index.html                  # Single-File-Webanwendung (in Arbeit)
+│   ├── parse_probeseite.py            # DOCX → Python-Zwischenformat
+│   ├── classify_layers.py             # Sprachwechsel, Segment-Verkettung
+│   ├── build_tei.py                   # → TEI-XML
+│   ├── tei_to_json.py                 # TEI → JSON
+│   └── validate_tei.py                # TEI-Validierung
+└── docs/
+    └── index.html                     # Single-File-Webanwendung (GitHub Pages)
 ```
 
 ## Technologie
 
-- **Frontend:** Vanilla JS + HTML/CSS, Tailwind CSS (CDN), OpenSeadragon (CDN)
-- **Datenmodell:** JSON (kein Backend, kein Server)
-- **Datenaufbereitung:** Python (python-docx)
-- **Deployment:** GitHub Pages oder lokale HTML-Datei
+- **Frontend:** Vanilla JS + HTML/CSS, Gentium Book Plus + Inter (Google Fonts), OpenSeadragon (IIIF)
+- **Datenmodell:** TEI-XML (kanonisch) → JSON (abgeleitet)
+- **Datenaufbereitung:** Python (python-docx, lxml)
+- **Deployment:** GitHub Pages (statisch, kein Server)
 
-Bewusst kein Framework — maximale Langlebigkeit. Der Prototyp muss in zwei Jahren noch funktionieren, ohne dass jemand `npm install` ausführt.
+Kein Framework, kein Build-Step — maximale Langlebigkeit.
 
-## Methode
+## Lokale Nutzung
 
-Das Projekt folgt der [Promptotyping](https://dhcraft.org)-Methode. Alle Designentscheidungen und Domänenwissen sind in den Wissensdokumenten unter `knowledge/` dokumentiert.
+```bash
+# Pipeline ausführen (regeneriert TEI + JSON)
+python scripts/build_tei.py
+python scripts/tei_to_json.py
+
+# Lokaler Server (für JSON-Fetch)
+python -m http.server
+# → http://localhost:8000/docs/index.html
+
+# Oder: docs/index.html direkt als Datei öffnen (Fallback auf eingebettete Demo-Daten)
+```
 
 ## Erweiterbarkeit
 
-Der Prototyp demonstriert drei Ausbaustufen der Text-Bild-Verknüpfung:
+Drei Ausbaustufen der Text-Bild-Verknüpfung:
 
-1. **Seiten-Synopse (implementiert):** Vers-Klick navigiert den IIIF-Viewer zur korrekten Handschriftenseite.
-2. **Zeilen-Synopse (nächste Stufe):** Vers-Klick zoomt auf die exakte Zeile in der Handschrift. Erfordert manuelle Koordinaten-Annotation (~4–8h pro Psalm) oder automatisierte Layoutanalyse.
-3. **Token-Synopse (Gesamtprojekt):** Mouse-Over auf ein Wort hebt die korrespondierende Stelle im Digitalisat hervor (vgl. Elwood-Viewer-Methode).
+1. **Seiten-Synopse (implementiert):** Vers-Klick navigiert IIIF-Viewer zur korrekten Handschriftenseite.
+2. **Zeilen-Synopse (nächste Stufe):** Vers-Klick zoomt auf die exakte Zeile. Erfordert Koordinaten-Annotation (~4–8h pro Psalm).
+3. **Token-Synopse (Gesamtprojekt):** Mouse-Over hebt korrespondierende Stelle im Digitalisat hervor (Elwood-Viewer-Methode).
 
-Das orthogonale Toggle-System (Textschichten x Darstellungsmodi) skaliert auf alle 150 Psalmen. Die TEI-XML-Pipeline ist so gebaut, dass weitere Psalmen nur die Probeseite-Daten als Input benötigen.
+Das Toggle-System skaliert auf alle 150 Psalmen. Die Pipeline braucht nur neue Probeseite-Daten als Input.
 
 ## Zitierhinweis
 

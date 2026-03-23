@@ -110,8 +110,8 @@
 :root {
   /* Text layer colors (Design.md §2.3) */
   --color-psalm:       hsl(15, 60%, 40%);    /* Terracotta — Psalmzitation */
-  --color-translation: hsl(30, 20%, 15%);    /* Schwarzbraun — Übersetzung */
-  --color-commentary:  hsl(0, 0%, 45%);      /* Mittelgrau — Kommentar */
+  --color-translation: hsl(25, 30%, 18%);    /* Warmes Schwarzbraun — Übersetzung */
+  --color-commentary:  hsl(0, 0%, 52%);      /* Mittelgrau, heller — Kommentar */
   --color-gloss:       hsl(210, 20%, 50%);   /* Blaugrau — Interlinearglossen */
   --color-nhd:         hsl(0, 0%, 55%);      /* Hellgrau — nhd. Übersetzung */
 
@@ -639,6 +639,92 @@ body {
   .verse-number { width: 1.2rem; font-size: var(--size-ui-sm); }
 }
 
+/* Content tabs (Edition / Psalmtext-Vergleich / Wiener Notker) */
+.content-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1.25rem;
+}
+.content-tab {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui);
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: hsl(0, 0%, 50%);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.content-tab:hover { color: hsl(0, 0%, 30%); }
+.content-tab.active {
+  color: var(--color-psalm);
+  border-bottom-color: var(--color-psalm);
+  font-weight: 500;
+}
+
+/* Comparison table */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-edition);
+  font-size: var(--size-nhd);
+  line-height: 1.6;
+}
+.comparison-table th {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--color-border);
+  color: hsl(0, 0%, 40%);
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+.comparison-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: top;
+}
+.comparison-table td:first-child {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--size-ui);
+  color: var(--color-psalm);
+  white-space: nowrap;
+  width: 80px;
+}
+.comparison-manuscript {
+  font-size: var(--size-ui-sm);
+  color: hsl(0, 0%, 55%);
+  font-style: italic;
+}
+
+/* Wiener Notker */
+.wiener-text {
+  font-family: var(--font-edition);
+  font-size: var(--size-body);
+  line-height: 1.8;
+  color: hsl(0, 0%, 25%);
+  max-width: 720px;
+}
+.wiener-header {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui);
+  color: hsl(0, 0%, 45%);
+  margin-bottom: 1rem;
+}
+
+/* Scroll fade indicator on sources panel */
+.sources-content {
+  position: relative;
+  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+}
+
 /* Scrollbar styling */
 .text-content::-webkit-scrollbar,
 .sources-content::-webkit-scrollbar {
@@ -714,7 +800,24 @@ body {
         einzeln sichtbar und navigierbar. Handschrift: St. Gallen, Stiftsbibliothek, CSg 0021.
         Edition: Tax/Sehrt, Seiten R10–R13.
       </div>
-      <div id="verses-container"></div>
+      <!-- Content tabs -->
+      <div class="content-tabs" id="content-tabs">
+        <button class="content-tab active" data-tab="edition" onclick="switchTab('edition')">Edition</button>
+        <button class="content-tab" data-tab="comparison" onclick="switchTab('comparison')">Psalmtext-Vergleich</button>
+        <button class="content-tab" data-tab="wiener" onclick="switchTab('wiener')">Wiener Notker</button>
+      </div>
+
+      <div id="tab-edition">
+        <div id="verses-container"></div>
+      </div>
+
+      <div id="tab-comparison" style="display:none">
+        <div id="comparison-container"></div>
+      </div>
+
+      <div id="tab-wiener" style="display:none">
+        <div id="wiener-container"></div>
+      </div>
     </div>
   </main>
 
@@ -730,8 +833,8 @@ body {
   </aside>
 
   <!-- Facsimile open button (visible when panel collapsed) -->
-  <button class="panel-toggle right" id="facsimile-toggle-btn" onclick="togglePanel('facsimile')" title="Facsimile öffnen">
-    &#x1F4DC;
+  <button class="panel-toggle right" id="facsimile-toggle-btn" onclick="togglePanel('facsimile')" title="Handschrift CSg 0021 anzeigen" style="width:auto; padding: 0 8px; font-size: 0.7rem; white-space: nowrap;">
+    Handschrift &#x25B6;
   </button>
 </div>
 
@@ -2037,22 +2140,25 @@ function syncUiToState() {
 
 function renderPsalmNav() {
   const nav = document.getElementById('psalm-nav');
-  for (let i = 1; i <= 150; i++) {
+  // Show: 1, [2], 3, ···, 50, 100, 150 — minimal but clear
+  const show = [1, 2, 3];
+  const trail = [50, 100, 150];
+  show.forEach(i => {
     const item = document.createElement('div');
     item.className = 'psalm-nav-item' + (i === 2 ? ' active' : '');
     item.textContent = i;
-    if (i === 2) item.onclick = () => {};
-    // Only show a subset for visual effect
-    if (i <= 10 || i === 150 || (i % 10 === 0)) {
-      nav.appendChild(item);
-    }
-    if (i === 10) {
-      const dots = document.createElement('span');
-      dots.textContent = '···';
-      dots.style.cssText = 'color: hsl(0,0%,75%); font-size: 0.6rem; margin: 0 2px;';
-      nav.appendChild(dots);
-    }
-  }
+    nav.appendChild(item);
+  });
+  const dots = document.createElement('span');
+  dots.textContent = '···';
+  dots.style.cssText = 'color: hsl(0,0%,75%); font-size: 0.65rem; margin: 0 4px;';
+  nav.appendChild(dots);
+  trail.forEach(i => {
+    const item = document.createElement('div');
+    item.className = 'psalm-nav-item';
+    item.textContent = i;
+    nav.appendChild(item);
+  });
 }
 
 function renderSourceFilters() {
@@ -2112,7 +2218,7 @@ function renderVerses() {
     const interleaved = document.createElement('div');
     interleaved.className = 'verse-interleaved';
 
-    // Sections
+    // Sections + Glosses (glosses rendered in JSON order after all sections)
     verse.sections.forEach(sec => {
       const secEl = document.createElement('div');
       secEl.className = 'section';
@@ -2122,27 +2228,14 @@ function renderVerses() {
       secEl.textContent = sec.text;
       if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
       interleaved.appendChild(secEl);
-
-      // Insert glosses after sections that relate to them
-      if (sec.type === 'psalm_citation' || sec.type === 'translation') {
-        verse.glosses.forEach(gloss => {
-          // Simple heuristic: show gloss after the section it relates to
-          if (sec.text.toLowerCase().includes(gloss.relates_to?.toLowerCase() || '___none___')) {
-            const glossEl = createGlossElement(gloss);
-            interleaved.appendChild(glossEl);
-          }
-        });
-      }
     });
 
-    // Append any remaining glosses not yet placed
-    const placedGlosses = new Set();
-    interleaved.querySelectorAll('.gloss').forEach(g => placedGlosses.add(g.dataset.text));
-    verse.glosses.forEach(gloss => {
-      if (!placedGlosses.has(gloss.text)) {
+    // Glosses as block after sections (JSON delivers them in reading order)
+    if (verse.glosses.length > 0) {
+      verse.glosses.forEach(gloss => {
         interleaved.appendChild(createGlossElement(gloss));
-      }
-    });
+      });
+    }
 
     el.appendChild(interleaved);
 
@@ -2318,7 +2411,15 @@ function updateSourcesPanel() {
     return;
   }
 
-  container.innerHTML = `<div class="sources-verse-label">Vers ${verse.number}</div>` +
+  // Verse group label
+  const groupEnd = {};
+  EDITION_DATA.verses.forEach(v => {
+    if (v.included_in != null) groupEnd[v.included_in] = Math.max(groupEnd[v.included_in] || 0, v.number);
+  });
+  const end = groupEnd[verse.number];
+  const verseLabel = end ? `Vers ${verse.number}–${end}` : `Vers ${verse.number}`;
+
+  container.innerHTML = `<div class="sources-verse-label">${verseLabel}</div>` +
     filtered.map(s => `
       <div class="source-entry">
         <div class="source-sigle" style="color: var(--color-src-${s.sigle})">${s.sigle} — ${escHtml(s.name)}</div>
@@ -2428,6 +2529,54 @@ function setupDrag(dividerId, panelId, side) {
 // ============================================================================
 // BOOT
 // ============================================================================
+// ============================================================================
+// CONTENT TABS (Edition / Psalmtext-Vergleich / Wiener Notker)
+// ============================================================================
+
+function switchTab(tabName) {
+  ['edition', 'comparison', 'wiener'].forEach(t => {
+    const el = document.getElementById('tab-' + t);
+    if (el) el.style.display = t === tabName ? '' : 'none';
+  });
+  document.querySelectorAll('.content-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+  // Lazy-render comparison and wiener on first open
+  if (tabName === 'comparison' && !window._comparisonRendered) renderComparison();
+  if (tabName === 'wiener' && !window._wienerRendered) renderWiener();
+}
+
+function renderComparison() {
+  window._comparisonRendered = true;
+  const container = document.getElementById('comparison-container');
+  const witnesses = EDITION_DATA.psalm_text_comparison?.witnesses || [];
+  if (witnesses.length === 0) {
+    container.innerHTML = '<p style="color: hsl(0,0%,55%); font-style: italic;">Keine Psalmtext-Vergleichsdaten vorhanden.</p>';
+    return;
+  }
+  let html = '<table class="comparison-table"><thead><tr><th>Sigle</th><th>Text</th></tr></thead><tbody>';
+  witnesses.forEach(w => {
+    const ms = w.manuscript ? `<div class="comparison-manuscript">${escHtml(w.manuscript)}</div>` : '';
+    html += `<tr><td>${escHtml(w.sigle)}<br>${escHtml(w.name)}${ms}</td><td>${escHtml(w.text)}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function renderWiener() {
+  window._wienerRendered = true;
+  const container = document.getElementById('wiener-container');
+  const wn = EDITION_DATA.wiener_notker;
+  if (!wn || !wn.text) {
+    container.innerHTML = '<p style="color: hsl(0,0%,55%); font-style: italic;">Kein Wiener-Notker-Text vorhanden.</p>';
+    return;
+  }
+  container.innerHTML = `
+    <div class="wiener-header">${escHtml(wn.manuscript || '')} — Edition: ${escHtml(wn.edition || '')}</div>
+    <div class="wiener-text">${escHtml(wn.text)}</div>
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', init);
 </script>
 

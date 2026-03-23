@@ -13,6 +13,7 @@
         </respStmt>
       </titleStmt>
       <publicationStmt>
+        <authority>Digital Humanities Craft OG</authority>
         <availability>
           <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</licence>
         </availability>
@@ -62,9 +63,6 @@
       </sourceDesc>
     </fileDesc>
     <encodingDesc>
-      <segmentation>
-        <p>Der Text ist in funktionale Schichten segmentiert, die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und Kommentar (Notkers Exegese, ahd. und lat. gemischt). Interlinearglossen bilden einen vierten Annotationstyp. Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.</p>
-      </segmentation>
       <variantEncoding method="parallel-segmentation" location="internal"/>
       <classDecl>
         <taxonomy xml:id="textfunction">
@@ -82,6 +80,11 @@
           </category>
         </taxonomy>
       </classDecl>
+      <editorialDecl>
+        <segmentation>
+          <p>Der Text ist in funktionale Schichten segmentiert, die auf der Farbcodierung der handschriftlichen Vorlage und der Probeseite basieren. Drei Schichttypen: Psalmzitation (lateinischer Vulgata-Text, wie Notker ihn zitiert), Übersetzung (althochdeutsche Wiedergabe der Psalmzitate) und Kommentar (Notkers Exegese, ahd. und lat. gemischt). Interlinearglossen bilden einen vierten Annotationstyp. Die Segmentierung folgt dem Farbwechsel auf Run-Ebene im DOCX der Probeseite: olive (#806000) = Psalmzitation, grün (#00B050) = Übersetzung, schwarz = Kommentar.</p>
+        </segmentation>
+      </editorialDecl>
       <projectDesc>
         <p>Prototyp für einen Drittmittelantrag. Nur Psalm 2 (13 Verse). Auftraggeber: Dr. Philipp Pfeifer, Universität Graz.</p>
       </projectDesc>
