@@ -60,6 +60,12 @@ COLOR_MAP = {
 
 Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten und Silbentrennungen auf. Interface-Vertrag mit der UI.
 
+**Besondere Features:**
+- **Siglen-Parsing:** Klammernotation `G [A, C]` wird korrekt als separate Siglen geparst (Regex: `[A-Z][a-z]*(?:II)?`)
+- **Bold-Preservation:** `<hi rend="bold">` in `<quote>`-Elementen wird als `<b>`-Tags im JSON erhalten (`rich_text_content()`)
+- **Gloss-Interleaving:** Glossen (`<ab ana="#fn-gloss">`) werden als `type: "gloss"` Sections an ihrer korrekten Position im Textfluss eingefügt, nicht separat am Versende
+- **Hyphen-Merge über Glossen hinweg:** Silbentrennungen werden auch dann zusammengeführt, wenn eine Glosse dazwischen liegt (z.B. "grís-" [Glosse] "cramoton" → "gríscramoton")
+
 ### 1.5 Validierung und Tests
 
 - `validate_tei.py`: RelaxNG-Validierung + Strukturstatistik

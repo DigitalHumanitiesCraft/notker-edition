@@ -33,8 +33,8 @@ Budget: 2.000 € netto pauschal. SAP-Bestellnummer per 21.03. noch offen.
 
 - [x] `parse_probeseite.py`: DOCX → Python-Zwischenformat
 - [x] `classify_layers.py`: Sprachwechsel, Segment-Verkettung
-- [x] `build_tei.py`: → `data/tei/psalm2.xml` (767 Zeilen)
-- [x] `tei_to_json.py`: → `data/processed/psalm2.json` (1.106 Zeilen)
+- [x] `build_tei.py`: → `data/tei/psalm2.xml` (770 Zeilen)
+- [x] `tei_to_json.py`: → `data/processed/psalm2.json` (1.211 Zeilen, 92 Sections inkl. 14 inline Glossen)
 - [x] `validate_tei.py`: TEI-Validierung gegen RelaxNG
 
 ### Phase 3 – Interface (AP2) ✓

@@ -56,7 +56,7 @@ Probeseite erstmals vollständig maschinell geparst (python-docx, Run-Level-Farb
 5. 13 Tabellen in drei funktionalen Gruppen entschlüsselt
 
 **Entscheidungen:**
-- Research Vault in `knowledge/` konsolidiert (10 → 9 Dokumente)
+- Research Vault in `knowledge/` konsolidiert (10 → 8 Dokumente)
 - Probeseite ist Primärdatenquelle
 
 ## 2026-03-23 – Architekturentscheidung: TEI-XML kanonisch
@@ -67,7 +67,7 @@ Probeseite erstmals vollständig maschinell geparst (python-docx, Run-Level-Farb
 
 **Umgesetzt:**
 - Pipeline: `parse_probeseite.py` → `classify_layers.py` → `build_tei.py`
-- Output: `data/tei/psalm2.xml` (764 Zeilen, alle 13 Verse, vollständiger Apparat)
+- Output: `data/tei/psalm2.xml` (~780 Zeilen, alle 13 Verse, vollständiger Apparat)
 - Legacy JSON-Pipeline entfernt
 
 ## 2026-03-23 – Editions-Interface gebaut
@@ -89,7 +89,7 @@ Probeseite erstmals vollständig maschinell geparst (python-docx, Run-Level-Farb
 
 `Technik.md` und `implementation.md` zu einem Dokument zusammengeführt (TEI + JSON + Pipeline + Web-Stack). Broken Link in Anforderungen.md gefixt. Research Plan auf aktuellen Stand gebracht. Journal aktualisiert.
 
-Vault-Struktur: **9 Dokumente**, keine Redundanzen.
+Vault-Struktur: **8 Dokumente**, keine Redundanzen.
 
 ## 2026-03-23 – Pipeline komplett, UI mit echten Daten
 
@@ -109,6 +109,36 @@ EVT-Abgrenzung als Kommentarblock im HTML dokumentiert (orthogonale Schichtentre
 
 Dokumentation gegen Code-Stand synchronisiert: CLAUDE.md (komplett neu, 11 Docs + Dateistruktur), ReadMe.md (Architektur, lokale Nutzung, Erweiterbarkeit), Research Plan (alle Phasen 1–3 ✓), Technik.md (offene Fragen aktualisiert).
 
+## 2026-03-23 – Pipeline-Verbesserungen, Design-Overhaul, IIIF-Fix
+
+Umfassende Review und Überarbeitung:
+
+**Pipeline-Fixes (tei_to_json.py):**
+- Siglen-Parsing: Klammernotation `G [A, C]` wird korrekt als `["G", "A", "C"]` geparst
+- Bold-Preservation: `<hi rend="bold">` in Quellenzitaten wird als `<b>`-Tags im JSON erhalten (23 Stellen)
+- Gloss-Interleaving: 14 Glossen werden an ihrer korrekten Position im Textfluss in die Sections-Liste eingefügt (nicht mehr am Versende)
+- nhd.-Übersetzungen in TEI bereinigt (Glossen-Leak aus DOCX-Parsing entfernt)
+
+**TEI-Korrekturen (psalm2.xml):**
+- `<facsimile>` auf 4 Surfaces erweitert (Seiten 11–14)
+- nhd.-Übersetzungsblöcke von eingesickertem Glossentext bereinigt
+
+**UI/Design:**
+- "Handschrift ▶"-Button Positionierung gefixt (`right: 0` statt `left: -22px`)
+- Facsimile per Default geöffnet (Gutachter sehen sofort Text + Handschrift)
+- IIIF-Seitenzuordnung korrigiert: Canvas-Offset +4 für Vorsatzblätter (Seite 11 = Canvas 14)
+- Kommentar-Farbe von `hsl(0,0%,52%)` auf `hsl(0,0%,35%)` verdunkelt (Notkers Stimme lesbar)
+- Glossen im Split-View: spannen beide Spalten (`grid-column: 1/-1`)
+- Split-View: `ahd_lat_mixed` nur in Ahd-Spalte (keine Duplikation)
+- Quellenapparat: Sigle-Chips mit Farbe, Trennlinie lat./dt., Bold-Rendering via `safeBoldHtml()`
+- Intro-Text gekürzt mit Handlungsanweisung für Gutachter
+- Vers-Active-State: Terracotta-Akzentlinie links
+- Footer: Zitierformat nach Konvention
+- Psalm-Nav: Kontrast erhöht
+- Unterseiten `richtlinien.html` und `methode.html` synchronisiert
+
+**Dokumentation:** CLAUDE.md, Design.md, ReadMe.md, Journal.md aktualisiert.
+
 ## Offene Punkte
 
 ### Nächste Schritte
@@ -117,8 +147,8 @@ Dokumentation gegen Code-Stand synchronisiert: CLAUDE.md (komplett neu, 11 Docs 
 - [ ] Übergabe an Philipp
 
 ### Bekannte Limitationen
-- Vers→Seite-Mapping vorläufig (gegen Facsimile verifizieren)
-- Trailing Hyphen an Vers-Grenze V1→V3 (TEI-Strukturproblem)
+- ~~Vers→Seite-Mapping vorläufig~~ → **Gelöst** (Canvas-Offset +4, gegen Manifest verifiziert)
+- Trailing Hyphen V7 `irgân-` (Versgrenze, TEI-Strukturproblem)
 - Farbüberlagerung Textschicht × Quellenfilter (D-11, am Bildschirm testen)
 - `relates_to` in Glossen leer (TEI-Pipeline setzt kein `@target`)
 

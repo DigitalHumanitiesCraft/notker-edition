@@ -41,27 +41,31 @@ Probeseite_Notker.docx → parse_probeseite.py → classify_layers.py → build_
                                                                                   psalm2.json → docs/index.html
 ```
 
-Web-Stack: Vanilla JS + HTML/CSS, Gentium Book Plus, OpenSeadragon (CDN), GitHub Pages. Single-File: `docs/index.html`.
+Web-Stack: Vanilla JS + HTML/CSS, Gentium Book Plus, OpenSeadragon (CDN), GitHub Pages. Single-File-Prinzip: `docs/index.html` enthält alles.
 
 ## Dateistruktur
 
 ```
 notker-edition/
+├── CLAUDE.md
+├── ReadMe.md
+├── index.html                             # Root-Redirect → docs/index.html
 ├── knowledge/                             # Research Vault (8 Dokumente)
 ├── data/
 │   ├── Probeseite_Notker.docx             # Primärdatenquelle
 │   ├── tei/psalm2.xml                     # Kanonisches TEI-XML
-│   ├── processed/psalm2.json              # Abgeleitetes JSON
+│   ├── processed/psalm2.json              # Abgeleitetes JSON für Web-UI
 │   └── schema/tei_all.rng                 # TEI RelaxNG Schema
 ├── scripts/
 │   ├── parse_probeseite.py                # DOCX → Python-Zwischenformat
 │   ├── classify_layers.py                 # Sprachwechsel, Segment-Verkettung
 │   ├── build_tei.py                       # → psalm2.xml
-│   ├── tei_to_json.py                     # → psalm2.json
-│   ├── validate_tei.py                    # RelaxNG-Validierung
-│   └── test_pipeline.py                   # 25 Pipeline-Tests
+│   ├── tei_to_json.py                     # → psalm2.json (Bold, Siglen, Gloss-Interleaving)
+│   └── validate_tei.py                    # TEI-Validierung gegen RelaxNG
 └── docs/
-    └── index.html                         # Single-File-Webanwendung
+    ├── index.html                         # Single-File-Webanwendung
+    ├── richtlinien.html                   # Editionsrichtlinien (Unterseite)
+    └── methode.html                       # Methode und technischer Aufbau (Unterseite)
 ```
 
 ## Regeln

@@ -352,31 +352,32 @@ def collect_psalm_comparison(tei_root) -> dict:
         return {'witnesses': []}
 
     witnesses = []
-    # Witness-Liste
+
+    # Witness-Definitionen aus dem Header (<listWit> in <sourceDesc>)
     wit_names = {}
-    for wit_el in comp_div.findall(f'.//{{{TEI_NS}}}witness'):
+    for wit_el in tei_root.findall(f'.//{{{TEI_NS}}}listWit/{{{TEI_NS}}}witness'):
         wit_id = get_xml_id(wit_el)
         wit_names[f'#{wit_id}'] = text_content(wit_el).strip()
+
+    # Sigle → voller Name + Handschrift
+    sigle_info = {
+        'G':     ('Gallicanum', None),
+        'R':     ('Romanum', None),
+        'H':     ('Hebraicum (iuxta Hebraeos)', 'Bamberg Ms. 44'),
+        'A-psa': ('Augustinus-Psalter', 'St. Gallen Cod. 162'),
+        'C-psa': ('Cassiodor-Psalter', 'St. Gallen Cod. 200'),
+    }
 
     # Readings
     for rdg in comp_div.findall(f'.//{{{TEI_NS}}}rdg'):
         wit_ref = rdg.get('wit', '')
-        sigle = wit_ref.replace('#wit-', '').replace('-full', '')
-        name = wit_names.get(wit_ref, sigle)
-
-        # Manuscript aus den Witness-Namen extrahieren
-        manuscript = None
-        if 'Bamberg' in name:
-            manuscript = 'Bamberg Ms. 44'
-        elif 'Cod. 162' in name:
-            manuscript = 'St. Gallen Cod. 162'
-        elif 'Cod. 200' in name:
-            manuscript = 'St. Gallen Cod. 200'
+        sigle = wit_ref.replace('#wit-', '')
+        info = sigle_info.get(sigle, (wit_names.get(wit_ref, sigle), None))
 
         witnesses.append({
             'sigle': sigle,
-            'name': name,
-            'manuscript': manuscript,
+            'name': info[0],
+            'manuscript': info[1],
             'text': clean_text(text_content(rdg)),
         })
 

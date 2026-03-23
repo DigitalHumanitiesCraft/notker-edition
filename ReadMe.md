@@ -20,6 +20,7 @@ Notkers Psalmenkommentar verschränkt lateinischen Psalmtext, althochdeutsche Ü
 - **Synoptischer Psalmtext-Vergleich** (5 Textzeugen)
 - **Wiener Notker** als Paralleltext (ÖNB Cod. 2681)
 - **URL-Persistenz** — Deep Links für Gutachter
+- **Quellentext-Betonungen** — Schlüsselbegriffe in patristischen Zitaten fett hervorgehoben
 
 ## Architektur
 
@@ -38,12 +39,11 @@ Kein Framework, kein Build-Step — maximale Langlebigkeit.
 python scripts/build_tei.py
 python scripts/tei_to_json.py
 
-# Tests
-python scripts/test_pipeline.py
-
-# Lokaler Server (für JSON-Fetch)
+# Lokaler Server (für JSON-Fetch + IIIF-Viewer)
 python -m http.server
 # → http://localhost:8000/docs/index.html
+
+# Oder: docs/index.html direkt als Datei öffnen (Fallback auf eingebettete Daten)
 ```
 
 `docs/index.html` funktioniert auch direkt als Datei (Fallback auf eingebettete Demo-Daten).

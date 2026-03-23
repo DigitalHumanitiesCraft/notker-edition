@@ -127,7 +127,9 @@
   --color-border:       hsl(0, 0%, 88%);
   --color-border-light: hsl(0, 0%, 93%);
   --color-text:         hsl(0, 0%, 15%);
+  --color-text-secondary: hsl(0, 0%, 45%);
   --color-muted:        hsl(0, 0%, 55%);
+  --color-faint:        hsl(0, 0%, 60%);
 
   /* Typography */
   --font-edition: 'Gentium Book Plus', 'Palatino Linotype', Palatino, Georgia, serif;
@@ -160,7 +162,7 @@
 html { font-size: 16px; }
 body {
   font-family: var(--font-ui);
-  color: hsl(0, 0%, 15%);
+  color: var(--color-text);
   background: #fff;
   height: 100vh;
   display: flex;
@@ -185,13 +187,27 @@ body {
   font-family: var(--font-edition);
   font-size: 1.25rem;
   font-weight: 700;
-  color: hsl(0, 0%, 15%);
+  color: var(--color-text);
   white-space: nowrap;
 }
 .header-subtitle {
   font-size: var(--size-ui);
   color: hsl(0, 0%, 50%);
 }
+
+/* Header page links */
+.header-links {
+  display: flex;
+  gap: var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+}
+.header-links a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.header-links a:hover { color: var(--color-psalm); }
 
 /* Psalm navigation strip */
 .psalm-nav {
@@ -209,7 +225,7 @@ body {
   justify-content: center;
   font-size: 0.65rem;
   border-radius: 3px;
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
   background: hsl(0, 0%, 93%);
   cursor: default;
   user-select: none;
@@ -390,18 +406,18 @@ body {
   font-family: var(--font-edition);
   font-size: var(--size-nhd);
   font-style: italic;
-  color: hsl(0, 0%, 45%);
+  color: var(--color-text-secondary);
   line-height: 1.5;
 }
 .sources-empty {
-  color: hsl(0, 0%, 60%);
+  color: var(--color-faint);
   font-size: var(--size-ui);
   font-style: italic;
   padding: 1rem;
 }
 .sources-verse-label {
   font-size: var(--size-ui-sm);
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -418,10 +434,10 @@ body {
 
 /* Toggle toolbar */
 .toggle-toolbar {
-  padding: 0.5rem 1.25rem;
+  padding: var(--sp-2) var(--sp-5);
   border-bottom: 1px solid var(--color-border);
   display: flex;
-  gap: 0.35rem;
+  gap: var(--sp-1) var(--sp-2);
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
@@ -429,58 +445,71 @@ body {
 }
 .toggle-group-label {
   font-size: var(--size-ui-sm);
-  color: hsl(0, 0%, 55%);
-  margin-right: 0.25rem;
+  color: var(--color-muted);
+  margin-right: var(--sp-1);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  white-space: nowrap;
 }
 .toggle-divider {
   width: 1px;
-  height: 20px;
+  height: 24px;
   background: var(--color-border);
-  margin: 0 0.4rem;
+  margin: 0 var(--sp-2);
+  flex-shrink: 0;
 }
 .toggle-btn {
   font-family: var(--font-ui);
-  font-size: var(--size-ui-sm);
-  padding: 0.25rem 0.6rem;
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
+  font-size: var(--size-ui);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
   background: #fff;
   cursor: pointer;
   transition: all 0.15s;
   user-select: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.35rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.toggle-btn:hover { background: hsl(0, 0%, 95%); }
+.toggle-btn:hover {
+  background: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 78%);
+}
 .toggle-btn.active {
   border-color: currentColor;
   background: color-mix(in srgb, currentColor 12%, white);
+  font-weight: 500;
 }
 .toggle-btn .dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: currentColor;
-  opacity: 0.7;
 }
+.toggle-btn:not(.active) .dot { opacity: 0.35; }
 .toggle-btn[data-layer="psalm_citation"] { color: var(--color-psalm); }
 .toggle-btn[data-layer="translation"]    { color: var(--color-translation); }
 .toggle-btn[data-layer="commentary"]     { color: var(--color-commentary); }
 .toggle-btn[data-layer="glosses"]        { color: var(--color-gloss); }
-.toggle-btn[data-toggle="nhd"]           { color: var(--color-nhd); }
+.toggle-btn[data-toggle="nhd"]           { color: hsl(0, 0%, 40%); }
 .toggle-btn[data-toggle="split"]         { color: hsl(0, 0%, 40%); }
+/* Inactive display toggles need visible text */
+.toggle-btn[data-toggle]:not(.active)    { color: var(--color-text-secondary); border-color: hsl(0, 0%, 85%); }
 
 /* Keyboard hint */
 .toggle-btn .kbd {
-  font-size: 0.6rem;
-  background: hsl(0, 0%, 92%);
-  border-radius: 2px;
-  padding: 0 0.25rem;
-  color: hsl(0, 0%, 55%);
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: hsl(0, 0%, 90%);
+  border-radius: var(--radius-sm);
+  padding: 0.05rem 0.3rem;
+  color: hsl(0, 0%, 50%);
   font-family: var(--font-ui);
+  line-height: 1.3;
 }
 
 /* Text content area */
@@ -494,7 +523,7 @@ body {
 .intro-text {
   font-family: var(--font-ui);
   font-size: var(--size-ui);
-  color: hsl(0, 0%, 45%);
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
@@ -528,7 +557,7 @@ body {
   font-family: var(--font-ui);
   font-size: var(--size-ui);
   font-weight: 600;
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
 }
 
 /* Edition page marker */
@@ -608,7 +637,7 @@ body {
   font-size: var(--size-ui-sm);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--color-border-light);
   margin-bottom: 0.4rem;
@@ -643,12 +672,15 @@ body {
   background: hsl(0, 0%, 5%);
   border-left: 1px solid var(--color-border);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .facsimile-panel.collapsed { width: 0; min-width: 0; }
 .facsimile-header {
   padding: 0.5rem 0.75rem;
   font-size: var(--size-ui-sm);
-  color: hsl(0, 0%, 60%);
+  color: var(--color-faint);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-bottom: 1px solid hsl(0, 0%, 20%);
@@ -656,16 +688,20 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.facsimile-close {
+/* Panel close button (shared by sources + facsimile) */
+.panel-close, .facsimile-close {
   cursor: pointer;
   padding: 0.2rem 0.4rem;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   transition: background 0.15s;
 }
+.panel-close:hover { background: hsl(0, 0%, 90%); }
 .facsimile-close:hover { background: hsl(0, 0%, 20%); }
 #osd-viewer {
   flex: 1;
   width: 100%;
+  min-height: 0;  /* flex child needs this to shrink properly */
+  height: 100%;   /* explicit height fallback for OSD */
 }
 
 /* ========================================================================
@@ -675,14 +711,14 @@ body {
   border-top: 1px solid var(--color-border);
   padding: 0.5rem 1.5rem;
   font-size: var(--size-ui-sm);
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
   background: hsl(0, 0%, 99%);
   flex-shrink: 0;
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
-.footer a { color: hsl(0, 0%, 45%); text-decoration: none; }
+.footer a { color: var(--color-text-secondary); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
 /* ========================================================================
@@ -757,22 +793,49 @@ body {
 }
 .comparison-manuscript {
   font-size: var(--size-ui-sm);
-  color: hsl(0, 0%, 55%);
+  color: var(--color-muted);
   font-style: italic;
+}
+.comparison-name {
+  font-weight: 400;
+  font-size: var(--size-ui-sm);
+  color: var(--color-muted);
+}
+
+/* Versed text — used in Psalmtext-Vergleich and Wiener Notker */
+.versed-text {
+  font-family: var(--font-edition);
+  line-height: 1.7;
+}
+.versed-line {
+  padding: 0.3rem 0 0.3rem 2rem;
+  position: relative;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.versed-line:last-child { border-bottom: none; }
+.verse-ref {
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 1.5rem;
+  text-align: right;
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+  font-weight: 600;
+  color: var(--color-psalm);
 }
 
 /* Wiener Notker */
 .wiener-text {
-  font-family: var(--font-edition);
-  font-size: var(--size-body);
-  line-height: 1.8;
+  max-width: 780px;
+}
+.wiener-text .versed-line {
   color: hsl(0, 0%, 25%);
-  max-width: 720px;
 }
 .wiener-header {
   font-family: var(--font-ui);
   font-size: var(--size-ui);
-  color: hsl(0, 0%, 45%);
+  color: var(--color-text-secondary);
   margin-bottom: 1rem;
 }
 
@@ -804,6 +867,10 @@ body {
     <div class="header-title">Notker Psalmenkommentar</div>
     <div class="header-subtitle">Digitale Edition – Prototyp</div>
   </div>
+  <nav class="header-links" aria-label="Seiten-Navigation">
+    <a href="richtlinien.html" title="Kodierungskonventionen der TEI-XML-Edition">Richtlinien</a>
+    <a href="methode.html" title="Promptotyping-Methode, Datenfluss und technische Entscheidungen">Methode</a>
+  </nav>
   <nav class="psalm-nav" aria-label="Psalm-Navigation" id="psalm-nav"></nav>
 </header>
 
@@ -814,7 +881,7 @@ body {
   <aside class="sources-panel" id="sources-panel">
     <div class="sources-panel-header">
       <span>Quellenapparat</span>
-      <span class="facsimile-close" onclick="togglePanel('sources')" title="Panel schließen">&#x2715;</span>
+      <span class="panel-close" onclick="togglePanel('sources')" title="Quellenapparat schließen">&#x2715;</span>
     </div>
     <div class="source-filters" id="source-filters"></div>
     <div class="sources-content" id="sources-content">
@@ -828,24 +895,24 @@ body {
   <main class="text-panel" id="text-panel">
     <div class="toggle-toolbar" id="toggle-toolbar">
       <span class="toggle-group-label">Schichten</span>
-      <button class="toggle-btn active" data-layer="psalm_citation" onclick="toggleLayer('psalm_citation')">
+      <button class="toggle-btn active" data-layer="psalm_citation" onclick="toggleLayer('psalm_citation')" title="Lateinische Psalmverse ein-/ausblenden (Taste 1)">
         <span class="dot"></span>Psalmzitat<span class="kbd">1</span>
       </button>
-      <button class="toggle-btn active" data-layer="translation" onclick="toggleLayer('translation')">
+      <button class="toggle-btn active" data-layer="translation" onclick="toggleLayer('translation')" title="Althochdeutsche Übersetzung ein-/ausblenden (Taste 2)">
         <span class="dot"></span>Übersetzung<span class="kbd">2</span>
       </button>
-      <button class="toggle-btn active" data-layer="commentary" onclick="toggleLayer('commentary')">
+      <button class="toggle-btn active" data-layer="commentary" onclick="toggleLayer('commentary')" title="Notkers exegetischen Kommentar ein-/ausblenden (Taste 3)">
         <span class="dot"></span>Kommentar<span class="kbd">3</span>
       </button>
-      <button class="toggle-btn active" data-layer="glosses" onclick="toggleLayer('glosses')">
+      <button class="toggle-btn active" data-layer="glosses" onclick="toggleLayer('glosses')" title="Interlinearglossen ein-/ausblenden (Taste 4)">
         <span class="dot"></span>Glossen<span class="kbd">4</span>
       </button>
       <div class="toggle-divider"></div>
       <span class="toggle-group-label">Anzeige</span>
-      <button class="toggle-btn" data-toggle="nhd" onclick="toggleNhd()">
+      <button class="toggle-btn" data-toggle="nhd" onclick="toggleNhd()" title="Neuhochdeutsche Arbeitsübersetzung (Philipp Pfeifer) anzeigen (Taste N)">
         nhd. Übersetzung<span class="kbd">N</span>
       </button>
-      <button class="toggle-btn" data-toggle="split" onclick="toggleSplit()">
+      <button class="toggle-btn" data-toggle="split" onclick="toggleSplit()" title="Text in Latein- und Althochdeutsch-Spalten trennen (Taste L)">
         lat./ahd. trennen<span class="kbd">L</span>
       </button>
     </div>
@@ -2089,32 +2156,32 @@ const FALLBACK_DATA = {
     "witnesses": [
       {
         "sigle": "G",
-        "name": "G",
+        "name": "Gallicanum",
         "manuscript": null,
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
       },
       {
         "sigle": "R",
-        "name": "R",
+        "name": "Romanum",
         "manuscript": null,
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum."
       },
       {
         "sigle": "H",
-        "name": "H",
-        "manuscript": null,
+        "name": "Hebraicum (iuxta Hebraeos)",
+        "manuscript": "Bamberg Ms. 44",
         "text": "1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium."
       },
       {
         "sigle": "A-psa",
-        "name": "A-psa",
-        "manuscript": null,
+        "name": "Augustinus-Psalter",
+        "manuscript": "St. Gallen Cod. 162",
         "text": "Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
       },
       {
         "sigle": "C-psa",
-        "name": "C-psa",
-        "manuscript": null,
+        "name": "Cassiodor-Psalter",
+        "manuscript": "St. Gallen Cod. 200",
         "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo."
       }
     ]
@@ -2304,20 +2371,22 @@ function updateUrlHash() {
 // Page numbers are 0-indexed for OpenSeadragon (page 11 = index 10).
 // This mapping is approximate and will be refined against the facsimile.
 // ============================================================================
+// CSg 0021 manifest has 4 prefixed leaves (cover, paste-down, V1, V2)
+// before page 1 starts at canvas index 4. So page N = canvas index N+3.
 const VERSE_TO_PAGE = {
-  1: 10,   // Page 11: Psalm title + Verse 1
-  2: 10,   // Page 11: Verse 2 (continues from 1)
-  3: 10,   // Page 11: Verse 3
-  4: 11,   // Page 12: Verse 4
-  5: 11,   // Page 12: Verse 5
-  6: 11,   // Page 12: Verse 6
-  7: 12,   // Page 13: Verse 7
-  8: 12,   // Page 13: Verse 8
-  9: 12,   // Page 13: Verse 9
-  10: 13,  // Page 14: Verse 10
-  11: 13,  // Page 14: Verse 11
-  12: 13,  // Page 14: Verse 12
-  13: 13,  // Page 14: Verse 13
+  1: 14,   // Page 11 = canvas 14: Psalm title + Verse 1
+  2: 14,   // Page 11: Verse 2 (continues from 1)
+  3: 14,   // Page 11: Verse 3
+  4: 15,   // Page 12 = canvas 15: Verse 4
+  5: 15,   // Page 12: Verse 5
+  6: 15,   // Page 12: Verse 6
+  7: 16,   // Page 13 = canvas 16: Verse 7
+  8: 16,   // Page 13: Verse 8
+  9: 16,   // Page 13: Verse 9
+  10: 17,  // Page 14 = canvas 17: Verse 10
+  11: 17,  // Page 14: Verse 11
+  12: 17,  // Page 14: Verse 12
+  13: 17,  // Page 14: Verse 13
 };
 
 const state = {
@@ -2377,16 +2446,19 @@ function renderPsalmNav() {
     const item = document.createElement('div');
     item.className = 'psalm-nav-item' + (i === 2 ? ' active' : '');
     item.textContent = i;
+    item.title = i === 2 ? 'Psalm 2 (aktiv)' : `Psalm ${i} (noch nicht verfügbar)`;
     nav.appendChild(item);
   });
   const dots = document.createElement('span');
   dots.textContent = '···';
-  dots.style.cssText = 'color: hsl(0,0%,75%); font-size: 0.65rem; margin: 0 4px;';
+  dots.style.cssText = 'color: var(--color-muted); font-size: 0.65rem; margin: 0 4px;';
+  dots.title = 'Psalmen 4–49 (in der Gesamtedition)';
   nav.appendChild(dots);
   trail.forEach(i => {
     const item = document.createElement('div');
     item.className = 'psalm-nav-item';
     item.textContent = i;
+    item.title = `Psalm ${i} (noch nicht verfügbar)`;
     nav.appendChild(item);
   });
 }
@@ -2761,12 +2833,19 @@ async function initOSD() {
   });
 
   window._osdViewer.addHandler('page', function(event) {
-    const pageNum = event.page + 1;
+    // Canvas index to manuscript page: subtract 4 prefixed leaves (cover, paste-down, V1, V2)
+    // Canvases 0-3 are prefixed, canvas 4 = page 1, canvas 14 = page 11
+    const msPage = event.page >= 4 ? event.page - 3 : event.page + 1;
     const indicator = document.getElementById('facsimile-page-indicator');
-    if (indicator) indicator.textContent = `Seite ${pageNum}`;
+    if (indicator) indicator.textContent = `Seite ${msPage}`;
   });
 
-  console.log(`IIIF viewer initialized with ${tileSources.length} pages, starting at page ${startPage + 1}`);
+  // Update page indicator to match initial page
+  const initMsPage = startPage >= 4 ? startPage - 3 : startPage + 1;
+  const initIndicator = document.getElementById('facsimile-page-indicator');
+  if (initIndicator) initIndicator.textContent = `Seite ${initMsPage}`;
+
+  console.log(`IIIF viewer initialized with ${tileSources.length} pages, canvas ${startPage} = Seite ${initMsPage}`);
 }
 
 // ============================================================================
@@ -2841,18 +2920,37 @@ function switchTab(tabName) {
   if (tabName === 'wiener' && !window._wienerRendered) renderWiener();
 }
 
+// Split continuous text into verses at number+uppercase patterns (e.g. "1Quare", "2Astiterunt")
+function splitIntoVerses(text) {
+  // Match verse numbers: digit(s) followed by uppercase letter (or "[" for lacunae)
+  const parts = text.split(/(?=\d{1,2}[A-Z\[])/);
+  return parts.filter(p => p.trim()).map(p => {
+    const m = p.match(/^(\d{1,2})(.+)$/s);
+    if (m) return { num: m[1], text: m[2].trim() };
+    return { num: '', text: p.trim() };
+  });
+}
+
+function formatVersedText(text) {
+  const verses = splitIntoVerses(text);
+  if (verses.length <= 1) return `<div class="versed-text">${escHtml(text)}</div>`;
+  return '<div class="versed-text">' + verses.map(v =>
+    `<div class="versed-line"><span class="verse-ref">${v.num}</span>${escHtml(v.text)}</div>`
+  ).join('') + '</div>';
+}
+
 function renderComparison() {
   window._comparisonRendered = true;
   const container = document.getElementById('comparison-container');
   const witnesses = EDITION_DATA.psalm_text_comparison?.witnesses || [];
   if (witnesses.length === 0) {
-    container.innerHTML = '<p style="color: hsl(0,0%,55%); font-style: italic;">Keine Psalmtext-Vergleichsdaten vorhanden.</p>';
+    container.innerHTML = '<p style="color: var(--color-muted); font-style: italic;">Keine Psalmtext-Vergleichsdaten vorhanden.</p>';
     return;
   }
-  let html = '<table class="comparison-table"><thead><tr><th>Sigle</th><th>Text</th></tr></thead><tbody>';
+  let html = '<table class="comparison-table"><thead><tr><th>Zeuge</th><th>Psalmtext</th></tr></thead><tbody>';
   witnesses.forEach(w => {
     const ms = w.manuscript ? `<div class="comparison-manuscript">${escHtml(w.manuscript)}</div>` : '';
-    html += `<tr><td>${escHtml(w.sigle)}<br>${escHtml(w.name)}${ms}</td><td>${escHtml(w.text)}</td></tr>`;
+    html += `<tr><td><strong>${escHtml(w.sigle)}</strong><br><span class="comparison-name">${escHtml(w.name)}</span>${ms}</td><td>${formatVersedText(w.text)}</td></tr>`;
   });
   html += '</tbody></table>';
   container.innerHTML = html;
@@ -2863,12 +2961,12 @@ function renderWiener() {
   const container = document.getElementById('wiener-container');
   const wn = EDITION_DATA.wiener_notker;
   if (!wn || !wn.text) {
-    container.innerHTML = '<p style="color: hsl(0,0%,55%); font-style: italic;">Kein Wiener-Notker-Text vorhanden.</p>';
+    container.innerHTML = '<p style="color: var(--color-muted); font-style: italic;">Kein Wiener-Notker-Text vorhanden.</p>';
     return;
   }
   container.innerHTML = `
     <div class="wiener-header">${escHtml(wn.manuscript || '')} — Edition: ${escHtml(wn.edition || '')}</div>
-    <div class="wiener-text">${escHtml(wn.text)}</div>
+    <div class="wiener-text">${formatVersedText(wn.text)}</div>
   `;
 }
 
