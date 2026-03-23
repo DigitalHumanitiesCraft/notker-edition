@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methode und technischer Aufbau – Notker Psalmenkommentar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-edition: 'Gentium Book Plus', Palatino, Georgia, serif;
+  --font-ui: 'Inter', -apple-system, sans-serif;
+  --color-psalm: hsl(15, 60%, 40%);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-edition); color: hsl(0,0%,15%); line-height: 1.7; max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
+nav { font-family: var(--font-ui); font-size: 0.8rem; margin-bottom: 2rem; color: hsl(0,0%,50%); }
+nav a { color: var(--color-psalm); text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.subtitle { font-family: var(--font-ui); font-size: 0.85rem; color: hsl(0,0%,50%); margin-bottom: 2rem; }
+h2 { font-size: 1.15rem; margin: 2rem 0 0.75rem; padding-bottom: 0.3rem; border-bottom: 1px solid hsl(0,0%,88%); }
+h3 { font-size: 1rem; margin: 1.5rem 0 0.5rem; }
+p, li { margin-bottom: 0.75rem; }
+ul, ol { padding-left: 1.5rem; }
+code { font-family: 'Fira Code', monospace; font-size: 0.85em; background: hsl(0,0%,96%); padding: 0.15em 0.35em; border-radius: 3px; }
+pre { background: hsl(0,0%,96%); padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0.75rem 0 1rem; font-size: 0.82rem; line-height: 1.5; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.9rem; }
+th { font-family: var(--font-ui); font-size: 0.8rem; text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid hsl(0,0%,85%); color: hsl(0,0%,40%); }
+td { padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(0,0%,92%); vertical-align: top; }
+.pipeline { background: hsl(0,0%,96%); padding: 1.25rem; border-radius: 8px; font-family: var(--font-ui); font-size: 0.85rem; line-height: 2; margin: 1rem 0; }
+.pipeline .step { display: flex; align-items: center; gap: 0.5rem; }
+.pipeline .arrow { color: var(--color-psalm); font-weight: bold; }
+.pipeline .file { background: white; padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid hsl(0,0%,85%); }
+.pipeline .script { background: hsl(15,60%,95%); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid hsl(15,40%,80%); color: var(--color-psalm); }
+.highlight-box { background: hsl(40,20%,97%); border-left: 3px solid var(--color-psalm); padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.95rem; }
+.phase { display: flex; gap: 1rem; margin: 0.75rem 0; }
+.phase-num { font-family: var(--font-ui); font-weight: 700; color: var(--color-psalm); font-size: 1.5rem; min-width: 2rem; }
+.phase-content h3 { margin-top: 0; }
+.stat { font-family: var(--font-ui); font-size: 0.8rem; color: hsl(0,0%,45%); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid hsl(0,0%,88%); font-family: var(--font-ui); font-size: 0.75rem; color: hsl(0,0%,55%); }
+footer a { color: hsl(0,0%,45%); }
+</style>
+</head>
+<body>
+
+<nav><a href="index.html">&larr; Zurück zur Edition</a></nav>
+
+<h1>Methode und technischer Aufbau</h1>
+<p class="subtitle">Vom Manuskript zur interaktiven Edition: Datenfluss, Werkzeuge und Entscheidungen</p>
+
+<h2>Ausgangsproblem</h2>
+
+<p>Notkers Psalmenkommentar verschränkt lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen Kommentar in einem einzigen Textfluss. Bisherige gedruckte Editionen (Tax/Sehrt, 1970er) geben diesen Text linear wieder, ohne die funktionalen Schichten aufzulösen. Die Handschrift CSg 0021 unterscheidet visuell nach <em>Sprache</em> (rot = Latein, schwarz = Deutsch), aber nicht nach <em>Funktion</em> (Zitat vs. Übersetzung vs. Kommentar).</p>
+
+<p>Philipps Probeseite löst dieses Problem durch Farbcodierung: olive (#806000) markiert Psalmzitate, grün (#00B050) Übersetzungen, schwarz den Kommentar. Diese digitale Edition macht diese Codierung interaktiv navigierbar.</p>
+
+<h2>Promptotyping-Methode</h2>
+
+<p>Das Projekt folgt der <strong>Promptotyping</strong>-Methode (Digital Humanities Craft). Kernidee: Alle Designentscheidungen, Domänenwissen und Implementierungsdetails werden in einem strukturierten <em>Research Vault</em> dokumentiert, <em>bevor</em> Code geschrieben wird. Der Vault dient als Context Stream für KI-gestützte Entwicklung.</p>
+
+<div class="highlight-box">
+  <strong>Drei Phasen:</strong> (1) Analyse der Primärquelle und Aufbau des Wissensvaults → (2) Datenaufbereitung als Pipeline → (3) Interface-Entwicklung gegen den Vault. Jede Designentscheidung ist im Vault nachvollziehbar dokumentiert.
+</div>
+
+<p>Der Research Vault umfasst 11 Obsidian-kompatible Markdown-Dokumente: Domänenwissen, Probeseite-Analyse, Anforderungen, Design, Technik, Editionsrichtlinien, TEI-Modell, Journal und drei Kontextdokumente.</p>
+
+<h2>Datenfluss</h2>
+
+<div class="pipeline">
+  <div class="step"><span class="file">Probeseite_Notker.docx</span> <span class="stat">71 KB, 13 Tabellen, Farbcodierung</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="script">parse_probeseite.py</span> DOCX → Python-Zwischenformat <span class="stat">(698 Z.)</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="script">classify_layers.py</span> Sprachwechsel-Annotation, Segment-Verkettung <span class="stat">(371 Z.)</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="script">build_tei.py</span> → TEI-XML (kanonisch) <span class="stat">(573 Z.)</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="file">data/tei/psalm2.xml</span> <span class="stat">767 Zeilen, validiert gegen TEI-All RelaxNG</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="script">tei_to_json.py</span> TEI → JSON (abgeleitet) <span class="stat">(432 Z.)</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="file">data/processed/psalm2.json</span> <span class="stat">1.106 Zeilen, 79 Sections, 14 Glossen, 31 Quellen</span></div>
+  <div class="step"><span class="arrow">&darr;</span></div>
+  <div class="step"><span class="file">docs/index.html</span> <span class="stat">Single-File-Webanwendung, ~2.500 Zeilen</span></div>
+</div>
+
+<h2>Schlüsselentscheidungen</h2>
+
+<h3>TEI-XML als kanonisches Format</h3>
+
+<p>TEI-XML (nicht JSON) ist die Single Source of Truth. Begründung: TEI ermöglicht Sprachwechsel-Annotation (<code>&lt;foreign&gt;</code>), zeilenübergreifende Segmentverkettung (<code>@part</code>), Silbentrennung (<code>&lt;lb break="no"/&gt;</code>), textkritischen Apparat (<code>&lt;app&gt;/&lt;rdg&gt;</code>) und akademische Zitierfähigkeit. JSON wird daraus für die Web-UI abgeleitet.</p>
+
+<h3>Custom-Interface statt EVT</h3>
+
+<p>EVT (Edition Visualization Technology) ist der Standard-Viewer für TEI-Editionen. Wir verwenden ein Custom-Interface aus drei Gründen:</p>
+<ol>
+  <li><strong>Orthogonale Schichtentrennung.</strong> EVT bietet diplomatische vs. interpretative Ansichten, aber keine freie Kombination von Psalmzitat/Übersetzung/Kommentar-Toggles. Das ist das Alleinstellungsmerkmal dieser Edition.</li>
+  <li><strong>Quellenapparat als persistentes Side-Panel</strong> mit farbigen Siglen-Filtern — EVT zeigt Varianten als Popup oder Inline-Highlight.</li>
+  <li><strong>Single-File ohne Build-Dependencies.</strong> EVT braucht Angular/Node. Dieser Prototyp funktioniert in zwei Jahren noch ohne <code>npm install</code>.</li>
+</ol>
+
+<h3>Funktionale statt sprachliche Farbcodierung</h3>
+
+<p>Die Handschrift codiert <em>Sprache</em> (rot = Latein, schwarz = Deutsch). Das UI codiert <em>Textfunktion</em> (Terracotta = Psalmzitat, Schwarzbraun = Übersetzung, Grau = Kommentar). Das ist die philologisch bedeutsamere Unterscheidung, weil der Kommentar <em>beide</em> Sprachen mischt. Sprachbasierte Trennung wird als sekundäre Ansicht angeboten (lat./ahd.-Split-Toggle).</p>
+
+<h2>Automatisierte Schritte</h2>
+
+<table>
+  <thead><tr><th>Schritt</th><th>Methode</th><th>Genauigkeit</th></tr></thead>
+  <tbody>
+    <tr><td>Farbextraktion (DOCX)</td><td>Run-Level-Analyse (python-docx)</td><td>100% — Farbe ist eindeutig</td></tr>
+    <tr><td>Zeilentyp-Erkennung</td><td>Heuristik (Sigle in Spalte 0, Zeilenlänge)</td><td>~95% — manuelle Nachprüfung</td></tr>
+    <tr><td>Sprachwechsel-Erkennung</td><td>Regelbasiert (Morphologie, Wortlisten)</td><td>~90% — ahd./lat. morphologisch verschieden</td></tr>
+    <tr><td>Segment-Verkettung</td><td>@part-Attribute + Hyphen-Merge</td><td>~95% — 1 bekannte Grenzfall-Limitation</td></tr>
+    <tr><td>Glossen-Erkennung</td><td>Heuristik (Zeilenlänge, Farbabwesenheit)</td><td>14/14 erkannt (100% für Psalm 2)</td></tr>
+  </tbody>
+</table>
+
+<h2>Web-Interface</h2>
+
+<p>Eine einzige HTML-Datei (<code>docs/index.html</code>) mit eingebettetem CSS und JavaScript. Externe Abhängigkeiten nur via CDN: Gentium Book Plus (Google Fonts) für den Editionstext, Inter für UI-Elemente, OpenSeadragon für den IIIF-Viewer.</p>
+
+<table>
+  <thead><tr><th>Feature</th><th>Umsetzung</th></tr></thead>
+  <tbody>
+    <tr><td>3-Panel-Layout</td><td>Quellen | Haupttext | Facsimile, Drag-to-Resize</td></tr>
+    <tr><td>6 Toggles</td><td>Psalmzitat (1), Übersetzung (2), Kommentar (3), Glossen (4), nhd. (N), lat./ahd.-Split (L)</td></tr>
+    <tr><td>Quellenapparat</td><td>Sigle-Filter mit farbigen Seitenstreifen</td></tr>
+    <tr><td>IIIF-Facsimile</td><td>OpenSeadragon, CSg 0021, Seiten-Synopse (Vers → MS-Seite)</td></tr>
+    <tr><td>Psalmtext-Vergleich</td><td>5 Textzeugen tabellarisch (G, R, H, A-Psalter, C-Psalter)</td></tr>
+    <tr><td>Wiener Notker</td><td>Paralleltext ÖNB Cod. 2681</td></tr>
+    <tr><td>URL-Persistenz</td><td>UI-Zustand als Hash-Fragment, Deep Links für Gutachter</td></tr>
+  </tbody>
+</table>
+
+<h2>Skalierbarkeit</h2>
+
+<p>Der Prototyp deckt Psalm 2 (13 Verse) ab. Die Erweiterung auf alle 150 Psalmen erfordert:</p>
+<ol>
+  <li><strong>Neue Probeseite-Daten</strong> von Philipp (gleiche Word-Tabellenstruktur)</li>
+  <li><strong>Pipeline ausführen</strong> (<code>build_tei.py</code> + <code>tei_to_json.py</code>)</li>
+  <li><strong>JSON in die UI laden</strong> (Psalm-Navigation bereits vorbereitet)</li>
+</ol>
+<p>Kein architektonischer Umbau nötig. Die Text-Bild-Synopse skaliert von der aktuellen Seiten-Ebene auf Zeilen-Ebene (mit Koordinaten-Annotation) und perspektivisch auf Token-Ebene.</p>
+
+<footer>
+  Notker Psalmenkommentar – Digitale Edition (Prototyp) · Dr. Philipp Pfeifer, Universität Graz · <a href="https://dhcraft.org">Digital Humanities Craft OG</a>
+</footer>
+
+</body>
+</html>

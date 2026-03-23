@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editionsrichtlinien – Notker Psalmenkommentar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-edition: 'Gentium Book Plus', Palatino, Georgia, serif;
+  --font-ui: 'Inter', -apple-system, sans-serif;
+  --color-psalm: hsl(15, 60%, 40%);
+  --color-translation: hsl(25, 30%, 18%);
+  --color-commentary: hsl(0, 0%, 52%);
+  --color-gloss: hsl(210, 20%, 50%);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-edition); color: hsl(0,0%,15%); line-height: 1.7; max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
+nav { font-family: var(--font-ui); font-size: 0.8rem; margin-bottom: 2rem; color: hsl(0,0%,50%); }
+nav a { color: var(--color-psalm); text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.subtitle { font-family: var(--font-ui); font-size: 0.85rem; color: hsl(0,0%,50%); margin-bottom: 2rem; }
+h2 { font-size: 1.15rem; margin: 2rem 0 0.75rem; padding-bottom: 0.3rem; border-bottom: 1px solid hsl(0,0%,88%); }
+h3 { font-size: 1rem; margin: 1.5rem 0 0.5rem; }
+p { margin-bottom: 0.75rem; }
+code { font-family: 'Fira Code', monospace; font-size: 0.85em; background: hsl(0,0%,96%); padding: 0.15em 0.35em; border-radius: 3px; }
+pre { background: hsl(0,0%,96%); padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0.75rem 0 1rem; font-size: 0.82rem; line-height: 1.5; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.9rem; }
+th { font-family: var(--font-ui); font-size: 0.8rem; text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid hsl(0,0%,85%); color: hsl(0,0%,40%); }
+td { padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(0,0%,92%); vertical-align: top; }
+.example { border-left: 3px solid var(--color-psalm); padding-left: 1rem; margin: 0.75rem 0; }
+.example-psalm { color: var(--color-psalm); }
+.example-trans { color: var(--color-translation); }
+.example-comm { color: var(--color-commentary); }
+.example-gloss { color: var(--color-gloss); font-size: 0.9em; }
+.note { font-family: var(--font-ui); font-size: 0.82rem; color: hsl(0,0%,50%); background: hsl(40,10%,97%); padding: 0.75rem 1rem; border-radius: 4px; margin: 0.75rem 0; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid hsl(0,0%,88%); font-family: var(--font-ui); font-size: 0.75rem; color: hsl(0,0%,55%); }
+</style>
+</head>
+<body>
+
+<nav><a href="index.html">&larr; Zurück zur Edition</a></nav>
+
+<h1>Editionsrichtlinien</h1>
+<p class="subtitle">Kodierungskonventionen für die digitale Edition von Notkers Psalmenkommentar in TEI-XML</p>
+
+<h2>1. Funktionale Textschichten</h2>
+
+<p>Notkers Text besteht aus drei funktionalen Schichten, die in der Handschrift CSg 0021 verschränkt sind. Die Edition trennt nach <strong>Textfunktion</strong>, nicht nach Sprache — das ist die zentrale editorische Entscheidung.</p>
+
+<div class="example">
+  <p class="example-psalm"><strong>Psalmzitation</strong> — Lateinische Psalmverse, wie Notker sie zitiert. In der Handschrift rot. <code>&lt;seg type="psalm" xml:lang="la"&gt;</code></p>
+  <p class="example-trans"><strong>Übersetzung</strong> — Althochdeutsche Wiedergabe der Psalmzitate. In der Handschrift schwarz. <code>&lt;seg type="translation" xml:lang="goh"&gt;</code></p>
+  <p class="example-comm"><strong>Kommentar</strong> — Notkers Exegese, ahd. und lat. frei gemischt. In der Handschrift schwarz. <code>&lt;seg type="commentary" xml:lang="goh"&gt;</code></p>
+  <p class="example-gloss"><strong>Interlinearglossen</strong> — Einzelwort-Übersetzungen lat. Fachtermini. <code>&lt;ab ana="#fn-gloss"&gt;&lt;gloss&gt;</code></p>
+</div>
+
+<p>Jede Schicht verweist über <code>@ana</code> auf eine Taxonomie im TEI-Header. Die Zuordnung basiert auf der Farbcodierung in Philipps Probeseite: olive (#806000) = Psalmzitat, grün (#00B050) = Übersetzung, schwarz = Kommentar.</p>
+
+<h2>2. Sprachwechsel</h2>
+
+<p>Notker wechselt ständig zwischen Althochdeutsch und Latein, oft mitten im Satz. <code>&lt;foreign xml:lang="..."&gt;</code> markiert die jeweils fremde Sprache innerhalb eines Segments:</p>
+
+<pre><code>&lt;seg type="translation" xml:lang="goh"&gt;
+  cramoton an &lt;foreign xml:lang="la"&gt;christum ebraicȩ gentes&lt;/foreign&gt;?
+&lt;/seg&gt;
+
+&lt;seg type="commentary" xml:lang="goh"&gt;
+  daz sie sîna &lt;foreign xml:lang="la"&gt;prȩdistinationem&lt;/foreign&gt; dâhton ze iruuendenne.
+&lt;/seg&gt;</code></pre>
+
+<p>Die Default-Sprache des <code>&lt;seg&gt;</code> bestimmt, was <em>nicht</em> getaggt wird. Eigennamen (<em>herodes</em>, <em>ierusalem</em>) werden nicht mit <code>&lt;foreign&gt;</code> markiert.</p>
+
+<h2>3. Quellenapparat</h2>
+
+<p>Patristische Quellentexte werden als <code>&lt;cit&gt;</code> mit lateinischem Original und deutscher Übersetzung kodiert — nicht als textkritischer Apparat (<code>&lt;app&gt;</code>), weil die Quellen Notkers <em>Vorlagen</em> sind, keine <em>Varianten</em> seines Textes.</p>
+
+<table>
+  <thead><tr><th>Sigle</th><th>Quelle</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><strong>A</strong></td><td>Augustinus, Enarrationes in Psalmos</td><td>gesichert</td></tr>
+    <tr><td><strong>C</strong></td><td>Cassiodor, Expositio Psalmorum</td><td>gesichert</td></tr>
+    <tr><td><strong>R</strong></td><td>Remigius</td><td>gesichert</td></tr>
+    <tr><td><strong>Br</strong></td><td>Breviarium</td><td>gesichert</td></tr>
+    <tr><td><strong>RII</strong></td><td>Unbekannt</td><td>ungeklärt</td></tr>
+    <tr><td><strong>N</strong></td><td>Unbekannt</td><td>ungeklärt</td></tr>
+  </tbody>
+</table>
+
+<h2>4. Physische Struktur</h2>
+
+<p>Jede Tabellenzeile der Probeseite wird als <code>&lt;ab&gt;</code> abgebildet. Zeilenübergreifende Segmente nutzen <code>@part</code> (I/M/F). Silbentrennungen am Zeilenende werden mit <code>&lt;lb break="no"/&gt;</code> markiert — Komposita mit Bindestrich (<em>lánt-chuninga</em>) nicht.</p>
+
+<h2>5. Synoptischer Psaltervergleich</h2>
+
+<p>Fünf Psalmtext-Versionen im <code>&lt;back&gt;</code> als <code>&lt;app&gt;/&lt;rdg&gt;</code>: Gallicanum, Romanum, Hebraicum (Bamberg Ms. 44), Augustinus-Psalter (Cod. 162), Cassiodor-Psalter (Cod. 200). Der Hebraicum-Text weicht an mehreren Stellen substantiell ab.</p>
+
+<h2>6. Sprach-Codes</h2>
+
+<table>
+  <thead><tr><th>Code</th><th>Sprache</th><th>Standard</th></tr></thead>
+  <tbody>
+    <tr><td><code>goh</code></td><td>Althochdeutsch</td><td>ISO 639-3</td></tr>
+    <tr><td><code>la</code></td><td>Latein</td><td>ISO 639-1</td></tr>
+    <tr><td><code>de</code></td><td>Neuhochdeutsch</td><td>ISO 639-1</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <strong>Referenzprojekte:</strong> BIBLINDEX (biblindex.org) für patristische Bibelzitat-Konventionen, Patristic Text Archive (pta.bbaw.de) für Encoding-Guidelines patristischer Kommentare, TEI P5 Guidelines Kapitel 12 (Critical Apparatus) und 16 (Linking).
+</div>
+
+<footer>
+  Notker Psalmenkommentar – Digitale Edition (Prototyp) · Dr. Philipp Pfeifer, Universität Graz · <a href="https://dhcraft.org">Digital Humanities Craft OG</a>
+</footer>
+
+</body>
+</html>

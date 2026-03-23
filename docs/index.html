@@ -799,6 +799,10 @@ body {
         Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
         einzeln sichtbar und navigierbar. Handschrift: St. Gallen, Stiftsbibliothek, CSg 0021.
         Edition: Tax/Sehrt, Seiten R10–R13.
+        <span style="margin-left: 0.5rem;">·</span>
+        <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none; margin-left: 0.5rem;">Editionsrichtlinien</a>
+        <span>·</span>
+        <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a>
       </div>
       <!-- Content tabs -->
       <div class="content-tabs" id="content-tabs">
@@ -2448,15 +2452,52 @@ function togglePanel(panel) {
 // IIIF VIEWER
 // ============================================================================
 
-function initOSD() {
+async function initOSD() {
   window._osdInitialized = true;
   const startPage = VERSE_TO_PAGE[state.activeVerse] || 10;
+  const manifestUrl = EDITION_DATA.metadata.iiif_manifest;
+
+  // IIIF Presentation v2 manifest: extract image service URLs from canvases
+  let tileSources = [];
+  try {
+    const resp = await fetch(manifestUrl);
+    const manifest = await resp.json();
+    if (manifest.sequences && manifest.sequences[0] && manifest.sequences[0].canvases) {
+      tileSources = manifest.sequences[0].canvases.map(canvas => {
+        const img = canvas.images && canvas.images[0];
+        if (!img) return null;
+        const resource = img.resource;
+        // Extract IIIF Image API service
+        const service = resource.service || resource['@id'];
+        if (typeof service === 'object' && service['@id']) {
+          return service['@id'] + '/info.json';
+        }
+        if (typeof service === 'string') {
+          return service + '/info.json';
+        }
+        // Fallback: use resource @id as a simple image
+        return { type: 'image', url: resource['@id'] };
+      }).filter(Boolean);
+    }
+  } catch (e) {
+    console.error('Failed to load IIIF manifest:', e);
+    document.getElementById('osd-viewer').innerHTML =
+      '<p style="color:#888;padding:1rem;font-size:0.8rem;">Facsimile konnte nicht geladen werden.</p>';
+    return;
+  }
+
+  if (tileSources.length === 0) {
+    document.getElementById('osd-viewer').innerHTML =
+      '<p style="color:#888;padding:1rem;font-size:0.8rem;">Keine Bilder im IIIF-Manifest gefunden.</p>';
+    return;
+  }
+
   window._osdViewer = OpenSeadragon({
     id: 'osd-viewer',
     prefixUrl: 'https://cdn.jsdelivr.net/npm/openseadragon@4.1/build/openseadragon/images/',
-    tileSources: [EDITION_DATA.metadata.iiif_manifest],
+    tileSources: tileSources,
     sequenceMode: true,
-    initialPage: startPage,
+    initialPage: Math.min(startPage, tileSources.length - 1),
     showNavigator: false,
     showRotationControl: false,
     showSequenceControl: true,
@@ -2466,12 +2507,14 @@ function initOSD() {
     gestureSettingsMouse: { scrollToZoom: true },
     navPrevNextWrap: false,
   });
-  // Update page indicator when user navigates manually
+
   window._osdViewer.addHandler('page', function(event) {
-    const pageNum = event.page + 1; // 0-indexed → 1-indexed display
+    const pageNum = event.page + 1;
     const indicator = document.getElementById('facsimile-page-indicator');
     if (indicator) indicator.textContent = `Seite ${pageNum}`;
   });
+
+  console.log(`IIIF viewer initialized with ${tileSources.length} pages, starting at page ${startPage + 1}`);
 }
 
 // ============================================================================
