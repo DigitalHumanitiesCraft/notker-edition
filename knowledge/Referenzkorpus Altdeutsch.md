@@ -1,6 +1,7 @@
 ---
 type: concept
 created: 2026-02-24
+updated: 2026-03-23
 tags: [digital-humanities, medieval-studies]
 status: reviewed
 ---

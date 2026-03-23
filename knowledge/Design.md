@@ -2,7 +2,7 @@
 type: design
 created: 2026-02-27
 updated: 2026-03-23
-status: draft
+status: active
 tags: [notker, ui-design, edition-interface]
 ---
 
@@ -321,14 +321,14 @@ Der gesamte UI-Zustand ist durch wenige Variablen beschrieben:
 
 ## 5. Offene Designentscheidungen
 
-### Entscheidung nötig vor Implementierung
+### Gelöst bei Implementierung (23.03.)
 
-| Nr. | Frage | Optionen | Empfehlung | Abhängigkeit |
-|---|---|---|---|---|
-| D-1 | Glossen: Inline oder Tooltip? | (a) Inline eingerückt, (b) Tooltip bei Hover, (c) Randnotiz | (a) Inline — sichtbarer, ehrlicher gegenüber dem Textcharakter | Philipps Feedback |
-| D-2 | nhd. Übersetzung: Unter dem Vers oder als Spalte? | (a) Unterhalb, (b) Schmale Spalte rechts | (a) Unterhalb — platzsparender bei 3-Panel-Layout | Keiner |
-| D-3 | Quellenfilter: Farbe pro Sigle oder einheitliche Hervorhebung? | (a) Individuelle Sigle-Farben, (b) Einheitlicher Highlight-Streifen | (a) Individuelle Farben — ermöglicht mehrere Filter gleichzeitig | Keiner |
-| D-4 | Serifenschrift: Welche konkret? | Junicode, Gentium Plus, Palatino, Georgia | Gentium Plus (frei, gute ahd.-Zeichenabdeckung) — Fallback testen | Font-Rendering im Browser |
+| Nr. | Frage | Entscheidung | Umgesetzt in |
+|---|---|---|---|
+| D-1 | Glossen: Inline oder Tooltip? | **Inline**, eingerückt, 0.85rem, Blaugrau, mit Pfeil-Separator | `docs/index.html` |
+| D-2 | nhd. Übersetzung: Unter dem Vers oder als Spalte? | **Unterhalb**, kursiv, gestrichelte Trennlinie | `docs/index.html` |
+| D-3 | Quellenfilter: Farbe pro Sigle oder einheitlich? | **Individuelle Farben** (A=Blau, C=Grün, R=Orange, Br=Violett) als 3px-Seitenstreifen | `docs/index.html` |
+| D-4 | Serifenschrift: Welche konkret? | **Gentium Book Plus** via Google Fonts, Fallback Palatino → Georgia → serif | `docs/index.html` |
 
 ### Entscheidung abhängig von Scope-Klärung mit Philipp
 
@@ -354,4 +354,4 @@ Der gesamte UI-Zustand ist durch wenige Variablen beschrieben:
 - [[Probeseite Analyse]] — Datengrundlage für Farblogik und Glosseninventar
 - [[Domänenwissen]] — Textschichten und Farblogiken
 - [[Research Plan]] — Arbeitsphasen und Scope-Bewertung
-- [[Technik]] — Paralleles Dokument für Stack, Datenmodell, Pipeline
+- [[Technik]] — Pipeline (TEI→JSON), Web-Stack, IIIF-Integration

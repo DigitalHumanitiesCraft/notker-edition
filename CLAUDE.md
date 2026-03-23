@@ -19,8 +19,7 @@ Das Projekt folgt der *Promptotyping*-Methode. Alle Designentscheidungen, Domän
 | `knowledge/Probeseite Analyse.md` | ... die Tabellenstruktur, Farbcodierung und Parsing-Implikationen der Primärdatenquelle nachschlagen willst |
 | `knowledge/Anforderungen.md` | ... wissen willst, was der Prototyp können muss und wie die Features priorisiert sind |
 | `knowledge/Design.md` | ... nachvollziehen willst, wie das Interface aufgebaut ist, welche Toggles es gibt und wie das Farbkonzept funktioniert |
-| `knowledge/Technik.md` | ... den technischen Stack, das JSON-Datenmodell und die Parsing-Strategie verstehen willst |
-| `knowledge/implementation.md` | ... das TEI-XML-Modell, die DOCX→TEI-Pipeline und Encoding-Entscheidungen verstehen willst |
+| `knowledge/Technik.md` | ... die Pipeline (DOCX→TEI→JSON), das TEI-XML-Modell, das JSON-Schema und den Web-Stack verstehen willst |
 | `knowledge/Journal.md` | ... die Projektchronologie, Entscheidungen und offenen Fragen nachschlagen willst |
 
 ## Stack
@@ -47,7 +46,6 @@ notker-edition/
 │   ├── Anforderungen.md
 │   ├── Design.md
 │   ├── Technik.md
-│   ├── implementation.md
 │   ├── Journal.md
 │   ├── 2026-02-24 Erstgespräch.md
 │   └── Referenzkorpus Altdeutsch.md

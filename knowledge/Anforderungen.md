@@ -25,7 +25,7 @@ Akzeptanzkriterien:
 Akzeptanzkriterien:
 - Standardansicht: verschränkter Text (wie in der Handschrift)
 - Toggle-Ansicht: Latein links, Althochdeutsch rechts, synchron gescrollt
-- Farbliche Unterscheidung (siehe [[Design#Farbkonzept]])
+- Farbliche Unterscheidung (siehe [[Design#Farbsystem]])
 
 **US-1.3** Als Gutachter will ich die nhd. Übersetzung neben dem Haupttext sehen können.
 
