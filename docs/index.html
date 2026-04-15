@@ -343,6 +343,20 @@ body {
   padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--color-border-light);
   display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+/* Iteration 2 / US-10.1: Filter-Gruppen (Quellen / Psalter) */
+.source-filter-group-label {
+  font-size: var(--size-ui-sm);
+  font-weight: 600;
+  color: hsl(0, 0%, 45%);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+.source-filter-row {
+  display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
@@ -364,6 +378,14 @@ body {
 .source-filter[data-sigle="C"] { color: var(--color-src-C); }
 .source-filter[data-sigle="R"] { color: var(--color-src-R); }
 .source-filter[data-sigle="Br"] { color: var(--color-src-Br); }
+/* Psalter-Gruppe hat eigene Farbe (gedeckt grau-blau, unterscheidbar) */
+.source-filter[data-group="psalter"] {
+  color: hsl(220, 25%, 45%);
+  border-style: dashed;
+}
+.source-filter[data-group="psalter"].active {
+  background: hsl(220, 25%, 93%);
+}
 
 /* Source entries */
 .sources-content {
@@ -2505,20 +2527,49 @@ function renderPsalmNav() {
 
 function renderSourceFilters() {
   const container = document.getElementById('source-filters');
-  const sigles = [
-    { sigle: 'A', label: 'Augustinus' },
-    { sigle: 'C', label: 'Cassiodor' },
-    { sigle: 'R', label: 'Remigius' },
-    { sigle: 'Br', label: 'Breviarium' }
+  // Iteration 2 / US-10.1: zwei Gruppen visuell getrennt.
+  // Patristische Quellen vs. Psalter-Zeugen. R-Konflikt (Remigius vs.
+  // Romanum-Psalter) unaufgeloest bis Pfeifer-Bestaetigung — Sigle R
+  // erscheint in beiden Gruppen, wird aber durch Gruppen-Label disambiguiert.
+  const groups = [
+    {
+      label: 'Quellen',
+      group: 'sources',
+      items: [
+        { sigle: 'A', label: 'Augustinus' },
+        { sigle: 'C', label: 'Cassiodor' },
+        { sigle: 'R', label: 'Remigius' },
+        { sigle: 'Br', label: 'Breviarium' },
+      ],
+    },
+    {
+      label: 'Psalter',
+      group: 'psalter',
+      items: [
+        { sigle: 'G', label: 'Gallicanum (Psalter-Zeuge, @cert=low)' },
+        { sigle: 'H', label: 'Hebraicum (Psalter-Zeuge, @cert=low)' },
+      ],
+    },
   ];
-  sigles.forEach(s => {
-    const el = document.createElement('div');
-    el.className = 'source-filter';
-    el.dataset.sigle = s.sigle;
-    el.textContent = `${s.sigle}`;
-    el.title = s.label;
-    el.onclick = () => toggleSourceFilter(s.sigle);
-    container.appendChild(el);
+  groups.forEach(g => {
+    const label = document.createElement('div');
+    label.className = 'source-filter-group-label';
+    label.textContent = g.label;
+    container.appendChild(label);
+    const row = document.createElement('div');
+    row.className = 'source-filter-row';
+    row.dataset.group = g.group;
+    g.items.forEach(s => {
+      const el = document.createElement('div');
+      el.className = 'source-filter';
+      el.dataset.sigle = s.sigle;
+      el.dataset.group = g.group;
+      el.textContent = s.sigle;
+      el.title = s.label;
+      el.onclick = () => toggleSourceFilter(s.sigle);
+      row.appendChild(el);
+    });
+    container.appendChild(row);
   });
 }
 
