@@ -420,10 +420,17 @@ body {
 .source-german {
   font-family: var(--font-edition);
   font-size: var(--size-nhd);
-  font-style: italic;
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
+/* Iteration 2 / BUG-11.5: differenzierte Kursivierung nach Quellsprache.
+   Konvention: kursiv fuer Uebersetzungen aus dem Lateinischen,
+   aufrecht fuer Uebersetzungen aus dem Althochdeutschen. */
+.source-german[data-source-language="la"] { font-style: italic; }
+.source-german[data-source-language="goh"] { font-style: normal; }
+/* Iteration 2 / US-1.3-Erweiterung: Toggle fuer Quellen-Uebersetzung. */
+.sources-panel.hide-source-german .source-german { display: none; }
+.sources-panel.hide-source-german .source-divider { display: none; }
 .sources-empty {
   color: var(--color-faint);
   font-size: var(--size-ui);
@@ -865,8 +872,10 @@ body {
 /* Scroll fade indicator on sources panel */
 .sources-content {
   position: relative;
-  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  /* Iteration 2 / BUG-11.4: mask-image fade-to-transparent at bottom made
+     the last source entries appear in reduced contrast (Pfeifer reported
+     "Schrift schwächer bei V12-13"). Removed. Scroll indicator is now
+     just the native scrollbar below. */
 }
 
 /* Scrollbar styling */
@@ -937,6 +946,9 @@ body {
       </button>
       <button class="toggle-btn" data-toggle="split" onclick="toggleSplit()" title="Text in Latein- und Althochdeutsch-Spalten trennen (Taste L)">
         lat./ahd. trennen<span class="kbd">L</span>
+      </button>
+      <button class="toggle-btn active" data-toggle="source-nhd" onclick="toggleSourceNhd()" title="Deutsche Übersetzungen im Quellenapparat ein-/ausblenden (Taste Q)">
+        Quellen-Übersetzung<span class="kbd">Q</span>
       </button>
     </div>
 
@@ -2346,6 +2358,7 @@ function stateToHash() {
   if (layers) p.set('layers', layers);
   if (state.showNhd) p.set('nhd', '1');
   if (state.splitLanguages) p.set('split', '1');
+  if (!state.showSourceNhd) p.set('qnhd', '0');
   const src = [...state.sourceFilter].join(',');
   if (src) p.set('src', src);
   const panels = [];
@@ -2370,6 +2383,7 @@ function parseUrlHash() {
   }
   state.showNhd = p.get('nhd') === '1';
   state.splitLanguages = p.get('split') === '1';
+  if (p.has('qnhd')) state.showSourceNhd = p.get('qnhd') !== '0';
   if (p.has('src')) {
     state.sourceFilter.clear();
     p.get('src').split(',').forEach(s => { if (s) state.sourceFilter.add(s); });
@@ -2417,6 +2431,7 @@ const state = {
   visibleLayers: new Set(['psalm_citation', 'translation', 'commentary', 'glosses']),
   showNhd: false,
   splitLanguages: false,
+  showSourceNhd: true,  // Iteration 2 / US-1.3-Erweiterung: default visible
   sourceFilter: new Set(),
   panels: { sources: true, facsimile: true }
 };
@@ -2445,6 +2460,8 @@ function syncUiToState() {
   });
   document.querySelector('.toggle-btn[data-toggle="nhd"]')?.classList.toggle('active', state.showNhd);
   document.querySelector('.toggle-btn[data-toggle="split"]')?.classList.toggle('active', state.splitLanguages);
+  document.querySelector('.toggle-btn[data-toggle="source-nhd"]')?.classList.toggle('active', state.showSourceNhd);
+  document.getElementById('sources-panel')?.classList.toggle('hide-source-german', !state.showSourceNhd);
   document.querySelectorAll('.source-filter').forEach(el => {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
   });
@@ -2705,6 +2722,15 @@ function toggleNhd() {
   updateUrlHash();
 }
 
+function toggleSourceNhd() {
+  state.showSourceNhd = !state.showSourceNhd;
+  const btn = document.querySelector('.toggle-btn[data-toggle="source-nhd"]');
+  if (btn) btn.classList.toggle('active', state.showSourceNhd);
+  const panel = document.getElementById('sources-panel');
+  if (panel) panel.classList.toggle('hide-source-german', !state.showSourceNhd);
+  updateUrlHash();
+}
+
 function toggleSplit() {
   state.splitLanguages = !state.splitLanguages;
   document.querySelector('.toggle-btn[data-toggle="split"]').classList.toggle('active', state.splitLanguages);
@@ -2778,7 +2804,7 @@ function updateSourcesPanel() {
         <div class="source-sigle" style="color: var(--color-src-${s.sigle})"><span class="sigle-chip"><span>${s.sigle}</span></span><span class="source-name">${escHtml(s.name)}</span></div>
         <div class="source-latin">${safeBoldHtml(s.latin_text)}</div>
         <div class="source-divider"></div>
-        <div class="source-german">${escHtml(s.german_translation)}</div>
+        <div class="source-german" data-source-language="${escHtml(s.source_language || 'la')}">${escHtml(s.german_translation)}</div>
       </div>
     `).join('');
 }
@@ -2888,6 +2914,7 @@ function setupKeyboardShortcuts() {
       case '4': toggleLayer('glosses'); break;
       case 'n': case 'N': toggleNhd(); break;
       case 'l': case 'L': toggleSplit(); break;
+      case 'q': case 'Q': toggleSourceNhd(); break;
     }
   });
 }

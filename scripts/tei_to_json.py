@@ -327,6 +327,10 @@ def collect_sources(verse_div) -> list[dict]:
 
         quote = cit.find(f'{{{TEI_NS}}}quote')
         latin = clean_text(rich_text_content(quote)) if quote is not None else ''
+        # Iteration 2 / BUG-11.5: source language from quote's xml:lang.
+        # Ermöglicht typografische Differenzierung im UI (kursiv fuer lat.,
+        # aufrecht fuer ahd.).
+        source_language = get_lang(quote) if quote is not None else 'la'
 
         tr_note = cit.find(f'{{{TEI_NS}}}note[@type="translation"]')
         german = clean_text(text_content(tr_note)) if tr_note is not None else ''
@@ -336,6 +340,7 @@ def collect_sources(verse_div) -> list[dict]:
             'name': name,
             'latin_text': latin,
             'german_translation': german,
+            'source_language': source_language or 'la',
         })
 
     return sources
