@@ -168,7 +168,7 @@
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum <b>causas</b> <b>iracundiae</b> non haberent.",
-          "german_translation": "In vier Teilen ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Grüde des Zorns nicht hatten."
+          "german_translation": "In vier Teile ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Gründe des Zorns nicht hatten."
         },
         {
           "sigle": "A",
@@ -180,7 +180,7 @@
           "sigle": "R",
           "name": "Remigius",
           "latin_text": "Sed hoc meditatio inanis fuit, quia ad nullum effectum peruenit. Quod enim amplius nomen eius obscurare uolerunt, eo amplius per uniuersum mundum dilatatum est.",
-          "german_translation": "Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich seinen Namen mehr verdecken wollten, ist dieser mehr über die Welt der Erde ausgebreitet."
+          "german_translation": "Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich seinen Namen mehr verdecken wollten, ist dieser mehr über das Universum der Welt ausgebreitet."
         },
         {
           "sigle": "C",
@@ -228,7 +228,7 @@
         },
         {
           "type": "translation",
-          "text": "Prechen chádensie íro gebénde . unde uuerfen ába uns íro ioch.",
+          "text": "Prechen cháden sie íro gebénde . unde uuerfen ába uns íro ioch.",
           "language": "ahd",
           "source_sigles": [
             "C"
@@ -360,7 +360,7 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "erlaubte es. Deshalb geht ihnen der Wille, gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, das sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
+      "translation_nhd": "erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
       "sources": [
         {
           "sigle": "C",
@@ -372,7 +372,7 @@
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
           "latin_text": "Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis <b>christiana</b> <b>religio</b>.",
-          "german_translation": "Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit uns nicht verplfichtet noch uns aufgezwungen wird die christliche Religion."
+          "german_translation": "Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit wir nicht verpflichtet noch uns aufgezwungen wird die christliche Religion."
         },
         {
           "sigle": "Br",
@@ -653,19 +653,19 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
+      "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
       "sources": [
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Dominum significat <b>Patrem</b> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.",
-          "german_translation": "„Herr“ steht für den Vater [...]„Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist."
+          "german_translation": "„Herr“ steht für den Vater [...] „Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist."
         },
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
           "latin_text": "[...] tamen hodie quia praesentiam significat atque in aeternitate nec <b>praeteritum</b> quidquam est, quasi esse desierit, nec <b>futurum</b>, quasi <b>nondum</b> <b>sit</b>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <b>Filius</b>, fides sincerissima et catholica praedicat.",
-          "german_translation": "[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit er das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt."
+          "german_translation": "[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil, was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt."
         }
       ]
     },
@@ -849,19 +849,19 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
+      "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe. Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab, das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
       "sources": [
         {
           "sigle": "A",
           "name": "Augustinus, Enarrationes in Psalmos",
           "latin_text": "Hoc iam temporaliter secundum susceptum hominem [...] ut scilicet gentes nomini christiano copulentur atque ita a morte redimantur, et possideantur a deo.",
-          "german_translation": "Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...] sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott."
+          "german_translation": "Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...], sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott."
         },
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut <b>petat</b> secundum <b>naturam</b> <b> inferiorem</b> et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas",
-          "german_translation": "Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unerlegenden Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker."
+          "german_translation": "Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unterlegenen Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker."
         },
         {
           "sigle": "A",
@@ -1002,7 +1002,7 @@
         }
       ],
       "glosses": [],
-      "translation_nhd": "STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Köper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.",
+      "translation_nhd": "STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.",
       "sources": [
         {
           "sigle": "C",
@@ -1144,13 +1144,13 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht ableitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
+      "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
       "sources": [
         {
           "sigle": "C",
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Et pereatis de uia iusta, id est, a <b>caelesti</b> <b> Rege Christo</b>, quia via est <b>recte</b> <b>ambulantium</b> ad uitam, dux euntium, iter ad beatitudinem festinantium.",
-          "german_translation": "Und ihr abweicht vom gerechten Weg, das heißt, vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden."
+          "german_translation": "Und ihr abweicht vom gerechten Weg, das heißt vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden."
         },
         {
           "sigle": "A",

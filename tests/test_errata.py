@@ -175,9 +175,9 @@ def test_context_disambiguates():
     rule = ErrataRule(
         id='t-005',
         rationale='Test',
-        context_before='Stab ',
-        find='. das ist',
-        replace=', das ist',
+        context_before='',
+        find='Stab . das ist',
+        replace='Stab, das ist',
         context_after=' unbeugsame',
         expected_count=1,
     )
