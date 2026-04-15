@@ -309,6 +309,21 @@ body {
   background: var(--color-panel-bg);
   border-right: 1px solid var(--color-border);
   position: relative;
+  /* Iteration 2 / BUG-11.2: flex-column enables .sources-content scroll */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* Iteration 2 / BUG-11.3: .collapsed was never applied to sources-panel
+   because the panel lacks the generic `panel` class. Dedicated rule. */
+.sources-panel.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
 }
 .sources-panel-header {
   padding: 0.75rem 1rem;
@@ -676,7 +691,15 @@ body {
   flex-direction: column;
   overflow: hidden;
 }
-.facsimile-panel.collapsed { width: 0; min-width: 0; }
+.facsimile-panel.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+}
 .facsimile-header {
   padding: 0.5rem 0.75rem;
   font-size: var(--size-ui-sm);
@@ -2517,8 +2540,10 @@ function renderVerses() {
     }
 
     // Interleaved view container
+    // Iteration 2 / BUG-11.1: apply state-dependent classes at creation so that
+    // re-renders from toggleLayer() preserve the split-mode view.
     const interleaved = document.createElement('div');
-    interleaved.className = 'verse-interleaved';
+    interleaved.className = 'verse-interleaved' + (state.splitLanguages ? ' hidden-by-split' : '');
 
     // Sections + inline glosses (interleaved in correct reading order from JSON)
     verse.sections.forEach(sec => {
@@ -2547,8 +2572,9 @@ function renderVerses() {
     el.appendChild(interleaved);
 
     // Split view — two-column grid with glosses spanning both columns
+    // Iteration 2 / BUG-11.1: same class-persistence fix as .verse-interleaved.
     const splitView = document.createElement('div');
-    splitView.className = 'verse-split';
+    splitView.className = 'verse-split' + (state.splitLanguages ? ' visible' : '');
 
     // Column headers
     splitView.innerHTML = '<div class="split-col-header">Latein</div><div class="split-col-header">Althochdeutsch</div>';
