@@ -195,20 +195,64 @@ Drei Phasen, jeweils releasbar. Nach jeder Phase kurze Rücksprache mit Pfeifer 
 
 ### Phase A — Korrektur (P1)
 
-Ziel: alle Blocker fix, Pfeifer kann Review vollständig durchführen.
+Ziel: alle Blocker fix, Pfeifer kann Review vollständig durchführen. **Testgetrieben** für alle Pipeline-Transformationen (Errata, Parser), manuell für CSS-Bugs.
 
-1. Epic 12 umsetzen: TEI-Patches (US-12.1, 12.2, 12.3), JSON regenerieren, Pipeline-Tests erweitern.
-2. BUG-11.2 (Scroll): `overflow-y: auto` auf `.sources-content`, `max-height: calc(100vh - ...)`.
-3. BUG-11.3 (×): `.collapsed`-CSS vervollständigen (`display: none` auf Inhaltscontainer oder Breite 0 + overflow hidden + opacity 0).
-4. BUG-11.1 (Split): Spezifitätskonflikt zwischen `.hidden` und `.hidden-by-split` auflösen; Testfälle mit allen Toggle-Kombinationen.
-5. Release als Iteration 2a, Pfeifer prüft nach, liefert Augustinus-2-Korrekturen V3–5 / V6 nach.
+**Kritische Entscheidung (2026-04-15, während Umsetzung):** Textkorrekturen werden *nicht* händisch in `data/tei/psalm2.xml` gepatcht. Grund: die Pipeline ist re-runbar, manuelle TEI-Edits würden bei jedem Re-Parse der DOCX überschrieben. Stattdessen Errata-Layer zwischen TEI-Build und JSON-Ableitung. Jede Korrektur als YAML-Regel mit Kontext-basiertem Matching, idempotent, auditierbar.
+
+#### Teststrategie — Pyramide
+
+| Ebene | Zweck | Scope |
+|-------|-------|-------|
+| **Unit** | Einzelregel-Anwendung, Idempotenz (2. Lauf = identischer Output), Ambiguitäts-Erkennung (Regel matcht mehrfach → Fehler, nicht silent), YAML-Schema. Parser-Heuristik an DOCX-Paragraph-Fixtures. | klein, schnell |
+| **Integration** | End-to-End DOCX → TEI → Errata → TEI-final → JSON. Ground-Truth-Vergleich pro Korrektur. Erweiterung `test_pipeline.py`. | mittel |
+| **Regression** | Eine Acceptance pro Pfeifer-Korrektur: `alt` nicht vorhanden an Position X + `neu` vorhanden an Position X. Macht jede Korrektur atomar testbar. | ~20 Tests |
+| **Invarianten** | TEI-RelaxNG (existiert: `validate_tei.py`), Glossenzähler = 13 nach V6-Fix, 7 Vers-`<div>`, keine leeren `<seg>`, keine orphan `<lb/>`. | global |
+
+CSS-Bugs in A.3 werden nicht getestet (Over-Engineering für einmalige DOM-Fixes) — stattdessen Screenshot-Vergleich vorher/nachher als Abnahme-Artefakt.
+
+#### A.0 — Test-Infrastructure (vorgelagert)
+
+- `tests/test_errata.py` — Unit-Tests für Errata-Regel-Anwendung, Idempotenz, Ambiguität.
+- `tests/test_gloss_classification.py` — Parser-Heuristik-Tests inkl. Regression für V6.
+- Erweiterung `scripts/test_pipeline.py` — 20 Acceptance-Tests pro Pfeifer-Korrektur, Glossenzähler, Invarianten.
+- Ground-Truth-Fixtures: pro Korrektur `old_context` + `new_context` (±20 Zeichen Kontext) aus der Probeseite.
+- Ergebnis: alle neuen Tests laufen **rot** (erwartet).
+
+#### A.1 — Errata-Mechanismus
+
+- `data/errata.yaml` — 20 Textkorrekturen aus US-12.1 + US-12.2. Kommentar-Konvention pro Regel: `# Pfeifer 2026-04-15 Review, Quelle: {Cassiodor V1-2 | Augustinus V3-5 | nhd. V8-9 | ...}`.
+- Regel-Schema: `{id, context_before, find, replace, context_after, rationale}`. Matching erfolgt mit Kontext (eindeutig), nicht mit globalem find/replace.
+- `scripts/apply_errata.py` — liest TEI, lädt YAML, wendet Regeln an. Ambiguitäts-Check: matcht eine Regel mehr oder weniger als erwartet → Fehler, Exit 1.
+- Pipeline-Integration: `build_tei.py → apply_errata.py → tei_to_json.py`. Das Zwischenprodukt `data/tei/psalm2-errata-applied.xml` wird nicht committed (.gitignore), nur `data/tei/psalm2.xml` (Original-Parse) und `data/processed/psalm2.json` (Ergebnis).
+- Tests aus A.0 laufen für Errata-Korrekturen **grün**.
+
+#### A.2 — Parser-Fix V6 Glossen-Heuristik
+
+- Analyse in `scripts/classify_layers.py`: warum wurde „ze_gótes sélbes ána-sihte. [...]" als Gloss markiert? Vermutlich Pattern-Regel (kurzer Text, spezifische Zeichen).
+- Unit-Test für V6-Fehlklassifikation schreiben (bereits rot aus A.0).
+- Heuristik anpassen (kein Over-Fitting auf Einzelfall — Regel-Logik reviewen, dann Counter-Beispiele in den Test-Suite aufnehmen, damit gültige Glossen weiter korrekt klassifiziert werden).
+- Integration: Glossenzähler 14 → 13 **grün**.
+
+#### A.3 — CSS-Bugfixes
+
+- **BUG-11.2 (Scroll):** `overflow-y: auto` auf `.sources-content`, `min-height: 0` für Flexbox-Kontext.
+- **BUG-11.3 (×):** `.sources-panel.collapsed` CSS vervollständigen (`width: 0`, `overflow: hidden`, `border: none`).
+- **BUG-11.1 (Split):** Spezifitätskonflikt zwischen `.hidden` und `.hidden-by-split` in CSS-Block vor Zeile 867 auflösen.
+- Abnahme-Artefakt: Screenshots vorher/nachher pro Bug im Bericht.
+
+#### A.4 — End-to-End + PR
+
+- Alle Toggle-Kombinationen (4 Layer × nhd × split = 32 States) manuell durchschalten, URL-Hash-Reload, Regression Iteration 1.
+- Screenshot-Paket vorher/nachher.
+- PR gegen `main`, Body verweist auf `Anforderungen-Iteration-2.md#umsetzungsplan` und listet alle aufgelösten US-12.* und BUG-11.*.
+- Bericht an Operator mit Test-Zählern (grün/gesamt), Screenshot-Liste, Pfeifer-Nachreich-Offenen (Augustinus 2 V3–5/V6).
 
 ### Phase B — Lesbarkeit (P2)
 
 Ziel: Darstellungsqualität, niedrigrisiko.
 
 6. BUG-11.4 (Kontrast): Fade entfernen oder an Scroll-Indikator binden.
-7. BUG-11.5 (Kursiv): Entscheidung mit Pfeifer, dann typografische Differenzierung.
+7. BUG-11.5 (Kursiv): typografische Differenzierung nach Entscheidung 3 (kursiv für Lat.-Übersetzungen, aufrecht für Ahd.-Übersetzungen). Erfordert TEI-Pipeline-Erweiterung um `source.source_language` aus `@xml:lang`.
 8. US-1.3-Erweiterung: nhd.-Toggle wirkt auch auf Quellen-Panel.
 9. Release als Iteration 2b.
 
