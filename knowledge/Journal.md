@@ -1,7 +1,7 @@
 ---
 type: journal
 created: 2026-02-24
-updated: 2026-03-23
+updated: 2026-04-15
 tags: [notker, project-log]
 ---
 
@@ -139,25 +139,98 @@ Umfassende Review und Überarbeitung:
 
 **Dokumentation:** CLAUDE.md, Design.md, ReadMe.md, Journal.md aktualisiert.
 
+## 2026-04-15 – Iteration 2 (Pfeifer-Review)
+
+Review durch Pfeifer mit ~20 Textkorrekturen, Glossen-Fehlklassifikation V6, drei Bugs
+(Split-Toggle, Scroll, ×-Button) und vier Architektur-Wünschen (Dropdown-Panels,
+Zeilensynopse, Psalter-Layer, Kursiv-Konvention). Umsetzung auf Branch
+`iteration-2-pfeifer-review`.
+
+**Methodischer Wechsel:** Kritischer Operator-Hinweis — manuelle TEI-Edits wären
+strukturelle Anti-Pattern (Re-Parse überschreibt sie). Phase A restrukturiert:
+testgetrieben (A.0 rot → A.1 grün → A.2 grün → A.3 manuell → A.4 E2E).
+
+**Phase A: Datenkorrektur und Blocker**
+- 21 Textkorrekturen als YAML-Errata-Layer (`data/errata.yaml`, `scripts/apply_errata.py`).
+  Idempotent, re-runbar, audit-fähig mit Rationale-Konvention „Pfeifer 2026-04-15 Review,
+  Quelle: X" pro Regel.
+- V6-Glossen-Reklassifikation via Heuristik-Erweiterung in `detect_gloss_line()`:
+  Text mit `[...]` ist Haupttext, nicht Glosse. Generisch, nicht V6-Spezialfall.
+  Glossenzähler 14 → 13.
+- BUG-11.1 Split-Toggle: `renderVerses()` setzte State-Klassen bei DOM-Rebuild nicht —
+  jetzt `state.splitLanguages` am Element-Konstruktor.
+- BUG-11.2 Scroll: `.sources-panel` fehlte Flex-Container-Kontext für `.sources-content`-
+  Scroll.
+- BUG-11.3 ×-Button: `.panel.collapsed` griff nie (Markup hat keine `.panel`-Klasse);
+  dedizierte `.sources-panel.collapsed` + vervollständigte `.facsimile-panel.collapsed`.
+- Test-Infrastruktur ausgebaut: `tests/test_errata.py` (9 Unit-Tests), `tests/test_gloss_classification.py`
+  (6 Unit-Tests), `scripts/test_pipeline.py` um 4 Akzeptanz-Tests erweitert (21
+  Pfeifer-Fixtures + V6-Reklassifikation). Gesamt 42 grüne Tests.
+- Screenshots vorher/nachher via Playwright (`scripts/capture_bug_screenshots.py`).
+
+**Phase B: Lesbarkeit**
+- BUG-11.4 Kontrast-Fade: `.sources-content` `mask-image` entfernt (Pfeifer:
+  „Schrift schwächer bei V12–13"). Native Scrollbar als Indikator.
+- BUG-11.5 Kursiv-Konvention: Pipeline extrahiert `source_language` aus `<quote xml:lang>`.
+  CSS `[data-source-language="la"]` → kursiv, `[data-source-language="goh"]` → aufrecht.
+  In Psalm 2 alle Quellen `la` — Konvention für spätere ahd.-Quellen dokumentiert.
+- US-1.3-Erweiterung: Toggle „Quellen-Übersetzung" (Taste Q, Default an) im Toolbar.
+  Blendet `.source-german` im Quellenapparat aus. URL-Hash `qnhd=0`.
+
+**Phase C.1: Psalter-Layer**
+- US-10.1: Filter-Gruppe „Psalter" mit G und H unter der existierenden „Quellen"-Gruppe.
+  Visuell differenziert (gestrichelter Rahmen, grau-blaue Farbe).
+- R in Psalter-Gruppe weggelassen wegen Sigel-Konflikt mit Remigius (patristisch) —
+  wartet auf Pfeifer-Klärung.
+
+**Commit-Kette (10 Commits auf main @ 12ab1e5):**
+`fa301c5` (Req) → `64c9f33` (TDD-Plan) → `b9f5f07` (A.0 rot) → `d5e8803` (A.1 Errata) →
+`1d06916` (A.2 Parser-Fix) → `efd7422` (A.3 CSS) → `4b9cd2c` (Screenshots) →
+`7bde521` (Mail-Draft) → `f2eb99d` (Phase B) → `56a0955` (C.1 Psalter).
+
+**Offen aus Iteration 2:**
+- US-9 Zeilensynopse: **hart blockiert** durch fehlende Grundtext-Zeilenumbrüche der
+  Handschrift. Pfeifer-Input benötigt (Tax/Sehrt-Markierung oder Facsimile-Ableitung).
+- US-8 Panel-Dropdown rechts: bereit für Umsetzung, wartet auf Operator-Freigabe
+  (Kompromiss-Entscheidung: nur rechtes Panel Dropdown, Mitte fix).
+- Augustinus-2-Korrekturen V3–5/V6: Pfeifer hat sie wegen BUG-11.2 nicht prüfen können.
+  Nach Phase-A-Merge kann er nachscrollen.
+
+**Entscheidungen dokumentiert in** `knowledge/Anforderungen-Iteration-2.md`:
+1. Panel-Modell Kompromiss (nur rechts Dropdown, Mitte fix)
+2. Zeilensynopse via TEI-`<lb/>` aus DOCX-Bindestrichen geparst
+3. Kursiv-Konvention (kursiv für lat., aufrecht für ahd.)
+4. Siglen G/R/H provisorisch als Psalter-Zeugen mit `@cert="low"`
+5. Research-Vault-Zugriff: kein Repo-Zugriff, Methoden-HTML/PDF als Ersatz
+
 ## Offene Punkte
 
 ### Nächste Schritte
-- [ ] Push auf GitHub
-- [ ] GitHub Pages aktivieren
-- [ ] Übergabe an Philipp
+- [ ] PR gegen `main` erstellen (Branch schon gepusht, URL in Abschlussbericht)
+- [ ] Augustinus-2-Korrekturen V3–5/V6 von Pfeifer nachreichen lassen
+- [ ] Videocall mit Pfeifer für Panel-Modell, Siglen-Semantik, Kursiv-Konvention,
+      Grundtext-Zeilenumbrüche
+- [ ] US-8 Panel-Dropdown umsetzen
+- [ ] Methoden-Paket (docs/methode.html stabilisieren + zitierbares PDF) für Antrag
 
-### Bekannte Limitationen
-- ~~Vers→Seite-Mapping vorläufig~~ → **Gelöst** (Canvas-Offset +4, gegen Manifest verifiziert)
-- Trailing Hyphen V7 `irgân-` (Versgrenze, TEI-Strukturproblem)
-- Farbüberlagerung Textschicht × Quellenfilter (D-11, am Bildschirm testen)
-- `relates_to` in Glossen leer (TEI-Pipeline setzt kein `@target`)
+### Bekannte Limitationen (Stand Iteration 2)
+- Trailing Hyphen V7 `irgân-` (Versgrenze, TEI-Strukturproblem — unverändert seit
+  Iteration 1, Low-Prio)
+- `relates_to` in Glossen leer (TEI-Pipeline setzt kein `@target` — unverändert)
+- Pre-existing TEI-Warnings in Pipeline: Versgrenzen-Silbentrennung + ein doppeltes
+  Leerzeichen in Remigius V1–2 (nicht in Pfeifers Korrektur-Liste)
 
 ### Mit Philipp zu klären
+- [ ] Grundtext-Zeilenumbrüche der Handschrift (für US-9 Zeilensynopse)
+- [ ] Siglen-Semantik G/R/H: textkritische Varianten oder Psalter-Quellen?
+- [ ] R-Konflikt: Remigius vs. Romanum — wie im TEI disambiguiert?
+- [ ] Kursiv-Konvention bestätigen
 - [ ] Querverweise auf Bibelstellen: welche Daten existieren?
-- [ ] SAP-Bestellnummer
 
 ## Verknüpfungen
 
 - [[Research Plan]] — Gesamtplan
 - [[Probeseite Analyse]] — Quellenanalyse
 - [[Technik]] — Pipeline und Datenmodell
+- [[Anforderungen-Iteration-2]] — Iteration 2 Backlog, Entscheidungen, TDD-Plan
+- [[Pfeifer-Mail-Iteration-2a]] — Mail-Draft zur Auslieferung
