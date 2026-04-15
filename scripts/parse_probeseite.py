@@ -295,6 +295,13 @@ def detect_gloss_line(text_runs: list[Run], nhd: str, sigles: str) -> bool:
     if full_text.endswith('.') and not full_text.startswith('.i.'):
         return False
 
+    # Editorischer Auslassungsmarker "[...]" signalisiert Fortsetzung von Fließtext
+    # (Kommentar- oder Haupttext), nicht eine kurze Interlinearglosse.
+    # Pfeifer 2026-04-15 Review (V6 "ze_gótes sélbes ána-sihte. [...]"): als Haupttext,
+    # nicht als Glosse zu klassifizieren.
+    if '[...]' in full_text:
+        return False
+
     # Vollständige Sätze mit Verb → Kommentar
     # Heuristik: enthält ein konjugiertes Verb-Muster (ahd. endet oft auf -t, -n)
     # Aber viele Glossen enthalten auch "-" (Silbentrennung) → das ist OK

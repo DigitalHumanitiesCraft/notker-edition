@@ -369,15 +369,15 @@
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="8">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="M">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
-          <ab ana="#fn-gloss" n="9">
-            <gloss xml:lang="goh">ze_gótes sélbes ána-sihte. [...]</gloss>
-            <note type="translation_gloss" xml:lang="de">zu Gottes eigenem Angesicht. [...]</note>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ze_gótes sélbes ána-sihte. [...]</seg>
+            <note type="sigle" place="margin">A, C</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde</p>
+            <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]</p>
           </note>
           <note type="sources">
             <cit ana="#src-A">
