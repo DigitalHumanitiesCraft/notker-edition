@@ -1,7 +1,7 @@
 ---
 type: analysis
 created: 2026-03-23
-updated: 2026-03-23
+updated: 2026-04-16
 status: complete
 tags: [data-analysis, probeseite, notker]
 ---
@@ -112,7 +112,13 @@ Beispiele:
 
 ## Interlinearglossen
 
-14 identifizierte Glossen. Erkennungsmuster: kurze Zeilen (2–5 Wörter), keine Quellen-Sigle, Übersetzungsverhältnis 1:1.
+13 Glossen (Iteration 2 reklassifiziert: V6 „ze_gótes sélbes ána-sihte. [...]" war
+ursprünglich als 14. Glosse erkannt, ist aber Haupttext mit `[...]`-Auslassung —
+Heuristik in `detect_gloss_line()` erweitert: Text mit `[...]` ist Haupttext, nicht
+Glosse).
+
+Erkennungsmuster: kurze Zeilen (2–5 Wörter), keine Quellen-Sigle, Übersetzungs-
+verhältnis 1:1, keine `[...]`-Auslassung.
 
 | Tabelle | Row | Ahd./Lat. Text | nhd. Übersetzung | Bezug |
 |---|---|---|---|---|

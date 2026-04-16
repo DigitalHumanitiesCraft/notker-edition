@@ -286,8 +286,10 @@ def collect_segments(verse_div) -> list[dict]:
 
     # Phase 4: Disambiguierung der Sigles in Psalter-Zeugen vs. patristische
     # Quellen (R ist ambig: Romanum bei psalm_citation, sonst Remigius).
+    # source_sigles ist nur interner Akkumulator; im JSON-Output erscheinen
+    # nur die disambiguierten Felder.
     for sec in result:
-        psa, src = disambiguate_sigles(sec['type'], sec.get('source_sigles', []))
+        psa, src = disambiguate_sigles(sec['type'], sec.pop('source_sigles', []))
         sec['sigles_psalter'] = psa
         sec['sigles_sources'] = src
 
@@ -473,12 +475,17 @@ def collect_wiener_notker(tei_root) -> dict:
 # Cross-verse hyphenation fix
 # ---------------------------------------------------------------------------
 
-def fix_cross_verse_hyphens(verses: list[dict]):
-    """
-    Löst Silbentrennungen an Versgruppen-Grenzen auf.
-    Wenn der letzte Section-Text eines Verses mit '-' endet und der
-    nächste Vers (mit Daten) eine erste Section gleichen Typs hat,
-    werden die Texte zusammengeführt.
+def merge_cross_verse_hyphens(verses: list[dict]):
+    """Loest die Textseite der Cross-Verse-Silbentrennung im JSON auf.
+
+    Komplement zu chain_cross_verse_hyphens (build_tei.py): das TEI verkettet
+    semantisch via @part="I"/"F" + @next/@prev, behaelt aber die getrennten
+    Texte fuer Vers-Treue. Das JSON ist das UI-Format, in dem die Texte fuer
+    die Lese-Anzeige zusammengefuehrt werden ("han-" + "gta" -> "hangta").
+
+    Wenn der letzte Section-Text eines Verses mit '-' endet und der naechste
+    Vers eine erste Section gleichen Typs hat, werden die Texte (und sigles)
+    zusammengefuehrt und die erste Section des Folgeverses entfernt.
     """
     real_verses = [v for v in verses if v.get('sections')]
     for i in range(len(real_verses) - 1):
@@ -495,10 +502,11 @@ def fix_cross_verse_hyphens(verses: list[dict]):
             # Merge: "han-" + "gta iz..." → "hangta iz..."
             merged = merge_hyphenated(last_sec['text'], first_sec['text'])
             last_sec['text'] = merged
-            # Sigles zusammenführen
-            for s in first_sec.get('source_sigles', []):
-                if s not in last_sec.get('source_sigles', []):
-                    last_sec.setdefault('source_sigles', []).append(s)
+            # Disambiguierte Sigles zusammenfuehren (sigles_psalter + sigles_sources)
+            for field in ('sigles_psalter', 'sigles_sources'):
+                for s in first_sec.get(field, []):
+                    if s not in last_sec.get(field, []):
+                        last_sec.setdefault(field, []).append(s)
             # Erste Section des nächsten Verses entfernen
             nxt['sections'] = nxt['sections'][1:]
 
@@ -579,7 +587,7 @@ def tei_to_json(tei_path: str) -> dict:
 
     # Post-Processing: Silbentrennungen an Versgruppen-Grenzen auflösen
     # z.B. V1-2 endet "han-", V3-5 beginnt "gta iz" → "hangta iz"
-    fix_cross_verse_hyphens(result['verses'])
+    merge_cross_verse_hyphens(result['verses'])
 
     # Vers 13 fehlt in der DOCX-Versstruktur (Probeseite hat nur "2,12" als
     # Überschrift, aber der Text deckt Verse 12 und 13 ab). Vers 13 ergänzen.

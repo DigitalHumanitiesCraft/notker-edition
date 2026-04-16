@@ -17,10 +17,6 @@
           "type": "psalm_citation",
           "text": "PSALVS DAVID.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -32,10 +28,6 @@
           "type": "psalm_citation",
           "text": "QVARE FREMVERVNT GENTES.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 2,
           "sigles_psalter": [
             "G",
@@ -47,11 +39,6 @@
           "type": "translation",
           "text": "Ziu gríscramoton an christum ebraicȩ gentes?",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "C"
-          ],
           "line_n": 2,
           "sigles_psalter": [
             "G"
@@ -65,7 +52,6 @@
           "type": "gloss",
           "text": "iúdon diêt",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 3,
           "translation_nhd": "Juden Volk",
           "relates_to": "",
@@ -76,12 +62,6 @@
           "type": "psalm_citation",
           "text": "Et populi meditati sunt inania .",
           "language": "lat",
-          "source_sigles": [
-            "C",
-            "G",
-            "R",
-            "A"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G",
@@ -96,11 +76,6 @@
           "type": "commentary",
           "text": "idest frustura?",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "G",
-            "R",
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [
             "G"
@@ -114,11 +89,6 @@
           "type": "translation",
           "text": "Vnde ziu dâhton sîne liûte ardingun . ín ze irloschenne?",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [
             "G"
@@ -132,11 +102,6 @@
           "type": "commentary",
           "text": "Sie dâhton des ín ubelo spuên solta.",
           "language": "ahd",
-          "source_sigles": [
-            "A",
-            "G",
-            "R"
-          ],
           "line_n": 6,
           "sigles_psalter": [
             "G"
@@ -150,10 +115,6 @@
           "type": "psalm_citation",
           "text": "Astiterunt reges terrȩ . et principes conuenerunt in unum aduersus dominum et aduersus christum eivs.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 7,
           "sigles_psalter": [
             "G",
@@ -165,7 +126,6 @@
           "type": "gloss",
           "text": "in gotes martyro",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 9,
           "translation_nhd": "in Gottes Martyrium",
           "relates_to": "",
@@ -176,9 +136,6 @@
           "type": "translation",
           "text": "Tie lánt-chuninga uuâren gágenuuerte in passione domini",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 10,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -189,9 +146,6 @@
           "type": "commentary",
           "text": ". nals ána sehendo . nube iro uuíllen oûgendo .",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 10,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -202,9 +156,6 @@
           "type": "translation",
           "text": "unde principes sacerdotum gesamenoton sih uuider trúhtene .",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 11,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -215,9 +166,6 @@
           "type": "translation",
           "text": "unde uuíder sînemo geuuiêchten.",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 12,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -228,15 +176,13 @@
           "type": "commentary",
           "text": "Êin herodes uuolta ín slâhen . anderer hangta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
           "language": "ahd",
-          "source_sigles": [
-            "C",
-            "G",
-            "R"
-          ],
           "line_n": 13,
-          "sigles_psalter": [],
+          "sigles_psalter": [
+            "G"
+          ],
           "sigles_sources": [
-            "C"
+            "C",
+            "R"
           ]
         }
       ],
@@ -322,10 +268,6 @@
           "type": "psalm_citation",
           "text": "Disrumpamus uincula eorum . et proiciamus a nobis iugum ipsorum .",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -337,9 +279,6 @@
           "type": "commentary",
           "text": "idest christi et apostolorum. Sús einoton sie sic(h).",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -350,9 +289,6 @@
           "type": "translation",
           "text": "Prechen cháden sie íro gebénde . unde uuerfen ába uns íro ioch.",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -363,7 +299,6 @@
           "type": "commentary",
           "text": "Ne-lâzen unsich",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 4,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -372,7 +307,6 @@
           "type": "gloss",
           "text": "christis uobunga",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 5,
           "translation_nhd": "Christi Glauben",
           "relates_to": "",
@@ -383,11 +317,6 @@
           "type": "commentary",
           "text": "nieht ána christianam religionem.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "A",
-            "G",
-            "R"
-          ],
           "line_n": 6,
           "sigles_psalter": [
             "G"
@@ -401,11 +330,6 @@
           "type": "psalm_citation",
           "text": "Qui habitat in celis irridbit eos . et dominus subsannabit eos.",
           "language": "lat",
-          "source_sigles": [
-            "A",
-            "G",
-            "R"
-          ],
           "line_n": 6,
           "sigles_psalter": [
             "G",
@@ -419,9 +343,6 @@
           "type": "translation",
           "text": "Ter in hímile bûet . ter spóttot íro . unde násesnûdet an_sîe.",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -432,12 +353,6 @@
           "type": "commentary",
           "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôhlîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuendenne. Dâr ána uuâren sie meditantes inania.",
           "language": "ahd",
-          "source_sigles": [
-            "C",
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 8,
           "sigles_psalter": [
             "G",
@@ -452,7 +367,6 @@
           "type": "gloss",
           "text": "penêmida",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 10,
           "translation_nhd": "Vorherbestimmung",
           "relates_to": "",
@@ -463,7 +377,6 @@
           "type": "gloss",
           "text": ".i. ténchende in uppe",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 12,
           "translation_nhd": "das heißt Denkende vergeblich",
           "relates_to": "",
@@ -474,12 +387,6 @@
           "type": "psalm_citation",
           "text": "Tunc loquetur ad eos in ira sua . et in furore suo conturbabit eos.",
           "language": "lat",
-          "source_sigles": [
-            "C",
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 13,
           "sigles_psalter": [
             "G",
@@ -494,10 +401,6 @@
           "type": "translation",
           "text": "Tanne spríchet er in zû mit zórne . unde mit hêizmûote getrûobet er sie.",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "H"
-          ],
           "line_n": 14,
           "sigles_psalter": [
             "G",
@@ -509,7 +412,6 @@
           "type": "gloss",
           "text": "in ubertêilido lon sundon",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 16,
           "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
           "relates_to": "",
@@ -520,7 +422,6 @@
           "type": "commentary",
           "text": "In iudicio tuôt er iz . so retributio peccatorum ist.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [],
           "line_n": 17,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -630,11 +531,6 @@
           "type": "psalm_citation",
           "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon montem sanctum eius prȩdicans prȩceptum eius.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "A",
-            "C"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G"
@@ -648,11 +544,6 @@
           "type": "translation",
           "text": "Ih pin áber fóne mînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "C",
-            "A"
-          ],
           "line_n": 2,
           "sigles_psalter": [
             "G"
@@ -666,11 +557,6 @@
           "type": "commentary",
           "text": "daz ist ȩcclesia .",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "A",
-            "C"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G"
@@ -684,11 +570,6 @@
           "type": "translation",
           "text": "sîn gebot ságende",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "A",
-            "C"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G"
@@ -702,13 +583,6 @@
           "type": "commentary",
           "text": ". daz chît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "G",
-            "A",
-            "C",
-            "R",
-            "N"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G"
@@ -724,10 +598,6 @@
           "type": "commentary",
           "text": "daz chit latine specula . in únsera uuîs uuarta. Der bezêichnenet ȩcclesiam . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde ze_gótes sélbes ána-sihte. [...]",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C",
-            "A"
-          ],
           "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -809,11 +679,6 @@
           "type": "commentary",
           "text": "[...]",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -827,11 +692,6 @@
           "type": "psalm_citation",
           "text": "Dominus dixit ad me . filius meus es tu . ego",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -844,7 +704,6 @@
           "type": "gloss",
           "text": "âna zît",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 2,
           "translation_nhd": "ohne Zeit",
           "relates_to": "",
@@ -855,9 +714,6 @@
           "type": "psalm_citation",
           "text": "hodie genui te .",
           "language": "lat",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -868,9 +724,6 @@
           "type": "commentary",
           "text": "idest sine tempore.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -881,9 +734,6 @@
           "type": "translation",
           "text": "Min fáter chád ze mír .",
           "language": "ahd",
-          "source_sigles": [
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -894,7 +744,6 @@
           "type": "gloss",
           "text": "irgân-",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 4,
           "translation_nhd": "vergan-",
           "relates_to": "",
@@ -905,9 +754,6 @@
           "type": "translation",
           "text": "mîn sun bist du . hiûto gebár ih tih.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -918,9 +764,6 @@
           "type": "commentary",
           "text": "Góte neist ne-hêin zît prȩteritum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -931,7 +774,6 @@
           "type": "gloss",
           "text": "gen chúnftîg",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 6,
           "translation_nhd": "gen künftig",
           "relates_to": "",
@@ -942,9 +784,6 @@
           "type": "psalm_citation",
           "text": "Postula a me et",
           "language": "lat",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 8,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1002,11 +841,6 @@
           "type": "psalm_citation",
           "text": "dabo tibi gentes hereditatem tuam.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -1019,11 +853,6 @@
           "type": "translation",
           "text": "Píte mih .",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -1037,12 +866,6 @@
           "type": "commentary",
           "text": "uuanda dû ménnischo bist . unde an diû mín mínnero bist .",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "H",
-            "A"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -1057,9 +880,6 @@
           "type": "translation",
           "text": "sô gîbo ih tîr dîn érbe",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 2,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1070,7 +890,6 @@
           "type": "gloss",
           "text": "alle liûte",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 3,
           "translation_nhd": "alle Völker",
           "relates_to": "",
@@ -1081,11 +900,6 @@
           "type": "translation",
           "text": "VVélez ist daz? Gentes.",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G",
@@ -1099,11 +913,6 @@
           "type": "psalm_citation",
           "text": "Et possessionem tuam terminos terrȩ.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R",
-            "H"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G",
@@ -1116,9 +925,6 @@
           "type": "translation",
           "text": "Vnde gíbo ih tir ze_besízzene . énde déro erdo .",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1129,9 +935,6 @@
           "type": "commentary",
           "text": "déro dû bítest.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 5,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1142,10 +945,6 @@
           "type": "commentary",
           "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er sih sélben umbe sie PATRI ópferota.",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 6,
           "sigles_psalter": [
             "G"
@@ -1158,10 +957,6 @@
           "type": "psalm_citation",
           "text": "Reges eos in virga ferrea .",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 7,
           "sigles_psalter": [
             "G",
@@ -1173,10 +968,6 @@
           "type": "commentary",
           "text": "idest in-flexibili iustitia.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 8,
           "sigles_psalter": [
             "G"
@@ -1189,10 +980,6 @@
           "type": "translation",
           "text": "Tiê rihtest tu mit îseninro gérto .",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "R"
-          ],
           "line_n": 8,
           "sigles_psalter": [
             "G"
@@ -1205,9 +992,6 @@
           "type": "commentary",
           "text": "daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nieman genemen.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 9,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1218,7 +1002,6 @@
           "type": "psalm_citation",
           "text": "Tamquam uas figuli confringes eos.",
           "language": "lat",
-          "source_sigles": [],
           "line_n": 10,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1227,7 +1010,6 @@
           "type": "translation",
           "text": "Sámoso",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 10,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1236,7 +1018,6 @@
           "type": "gloss",
           "text": "uuerlt-lúste",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 11,
           "translation_nhd": "Weltlüste",
           "relates_to": "",
@@ -1247,9 +1028,6 @@
           "type": "translation",
           "text": "háfenâres faz ferbríchest tû sie.",
           "language": "ahd",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 12,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1260,9 +1038,6 @@
           "type": "commentary",
           "text": "Terrenas concupiscentias férbríchest tu an ín.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "A"
-          ],
           "line_n": 12,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1345,11 +1120,6 @@
           "type": "psalm_citation",
           "text": "VOX PROPHETȨ. Et nunc reges intellegite.",
           "language": "lat",
-          "source_sigles": [
-            "G",
-            "R",
-            "C"
-          ],
           "line_n": 1,
           "sigles_psalter": [
             "G",
@@ -1363,7 +1133,6 @@
           "type": "translation",
           "text": "Vnde nu fernément chúninga.",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 2,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1372,7 +1141,6 @@
           "type": "commentary",
           "text": "Chúninga déro erdo .",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 2,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1381,10 +1149,6 @@
           "type": "commentary",
           "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
           "language": "ahd",
-          "source_sigles": [
-            "A",
-            "C"
-          ],
           "line_n": 3,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1396,11 +1160,6 @@
           "type": "psalm_citation",
           "text": "Erudimini qui iudicatis terram.",
           "language": "lat",
-          "source_sigles": [
-            "A",
-            "C",
-            "G"
-          ],
           "line_n": 4,
           "sigles_psalter": [
             "G"
@@ -1414,9 +1173,6 @@
           "type": "translation",
           "text": "Lâzent îuch lêren lantrechtara.",
           "language": "ahd",
-          "source_sigles": [
-            "G"
-          ],
           "line_n": 5,
           "sigles_psalter": [
             "G"
@@ -1427,11 +1183,6 @@
           "type": "commentary",
           "text": "Mêistera des lîchamen fernément.",
           "language": "ahd",
-          "source_sigles": [
-            "G",
-            "A",
-            "C"
-          ],
           "line_n": 5,
           "sigles_psalter": [
             "G"
@@ -1445,10 +1196,6 @@
           "type": "psalm_citation",
           "text": "Seruite domino in timore.",
           "language": "lat",
-          "source_sigles": [
-            "A",
-            "C"
-          ],
           "line_n": 6,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1460,11 +1207,6 @@
           "type": "translation",
           "text": "Diênont góte mit fórhtun.",
           "language": "ahd",
-          "source_sigles": [
-            "A",
-            "C",
-            "Br"
-          ],
           "line_n": 6,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1477,9 +1219,6 @@
           "type": "commentary",
           "text": "Daz nehéue iûuh . daz ir reges kenámot pirnt.",
           "language": "ahd_lat_mixed",
-          "source_sigles": [
-            "Br"
-          ],
           "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1490,9 +1229,6 @@
           "type": "psalm_citation",
           "text": "Et exultate ei cum tremore.",
           "language": "lat",
-          "source_sigles": [
-            "R"
-          ],
           "line_n": 8,
           "sigles_psalter": [
             "R"
@@ -1503,9 +1239,6 @@
           "type": "translation",
           "text": "Vnde rîdono sînt ímo frô.",
           "language": "ahd",
-          "source_sigles": [
-            "R"
-          ],
           "line_n": 8,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1516,9 +1249,6 @@
           "type": "commentary",
           "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
           "language": "ahd",
-          "source_sigles": [
-            "R"
-          ],
           "line_n": 8,
           "sigles_psalter": [],
           "sigles_sources": [
@@ -1602,7 +1332,6 @@
           "type": "psalm_citation",
           "text": "Apprehendite disciplinam nequando irascatur dominus . et pereatis de uia iusta.",
           "language": "lat",
-          "source_sigles": [],
           "line_n": 1,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1611,7 +1340,6 @@
           "type": "translation",
           "text": "Lírnent zúht . unde uuésent in égi .",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 2,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1620,7 +1348,6 @@
           "type": "translation",
           "text": "daz sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába rehtemo uuége.",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 2,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1629,7 +1356,6 @@
           "type": "commentary",
           "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 4,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1638,7 +1364,6 @@
           "type": "psalm_citation",
           "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
           "language": "lat",
-          "source_sigles": [],
           "line_n": 5,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1647,7 +1372,6 @@
           "type": "gloss",
           "text": "kerich",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 6,
           "translation_nhd": "Gericht?",
           "relates_to": "",
@@ -1658,7 +1382,6 @@
           "type": "translation",
           "text": "So sîn zorn irhêizzet in spûote",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1667,7 +1390,6 @@
           "type": "commentary",
           "text": ". unde uindicta",
           "language": "ahd_lat_mixed",
-          "source_sigles": [],
           "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1676,7 +1398,6 @@
           "type": "gloss",
           "text": "in slago dero brâuuo",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 8,
           "translation_nhd": "im Schlag der Brauen",
           "relates_to": "",
@@ -1687,7 +1408,6 @@
           "type": "commentary",
           "text": "chúmet in ictu oculi .",
           "language": "ahd_lat_mixed",
-          "source_sigles": [],
           "line_n": 9,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1696,7 +1416,6 @@
           "type": "translation",
           "text": "so sint sâlig . diê sih ze_ímo fersêhent.",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 9,
           "sigles_psalter": [],
           "sigles_sources": []
@@ -1705,7 +1424,6 @@
           "type": "commentary",
           "text": "(Staatsbibliothek Bamberg Ms. 44)",
           "language": "ahd",
-          "source_sigles": [],
           "line_n": 10,
           "sigles_psalter": [],
           "sigles_sources": []

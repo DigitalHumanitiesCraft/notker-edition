@@ -1,7 +1,7 @@
 ---
 type: design
 created: 2026-02-27
-updated: 2026-03-23
+updated: 2026-04-16
 status: draft
 tags: [notker, ui-design, edition-interface]
 ---
@@ -74,9 +74,36 @@ Per Toggle zuschaltbar (Standard: AUS). Darstellung unterhalb jedes Verses, kurs
 
 ## 3. Layout und Designsystem
 
-### 3.1 Gesamtlayout
+### 3.1 Gesamtlayout (Iteration 2: Slot-System)
 
-Dreispaltiges Grundraster: Quellen (~25%) · Haupttext (~50%) · Facsimile (~25%, einklappbar). Panels durch verschiebbare Trenner getrennt (*drag-to-resize*). Quellen- und Facsimile-Panel unabhängig ein-/ausklappbar. Header mit Projekttitel und Psalmleiste, Footer mit Zitierhinweis, Projektkontext, Lizenz.
+Dreispaltiges Grundraster mit drei generischen **Slots** A · B · C. Jeder Slot hat
+einen Auswahl-Dropdown im Header und einen Schließen-Button. Die Default-Belegung
+entspricht dem Iteration-1-Layout: A=Quellen, B=Notkers Edition, C=Facsimile.
+
+Aus dem **Pool** kann pro Slot ein Inhaltstyp gewählt werden:
+
+| Pool-Eintrag | Inhalt | Quelle |
+|---|---|---|
+| Quellen | Patristischer Apparat (A/C/R/Br + Filter) | bestehender Apparat |
+| Notkers Text | Edition mit Schichten-Toggles | Haupttext |
+| Nhd. Übersetzung | Pfeifers nhd. als Fließtext-Lese-Ansicht | aufgelöste Bindestriche |
+| Wiener Notker | Paralleltext ÖNB Cod. 2681 | NEU als eigener Slot |
+| Psalter G | Gallicanum als zusammenhängender Psaltertext | NEU |
+| Psalter R | Romanum | NEU |
+| Psalter H | Hebraicum | NEU |
+| Handschrift Notker | IIIF-Facsimile CSg 0021 | bestehend |
+| Anmerkungen | Siglen-Schlüssel + editorische Hinweise | NEU |
+| Psalmtext-Vergleich | Synoptische Tabelle aller fünf Zeugen | NEU |
+
+Single-Instance-Pool: jeder Eintrag existiert genau einmal im DOM. Pickt man in
+Slot B einen Eintrag, der schon in A montiert ist, **tauschen die Slots**
+transparent ihren Inhalt. Geschlossene Slots erscheinen als Buttons in einer
+**Wiederherstellungsleiste** am unteren Bildschirmrand.
+
+Panels durch verschiebbare Trenner (*drag-to-resize*). Header mit Projekttitel
+und Psalmleiste, Footer mit Zitierhinweis, Projektkontext, Lizenz.
+
+Slot-Belegung wird im URL-Hash persistiert: `#slots=A:nhd,B:edition,C:psalter_g&closed=`.
 
 ### 3.2 Typografie
 

@@ -1,7 +1,7 @@
 ---
 type: technical
 created: 2026-02-27
-updated: 2026-03-23
+updated: 2026-04-16
 tags: [notker, technical, tei, pipeline]
 ---
 
@@ -15,12 +15,23 @@ Technische Referenz für Pipeline, TEI-Modell, JSON-Schema und Web-Stack. Für e
 
 ```
 Probeseite_Notker.docx
-  → parse_probeseite.py    DOCX → Python (Dataclasses)     Regelbasiert
-  → classify_layers.py     Sprachwechsel, Verkettung        Regel + Heuristik
-  → build_tei.py           → data/tei/psalm2.xml            lxml, TEI-All RNG
-  → tei_to_json.py         → data/processed/psalm2.json     Abgeleitetes Format
-  → docs/index.html        Single-File-Webanwendung
+  → parse_probeseite.py     DOCX → Python (Dataclasses)        Regelbasiert
+  → classify_layers.py      Sprachwechsel, @part-Verkettung    Regel + Heuristik
+  → build_tei.py            → data/tei/psalm2.xml              lxml, TEI-All RNG
+       Schritt 1: TEI seriell aus PsalmData
+       Schritt 2: apply_corrections (PFEIFER_CORRECTIONS)      Pipeline-Normalisierung
+       Schritt 3: normalize_whitespace_in_text_nodes           DOCX-Artefakte
+       Schritt 4: chain_cross_verse_hyphens                    @part="I"/"F" + @next/@prev
+  → tei_to_json.py          → data/processed/psalm2.json
+       collect_segments inkl. line_n + disambiguate_sigles
+       merge_cross_verse_hyphens (textliche Zusammenführung für UI)
+  → docs/index.html         Single-File-Webanwendung mit Slot-System
 ```
+
+Ehemaliger Errata-Layer (`apply_errata.py` + `errata.yaml` + `tests/test_errata.py`)
+in Iteration 2 entfernt — die 21 Pfeifer-Korrekturen leben jetzt als
+`PFEIFER_CORRECTIONS: list[tuple[str, str]]` in `parse_probeseite.py` und werden
+über `apply_corrections()` einmal auf den fertigen TEI-String angewendet.
 
 ### 1.1 DOCX-Parsing (`parse_probeseite.py`)
 
@@ -62,14 +73,19 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 
 **Besondere Features:**
 - **Siglen-Parsing:** Klammernotation `G [A, C]` wird korrekt als separate Siglen geparst (Regex: `[A-Z][a-z]*(?:II)?`)
+- **R-Disambiguierung** (`disambiguate_sigles()`): R ist ambig (Romanum-Psalter vs. Remigius-Patristik). Heuristik anhand Section-Type: R in `psalm_citation` → `sigles_psalter`, sonst → `sigles_sources`. G/H sind eindeutig Psalter, A/C/Br/RII/N eindeutig Patristik.
+- **Notker-Zeilennummer**: jede Section trägt `line_n` aus dem `<ab n="X">` (Iteration 2 / US-9.2) — Frontend setzt `data-line` Attribut.
+- **nhd. line-faithful**: `collect_nhd_lines()` liest die `<l>`-Elemente unter `<lg type="line-faithful">` als `translation_nhd_lines: [str]`. Frontend rendert Edition zeilengetreu, Pool-View als Fließtext.
 - **Bold-Preservation:** `<hi rend="bold">` in `<quote>`-Elementen wird als `<b>`-Tags im JSON erhalten (`rich_text_content()`)
 - **Gloss-Interleaving:** Glossen (`<ab ana="#fn-gloss">`) werden als `type: "gloss"` Sections an ihrer korrekten Position im Textfluss eingefügt, nicht separat am Versende
 - **Hyphen-Merge über Glossen hinweg:** Silbentrennungen werden auch dann zusammengeführt, wenn eine Glosse dazwischen liegt (z.B. "grís-" [Glosse] "cramoton" → "gríscramoton")
+- **Cross-Verse-Hyphen-Merge** (`merge_cross_verse_hyphens()`): textliche Zusammenführung im JSON parallel zur semantischen `@part`-Verkettung im TEI (V1-2 „han-" + V3-5 „gta" → „hangta")
 
 ### 1.5 Validierung und Tests
 
-- `validate_tei.py`: RelaxNG-Validierung + Strukturstatistik
-- `test_pipeline.py`: 25 Tests (DOCX↔TEI↔JSON), Ground-Truth-Vergleich
+- `validate_tei.py`: RelaxNG-Validierung + Strukturstatistik (auch in test_pipeline integriert)
+- `test_pipeline.py`: 29 Tests (DOCX↔TEI↔JSON), Ground-Truth-Vergleich, Pfeifer-Korrekturen
+- `tests/test_gloss_classification.py`: 6 Unit-Tests für Glossen-Heuristik
 
 ## 2. TEI-XML-Modell
 
@@ -164,11 +180,15 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 
 **`<foreign>` in allen Schichten:** Verlustfrei — nachträglich hinzufügen erfordert Neuanalyse aller 150 Psalmen. `<foreign>` kann von UI/XSLT trivial ignoriert werden.
 
-**Nur `@part`, nicht `@next`/`@prev`:** TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter, Reihenfolge implizit.
+**Nur `@part`, nicht `@next`/`@prev`** für Verkettungen *innerhalb* eines Verses: TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter, Reihenfolge implizit.
+
+**`@part="I"`/`@part="F"` plus `@xml:id`/`@next`/`@prev` für Cross-Verse-Verkettungen:** Wenn ein Wort über die Vers-Grenze geteilt ist (z.B. „han-" / „gta"), reicht `@part` allein nicht (Reihenfolge nicht implizit über Vers-Grenze). Daher zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen. Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`).
+
+**`<lg type="line-faithful">` für nhd. Übersetzung** (Iteration 2 / US-9): Pfeifer hat zeilengetreu übersetzt. Pro Zeile ein `<l>` unter `<note type="translation_nhd"><lg type="line-faithful">`. Daneben weiterhin `<p>` mit Fließtext für Lese-Ansicht.
 
 **Ungeklärte Siglen:** RII und N mit `@cert="low"` in Taxonomie + `<note type="editorial">ungeklärt</note>`.
 
-## 3. JSON-Schema
+## 3. JSON-Schema (Iteration 2)
 
 ```json
 {
@@ -177,9 +197,17 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
   "verses": [{
     "number": 1,
     "edition_page": "R10",
-    "sections": [{ "type": "psalm_citation|translation|commentary|gloss", "text", "language", "source_sigles" }],
+    "sections": [{
+      "type": "psalm_citation|translation|commentary|gloss",
+      "text": "...",
+      "language": "lat|ahd|ahd_lat_mixed",
+      "sigles_psalter": ["G", "R"],     // disambiguiert: Psalter-Zeugen (G/H + R bei psalm_citation)
+      "sigles_sources": ["A"],          // disambiguiert: Patristik (A/C/Br + R sonst)
+      "line_n": 2                       // Notker-Zeile innerhalb des Verses
+    }],
     "glosses": [{ "text", "translation_nhd", "relates_to" }],
-    "translation_nhd": "...",
+    "translation_nhd": "...",                      // Fließtext, vollkorrigiert
+    "translation_nhd_lines": ["...", "..."],       // zeilengetreu (Iteration 2 / US-9)
     "sources": [{ "sigle", "name", "latin_text", "german_translation" }]
   }],
   "psalm_text_comparison": { "witnesses": [...] },
@@ -187,7 +215,9 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 }
 ```
 
-Silbentrennungen werden im JSON aufgelöst. Die Zeilenstruktur bleibt nur im TEI.
+Silbentrennungen werden im JSON aufgelöst (sowohl innerhalb eines Verses als
+auch über Vers-Grenzen, parallel zur semantischen `@part`-Verkettung im TEI).
+Die Zeilenstruktur bleibt im TEI (`<ab n="X">`) und im JSON (`line_n`).
 
 ## 4. Web-Stack
 

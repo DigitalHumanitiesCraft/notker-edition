@@ -1,7 +1,7 @@
 ---
 type: encoding-guidelines
 created: 2026-03-23
-updated: 2026-03-23
+updated: 2026-04-16
 status: active
 tags: [notker, tei, encoding, guidelines]
 ---
@@ -116,16 +116,27 @@ Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erschein
 
 Philipps Arbeitsübersetzung des gesamten Notker-Textes. Zeilenweise in der Probeseite (kursiv, keine Farbe). Ist nicht Teil der Edition im engeren Sinn, sondern philologische Arbeitsgrundlage.
 
-**Kodierung:** Pro Versgruppe als `<note type="translation_nhd" resp="#pfeifer" xml:lang="de">`.
+**Kodierung:** Pro Versgruppe als `<note type="translation_nhd" resp="#pfeifer" xml:lang="de">`
+mit zwei parallelen Repräsentationen — Fließtext und Pfeifers zeilengetreue Aufteilung:
 
 ```xml
 <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
   <p>WARUM LÄRMTEN DIE VÖLKER. Warum wüteten an Christus ...</p>
+  <lg type="line-faithful">
+    <l>Der Herr sagte zu mir: Mein Sohn bist du, ich habe</l>
+    <l>dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir,</l>
+    <l>mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit ver-</l>
+    <l>gangen noh zukünftig...</l>
+  </lg>
 </note>
 ```
 
 - `@resp="#pfeifer"` — Attribution an Philipp (deklariert im Header als `<editor>`)
 - Im `<note>`, nicht als `<seg>`, weil es kein Teil von Notkers Text ist
+- `<p>` ist Lese-Ansicht (Fließtext, Pfeifer-Korrekturen einschließlich Cross-Line-Patterns)
+- `<lg type="line-faithful">` mit `<l>` pro Zeile bildet Pfeifers zeilengetreue
+  Aufteilung ab. Trailing-Bindestriche bleiben (markieren Zeilen-Trennung wie in der Druckedition).
+- Iteration 2 / US-9: Frontend rendert Edition zeilengenau, Pool nhd. als Fließtext mit aufgelösten Bindestrichen.
 
 ### 1.5 Quellenapparat
 
@@ -236,7 +247,28 @@ Wenn ein Segment über die Zeilengrenze hinausgeht (z.B. durch Silbentrennung), 
 </ab>
 ```
 
-**Entscheidung:** Nur `@part`, nicht `@next`/`@prev`. TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter und die Reihenfolge im Dokument ist implizit.
+**Entscheidung:** Innerhalb eines Verses nur `@part`, nicht `@next`/`@prev`. TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter und die Reihenfolge im Dokument ist implizit.
+
+**Cross-Verse-Verkettung (Iteration 2):** Wenn ein Wort über die Vers-Grenze geteilt
+ist (z.B. V1-2 endet mit „han-" und V3-5 beginnt mit „gta"), reicht `@part` allein
+nicht — die Reihenfolge ist über die Vers-Grenze hinweg nicht implizit. Daher
+zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen:
+
+```xml
+<!-- Vers 1-2 letzte Zeile -->
+<seg type="commentary" xml:lang="goh" part="I" xml:id="seg-cross-1-i" next="#seg-cross-1-f">
+  ...uuolta ín slâhen . anderer han-
+</seg>
+
+<!-- Vers 3-5 erste Zeile -->
+<seg type="commentary" xml:lang="goh" part="F" xml:id="seg-cross-1-f" prev="#seg-cross-1-i">
+  gta iz. Pedíu gât ín ter uuíllo...
+</seg>
+```
+
+Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`). Die textliche
+Zusammenführung („han-" + „gta" → „hangta") erfolgt im JSON via
+`merge_cross_verse_hyphens()` für die UI-Lese-Ansicht.
 
 ### 2.3 Silbentrennung
 
@@ -285,10 +317,27 @@ Im `<encodingDesc>/<classDecl>/<taxonomy xml:id="textfunction">`:
 |---|---|---|---|
 | `src-A` | Augustinus | Enarrationes in Psalmos | gesichert |
 | `src-C` | Cassiodor | Expositio Psalmorum | gesichert |
-| `src-R` | Remigius | — | gesichert |
+| `src-R` | Remigius | — | gesichert (Sigle teilt sich mit `wit-R` Romanum-Psalter) |
 | `src-Br` | — | Breviarium | gesichert |
 | `src-RII` | — | RII | ungeklärt (`cert="low"`) |
 | `src-N` | — | N | ungeklärt (`cert="low"`) |
+
+**R-Disambiguierung (Iteration 2):** Die Sigle „R" ist im Datenmodell ambig: sie
+bezeichnet sowohl das Romanum (`wit-R`, Psalter-Zeuge) als auch Remigius (`src-R`,
+patristische Quelle). Die JSON-Pipeline (`disambiguate_sigles()` in
+`tei_to_json.py`) löst das per Section-Type-Heuristik:
+
+- R-Marginnote auf einer Section vom Typ `psalm_citation` → Romanum (Psalter)
+- R-Marginnote auf einer Section vom Typ `commentary`/`translation`/`gloss` → Remigius (Patristik)
+
+Begründung: Wenn Notker einen Psalmtext zitiert und am Rand „R" steht, verweist
+Pfeifer auf den Wortlaut der Romanum-Psalter-Tradition. Steht „R" neben einem
+Kommentar-Segment, ist es eine Quellen-Referenz auf Remigius' Auslegung. Die
+Heuristik ist plausibel und konsistent mit Pfeifers Notations-Praxis in der
+Probeseite, wartet aber auf finale Bestätigung.
+
+JSON-Output pro Section: `sigles_psalter` und `sigles_sources` als zwei getrennte
+Listen. Frontend-Filter wirkt mit Präfix-Keys (`psa:R` vs. `src:R`).
 
 ### 3.3 Segmentierungsbeschreibung
 

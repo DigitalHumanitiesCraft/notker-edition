@@ -1,7 +1,7 @@
 ---
 type: knowledge
 created: 2026-02-24
-updated: 2026-03-23
+updated: 2026-04-16
 tags: [notker, medieval-studies, domain-knowledge]
 ---
 
@@ -127,6 +127,29 @@ Die Funktion von **H** in der Siglen-Spalte ist besonders unklar: Hebraicum-Psal
 | C | Cassiodor-Psalter | St. Gallen Cod. 200 |
 
 **Siglen-Disambiguation:** A, C, R, H haben je nach Kontext verschiedene Bedeutungen. Im Quellenapparat: Kommentarwerke. Im Psalmtext-Vergleich: Psalter-Handschriften. In der Haupttext-Siglen-Spalte: unklar.
+
+### Disambiguierungs-Heuristik (Iteration 2 / DHCraft-Vorschlag)
+
+Für die UI-Filter wird die Sigle in der Marginspalte des Notker-Textes
+disambiguiert anhand des **Section-Types**, dem die Sigle zugeordnet ist:
+
+| Sigle | In `psalm_citation`-Section | In `commentary`/`translation`/`gloss`-Section |
+|---|---|---|
+| G | Gallicanum (Psalter) | Gallicanum (Psalter) — eindeutig |
+| H | Hebraicum (Psalter) | Hebraicum (Psalter) — eindeutig |
+| **R** | **Romanum (Psalter)** | **Remigius (Patristik)** |
+| A, C, Br | Augustinus-, Cassiodor-, Br-Psalter | Augustinus, Cassiodor, Breviarium (Patristik) |
+
+**Begründung der R-Heuristik**: Wenn Notker einen Psalmtext zitiert und neben
+der Zeile ein „R" steht, verweist Pfeifer auf den Wortlaut der Romanum-Tradition.
+Steht „R" neben einem Kommentar-Segment, verweist es auf Remigius' Auslegung.
+Diese Lesart ist mit Pfeifers Notations-Praxis in der Probeseite konsistent.
+
+Implementiert in `disambiguate_sigles()` ([scripts/tei_to_json.py](../scripts/tei_to_json.py)).
+JSON-Output pro Section: `sigles_psalter` und `sigles_sources` getrennt; im
+Frontend wirken die Filter auf das semantisch passende Feld.
+
+Pfeifer-Bestätigung der Heuristik steht aus.
 
 ## Referenzsysteme
 

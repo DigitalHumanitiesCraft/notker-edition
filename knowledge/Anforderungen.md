@@ -1,7 +1,7 @@
 ---
 type: requirements
 created: 2026-02-27
-updated: 2026-03-23
+updated: 2026-04-16
 tags: [notker, requirements]
 ---
 
@@ -120,18 +120,32 @@ Akzeptanzkriterien:
 
 **Anmerkung:** Philipps Wunsch vom 21.03. Datengrundlage existiert noch nicht. Nicht im Prototyp umsetzbar, aber im Datenmodell vorbereiten.
 
-## Priorisierung
+## Priorisierung Iteration 1 (Stand 2026-03-23)
 
 | Priorität | User Stories | Status |
 |---|---|---|
-| P1 (Kern) | US-1.1, US-1.2, US-2.1, US-5.1 | Vereinbart, im Budget |
-| P2 (wichtig) | US-1.3, US-2.2, US-3.1, US-5.2 | Im Budget |
-| P3 (Mehraufwand) | US-4.1, US-4.2 | Neu (21.03.), ~2–3h Mehraufwand |
-| P4 (scope offen) | US-6.1, US-6.2 | Daten vorhanden, Budget klären |
-| P5 (nicht im Prototyp) | US-7.1 | Daten fehlen |
+| P1 (Kern) | US-1.1, US-1.2, US-2.1, US-5.1 | done |
+| P2 (wichtig) | US-1.3, US-2.2, US-3.1, US-5.2 | done |
+| P3 (Mehraufwand) | US-4.1, US-4.2 | done |
+| P4 (scope offen) | US-6.1, US-6.2 | done |
+| P5 (nicht im Prototyp) | US-7.1 | nicht umgesetzt (Datenfehlen) |
+
+## Iteration 2 (Pfeifer-Review)
+
+Iteration 2 ergänzt diese Baseline um Epics 8–11 und erweitert U-1.2/1.3/2.2.
+Vollständige Spezifikation in [[Anforderungen-Iteration-2]]. Kurzüberblick:
+
+| Epic | Inhalt | Stand 2026-04-16 |
+|---|---|---|
+| Epic 8 | Panel-Flexibilisierung (Dropdown pro Slot, Pool aus 10 Inhalten, Schließen + Wiederherstellen) | done |
+| Epic 9 | Zeilengetreue Synopse (nhd. zeilengenau in Edition, Fließtext im Pool) | nhd. done; Grundtext-Zeilenstruktur via `<ab n="X">` modelliert |
+| Epic 10 | Psalter G/R/H als Filter-Layer + R-Disambiguierung | done (Heuristik: R in psalm_citation = Romanum, sonst Remigius) |
+| Epic 11 | Bugfixes Iteration 1 (BUG-11.1 bis 11.5) | done |
+| Epic 12 | Textkorrekturen (21 Pfeifer-Fixes + V6-Glossen-Reklassifikation) | done |
 
 ## Verknüpfungen
 
 - [[Research Plan]] — Gesamtplan und Scope-Bewertung
+- [[Anforderungen-Iteration-2]] — Iteration-2-Backlog mit Epics 8–12
 - [[Design]] — Wie die Anforderungen umgesetzt werden
 - [[Probeseite Analyse]] — Datengrundlage für die Anforderungen
