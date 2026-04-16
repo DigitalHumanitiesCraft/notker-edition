@@ -679,6 +679,16 @@ def main():
 
     write_json_index(json_dir)
 
+    # Fuer GitHub Pages: data/ liegt ausserhalb von docs/, deshalb
+    # zusaetzlich nach docs/data/processed/ spiegeln, damit das Frontend
+    # die JSON-Daten relativ zum Pages-Root laden kann.
+    import shutil
+    docs_data_dir = root / 'docs' / 'data' / 'processed'
+    docs_data_dir.mkdir(parents=True, exist_ok=True)
+    for src in json_dir.glob('*.json'):
+        shutil.copy2(src, docs_data_dir / src.name)
+    print(f'  gespiegelt nach {docs_data_dir}')
+
 
 if __name__ == '__main__':
     main()

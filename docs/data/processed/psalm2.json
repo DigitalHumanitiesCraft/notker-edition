@@ -1,0 +1,1519 @@
+{
+  "psalm": 2,
+  "metadata": {
+    "title": "Psalm 2",
+    "edition": "Tax/Sehrt (1970er)",
+    "manuscript": "CSg 0021",
+    "iiif_manifest": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json",
+    "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_011.json",
+    "edition_pages": "R10–R13"
+  },
+  "verses": [
+    {
+      "number": 1,
+      "edition_page": "R10",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "PSALVS DAVID.",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "QVARE FREMVERVNT GENTES.",
+          "language": "lat",
+          "line_n": 2,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Ziu gríscramoton an christum ebraicȩ gentes?",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R",
+            "C"
+          ]
+        },
+        {
+          "type": "gloss",
+          "text": "iúdon diêt",
+          "language": "ahd",
+          "line_n": 3,
+          "translation_nhd": "Juden Volk",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Et populi meditati sunt inania .",
+          "language": "lat",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "C",
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "idest frustura?",
+          "language": "ahd_lat_mixed",
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R",
+            "A"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Vnde ziu dâhton sîne liûte ardingun . ín ze irloschenne?",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R",
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Sie dâhton des ín ubelo spuên solta.",
+          "language": "ahd",
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "R"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Astiterunt reges terrȩ . et principes conuenerunt in unum aduersus dominum et aduersus christum eivs.",
+          "language": "lat",
+          "line_n": 7,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "in gotes martyro",
+          "language": "ahd",
+          "line_n": 9,
+          "translation_nhd": "in Gottes Martyrium",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Tie lánt-chuninga uuâren gágenuuerte in passione domini",
+          "language": "ahd_lat_mixed",
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": ". nals ána sehendo . nube iro uuíllen oûgendo .",
+          "language": "ahd",
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "unde principes sacerdotum gesamenoton sih uuider trúhtene .",
+          "language": "ahd_lat_mixed",
+          "line_n": 11,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "unde uuíder sînemo geuuiêchten.",
+          "language": "ahd",
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Êin herodes uuolta ín slâhen . anderer hangta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
+          "language": "ahd",
+          "line_n": 13,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "C",
+            "R"
+          ]
+        }
+      ],
+      "glosses": [
+        {
+          "text": "iúdon diêt",
+          "translation_nhd": "Juden Volk",
+          "relates_to": ""
+        },
+        {
+          "text": "in gotes martyro",
+          "translation_nhd": "in Gottes Martyrium",
+          "relates_to": ""
+        }
+      ],
+      "translation_nhd": "PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-",
+      "translation_nhd_lines": [
+        "PSALM DAVIDS",
+        "WARUM LÄRMTEN DIE VÖLKER. Warum wüt-",
+        "teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor-",
+        "bereitet sinnlos, das heißt vergeblich? Und warum dach-",
+        "ten seine Leute grundlos, ihn auszulöschen? Sie gedachten",
+        "dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten",
+        "kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten.",
+        "Die Landkönige waren zugegen bei der Passion des Herren, nicht",
+        "ansehend, sondern ihren Willen zeigend und die Anführer der Pries-",
+        "ter versammelten sich gegen den Herrn und gegen sei-",
+        "nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-"
+      ],
+      "sources": [
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum <b>causas</b> <b>iracundiae</b> non haberent.",
+          "german_translation": "In vier Teile ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Gründe des Zorns nicht hatten.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Pro eo dictum est utquid, ac si diceretur: <b>frustra</b>; non enim impleuerunt quod uoluerunt, ut Christus exstingueretur.",
+          "german_translation": "Dafür wurde gesagt „was denn“, als ob gesagt worden wäre „vergeblich“. Denn nicht erfüllten sie, was sie wollten, dass Christus ausgelöscht worden wäre.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "R",
+          "name": "Remigius",
+          "latin_text": "Sed hoc meditatio inanis fuit, quia ad nullum effectum peruenit. Quod enim amplius nomen eius obscurare uolerunt, eo amplius per uniuersum mundum dilatatum est.",
+          "german_translation": "Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich seinen Namen mehr verdecken wollten, ist dieser mehr über das Universum der Welt ausgebreitet.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Meditati sunt quoque inania, quia scripturas diuinas sine fructu intellegentiae frequenter intrabant. Prophetatum est enim in innumeris locis de Domino Saluatore Messiam esse uenturum, quem illi maximo errore decepti non uenisse, sed adhuc uenturum esse confidunt.",
+          "german_translation": "Die Überlegungen sind auch sinnlos, weil (sie) häufig in die heiligen Schriften ohne den Samen der Intelligent eintreten. Voraussgesagt ist nämlich an unzähligen Stellen über den Herrn, den Retter, dass der Messias ankommen wird, den jene von größtem Fehler Getäuschten glaubten nicht gekommen (zu sein), sondern erst noch kommend zu sein.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Astiterunt non <b>praesentiam</b> significat sed <b>uoluntatem</b>. Nam in passione Domini constat coram regibus omnimodo non fuisse. Reges autem terrae Herodem uult intellegi, qui persequendo Dominum necauit infantes, alterum uero Herodem nepotem eius, qui Pontio Pilato in Saluatoris nece consentit. Merito ergo astitisse dicti sunt, qui sacrilegis mentibus consentientes in uno scelere conuenerunt. <b>Principes</b> autem de <b>pharisaeis</b> dicit. [...] Conuenerunt in unum, in unam uoluntatem, non in unum conuentum, nam diuersis conciliabulis hoc scelus leguntur fuisse machinati.",
+          "german_translation": "„Sie traten hinzu“ drückt nicht Präsenz aus, sondern Willen. Denn in der Passion des Herren steht fest, dass (sie) in keiner Weise in der Gegewart von Königen nicht stattfand. (Als) Könige der Erde aber will (er) das verstanden wird Herodes, der den Herrn verfolgend Kleinkinder tötete, (und) freilich der andere Herodes, seinen Enkel der Pontius Pilatus bei der Hinrichtung des Retters zustimmte. Passend also sind sind sie gesagt, dass sie hinzugetreten sind, die in frevelhaftem Denken zustimmend in einem Verbrechen zusammenkamen. Fürsten aber sagt er von den Pharisäern. [...]Sie kamen zusamen in einem, in einem Willen, nicht in einer Versammlung, denn auf verschiedenen Vesammlungsplätzen lesen sie, dass dieses Verbrechen geplant wurde.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "included_in": 1,
+      "edition_page": "R10",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "translation_nhd_lines": [],
+      "sources": []
+    },
+    {
+      "number": 3,
+      "edition_page": "R10",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "Disrumpamus uincula eorum . et proiciamus a nobis iugum ipsorum .",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "idest christi et apostolorum. Sús einoton sie sic(h).",
+          "language": "ahd_lat_mixed",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Prechen cháden sie íro gebénde . unde uuerfen ába uns íro ioch.",
+          "language": "ahd",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Ne-lâzen unsich",
+          "language": "ahd",
+          "line_n": 4,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "christis uobunga",
+          "language": "ahd",
+          "line_n": 5,
+          "translation_nhd": "Christi Glauben",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "nieht ána christianam religionem.",
+          "language": "ahd_lat_mixed",
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "R"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Qui habitat in celis irridbit eos . et dominus subsannabit eos.",
+          "language": "lat",
+          "line_n": 6,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Ter in hímile bûet . ter spóttot íro . unde násesnûdet an_sîe.",
+          "language": "ahd",
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôhlîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuendenne. Dâr ána uuâren sie meditantes inania.",
+          "language": "ahd",
+          "line_n": 8,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "C",
+            "R"
+          ]
+        },
+        {
+          "type": "gloss",
+          "text": "penêmida",
+          "language": "ahd",
+          "line_n": 10,
+          "translation_nhd": "Vorherbestimmung",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": ".i. ténchende in uppe",
+          "language": "ahd",
+          "line_n": 12,
+          "translation_nhd": "das heißt Denkende vergeblich",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Tunc loquetur ad eos in ira sua . et in furore suo conturbabit eos.",
+          "language": "lat",
+          "line_n": 13,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Tanne spríchet er in zû mit zórne . unde mit hêizmûote getrûobet er sie.",
+          "language": "ahd",
+          "line_n": 14,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "in ubertêilido lon sundon",
+          "language": "ahd",
+          "line_n": 16,
+          "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "In iudicio tuôt er iz . so retributio peccatorum ist.",
+          "language": "ahd_lat_mixed",
+          "line_n": 17,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        }
+      ],
+      "glosses": [
+        {
+          "text": "christis uobunga",
+          "translation_nhd": "Christi Glauben",
+          "relates_to": ""
+        },
+        {
+          "text": "penêmida",
+          "translation_nhd": "Vorherbestimmung",
+          "relates_to": ""
+        },
+        {
+          "text": ".i. ténchende in uppe",
+          "translation_nhd": "das heißt Denkende vergeblich",
+          "relates_to": ""
+        },
+        {
+          "text": "in ubertêilido lon sundon",
+          "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
+          "relates_to": ""
+        }
+      ],
+      "translation_nhd": "en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
+      "translation_nhd_lines": [
+        "en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben,",
+        "das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre",
+        "Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein",
+        "auf die christliche Religion. Der lebt im Himmel, wird ver-",
+        "lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot-",
+        "tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund",
+        "und mit Nase irgendeinen Hohn tue, sondern dass es spottens-",
+        "wert war, dass sie seine Vorherbestimmung glaubten zu ver-",
+        "ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen",
+        "zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann",
+        "spricht er ihnen zu mit Zorn und mit Heißmut ver-",
+        "wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist."
+      ],
+      "sources": [
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Eorum namque ad Christum pertinet et ad apostolos eius [...]",
+          "german_translation": "„Deren“ nämlich bezieht sich auf Christus und seine Apostel.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis <b>christiana</b> <b>religio</b>.",
+          "german_translation": "Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit wir nicht verpflichtet noch uns aufgezwungen wird die christliche Religion.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "Br",
+          "name": "Breviarium",
+          "latin_text": "Subsannatio proprie rugata fronte et contracto naso exprimitur.",
+          "german_translation": "Verachtung wird passend durch gerunzelte Stirn und zusammengezogene Nase ausgedrückt.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Nihil horum tamen sapere oportet carnaliter, quasi aut <b>buccis</b> Deus irrideat, aut <b>naso</b> subsannet; sed ea uis accipienda est, quam dat sanctis suis, ut futura cernentes, id est, nomen Christi et dominationem peruagaturam in posteros et uniuersas gentes obtenturam, <b>illios</b> <b>inania</b> <b>meditatos</b> <b> esse </b> <b>intellegant</b>. Haec enim uis qua ista praescita sunt, irrisio Dei est in subsannatio. [...] Caelos si animas sanctas accipiamus, per has eos, utique <b>praesciens</b> quid futurum sit, deridebit Deus et subsannabit.",
+          "german_translation": "Nicht davon gehört es sich so köperlich zu verstehen, so wie Gott sowohl mit dem Mund verlacht, als auch mit der Nase verachtet, sondern dieses ist als Kraft zu verstehen, wie er tat seinen Heiligen, sodass die das Zukünftige erkennend, das heißt den Namen Christi und die sich ausdehnen werdenen Macht in späteren und allen Völkern sich behaupten werdend, verstehen, dass die Überlegungen derselben sinnlos sind. Diese Kraft nämlich, durch die dieselben Vorhesehungen sind, ist der Spott Gottes in Verhöhnung. [...] Wenn wir die Himmel als heilige Seelen verstehen, durch die Gott diese, gewiss vorhersehend, was in Zukunft sei, verlacht und verhöhnt.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Ira ergo Die uocatur <b>retributio</b> <b>peccatorum</b> [...] Tunc loquetur illud tempus significat, cum <b>iudicare</b> uenerit mundum.",
+          "german_translation": "Der Zorn Gottes folglich wird Vergeltung der Sünden genannt. [...] „Dann wird gesagt“ bezeichnet jene Zeit, wenn (er), (um zu) richten auf die Erde kommen wird.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "included_in": 3,
+      "edition_page": "R11",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "translation_nhd_lines": [],
+      "sources": []
+    },
+    {
+      "number": 5,
+      "included_in": 3,
+      "edition_page": "R11",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "translation_nhd_lines": [],
+      "sources": []
+    },
+    {
+      "number": 6,
+      "edition_page": "R11",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon montem sanctum eius prȩdicans prȩceptum eius.",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Ih pin áber fóne mînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "C",
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "daz ist ȩcclesia .",
+          "language": "ahd",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "sîn gebot ságende",
+          "language": "ahd",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": ". daz chît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
+          "language": "ahd_lat_mixed",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C",
+            "R",
+            "N"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "daz chit latine specula . in únsera uuîs uuarta. Der bezêichnenet ȩcclesiam . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde ze_gótes sélbes ána-sihte. [...]",
+          "language": "ahd_lat_mixed",
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C",
+            "A"
+          ]
+        }
+      ],
+      "glosses": [],
+      "translation_nhd": "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]",
+      "translation_nhd_lines": [
+        "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,",
+        "seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von",
+        "meinem Vater gegen ihren Willen zum König (ein)gesetzt über",
+        "seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das",
+        "heißt das Evangelium lehrend. Zion steht in Jerusalem und weil",
+        "man fern dort herabsehen kann, deshalb heißt er Zion.",
+        "Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be-",
+        "zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde",
+        "zu Gottes eigenem Angesicht. [...]"
+      ],
+      "sources": [
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Ex persona domini nostri lesu Christi ista manifesta sunt.",
+          "german_translation": "Aus der Person unseres Herrn Jesus Christus sind diese [Worte] offenkundig.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "verba refert Domini Salutoris, qui se <b>regem</b> <b>a </b> <b>Patrem</b> <b>constitutm</b> <b> esse</b> testatur. Quod etiam scriptura est de ipso in titulo passionis: Rex Iudaeorum (Ioh 19,19). Hoc nec Pilauts deleri passus est, qui eum Iudaeis cruci tradidit affrigendum.",
+          "german_translation": "Die Worte bezieht sich auf den Herrn den Retter, der bezeugt, dass er als König vom Vater eingesetzt ist. Weil nämlich geschrieben wird über ihn selbst auf dem Titulus der Passion [d.h. des Kreuzes]: König der Juden (Joh. 19,19). Pilatus, der ihn den Juden zur Kruzigung übergab, erlaubte nicht, dass dieses entfernt wurde.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "SION autem, se speculationem, ut quidam interpretantur significat, nihil magis quam <b>Ecclesiam</b> debemus accipere, ubi quotidie intentio erigitur speculandae claritatis Dei",
+          "german_translation": "Zion aber, wenn es „Betrachtung“ bezeichne, wie manche interpretieren, müssen wir als nichts anderes als „die Kirche“ verstehen, wo täglich die Absicht erhoben wird, die Herrlichkeit Gottes zu betrachten.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Ergo iste sensus est: <b>ego</b> <b>autem</b> <b>consitutus</b> <b>sum</b> <b>rex</b> <b> ab </b> <b>eo</b> <b> super</b> Ecclesiam <b>sanctam</b> <b>eius</b>, quam montem appellat propter eminentiam et firmitatem.",
+          "german_translation": "Darum ist dies zu verstehen: Ich aber bin eingesetzt als König von ihm über seine heilige Kirche, die (er) mit Berg anspricht wegen dem Hervorragen und der Stabilität.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Sion hic Ecclesiam debemus accipere, quam mοntem appellat propter eminentiam honoris et firmitatem fidei.Sion enim hebraea lingua dicitur specula, quae competenter aptatur Ecclesiae, quoniam <b>ad </b> <b>futuras</b> <b>spes</b> <b>sufficienter</b> instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur",
+          "german_translation": "Zion müssen wir hier als Kirche verstehen, die (er) als Berg bezeichnet wegen dem Hervorragen der Ehre und der Festigkeit des Glaubens. „Zion“ nämlich in hebräischer Sprache wird „specula [Warte]“ genannt, was zutreffend angepasst wird an die Kirche, weil (sie) zu zukünftigen Hoffnungen ausreichend ausgebildet die Versprechen des Herren mit Voraussicht des Geistes betrachet, und nicht so sehr die gegenwärtigen, sondern die zukünftigen Wohltaten ehrt.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "praedicans praeceptum Domini. Quod fecit euangelium docens.",
+          "german_translation": "Verkündigend das Gebot des Herrn. Das tat er, das Evangelium lehrend.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "RII",
+          "name": "RII (ungeklärt)",
+          "latin_text": "Sion autem arx est <b>altissima</b> <b> in </b> <b>Ierusalem</b>; hac per hoc significat sanctam Ecclesiam, <b>quia</b> <b> sancta Ecclesia terrena </b> <b>despiciens</b> <b> ad </b> <b>caelestia</b> <b>subleuatur</b> <b>.</b>",
+          "german_translation": "Zion aber ist der höchste Berg in Jerusalem; dadurch bezeichnet (er) die heilige Kirche, weil die heilige Kirche auf das Irdische hinabschauend [nämlich vom Berg Zion] zu den Himmlischen erhoben wird.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "edition_page": "R12",
+      "sections": [
+        {
+          "type": "commentary",
+          "text": "[...]",
+          "language": "ahd",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Dominus dixit ad me . filius meus es tu . ego",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "âna zît",
+          "language": "ahd",
+          "line_n": 2,
+          "translation_nhd": "ohne Zeit",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "hodie genui te .",
+          "language": "lat",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "idest sine tempore.",
+          "language": "ahd_lat_mixed",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Min fáter chád ze mír .",
+          "language": "ahd",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "gloss",
+          "text": "irgân-",
+          "language": "ahd",
+          "line_n": 4,
+          "translation_nhd": "vergan-",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "mîn sun bist du . hiûto gebár ih tih.",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Góte neist ne-hêin zît prȩteritum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "gloss",
+          "text": "gen chúnftîg",
+          "language": "ahd",
+          "line_n": 6,
+          "translation_nhd": "gen künftig",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Postula a me et",
+          "language": "lat",
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        }
+      ],
+      "glosses": [
+        {
+          "text": "âna zît",
+          "translation_nhd": "ohne Zeit",
+          "relates_to": ""
+        },
+        {
+          "text": "irgân-",
+          "translation_nhd": "vergan-",
+          "relates_to": ""
+        },
+        {
+          "text": "gen chúnftîg",
+          "translation_nhd": "gen künftig",
+          "relates_to": ""
+        }
+      ],
+      "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
+      "translation_nhd_lines": [
+        "Der Herr sagte zu mir: Mein Sohn bist du, ich habe",
+        "dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir,",
+        "mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver-",
+        "gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch",
+        "geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und"
+      ],
+      "sources": [
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Dominum significat <b>Patrem</b> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.",
+          "german_translation": "„Herr“ steht für den Vater [...] „Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "[...] tamen hodie quia praesentiam significat atque in aeternitate nec <b>praeteritum</b> quidquam est, quasi esse desierit, nec <b>futurum</b>, quasi <b>nondum</b> <b>sit</b>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <b>Filius</b>, fides sincerissima et catholica praedicat.",
+          "german_translation": "[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil, was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "edition_page": "R12",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "dabo tibi gentes hereditatem tuam.",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Píte mih .",
+          "language": "ahd",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "uuanda dû ménnischo bist . unde an diû mín mínnero bist .",
+          "language": "ahd",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R",
+            "A"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "sô gîbo ih tîr dîn érbe",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "gloss",
+          "text": "alle liûte",
+          "language": "ahd",
+          "line_n": 3,
+          "translation_nhd": "alle Völker",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "VVélez ist daz? Gentes.",
+          "language": "ahd",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Et possessionem tuam terminos terrȩ.",
+          "language": "lat",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Vnde gíbo ih tir ze_besízzene . énde déro erdo .",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "déro dû bítest.",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er sih sélben umbe sie PATRI ópferota.",
+          "language": "ahd",
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Reges eos in virga ferrea .",
+          "language": "lat",
+          "line_n": 7,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "idest in-flexibili iustitia.",
+          "language": "ahd_lat_mixed",
+          "line_n": 8,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Tiê rihtest tu mit îseninro gérto .",
+          "language": "ahd",
+          "line_n": 8,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nieman genemen.",
+          "language": "ahd",
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Tamquam uas figuli confringes eos.",
+          "language": "lat",
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Sámoso",
+          "language": "ahd",
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "uuerlt-lúste",
+          "language": "ahd",
+          "line_n": 11,
+          "translation_nhd": "Weltlüste",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "háfenâres faz ferbríchest tû sie.",
+          "language": "ahd",
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Terrenas concupiscentias férbríchest tu an ín.",
+          "language": "ahd_lat_mixed",
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        }
+      ],
+      "glosses": [
+        {
+          "text": "alle liûte",
+          "translation_nhd": "alle Völker",
+          "relates_to": ""
+        },
+        {
+          "text": "uuerlt-lúste",
+          "translation_nhd": "Weltlüste",
+          "relates_to": ""
+        }
+      ],
+      "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe. Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab, das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
+      "translation_nhd_lines": [
+        "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch",
+        "bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe.",
+        "Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde.",
+        "Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest.",
+        "Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er",
+        "sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem",
+        "Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab,",
+        "das heißt mit unbeugsamem Recht. Dich kann davon nie-",
+        "man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der",
+        "Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer-",
+        "brichst du an ihnen."
+      ],
+      "sources": [
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Hoc iam temporaliter secundum susceptum hominem [...] ut scilicet gentes nomini christiano copulentur atque ita a morte redimantur, et possideantur a deo.",
+          "german_translation": "Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...], sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut <b>petat</b> secundum <b>naturam</b> <b> inferiorem</b> et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas",
+          "german_translation": "Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unterlegenen Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Reges eos in uirga ferrea, [in] <b>inflexibli</b> <b>iustitia</b>",
+          "german_translation": "Du beherrscht sie mit eisernem Stab, [mit] unbeugsamer Gerechtigkeit",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "id est, conteres in eis <b>terrenas</b> <b>cupiditates</b>",
+          "german_translation": "Das heißt, du wirst in ihnen vertilgen die weltlichen Begierden.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "included_in": 8,
+      "edition_page": "R12",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "translation_nhd_lines": [],
+      "sources": []
+    },
+    {
+      "number": 10,
+      "edition_page": "R13",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "VOX PROPHETȨ. Et nunc reges intellegite.",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Vnde nu fernément chúninga.",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "Chúninga déro erdo .",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
+          "language": "ahd",
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Erudimini qui iudicatis terram.",
+          "language": "lat",
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Lâzent îuch lêren lantrechtara.",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "Mêistera des lîchamen fernément.",
+          "language": "ahd",
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Seruite domino in timore.",
+          "language": "lat",
+          "line_n": 6,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "Diênont góte mit fórhtun.",
+          "language": "ahd",
+          "line_n": 6,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C",
+            "Br"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Daz nehéue iûuh . daz ir reges kenámot pirnt.",
+          "language": "ahd_lat_mixed",
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "Br"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Et exultate ei cum tremore.",
+          "language": "lat",
+          "line_n": 8,
+          "sigles_psalter": [
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Vnde rîdono sînt ímo frô.",
+          "language": "ahd",
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
+          "language": "ahd",
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "R"
+          ]
+        }
+      ],
+      "glosses": [],
+      "translation_nhd": "STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.",
+      "translation_nhd_lines": [
+        "STIMME DES PROPHETEN: Und nun, Könige, er-",
+        "kennt. Und nun erkennt, Könige. Könige der Erde,",
+        "Könige des Fleisches, Könige deshalb, weil ihr unterdrückt",
+        "den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet",
+        "die Erde. Lasst euch lehren, Landherrscher. Meister des Kör-",
+        "pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit",
+        "Furcht. Das nicht hebe euch, dass ihr Könige genannt seid.",
+        "Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm",
+        "dankt solchen Namens sowohl mit Freude als auch mit Furcht."
+      ],
+      "sources": [
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Venit ad tertium membrum, in quo <b>propheta</b> commonet...",
+          "german_translation": "Er kommt zum dritten Glied, in dem der Prophet mahnt:",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "nunc intellegite iam reges, id est, iam valentes regere quidquid in uobis seruile atque bestiale est, et iam ualentes pugnare, non quasi aerem caedentes, sed <b>castigantes</b> <b>uestra</b> <b> corpore</b> in seruituti subicentes.",
+          "german_translation": "Nun erkennt schon, Könige, das heißt, schon Fähige zu beherrschen, was auch immer in euch sklavisch oder animalisch ist, und schon Fähige zu kämpfen, nicht wie Luft Schlagende, sondern im Zaum Haltende euren Körper und und in Untertänigkeit Unterworfene.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Erudire docere est [...] Quod illis bene dicitur, qui iam carnalia delicta domuerunt. Ipsi enim bene iudicant terram, quando repressis uitiis, <b>corporis</b> suis, fauente Domino, praecepta legis imponunt.",
+          "german_translation": "Belehren ist lehren [...], weil jene gesegnet werden, die bereits fleischliche Sünde bezwangen. Diese selbst nämlich richten die Welt gut, (wenn sie) mit stets unterdrückten Kräften ihrer Körper, mit dem Wohlwollen des Herrn, die Gebote des Gesetzes aufstellen.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Seruite Domino in timore, ne in superbiam uertat quod dictum est: Reges qui <b>iudicatis</b> <b>terram</b>.",
+          "german_translation": "Dient dem Herrn in Furcht, damit er nicht in Hochmut umkehrt, was gesagt ist: Könige, die die Erde richten.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "Br",
+          "name": "Breviarium",
+          "latin_text": "Timore dixit, ut elationem eis tolleret, quia reges eos appellarat.",
+          "german_translation": "„Angst“ sagt er, damit er deren Erhebung entfernt, weil er diese als Könige ansprach.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Et iterum, ne haec exultatio negligens redderetur, addidit: cum <b>tremore</b>, ut utraque sociata caelestem reuerentiam competenter experimerent.",
+          "german_translation": "Und wiederum, damit dieser jubel nicht vernachlässigend zurückgegeben wird, ergänzt er „mit Beben“, damit sie in gemeinsamer Verbindung die himmlische Ehrfurcht angemessen erfahren.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "included_in": 10,
+      "edition_page": "R13",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "translation_nhd_lines": [],
+      "sources": []
+    },
+    {
+      "number": 12,
+      "edition_page": "R13",
+      "sections": [
+        {
+          "type": "psalm_citation",
+          "text": "Apprehendite disciplinam nequando irascatur dominus . et pereatis de uia iusta.",
+          "language": "lat",
+          "line_n": 1,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Lírnent zúht . unde uuésent in égi .",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "daz sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába rehtemo uuége.",
+          "language": "ahd",
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
+          "language": "ahd",
+          "line_n": 4,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
+          "language": "lat",
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "kerich",
+          "language": "ahd",
+          "line_n": 6,
+          "translation_nhd": "Gericht?",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "So sîn zorn irhêizzet in spûote",
+          "language": "ahd",
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": ". unde uindicta",
+          "language": "ahd_lat_mixed",
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "gloss",
+          "text": "in slago dero brâuuo",
+          "language": "ahd",
+          "line_n": 8,
+          "translation_nhd": "im Schlag der Brauen",
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "chúmet in ictu oculi .",
+          "language": "ahd_lat_mixed",
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "so sint sâlig . diê sih ze_ímo fersêhent.",
+          "language": "ahd",
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "(Staatsbibliothek Bamberg Ms. 44)",
+          "language": "ahd",
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
+        }
+      ],
+      "glosses": [
+        {
+          "text": "kerich",
+          "translation_nhd": "Gericht?",
+          "relates_to": ""
+        },
+        {
+          "text": "in slago dero brâuuo",
+          "translation_nhd": "im Schlag der Brauen",
+          "relates_to": ""
+        }
+      ],
+      "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
+      "translation_nhd_lines": [
+        "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-",
+        "kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass",
+        "sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech-",
+        "ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen",
+        "soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-",
+        "trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe",
+        "kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen."
+      ],
+      "sources": [
+        {
+          "sigle": "C",
+          "name": "Cassiodor, Expositio Psalmorum",
+          "latin_text": "Et pereatis de uia iusta, id est, a <b>caelesti</b> <b> Rege Christo</b>, quia via est <b>recte</b> <b>ambulantium</b> ad uitam, dux euntium, iter ad beatitudinem festinantium.",
+          "german_translation": "Und ihr abweicht vom gerechten Weg, das heißt vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden.",
+          "source_language": "la"
+        },
+        {
+          "sigle": "A",
+          "name": "Augustinus, Enarrationes in Psalmos",
+          "latin_text": "Id est, cum <b>uindicta</b> <b>uenerit</b>, [...] Quod autem positum est <b>in </b> <b>breui</b>, hoc significare arbitror, quia repentinum aliquid erit, dum hoc remotum et longe futurum peccatores existimabunt.",
+          "german_translation": "Das heißt, wenn die Strafe kommen wird [...], weil aber gesagt ist „in Kürze“, dieses erachte ich zu bedeuten, weil etwas plötzlich sein wird, während die Sünder dieses entfernt und weit in der Zukunft vermuten.",
+          "source_language": "la"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "included_in": 12,
+      "edition_page": "R13",
+      "sections": [],
+      "glosses": [],
+      "translation_nhd": "",
+      "sources": []
+    }
+  ],
+  "psalm_text_comparison": {
+    "witnesses": [
+      {
+        "sigle": "G",
+        "name": "Gallicanum",
+        "manuscript": null,
+        "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum eius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
+      },
+      {
+        "sigle": "R",
+        "name": "Romanum",
+        "manuscript": null,
+        "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis irridebit eos. et dominus subsannabit eos. 5Tunc louqitur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini omnes qui iuducatis terram. 11Seruite domino in timore et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eum."
+      },
+      {
+        "sigle": "H",
+        "name": "Hebraicum (iuxta Hebraeos)",
+        "manuscript": "Bamberg Ms. 44",
+        "text": "1Quare turbabuntur gentes. et tribus meditabuntur inania. 2Consurgent reges terrȩ et principes tractabunt paritum. aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et piciamus a nobis laqueos eorum. 4Habitator ceeli ridebit eos. dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem ordinatus sum regem meum. super sion montem sanctum suum. adnuntiabo dei prȩceptum. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. et possessionem tuam terminos terrȩ. 9Pasces eos in uirga ferrea. ut uas figuli conteres eos. 10Nunc ergo reges intellegite. erudimini iudices terrae. 11Seruite domino in timore et exultate in tremore. 12Adorate pure ne forte irascatur. et pereatis de uia. 13Cum exarserit post paulolum furor eius. beati omnes qui sperant in eium."
+      },
+      {
+        "sigle": "A-psa",
+        "name": "Augustinus-Psalter",
+        "manuscript": "St. Gallen Cod. 162",
+        "text": "Vt quid fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terreae et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et abiciamus a nobis iugum ipsorum. 4Qui habitat in caelis irridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo. super sion montem sanctum eius. predicans precepta ipsius. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes hereditatem tuam. et possessionem tuam terminos terrae. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. Et erudimini qui iuducatis terram. 11Seruite domino in timore. Et exultate ei cum tremore. 12Apprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. beati omnes qui condifunt in eo."
+      },
+      {
+        "sigle": "C-psa",
+        "name": "Cassiodor-Psalter",
+        "manuscript": "St. Gallen Cod. 200",
+        "text": "1Quare fremuerunt gentes. et populi meditati sunt inania. 2Astiterunt reges terrȩ et principes conuenerunt in unum . aduersus dominum et aduersus christum eius. 3Disrumpamus uincula eorum. et proiciamus a nobis iugum ipsorum. 4Qui habitat in cȩlis inridebit eos. et dominus subsannabit eos. 5Tunc louqetur ad eos in ira sua et in furore suo conturbabit eos. 6Ego autem constituts sum rex ab eo super sion montem sanctum eius. prȩdicans prȩceptum domini. 7Dominus dixit ad me filius meus es tu. ego hodie genui te. 8Postula a me et dabo tibi gentes. hereditatem tuam. Et possessionem tuam terminos terrȩ. 9Reges eos in uirga ferrea. Et tamquam uas figuli confringes eos. 10Et nunc reges intellegite. erudimini qui iuducatis terram. 11Seruite domino in timore et exultate ei in tremore. 12Adprehendite disciplinam nequando irascatur dominus. et pereatis de uia iusta. 13Cum exarserit in breui ira eius. Beati omnes qui condifunt in eo."
+      }
+    ]
+  },
+  "wiener_notker": {
+    "manuscript": "ÖNB Cod. 2681",
+    "edition": "Heinzle & Scherrer",
+    "text": "1Quare fremuerunt gentes, et populi meditati sunt inania? [...] Unde zuuiu dahton sine liute aruungen in zerlesgenne? si dahton des in ubelo spuon scolta. 2Astiterunt reges terrae, et principes conuenerunt in unum aduersus dominum et aduersus Christum eius. Die lantchuniga uuaren gagenuurtigi in dero gotes martira niuuuiht ana se | hendo suntir iro uuillen ougendo. und die fursten dero euuarton kesamenoton sih uuider unserun trohtinen unde uuider sinemo geuuihton. ein Herodes uuolta in slahen, der ander hanctiz: pediu get der uuillo, samso die uuerh. 3Disrumpamus uincula eorum, et proiciamus a nobis iugum ipsorum. Sus einoton sie sih: prechen uuir iro gebente, unde uuerfen ab uns iro ioh. nelazen unsih nieht ana die christinlichen ehalde. 4Qui habitat in caelis irridebit eos, et dominus subsannabit eos. Der in himili buet der spottot iro unde nasesnudet iro. nals daz got mit munde unde mit nasun dehein huoh tuo, suntir daz iz huolih uuas daz sie sine pemeindi kedahton zeuuendenne: dar ana uuaren sie uppigheit ahtenti. 5Tunc loquetur ad eos in ira sua, et | in furore suo conturbabit eos. Danne sprichet er in zuo mit zorna, unde mit heizmuoti ketruobet er sie in dero urteili, so daz Ion dero sundigono ist. 6Ego autem constitutus sum rex ab eo super Sion montem sanctum eius, praedicans praeceptum eius. Ih pin auer fone minemo uater iro undanches ze chunige kesezzet uber sinen heiligun berc, daz ist diu christenheit; sin gebot sagendo, daz chuit euangelium lerende. Sion stet in Hierusalem: uuande man dar aba sehen mac, pediu heizet er Sion, daz chuit uualhiscon spiegel, in unsero uuis uuarta. der bizeichinot ecclesiam, uuande iro gedinke ist daz si irhohet uuerdo ze gotes selbes anasihte. 7Dominus dixit ad me: filius meus es tu, ego hodie genui te. Min uater sprah ze mir: min sun bistu, hiuto | kebar ih dih. gote neist nehein zit feuarnez noh chumftigiz, imo ist hiuto gagenuurtic al daz io geskah ode noh geskehen scol: pediu ist sin sun hiuto geborn. 8Postula a me, et dabo tibi gentes hereditatem tuam et possessionem tuam terminos terrae. Pite mih: uuanda du mennisco bist unde ana diu minnero bist [...] daz ist uone diu gesprochen, uuanda Christus bat iro gnoto, do er sih selben umbe sie demo uater opferota. 9Reges eos in uirga ferrea, tanquam uas figuli confringes eos. Die rihtest tu mit iseninero gerta, daz chuit mit unuuendigemo rehte: dih nemac dar aba nioman keneman. samso hauenaris faz ferbrichest tu sie, die irdiscon giridi uerbrichest tu an in. 10Et nunc reges intelligite, erudimini qui iudicatis terrain. | Unde nu uernemet chuniga, chuniga dero erdo, chuniga dero erdo, chuniga des fleisges, chuniga uone diu uuanda ir doubet den lichinamen: gehoret minen rat. lazet iuuuih leren, lantrihtari; meistere des lichinamen, uernemet. 11Seruite domino in timore et exultate ei cum tremore. Dienet gote mit uorhten: daz neheue iuuuih, daz ir chuniga kenamot uuerdet. unde bibonda siet imo fro: imo danchet soliches namen ioh mit frouui ioh mit uorhtun. 12Adprehendite disciplinary ne quando irascatur dominus et pereatis de uia iusta, Lirnet zuht unde uueset in egi, daz got sih etteuuenne ne beige unde ir slipfat aba rehtemo uuege. Christus ist der uuec an demo manniglih ken scol. 13Cum exarserit in breui ira eius, beati omnes qui con5a fidunt in eo. | So sin zorn irheizet in spuote unde diu racha chumet in demo slage des ougen, so sint salic alle die sih ze imo uersehent."
+  }
+}

@@ -2490,7 +2490,7 @@ let ACTIVE_PSALM = 2;
 async function loadEditionData() {
   // 1. Index lesen, falls vorhanden
   try {
-    const idxResp = await fetch('../data/processed/index.json');
+    const idxResp = await fetch('data/processed/index.json');
     if (idxResp.ok) {
       const idx = await idxResp.json();
       AVAILABLE_PSALMS = idx.available_psalms || [];
@@ -2507,7 +2507,7 @@ async function loadEditionData() {
   }
 
   // 3. Psalm-Daten laden
-  const path = `../data/processed/psalm${ACTIVE_PSALM}.json`;
+  const path = `data/processed/psalm${ACTIVE_PSALM}.json`;
   try {
     const resp = await fetch(path);
     if (resp.ok) {
