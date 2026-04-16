@@ -34,17 +34,17 @@ Repository: https://github.com/DigitalHumanitiesCraft/notker-edition
 **TEI-XML ist die kanonische Datenquelle.** JSON wird daraus abgeleitet.
 
 ```
-Probeseite_Notker.docx → parse_probeseite.py → classify_layers.py → build_tei.py → apply_errata.py → psalm2.xml
-                                                                                        ↓
-                                                                                  tei_to_json.py
-                                                                                        ↓
-                                                                                  psalm2.json → docs/index.html
+Probeseite_Notker.docx → parse_probeseite.py → classify_layers.py → build_tei.py → psalm2.xml
+                                                                          ↓
+                                                                    tei_to_json.py
+                                                                          ↓
+                                                                    psalm2.json → docs/index.html
 ```
 
-`apply_errata.py` ist Bestandteil von `build_tei.py` (Schritt 4). Regeln in
-`data/errata.yaml` (z.B. Pfeifer-Review-Korrekturen) werden idempotent auf
-das generierte TEI angewendet. Damit sind Korrekturen re-runbar — erneutes
-Parsen der DOCX verliert keine Korrekturen.
+Textkorrekturen (z.B. Pfeifer-Review-Feedback) sind als Liste `PFEIFER_CORRECTIONS`
+in `parse_probeseite.py` deklariert. `build_tei.py` ruft `apply_corrections()` als
+finalen Normalisierungsschritt auf den TEI-String auf. Idempotent (str.replace
+findet nichts, wenn Korrekturen bereits in einer aktualisierten DOCX enthalten sind).
 
 Web-Stack: Vanilla JS + HTML/CSS, Gentium Book Plus, OpenSeadragon (CDN), GitHub Pages. Single-File-Prinzip: `docs/index.html` enthält alles.
 
@@ -58,20 +58,17 @@ notker-edition/
 ├── knowledge/                             # Research Vault (8 Dokumente)
 ├── data/
 │   ├── Probeseite_Notker.docx             # Primärdatenquelle
-│   ├── errata.yaml                        # Textkorrekturen (Pfeifer-Feedback u.a.)
-│   ├── tei/psalm2.xml                     # Kanonisches TEI-XML (errata-angewendet)
+│   ├── tei/psalm2.xml                     # Kanonisches TEI-XML (normalisiert)
 │   ├── processed/psalm2.json              # Abgeleitetes JSON für Web-UI
 │   └── schema/tei_all.rng                 # TEI RelaxNG Schema
 ├── scripts/
-│   ├── parse_probeseite.py                # DOCX → Python-Zwischenformat
+│   ├── parse_probeseite.py                # DOCX → Zwischenformat (+ PFEIFER_CORRECTIONS)
 │   ├── classify_layers.py                 # Sprachwechsel, Segment-Verkettung
-│   ├── build_tei.py                       # → psalm2.xml (inkl. Errata)
-│   ├── apply_errata.py                    # YAML-basierter Errata-Layer
+│   ├── build_tei.py                       # → psalm2.xml (mit apply_corrections)
 │   ├── tei_to_json.py                     # → psalm2.json (Bold, Siglen, Gloss-Interleaving)
 │   ├── test_pipeline.py                   # Integration/Regression-Tests
 │   └── validate_tei.py                    # TEI-Validierung gegen RelaxNG
 ├── tests/
-│   ├── test_errata.py                     # Unit-Tests Errata-Mechanismus
 │   └── test_gloss_classification.py       # Unit-Tests Glossen-Heuristik
 └── docs/
     ├── index.html                         # Single-File-Webanwendung

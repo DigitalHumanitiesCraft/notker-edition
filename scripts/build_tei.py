@@ -11,7 +11,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from parse_probeseite import parse_probeseite, PsalmData, SourceEntry
+from parse_probeseite import parse_probeseite, PsalmData, SourceEntry, apply_corrections
 from classify_layers import (
     classify_and_enrich, EnrichedVerseGroup, EnrichedLine, EnrichedSegment
 )
@@ -568,32 +568,21 @@ def main():
     output_path.parent.mkdir(parents=True, exist_ok=True)
     serialize_tei(tei, str(output_path))
 
+    # Pipeline-interne Textnormalisierung (Pfeifer-Korrekturen, vormals Errata-Layer).
+    # Wirkt auf den fertigen TEI-String, weil einige Korrekturen Zeilenumbrueche
+    # ueberbruecken (Pfeifer hat zeilengetreu uebersetzt, daher Bindestriche).
+    with open(output_path, encoding='utf-8') as f:
+        tei_text = f.read()
+    normalized = apply_corrections(tei_text)
+    if normalized != tei_text:
+        with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(normalized)
+        print(f'  Normalisierung: Pfeifer-Korrekturen angewendet ({len(normalized) - len(tei_text):+d} Zeichen)')
+
     # Statistik
     xml_str = etree.tostring(tei, encoding='unicode', pretty_print=True)
     print(f'  Dateigröße: {len(xml_str.encode("utf-8")):,} Bytes')
     print(f'  Zeilen: {xml_str.count(chr(10)):,}')
-
-    print('\n=== Schritt 4: Errata anwenden ===')
-    errata_path = output_path.parent.parent / 'errata.yaml'
-    if errata_path.exists():
-        try:
-            from apply_errata import load_rules, apply_errata_with_report
-            with open(output_path, encoding='utf-8') as f:
-                text = f.read()
-            rules = load_rules(errata_path)
-            new_text, report = apply_errata_with_report(text, rules)
-            if new_text != text:
-                with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
-                    f.write(new_text)
-            print(f'  {len(rules)} Regeln: '
-                  f'applied={len(report.get("applied", []))}, '
-                  f'idempotent={len(report.get("idempotent", []))}, '
-                  f'noop={len(report.get("noop", []))}')
-        except Exception as e:
-            print(f'  WARNUNG: Errata-Anwendung fehlgeschlagen: {e}')
-    else:
-        print(f'  Keine errata.yaml gefunden (optional)')
-
 
 if __name__ == '__main__':
     main()

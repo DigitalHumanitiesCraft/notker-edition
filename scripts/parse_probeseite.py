@@ -19,6 +19,78 @@ from docx.oxml.ns import qn
 
 
 # ---------------------------------------------------------------------------
+# Pipeline-Normalisierungen (ehemals Errata-Layer)
+# ---------------------------------------------------------------------------
+#
+# Textkorrekturen aus Pfeifer-Reviews werden direkt im Parser angewendet,
+# nicht als nachgelagerte Schicht. Damit bleibt die Pipeline linear:
+# DOCX -> parse -> classify -> TEI -> JSON.
+#
+# Wenn Pfeifer eine korrigierte DOCX liefert, in der die Stellen bereits
+# stimmen, sind die Replacements No-Ops (str.replace findet nichts).
+# Quelle aller Korrekturen: Pfeifer-Review 2026-04-15.
+
+PFEIFER_CORRECTIONS: list[tuple[str, str]] = [
+    # Cassiodor V1-2 (German)
+    ('In vier Teilen ist dieses Psalms', 'In vier Teile ist dieses Psalms'),
+    ('als sie Grüde des Zorns', 'als sie Gründe des Zorns'),
+    # Remigius V1-2 (German)
+    ('mehr über die Welt der Erde ausgebreitet', 'mehr über das Universum der Welt ausgebreitet'),
+    # Augustinus V3-5 (German) — Tippfehler
+    ('verplfichtet', 'verpflichtet'),
+    ('lasst und Arbeit tun, damit uns nicht', 'lasst und Arbeit tun, damit wir nicht'),
+    # Cassiodor V7 (German) — Abstand nach [...]
+    ('Vater [...]\u201eIch habe dich heute geboren', 'Vater [...] \u201eIch habe dich heute geboren'),
+    # Augustinus V7 (German) — Komma nach weil
+    ('nur die Gegenwart, weil was auch immer', 'nur die Gegenwart, weil, was auch immer'),
+    # Augustinus 2 V7 (German) — Streichung
+    ('womit er das ewige Geschlecht', 'womit das ewige Geschlecht'),
+    # Augustinus V8-9 (German) — Komma nach [...]
+    ('Vorstellung der Menschen [...] sodass', 'Vorstellung der Menschen [...], sodass'),
+    # Cassiodor V8-9 (German) — Tippfehler
+    ('in der unerlegenden Natur', 'in der unterlegenen Natur'),
+    # Cassiodor V12-13 (German) — Komma raus
+    ('gerechten Weg, das heißt, vom himmlichen', 'gerechten Weg, das heißt vom himmlichen'),
+    # Haupttext V3-5 ahd. — Wortgrenze
+    ('Prechen chádensie íro', 'Prechen cháden sie íro'),
+    # nhd. V3-5 — Komma raus
+    ('geht ihnen der Wille, gleichermaßen', 'geht ihnen der Wille gleichermaßen'),
+    # nhd. V3-5 — Komma rein
+    ('Der lebt im Himmel wird ver-', 'Der lebt im Himmel, wird ver-'),
+    # nhd. V3-5 — das/dass
+    ('war, das sie seine Vorherbestimmung', 'war, dass sie seine Vorherbestimmung'),
+    # nhd. V7 — Komma rein
+    ('Mein Vater sagte zu mir mein Sohn', 'Mein Vater sagte zu mir, mein Sohn'),
+    # nhd. V8-9 — Punkt rein
+    ('dein Erbe Welches ist das', 'dein Erbe. Welches ist das'),
+    # nhd. V8-9 — Punkt zu Komma
+    ('mit eisernem Stab . das ist unbeugsame', 'mit eisernem Stab, das ist unbeugsame'),
+    # nhd. V8-9 — Komma rein
+    ('mit eisernem Stab das heißt mit unbeugsamem', 'mit eisernem Stab, das heißt mit unbeugsamem'),
+    # nhd. V10-11 — Tippfehler
+    ('unterdrückt den Köper', 'unterdrückt den Körper'),
+    # nhd. V12 — Tippfehler
+    ('ihr nicht ableitet vom', 'ihr nicht abgleitet vom'),
+]
+
+
+def apply_corrections(text: str) -> str:
+    """Wendet die Pfeifer-Korrekturen auf einen aggregierten Text an.
+
+    Idempotent: erneutes Anwenden ist No-Op. Sicher gegen DOCX-Updates,
+    in denen die Korrekturen bereits enthalten sind.
+    """
+    if not text:
+        return text
+    for old, new in PFEIFER_CORRECTIONS:
+        if old in text:
+            text = text.replace(old, new)
+    return text
+
+
+
+
+# ---------------------------------------------------------------------------
 # Dataclasses (Zwischenformat)
 # ---------------------------------------------------------------------------
 
