@@ -238,6 +238,12 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
+.psalm-nav-item.disabled {
+  color: hsl(0, 0%, 70%);
+  background: hsl(0, 0%, 96%);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 /* ========================================================================
    MAIN LAYOUT — Three panels
@@ -282,59 +288,47 @@ body {
    SOURCES PANEL (left)
    ======================================================================== */
 .sources-panel {
-  width: 300px;
-  min-width: 220px;
-  max-width: 450px;
+  /* Breite kommt vom umgebenden .slot-body (Iteration 2 / US-8 Slot-System).
+     Pool-Inhalte fuellen ihren Slot vollstaendig aus. */
+  width: 100%;
+  height: 100%;
   background: var(--color-panel-bg);
-  border-right: 1px solid var(--color-border);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.sources-panel.collapsed {
-  width: 0 !important;
-  min-width: 0 !important;
-  opacity: 0;
-  overflow: hidden;
-  padding: 0;
-  border: none;
-  transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
-}
-.sources-panel-header {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--color-border-light);
-  font-size: var(--size-ui);
-  font-weight: 600;
-  color: hsl(0, 0%, 40%);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 /* Source filter checkboxes */
 .source-filters {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   border-bottom: 1px solid var(--color-border-light);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.8rem;
+}
+/* Aktions-Button (z.B. Uebersetzungs-Toggle) wird rechts im Filter-Header geparkt */
+.source-filters-action {
+  margin-left: auto;
+}
+/* Eine Gruppe (Label + Filter-Chips) in einer horizontalen Einheit */
+.source-filter-group {
+  display: inline-flex;
+  align-items: center;
   gap: 0.3rem;
 }
-/* Filter-Gruppen-Label (Quellen / Psalter) */
 .source-filter-group-label {
-  font-size: var(--size-ui-sm);
+  font-size: 0.65rem;
   font-weight: 600;
   color: hsl(0, 0%, 45%);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 0.15rem;
+  letter-spacing: 0.04em;
 }
 .source-filter-row {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.25rem;
 }
 .source-filter {
   display: flex;
@@ -445,8 +439,10 @@ body {
    MAIN TEXT PANEL (center)
    ======================================================================== */
 .text-panel {
-  flex: 1;
-  min-width: 400px;
+  /* Breite kommt vom umgebenden .slot-body. flex:1 hier ist No-op, aber
+     verhindert Layout-Verschiebungen falls Panel ausserhalb von Slot-Body landet. */
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -454,46 +450,47 @@ body {
 
 /* Toggle toolbar */
 .toggle-toolbar {
-  padding: var(--sp-2) var(--sp-5);
+  padding: 0.4rem 0.75rem;
   border-bottom: 1px solid var(--color-border);
   display: flex;
-  gap: var(--sp-1) var(--sp-2);
+  gap: 0.3rem;
   flex-wrap: wrap;
   align-items: center;
   background: #fff;
   flex-shrink: 0;
 }
 .toggle-group-label {
-  font-size: var(--size-ui-sm);
+  font-size: 0.65rem;
   color: var(--color-muted);
-  margin-right: var(--sp-1);
+  margin-right: 0.1rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   font-weight: 500;
   white-space: nowrap;
 }
 .toggle-divider {
   width: 1px;
-  height: 24px;
+  height: 18px;
   background: var(--color-border);
-  margin: 0 var(--sp-2);
+  margin: 0 0.3rem;
   flex-shrink: 0;
 }
 .toggle-btn {
   font-family: var(--font-ui);
-  font-size: var(--size-ui);
-  padding: 0.3rem 0.75rem;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
   border-radius: var(--radius-pill);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   background: #fff;
   cursor: pointer;
   transition: all 0.15s;
   user-select: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   white-space: nowrap;
   flex-shrink: 0;
+  line-height: 1.25;
 }
 .toggle-btn:hover {
   background: hsl(0, 0%, 96%);
@@ -505,8 +502,8 @@ body {
   font-weight: 500;
 }
 .toggle-btn .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: currentColor;
 }
@@ -522,14 +519,14 @@ body {
 
 /* Keyboard hint */
 .toggle-btn .kbd {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   background: hsl(0, 0%, 90%);
   border-radius: var(--radius-sm);
-  padding: 0.05rem 0.3rem;
+  padding: 0.02rem 0.25rem;
   color: hsl(0, 0%, 50%);
   font-family: var(--font-ui);
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 /* Text content area */
@@ -540,16 +537,80 @@ body {
 }
 
 /* Introduction text */
+.intro-details {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  max-width: 680px;
+}
+.intro-summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.6rem 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-family: var(--font-ui);
+}
+.intro-summary::-webkit-details-marker { display: none; }
+.intro-summary::before {
+  content: '▸';
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.intro-details[open] .intro-summary::before { transform: rotate(90deg); }
+.intro-summary strong {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: hsl(0, 0%, 20%);
+}
+.intro-summary-meta {
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.intro-details[open] .intro-summary-meta { display: none; }
 .intro-text {
   font-family: var(--font-ui);
   font-size: var(--size-ui);
   color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border-light);
-  max-width: 680px;
+  padding: 0.5rem 0 1rem 1.15rem;
 }
+/* Hinweis, wenn alle Schichten ausgeblendet sind: verhindert leere Struktur */
+.layers-empty-hint {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui);
+  color: var(--color-text-secondary);
+  background: hsl(40, 50%, 97%);
+  border: 1px solid hsl(40, 40%, 88%);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  max-width: 680px;
+  line-height: 1.5;
+}
+.layers-empty-action {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  padding: 0.25rem 0.7rem;
+  margin-left: 0.5rem;
+  background: var(--color-psalm);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+.layers-empty-action:hover { filter: brightness(1.1); }
+.layers-empty-sub {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-top: 0.4rem;
+}
+#verses-container.all-layers-hidden .verse { display: none; }
 
 /* Verse block */
 .verse {
@@ -694,24 +755,14 @@ body {
    FACSIMILE PANEL (right)
    ======================================================================== */
 .facsimile-panel {
-  width: 320px;
-  min-width: 200px;
-  max-width: 600px;
+  /* Breite kommt vom umgebenden .slot-body (Iteration 2 / US-8 Slot-System). */
+  width: 100%;
+  height: 100%;
   background: hsl(0, 0%, 5%);
-  border-left: 1px solid var(--color-border);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-.facsimile-panel.collapsed {
-  width: 0 !important;
-  min-width: 0 !important;
-  opacity: 0;
-  overflow: hidden;
-  padding: 0;
-  border: none;
-  transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
 }
 .facsimile-header {
   padding: 0.5rem 0.75rem;
@@ -936,7 +987,10 @@ body {
   color: hsl(0, 0%, 40%);
   position: sticky;
   top: 0;
+  z-index: 2;
   background: #fff;
+  /* Oberer Schatten, damit beim Scrollen der Uebergang sichtbar ist */
+  box-shadow: 0 1px 0 var(--color-border-light);
 }
 .comparison-table td {
   padding: 0.5rem 0.75rem;
@@ -1030,6 +1084,7 @@ body {
   <nav class="header-links" aria-label="Seiten-Navigation">
     <a href="richtlinien.html" title="Kodierungskonventionen der TEI-XML-Edition">Richtlinien</a>
     <a href="methode.html" title="Promptotyping-Methode, Datenfluss und technische Entscheidungen">Methode</a>
+    <a href="vault.html" title="Research-Vault: Domänenwissen, Anforderungen, Entscheidungen">Vault</a>
   </nav>
   <nav class="psalm-nav" aria-label="Psalm-Navigation" id="psalm-nav"></nav>
 </header>
@@ -1076,7 +1131,12 @@ body {
 
   <!-- Sources Panel -->
   <div class="sources-panel" id="sources-panel">
-    <div class="source-filters" id="source-filters"></div>
+    <div class="source-filters" id="source-filters">
+      <!-- Filter-Gruppen werden hier von renderSourceFilters() eingefuegt -->
+      <button class="toggle-btn active source-filters-action" data-toggle="source-nhd" onclick="toggleSourceNhd()" title="Deutsche Übersetzungen im Quellenapparat ein-/ausblenden (Taste Q)">
+        Übersetzung<span class="kbd">Q</span>
+      </button>
+    </div>
     <div class="sources-content" id="sources-content">
       <div class="sources-empty">Klicken Sie auf einen Vers, um die zugehörigen Quellen anzuzeigen.</div>
     </div>
@@ -1085,7 +1145,6 @@ body {
   <!-- Main Text Panel -->
   <main class="text-panel" id="text-panel">
     <div class="toggle-toolbar" id="toggle-toolbar">
-      <span class="toggle-group-label">Schichten</span>
       <button class="toggle-btn active" data-layer="psalm_citation" onclick="toggleLayer('psalm_citation')" title="Lateinische Psalmverse ein-/ausblenden (Taste 1)">
         <span class="dot"></span>Psalmzitat<span class="kbd">1</span>
       </button>
@@ -1099,30 +1158,33 @@ body {
         <span class="dot"></span>Glossen<span class="kbd">4</span>
       </button>
       <div class="toggle-divider"></div>
-      <span class="toggle-group-label">Anzeige</span>
       <button class="toggle-btn" data-toggle="nhd" onclick="toggleNhd()" title="Neuhochdeutsche Arbeitsübersetzung (Philipp Pfeifer) anzeigen (Taste N)">
-        nhd. Übersetzung<span class="kbd">N</span>
+        nhd.<span class="kbd">N</span>
       </button>
       <button class="toggle-btn" data-toggle="split" onclick="toggleSplit()" title="Text in Latein- und Althochdeutsch-Spalten trennen (Taste L)">
-        lat./ahd. trennen<span class="kbd">L</span>
-      </button>
-      <button class="toggle-btn active" data-toggle="source-nhd" onclick="toggleSourceNhd()" title="Deutsche Übersetzungen im Quellenapparat ein-/ausblenden (Taste Q)">
-        Quellen-Übersetzung<span class="kbd">Q</span>
+        lat./ahd.<span class="kbd">L</span>
       </button>
     </div>
 
     <div class="text-content" id="text-content">
-      <div class="intro-text">
-        <strong>Psalm 2</strong> – Notker III. von St. Gallen (ca. 950–1022) verschränkt in seinem
-        Psalmenkommentar lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen
-        Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
-        einzeln sichtbar und navigierbar.
-        <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L). Über die <strong style="color:hsl(0,0%,40%)">Auswahl-Felder</strong> jedes Bereichs können Sie wählen, was links, in der Mitte und rechts angezeigt wird.
-        Klicken Sie auf einen Vers, um den Quellenapparat und das Digitalisat zu synchronisieren.</span>
-        <span style="display:block; margin-top: 0.4rem;">Hs.: CSg 0021 · Ed.: Tax/Sehrt, S. R10–R13 ·
-        <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none;">Editionsrichtlinien</a> ·
-        <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a></span>
-      </div>
+      <details class="intro-details" id="intro-details">
+        <summary class="intro-summary">
+          <strong id="intro-psalm-title">Psalm 2</strong>
+          <span class="intro-summary-meta">Einführung · Bedienung · Hs.</span>
+        </summary>
+        <div class="intro-text">
+          <span id="intro-psalm-body">Notker III. von St. Gallen (ca. 950–1022) verschränkt in seinem
+          Psalmenkommentar lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen
+          Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
+          einzeln sichtbar und navigierbar.</span>
+          <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L). Über die <strong style="color:hsl(0,0%,40%)">Auswahl-Felder</strong> jedes Bereichs können Sie wählen, was links, in der Mitte und rechts angezeigt wird.
+          Klicken Sie auf einen Vers, um den Quellenapparat und das Digitalisat zu synchronisieren.</span>
+          <span style="display:block; margin-top: 0.4rem;">Hs.: CSg 0021 · Ed.: Tax/Sehrt, S. R10–R13 ·
+          <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none;">Editionsrichtlinien</a> ·
+          <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a> ·
+          <a href="vault.html" style="color: var(--color-psalm); text-decoration: none;">Vault</a></span>
+        </div>
+      </details>
       <!-- Iteration 2 / US-8: Wiener Notker und Psalmtext-Vergleich sind jetzt
            eigene Pool-Eintraege. Edition zeigt nur noch Notkers Text. -->
       <div id="verses-container"></div>
@@ -1161,9 +1223,9 @@ body {
     <div id="comparison-container"></div>
   </div>
 
-  <!-- Pool: Anmerkungen (Editorisches) -->
+  <!-- Pool: Siglen-Legende — erklaert alle Siglen aus Quellen- und Psalter-Gruppen -->
   <div class="pool-content" id="pool-notes">
-    <div class="pool-notes-meta">Editorische Anmerkungen, Siglen-Schlüssel, Forschungshinweise.</div>
+    <div class="pool-notes-meta">Siglen-Schlüssel für patristische Quellen und Psalter-Zeugen.</div>
     <div class="pool-notes-text" id="pool-notes-body"></div>
   </div>
 
@@ -2396,14 +2458,38 @@ const FALLBACK_DATA = {
 };
 
 let EDITION_DATA = FALLBACK_DATA;
+// Liste verfuegbarer Psalmen aus data/processed/index.json (Multi-Psalm-ready).
+// Falls fetch scheitert (file://), bleibt AVAILABLE_PSALMS leer und die
+// Psalm-Nav zeigt nur die Fallback-Daten (Psalm 2).
+let AVAILABLE_PSALMS = [];
+let ACTIVE_PSALM = 2;
 
 async function loadEditionData() {
-  const path = '../data/processed/psalm2.json';
+  // 1. Index lesen, falls vorhanden
+  try {
+    const idxResp = await fetch('../data/processed/index.json');
+    if (idxResp.ok) {
+      const idx = await idxResp.json();
+      AVAILABLE_PSALMS = idx.available_psalms || [];
+    }
+  } catch (e) { /* file:// oder noch kein Build */ }
+
+  // 2. Psalm-Auswahl aus URL-Hash oder Default
+  const hashParams = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+  const wanted = parseInt(hashParams.get('psalm') || '', 10);
+  if (!isNaN(wanted) && AVAILABLE_PSALMS.includes(wanted)) {
+    ACTIVE_PSALM = wanted;
+  } else if (AVAILABLE_PSALMS.length) {
+    ACTIVE_PSALM = AVAILABLE_PSALMS[0];
+  }
+
+  // 3. Psalm-Daten laden
+  const path = `../data/processed/psalm${ACTIVE_PSALM}.json`;
   try {
     const resp = await fetch(path);
     if (resp.ok) {
       EDITION_DATA = await resp.json();
-      console.log('Edition data loaded from', path);
+      console.log(`Edition data loaded: Psalm ${ACTIVE_PSALM} from`, path);
       return true;
     }
   } catch (e) {
@@ -2442,7 +2528,11 @@ function diagnoseData() {
   });
   stats.sections = Object.entries(typeCounts).map(([k,v]) => `${k}:${v}`).join(', ');
   if (emptySections) issues.push(`${emptySections} leere Sections`);
-  if (trailingHyphens.length) issues.push(`${trailingHyphens.length} offene Silbentrennungen: ${trailingHyphens.join('; ')}`);
+  // V7 "irgân-" ist eine bekannte Versgrenzen-Trennung (TEI-Strukturproblem seit
+  // Iteration 1, siehe Journal "Bekannte Limitationen"). Aus der Warn-Liste
+  // ausnehmen, damit die Diagnostik keine Scheinprobleme meldet.
+  const unexpectedHyphens = trailingHyphens.filter(h => !h.startsWith('V7: "irgân-'));
+  if (unexpectedHyphens.length) issues.push(`${unexpectedHyphens.length} offene Silbentrennungen: ${unexpectedHyphens.join('; ')}`);
 
   // 3. Glosses
   let totalGlosses = 0, emptyGlossText = 0, emptyGlossNhd = 0;
@@ -2453,8 +2543,10 @@ function diagnoseData() {
       if (!g.translation_nhd || !g.translation_nhd.trim()) emptyGlossNhd++;
     });
   });
-  stats.glosses = `${totalGlosses} (erwartet: 14)`;
-  if (totalGlosses !== 14) issues.push(`Glossenanzahl: ${totalGlosses} statt 14`);
+  // Iteration 2: V6 "ze_gótes sélbes" wurde von <gloss> zu commentary reklassifiziert
+  // (Pfeifer-Review). Erwarteter Wert daher 13 statt vormals 14.
+  stats.glosses = `${totalGlosses} (erwartet: 13)`;
+  if (totalGlosses !== 13) issues.push(`Glossenanzahl: ${totalGlosses} statt 13`);
   if (emptyGlossText) issues.push(`${emptyGlossText} Glossen ohne Text`);
   if (emptyGlossNhd) issues.push(`${emptyGlossNhd} Glossen ohne nhd`);
 
@@ -2520,6 +2612,9 @@ const LAYER_LONG = Object.fromEntries(Object.entries(LAYER_SHORT).map(([k,v]) =>
 
 function stateToHash() {
   const p = new URLSearchParams();
+  // Psalm-Nummer nur im Hash, wenn vom Default abweichend oder explizit geladen.
+  // Das haelt den Hash sauber fuer den Standard-Fall (Psalm 2).
+  if (ACTIVE_PSALM !== 2) p.set('psalm', String(ACTIVE_PSALM));
   p.set('v', state.activeVerse);
   const layers = [...state.visibleLayers].map(l => LAYER_SHORT[l]).filter(Boolean).join(',');
   if (layers) p.set('layers', layers);
@@ -2564,9 +2659,12 @@ function parseUrlHash() {
   }
   // Iteration 2 / US-8: slots
   if (p.has('slots')) {
+    // Legacy-Aliasse fuer umbenannte Pool-IDs (Iteration 2c -> 2d)
+    const POOL_ALIAS = { notes: 'legend' };
     const assigned = new Set();
     p.get('slots').split(',').forEach(pair => {
-      const [sid, poolId] = pair.split(':');
+      const [sid, rawPoolId] = pair.split(':');
+      const poolId = POOL_ALIAS[rawPoolId] || rawPoolId;
       if (SLOT_IDS.includes(sid) && POOL[poolId] && !assigned.has(poolId)) {
         state.slots[sid] = poolId;
         assigned.add(poolId);
@@ -2679,15 +2777,30 @@ const POOL = {
   facsimile: {
     label: 'Handschrift Notker (CSg 0021)',
     templateId: 'facsimile-panel',
-    onMount: () => { if (!window._osdInitialized) initOSD(); }
+    onMount: () => {
+      if (!window._osdInitialized) {
+        initOSD();
+      } else if (window._osdViewer) {
+        // Nach Re-Mount muss OSD seinen Rendering-Container neu vermessen,
+        // sonst bleibt der Canvas leer (DOM war im detach-pool, kein Layout).
+        setTimeout(() => {
+          try { window._osdViewer.viewport.applyConstraints(true); }
+          catch (e) { /* viewer not ready */ }
+        }, 50);
+      }
+    }
   },
   comparison: {
     label: 'Psalmtext-Vergleich (alle Zeugen)',
     templateId: 'pool-comparison',
     onMount: () => { if (!window._comparisonRendered) renderComparison(); }
   },
-  notes: {
-    label: 'Anmerkungen',
+  legend: {
+    // Frueher "notes" / "Anmerkungen" — Inhalt ist tatsaechlich die Siglen-Legende
+    // (Augustinus, Cassiodor, Remigius, Gallicanum, Hebraicum, Breviarium). Das
+    // Label "Anmerkungen" hat Nutzer in die Irre gefuehrt. Editorische Anmerkungen
+    // werden, sobald das TEI sie enthaelt, als eigener Pool-Eintrag ergaenzt.
+    label: 'Siglen-Legende',
     templateId: 'pool-notes',
     onMount: () => renderPoolNotes()
   },
@@ -2781,6 +2894,19 @@ function restoreSlot(slotId) {
   updateUrlHash();
 }
 
+// Stellt sicher, dass der pool-Inhalt in einem offenen Slot sichtbar ist.
+// Wenn er in einem geschlossenen Slot sitzt, wird dieser Slot wiederhergestellt.
+// Wenn er gar nicht gemountet ist, passiert nichts (dann hat der User ihn explizit abgewaehlt).
+function ensurePoolVisible(poolId) {
+  for (const sid of SLOT_IDS) {
+    if (state.slots[sid] === poolId && state.slotsClosed.has(sid)) {
+      restoreSlot(sid);
+      return true;
+    }
+  }
+  return false;
+}
+
 function updateDividers() {
   // Hide a divider if either neighbour slot is collapsed
   const dAB = document.getElementById('divider-AB');
@@ -2835,6 +2961,11 @@ async function init() {
   setupDividerDrag();
   // Apply parsed URL state to UI
   syncUiToState();
+  // Hinweis anzeigen, falls Deep-Link alle Schichten ausgeblendet hat
+  updateLayersEmptyHint();
+  // Intro-Titel auf aktiven Psalm setzen (Multi-Psalm-ready)
+  const titleEl = document.getElementById('intro-psalm-title');
+  if (titleEl) titleEl.textContent = `Psalm ${ACTIVE_PSALM}`;
 }
 
 function syncUiToState() {
@@ -2858,32 +2989,64 @@ function syncUiToState() {
 
 function renderPsalmNav() {
   const nav = document.getElementById('psalm-nav');
-  // Show: 1, [2], 3, ···, 50, 100, 150 — minimal but clear
+  nav.innerHTML = '';
+  // Visuelle Orientierung in der Gesamtedition (1-150). Verfuegbare Psalmen
+  // (aus data/processed/index.json) werden anklickbar gemacht, nicht
+  // verfuegbare sind disabled. Der aktive Psalm (ACTIVE_PSALM) ist orange.
   const show = [1, 2, 3];
   const trail = [50, 100, 150];
-  show.forEach(i => {
+  const available = new Set(AVAILABLE_PSALMS);
+  // Falls wir ueber file:// oder ohne Index laden, ist AVAILABLE_PSALMS leer:
+  // dann gehen wir davon aus, dass der aktuell geladene Psalm verfuegbar ist.
+  if (available.size === 0) available.add(ACTIVE_PSALM);
+  const makeItem = (i) => {
     const item = document.createElement('div');
-    item.className = 'psalm-nav-item' + (i === 2 ? ' active' : '');
+    const isActive = i === ACTIVE_PSALM;
+    const isAvailable = available.has(i);
+    let cls = 'psalm-nav-item';
+    if (isActive) cls += ' active';
+    else if (!isAvailable) cls += ' disabled';
+    item.className = cls;
     item.textContent = i;
-    item.title = i === 2 ? 'Psalm 2 (aktiv)' : `Psalm ${i} (noch nicht verfügbar)`;
-    nav.appendChild(item);
-  });
+    if (isActive) {
+      item.title = `Psalm ${i} (aktiv)`;
+    } else if (isAvailable) {
+      item.title = `Psalm ${i} — klicken zum Laden`;
+      item.onclick = () => navigateToPsalm(i);
+    } else {
+      item.title = `Psalm ${i} — in der Gesamtedition geplant, im Prototyp nicht verfügbar`;
+      item.setAttribute('aria-disabled', 'true');
+    }
+    return item;
+  };
+  show.forEach(i => nav.appendChild(makeItem(i)));
   const dots = document.createElement('span');
   dots.textContent = '···';
   dots.style.cssText = 'color: var(--color-muted); font-size: 0.65rem; margin: 0 4px;';
   dots.title = 'Psalmen 4–49 (in der Gesamtedition)';
   nav.appendChild(dots);
-  trail.forEach(i => {
-    const item = document.createElement('div');
-    item.className = 'psalm-nav-item';
-    item.textContent = i;
-    item.title = `Psalm ${i} (noch nicht verfügbar)`;
-    nav.appendChild(item);
-  });
+  trail.forEach(i => nav.appendChild(makeItem(i)));
+}
+
+function navigateToPsalm(psalmNum) {
+  // URL-Hash setzen und reloaden. SPA-Swap waere komplexer (kompletter
+  // State-Reset) — Reload ist sauberer fuer einen Prototyp.
+  const hashParams = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+  hashParams.set('psalm', String(psalmNum));
+  // Vers-Parameter zuruecksetzen, weil Vers-Nummern pro Psalm unterschiedlich
+  hashParams.delete('v');
+  location.hash = hashParams.toString();
+  location.reload();
 }
 
 function renderSourceFilters() {
   const container = document.getElementById('source-filters');
+  // Beim Re-Mount des sources-Pool (Slot-Wechsel) Filter-Gruppen leeren, aber
+  // den Aktions-Button (Uebersetzungs-Toggle) erhalten. Er wird nach dem
+  // Einfuegen der Filter-Gruppen wieder als letztes Kind platziert, damit
+  // margin-left:auto ihn rechts haelt.
+  const actionBtn = container.querySelector('.source-filters-action');
+  container.innerHTML = '';
   // Iteration 2 / US-10.1: zwei Gruppen visuell getrennt.
   // Patristische Quellen vs. Psalter-Zeugen. R-Konflikt (Remigius vs.
   // Romanum-Psalter) unaufgeloest bis Pfeifer-Bestaetigung — Sigle R
@@ -2910,10 +3073,15 @@ function renderSourceFilters() {
     },
   ];
   groups.forEach(g => {
-    const label = document.createElement('div');
+    // Label + Chips in einer inline Gruppe, damit beide Gruppen nebeneinander
+    // passen wenn Platz da ist, und bei Bedarf in zweite Zeile umbrechen.
+    const groupEl = document.createElement('div');
+    groupEl.className = 'source-filter-group';
+    groupEl.dataset.group = g.group;
+    const label = document.createElement('span');
     label.className = 'source-filter-group-label';
     label.textContent = g.label;
-    container.appendChild(label);
+    groupEl.appendChild(label);
     const row = document.createElement('div');
     row.className = 'source-filter-row';
     row.dataset.group = g.group;
@@ -2931,8 +3099,11 @@ function renderSourceFilters() {
       el.onclick = () => toggleSourceFilter(filterKey);
       row.appendChild(el);
     });
-    container.appendChild(row);
+    groupEl.appendChild(row);
+    container.appendChild(groupEl);
   });
+  // Aktions-Button als letztes Kind, damit margin-left:auto greift
+  if (actionBtn) container.appendChild(actionBtn);
 }
 
 function renderVerses() {
@@ -3122,6 +3293,8 @@ function toggleLayer(layer) {
     state.visibleLayers.delete(layer);
   } else {
     state.visibleLayers.add(layer);
+    // Wenn Layer angeschaltet wird, aber Edition-Panel zu: wieder oeffnen.
+    ensurePoolVisible('edition');
   }
   // Update toggle button
   const btn = document.querySelector(`.toggle-btn[data-layer="${layer}"]`);
@@ -3139,6 +3312,37 @@ function toggleLayer(layer) {
   }
   // Re-render split view if active
   if (state.splitLanguages) renderVerses();
+  // Leer-Hinweis ein-/ausblenden (alle Schichten aus)
+  updateLayersEmptyHint();
+  updateUrlHash();
+}
+
+function updateLayersEmptyHint() {
+  const container = document.getElementById('verses-container');
+  if (!container) return;
+  const empty = state.visibleLayers.size === 0;
+  container.classList.toggle('all-layers-hidden', empty);
+  let hint = document.getElementById('layers-empty-hint');
+  if (empty && !hint) {
+    hint = document.createElement('div');
+    hint.id = 'layers-empty-hint';
+    hint.className = 'layers-empty-hint';
+    hint.innerHTML = 'Alle Textschichten sind ausgeblendet. '
+      + '<button type="button" class="layers-empty-action" onclick="enableAllLayers()">Alle Schichten einblenden</button>'
+      + '<div class="layers-empty-sub">oder mit Tasten 1&ndash;4 einzeln aktivieren.</div>';
+    container.parentNode.insertBefore(hint, container);
+  } else if (!empty && hint) {
+    hint.remove();
+  }
+}
+
+function enableAllLayers() {
+  ['psalm_citation', 'translation', 'commentary', 'glosses'].forEach(l => state.visibleLayers.add(l));
+  document.querySelectorAll('.toggle-btn[data-layer]').forEach(btn => btn.classList.add('active'));
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('hidden'));
+  document.querySelectorAll('.gloss').forEach(el => el.classList.remove('hidden'));
+  updateLayersEmptyHint();
+  ensurePoolVisible('edition');
   updateUrlHash();
 }
 
@@ -3157,6 +3361,8 @@ function toggleSourceNhd() {
   if (btn) btn.classList.toggle('active', state.showSourceNhd);
   const panel = document.getElementById('sources-panel');
   if (panel) panel.classList.toggle('hide-source-german', !state.showSourceNhd);
+  // Wenn eingeschaltet und Quellen-Panel zu: wieder oeffnen.
+  if (state.showSourceNhd) ensurePoolVisible('sources');
   updateUrlHash();
 }
 
@@ -3497,7 +3703,9 @@ function renderPoolNotes() {
       `).join('')}
     </table>
     <p style="margin-top: 1.5rem; color: var(--color-muted); font-size: var(--size-ui-sm); font-style: italic;">
-      Editorische Anmerkungen aus dem TEI-Apparat werden in einer späteren Iteration hier verlinkt.
+      Die Siglen oben werden in den Quellen- und Psalter-Filtern als anklickbare Chips benutzt.
+      Editorische Anmerkungen werden in einer späteren Iteration als eigener Pool-Eintrag ergänzt,
+      sobald das TEI entsprechende Elemente enthält.
     </p>
   `;
 }

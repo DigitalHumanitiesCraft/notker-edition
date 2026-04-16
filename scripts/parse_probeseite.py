@@ -71,6 +71,30 @@ PFEIFER_CORRECTIONS: list[tuple[str, str]] = [
     ('unterdrückt den Köper', 'unterdrückt den Körper'),
     # nhd. V12 — Tippfehler
     ('ihr nicht ableitet vom', 'ihr nicht abgleitet vom'),
+    # V8-9 intra-line: "Stab . das ist" -> "Stab, das ist" (Punkt durch Komma).
+    # Kommt im Fliesstext "eisernem Stab . das ist" vor.
+    ('eisernem Stab . das ist', 'eisernem Stab, das ist'),
+]
+
+
+# Korrekturen, die nur auf einzelnen <l>-Zeilen wirken (zeilengenaue nhd.-Uebersetzung).
+# Sie werden pro Zeile vor dem Einbau ins TEI angewendet (siehe build_tei.py).
+# Gruende:
+# - Die Patterns beziehen sich auf Zeilenende/Zeilenanfang eines <l> und wuerden
+#   im Fliesstext nicht matchen (Zeilenbegrenzung ist die semantische Einheit).
+# - Der frueher im finalen TEI-String verwendete Marker "</l>" war fragil gegen
+#   Formatierungs-Aenderungen.
+PFEIFER_LINE_CORRECTIONS: list[tuple[str, str]] = [
+    # V7: "Mein Vater sagte zu mir" am Zeilenende -> Komma anhaengen
+    ('Mein Vater sagte zu mir', 'Mein Vater sagte zu mir,'),
+    # V8-9: "dein Erbe" am Zeilenende -> Punkt anhaengen
+    ('gebe ich dir dein Erbe', 'gebe ich dir dein Erbe.'),
+    # V8-9: "Stab . das ist" als Zeilenanfang -> "Stab, das ist"
+    ('Stab . das ist unbeugsame', 'Stab, das ist unbeugsame'),
+    # V8-9: "mit eisernem Stab" am Zeilenende -> Komma anhaengen
+    ('richtest du mit eisernem Stab', 'richtest du mit eisernem Stab,'),
+    # V10-11: "den Köper" -> "den Körper" (Zeilenanfang nach "unterdrueckt")
+    ('den Köper.', 'den Körper.'),
 ]
 
 
@@ -86,6 +110,31 @@ def apply_corrections(text: str) -> str:
         if old in text:
             text = text.replace(old, new)
     return text
+
+
+def apply_line_corrections(line_text: str) -> str:
+    """Wendet zeilenbezogene Korrekturen auf einen einzelnen <l>-Text an.
+
+    Greift nur dann, wenn `line_text` exakt das Muster enthaelt, das am
+    Zeilenende/Zeilenanfang einer line-faithful-Zeile steht. Wird pro
+    Zeile von build_tei aufgerufen.
+    """
+    if not line_text:
+        return line_text
+    # Endungs-Muster: Zeile endet mit dem alten String (modulo trailing whitespace).
+    # Anfangs-Muster: Zeile faengt mit dem alten String an.
+    # Substring-Muster: String steht intra-line.
+    stripped = line_text.rstrip()
+    for old, new in PFEIFER_LINE_CORRECTIONS:
+        if stripped.endswith(old):
+            # "zu mir" am Ende -> "zu mir,"
+            line_text = stripped[:-len(old)] + new + line_text[len(stripped):]
+            stripped = line_text.rstrip()
+            continue
+        if old in line_text:
+            line_text = line_text.replace(old, new)
+            stripped = line_text.rstrip()
+    return line_text
 
 
 def normalize_whitespace_in_text_nodes(tei_text: str) -> str:

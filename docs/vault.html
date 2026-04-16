@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promptotyping-Vault – Notker Psalmenkommentar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@14/marked.min.js"></script>
+<style>
+:root {
+  --font-edition: 'Gentium Book Plus', Palatino, Georgia, serif;
+  --font-ui: 'Inter', -apple-system, sans-serif;
+  --color-psalm: hsl(15, 60%, 40%);
+  --color-muted: hsl(0, 0%, 50%);
+  --color-border: hsl(0, 0%, 88%);
+  --color-border-light: hsl(0, 0%, 92%);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-ui);
+  color: hsl(0, 0%, 15%);
+  line-height: 1.6;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+aside {
+  background: hsl(40, 15%, 97%);
+  border-right: 1px solid var(--color-border);
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+}
+aside h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+  padding: 0 0.25rem;
+}
+aside nav a {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  color: hsl(0, 0%, 25%);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+  transition: background 0.12s;
+}
+aside nav a:hover { background: hsl(0, 0%, 93%); }
+aside nav a.active {
+  background: var(--color-psalm);
+  color: #fff;
+  font-weight: 500;
+}
+aside .back-link {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+  padding: 0 0.25rem;
+}
+aside .back-link:hover { text-decoration: underline; }
+aside .site-nav {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 0.25rem 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 0.75rem;
+}
+aside .site-nav a {
+  color: var(--color-psalm);
+  text-decoration: none;
+}
+aside .site-nav a:hover { text-decoration: underline; }
+aside .site-nav a.active { color: hsl(0, 0%, 30%); font-weight: 600; cursor: default; text-decoration: none; }
+aside .vault-info {
+  margin-top: 2rem;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+aside .vault-build {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--color-border-light);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.68rem;
+  color: hsl(0, 0%, 55%);
+}
+/* Frontmatter-Meta oben im Dokument */
+.doc-frontmatter {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  background: hsl(40, 15%, 97%);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.doc-frontmatter-item {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+.doc-frontmatter-key { color: hsl(0, 0%, 40%); font-weight: 500; }
+.doc-frontmatter-value { font-family: 'Fira Code', 'Consolas', monospace; }
+/* Wikilink rendering */
+main a.wikilink {
+  background: hsl(40, 50%, 95%);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-psalm);
+}
+main a.wikilink:hover { background: hsl(40, 50%, 90%); }
+main span.wikilink-missing {
+  background: hsl(0, 0%, 95%);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  color: hsl(0, 0%, 40%);
+  font-style: italic;
+}
+main {
+  padding: 2.5rem 3rem;
+  max-width: 900px;
+  font-family: var(--font-edition);
+  line-height: 1.7;
+}
+main .doc-header {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* Markdown rendering */
+main h1 { font-family: var(--font-ui); font-size: 1.6rem; margin-bottom: 0.3rem; }
+main h2 { font-family: var(--font-ui); font-size: 1.2rem; margin: 2rem 0 0.75rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--color-border); }
+main h3 { font-family: var(--font-ui); font-size: 1rem; margin: 1.5rem 0 0.5rem; }
+main h4 { font-family: var(--font-ui); font-size: 0.9rem; margin: 1rem 0 0.4rem; color: var(--color-muted); }
+main p { margin-bottom: 0.75rem; }
+main ul, main ol { margin: 0.5rem 0 0.75rem 1.5rem; }
+main li { margin-bottom: 0.3rem; }
+main code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.85em;
+  background: hsl(0, 0%, 96%);
+  padding: 0.12em 0.35em;
+  border-radius: 3px;
+}
+main pre {
+  background: hsl(0, 0%, 97%);
+  border: 1px solid var(--color-border-light);
+  padding: 0.9rem 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+main pre code { background: none; padding: 0; }
+main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+main th { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid var(--color-border); color: var(--color-muted); }
+main td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--color-border-light); vertical-align: top; }
+main blockquote {
+  border-left: 3px solid var(--color-psalm);
+  padding-left: 1rem;
+  margin: 0.75rem 0;
+  color: hsl(0, 0%, 30%);
+  font-style: italic;
+}
+main hr { border: none; border-top: 1px solid var(--color-border); margin: 2rem 0; }
+main a { color: var(--color-psalm); text-decoration: none; }
+main a:hover { text-decoration: underline; }
+.loading { padding: 2rem; text-align: center; color: var(--color-muted); }
+.error {
+  padding: 1.5rem;
+  background: hsl(0, 30%, 97%);
+  border: 1px solid hsl(0, 20%, 88%);
+  border-radius: 6px;
+  color: hsl(0, 40%, 40%);
+}
+@media (max-width: 768px) {
+  body { grid-template-columns: 1fr; }
+  aside { position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--color-border); }
+  main { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<aside>
+  <a href="index.html" class="back-link">&larr; Zurück zur Edition</a>
+  <nav class="site-nav">
+    <a href="richtlinien.html">Richtlinien</a>
+    <a href="methode.html">Methode</a>
+    <a href="vault.html" class="active">Vault</a>
+  </nav>
+  <h2>Promptotyping-Vault</h2>
+  <nav id="doc-list">
+    <div class="loading">Lade Dokumente...</div>
+  </nav>
+  <div class="vault-info">
+    Die Markdown-Dokumente in diesem Vault dokumentieren Domänenwissen,
+    Anforderungen, Design- und Technik-Entscheidungen sowie den
+    Projektverlauf nach der Promptotyping-Methode.
+    <div id="vault-build" class="vault-build"></div>
+  </div>
+</aside>
+
+<main>
+  <div class="doc-header" id="doc-header">Wähle ein Dokument links</div>
+  <div id="doc-body">
+    <p style="font-family: var(--font-ui); color: var(--color-muted); font-size: 0.9rem;">
+      Alle Entscheidungen und Wissensgrundlagen des Prototyps sind in diesen Markdown-Dokumenten festgehalten.
+      Sie dienen als transparente Arbeitsdokumentation der Entwicklung nach der Promptotyping-Methode.
+    </p>
+  </div>
+</main>
+
+<script>
+const VAULT_DIR = 'vault/';
+
+// Friendly-Labels fuer bekannte Dokumente
+const LABELS = {
+  'Research Plan.md': 'Research Plan',
+  'Domänenwissen.md': 'Domänenwissen',
+  'Probeseite Analyse.md': 'Probeseite-Analyse',
+  'Anforderungen.md': 'Anforderungen (Iteration 1)',
+  'Anforderungen-Iteration-2.md': 'Anforderungen (Iteration 2)',
+  'Design.md': 'Design',
+  'Technik.md': 'Technik',
+  'Editionsrichtlinien.md': 'Editionsrichtlinien',
+  'Journal.md': 'Journal',
+  'Pfeifer-Mail-Iteration-2a.md': 'Pfeifer-Mail (Iteration 2a)',
+};
+
+// Empfohlene Lese-Reihenfolge
+const ORDER = [
+  'Research Plan.md',
+  'Domänenwissen.md',
+  'Probeseite Analyse.md',
+  'Anforderungen.md',
+  'Anforderungen-Iteration-2.md',
+  'Design.md',
+  'Technik.md',
+  'Editionsrichtlinien.md',
+  'Journal.md',
+  'Pfeifer-Mail-Iteration-2a.md',
+];
+
+// Wird beim Index-Laden gefuellt: Set aller vorhandenen MD-Dateinamen,
+// damit der Wikilink-Resolver pruefen kann, ob ein Link-Ziel existiert.
+let AVAILABLE_DOCS = new Set();
+
+async function loadDocList() {
+  try {
+    const resp = await fetch(VAULT_DIR + 'index.json');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const idx = await resp.json();
+    // index.json kann entweder reiner Array (Alt-Format) oder Objekt sein
+    const files = Array.isArray(idx) ? idx : (idx.files || []);
+    AVAILABLE_DOCS = new Set(files);
+    renderDocList(files);
+    if (!Array.isArray(idx)) renderBuildInfo(idx);
+    // Deep-Link via ?doc=filename
+    const params = new URLSearchParams(location.search);
+    const wanted = params.get('doc');
+    const initial = (wanted && files.includes(wanted)) ? wanted : files[0];
+    if (initial) loadDoc(initial);
+  } catch (e) {
+    document.getElementById('doc-list').innerHTML =
+      '<div class="error">Vault-Index konnte nicht geladen werden. '
+      + 'Bitte <code>python scripts/sync_vault.py</code> ausführen.</div>';
+  }
+}
+
+function renderBuildInfo(idx) {
+  const el = document.getElementById('vault-build');
+  if (!el) return;
+  const parts = [];
+  if (idx.commit) parts.push('commit ' + String(idx.commit).slice(0, 7));
+  if (idx.generated) parts.push(idx.generated);
+  if (parts.length) el.textContent = parts.join(' · ');
+}
+
+function renderDocList(files) {
+  // Sortierung: Bekannte in ORDER zuerst, dann alphabetisch
+  const known = ORDER.filter(f => files.includes(f));
+  const unknown = files.filter(f => !ORDER.includes(f)).sort();
+  const ordered = [...known, ...unknown];
+  const nav = document.getElementById('doc-list');
+  nav.innerHTML = '';
+  ordered.forEach(f => {
+    const a = document.createElement('a');
+    a.href = '?doc=' + encodeURIComponent(f);
+    a.textContent = LABELS[f] || f.replace(/\.md$/, '');
+    a.dataset.file = f;
+    a.onclick = (ev) => {
+      ev.preventDefault();
+      history.replaceState({}, '', '?doc=' + encodeURIComponent(f));
+      loadDoc(f);
+    };
+    nav.appendChild(a);
+  });
+}
+
+// Parst den YAML-Frontmatter-Block (---...---) und gibt (meta, rest-md) zurueck.
+// Minimaler Parser fuer key: value und "key: value"-Paare. Listen werden ignoriert.
+function extractFrontmatter(md) {
+  const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/);
+  if (!m) return { meta: null, body: md };
+  const meta = {};
+  m[1].split(/\r?\n/).forEach(line => {
+    const kv = line.match(/^([A-Za-z][\w-]*)\s*:\s*(.*)$/);
+    if (!kv) return;
+    let value = kv[2].trim();
+    // Quoting entfernen, Listen/Objekte als Rohstring lassen
+    if ((value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    meta[kv[1]] = value;
+  });
+  return { meta, body: md.slice(m[0].length) };
+}
+
+function renderFrontmatter(meta) {
+  if (!meta || !Object.keys(meta).length) return '';
+  // Nur die informativ wichtigsten Felder anzeigen
+  const SHOW = ['type', 'status', 'iteration', 'created', 'updated', 'tags', 'feedback-source'];
+  const items = SHOW
+    .filter(k => meta[k])
+    .map(k => `<span class="doc-frontmatter-item"><span class="doc-frontmatter-key">${k}:</span>`
+            + `<span class="doc-frontmatter-value">${escape(meta[k])}</span></span>`);
+  if (!items.length) return '';
+  return `<div class="doc-frontmatter">${items.join('')}</div>`;
+}
+
+function escape(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// Loest einen Obsidian-Wikilink auf.
+// Formen: [[Ziel]], [[Ziel|Alias]], [[Ziel#Anker]], [[Ziel|Alias#Anker]] wird
+// auch als [[Ziel#Anker|Alias]] verstanden. Wir akzeptieren beide Stellungen.
+function resolveWikilink(inner) {
+  // [[target|alias]] -> [target, alias]
+  let target = inner, alias = null;
+  const pipeIdx = inner.indexOf('|');
+  if (pipeIdx >= 0) {
+    target = inner.slice(0, pipeIdx).trim();
+    alias = inner.slice(pipeIdx + 1).trim();
+  }
+  // [[target#anchor]] -> (target, anchor)
+  let anchor = '';
+  const hashIdx = target.indexOf('#');
+  if (hashIdx >= 0) {
+    anchor = target.slice(hashIdx + 1).trim();
+    target = target.slice(0, hashIdx).trim();
+  }
+  // Alias kann ebenfalls Anker tragen (selten)
+  if (alias && alias.includes('#') && !anchor) {
+    const [aBase, aAnchor] = alias.split('#');
+    alias = aBase.trim();
+    anchor = aAnchor.trim();
+  }
+  const text = alias || target;
+  // Ziel-Datei: "Target" -> "Target.md"
+  const targetFile = target + '.md';
+  if (AVAILABLE_DOCS.has(targetFile)) {
+    // Anker: Obsidian nutzt menschliche Ueberschriften, marked produziert
+    // lowercase-bindestrich-IDs. Wir reichen den Anker durch und vertrauen
+    // darauf, dass marked einen kompatiblen slug erzeugt.
+    const slug = anchor ? '#' + anchor.toLowerCase()
+      .replace(/\s+/g, '-').replace(/[^\w-äöüß]/g, '') : '';
+    const href = '?doc=' + encodeURIComponent(targetFile) + slug;
+    return `<a class="wikilink" href="${href}" data-doc="${escape(targetFile)}">${escape(text)}</a>`;
+  }
+  // Ziel existiert nicht: reiner Text mit dezenter Markierung.
+  return `<span class="wikilink-missing" title="Kein Zieldokument im Vault">${escape(text)}</span>`;
+}
+
+async function loadDoc(filename) {
+  // active state
+  document.querySelectorAll('#doc-list a').forEach(a =>
+    a.classList.toggle('active', a.dataset.file === filename)
+  );
+  const header = document.getElementById('doc-header');
+  const body = document.getElementById('doc-body');
+  header.textContent = LABELS[filename] || filename;
+  body.innerHTML = '<div class="loading">Lade ' + filename + ' ...</div>';
+  try {
+    const resp = await fetch(VAULT_DIR + encodeURIComponent(filename));
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    let md = await resp.text();
+    // Frontmatter extrahieren und als Meta-Block rendern
+    const { meta, body: mdBody } = extractFrontmatter(md);
+    // Wikilinks aufloesen. Nicht in Code-Bloecken/Inline-Code ersetzen.
+    // Vereinfachung: wir ersetzen ueberall; Code-Kontexte sind in den
+    // knowledge-Dokumenten selten und enthalten keine [[...]]-Formen.
+    const withLinks = mdBody.replace(/\[\[([^\]]+)\]\]/g, (_, inner) => resolveWikilink(inner));
+    body.innerHTML = renderFrontmatter(meta) + marked.parse(withLinks);
+    // Wikilink-Klicks in-page abfangen (kein Full-Reload noetig)
+    body.querySelectorAll('a.wikilink').forEach(a => {
+      a.addEventListener('click', (ev) => {
+        const targetDoc = a.dataset.doc;
+        if (!targetDoc) return;
+        ev.preventDefault();
+        const hash = (a.getAttribute('href').split('#')[1] || '');
+        history.replaceState({}, '', '?doc=' + encodeURIComponent(targetDoc) + (hash ? '#' + hash : ''));
+        loadDoc(targetDoc).then(() => {
+          if (hash) {
+            const el = document.getElementById(hash);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo(0, 0);
+          }
+        });
+      });
+    });
+    // Scroll-Anker nach Initial-Load beachten
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const el = document.getElementById(id);
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 50);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  } catch (e) {
+    body.innerHTML = '<div class="error">Dokument konnte nicht geladen werden: ' + e.message + '</div>';
+  }
+}
+
+loadDocList();
+</script>
+</body>
+</html>

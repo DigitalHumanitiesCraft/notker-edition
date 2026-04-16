@@ -11,7 +11,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from parse_probeseite import parse_probeseite, PsalmData, SourceEntry, apply_corrections, normalize_whitespace_in_text_nodes
+from parse_probeseite import parse_probeseite, PsalmData, SourceEntry, apply_corrections, apply_line_corrections, normalize_whitespace_in_text_nodes
 from classify_layers import (
     classify_and_enrich, EnrichedVerseGroup, EnrichedLine, EnrichedSegment
 )
@@ -45,7 +45,7 @@ def set_xml_attr(el, attr, val):
 # TEI-Header
 # ---------------------------------------------------------------------------
 
-def build_header():
+def build_header(psalm_number: int = 2):
     """Erstellt den vollständigen teiHeader."""
     header = E('teiHeader')
 
@@ -55,7 +55,7 @@ def build_header():
     # titleStmt
     ts = SE(fd, 'titleStmt')
     title = SE(ts, 'title')
-    title.text = 'Notkers Psalmenkommentar – Psalm 2 (Digitale Edition, Prototyp)'
+    title.text = f'Notkers Psalmenkommentar – Psalm {psalm_number} (Digitale Edition, Prototyp)'
     author = SE(ts, 'author')
     author.text = 'Notker III. von St. Gallen (ca. 950–1022)'
     editor = SE(ts, 'editor')
@@ -171,7 +171,7 @@ def build_header():
     # projectDesc
     pd = SE(enc, 'projectDesc')
     SE(pd, 'p').text = ('Prototyp für einen Drittmittelantrag. '
-                        'Nur Psalm 2 (13 Verse). '
+                        f'Aktueller Psalm: {psalm_number}. '
                         'Auftraggeber: Dr. Philipp Pfeifer, Universität Graz.')
 
     # profileDesc
@@ -333,12 +333,14 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
         # incl. cross-line patterns wie "mir mein Sohn" -> "mir, mein Sohn").
         p = SE(nhd_note, 'p')
         p.text = ' '.join(nhd_lines)
-        # Zeilengetreue Variante: pro Zeile ein <l>. Intra-line Korrekturen werden
-        # vorab angewendet, damit die line-faithful-Anzeige sie auch traegt.
+        # Zeilengetreue Variante: pro Zeile ein <l>. Zwei Normalisierungen:
+        #  1. apply_corrections: Fliesstext-Korrekturen, die auch intra-line matchen
+        #  2. apply_line_corrections: nur auf einzelnen Zeilen wirkende Patterns
+        #     (z.B. Komma am Zeilenende, wo Fortsetzung in naechster Zeile steht)
         lg = SE(nhd_note, 'lg', type='line-faithful')
         for line_text in nhd_lines:
             l = SE(lg, 'l')
-            l.text = apply_corrections(line_text)
+            l.text = apply_line_corrections(apply_corrections(line_text))
 
     # Quellenapparat
     if vg.sources:
@@ -442,14 +444,84 @@ def build_back(psalm: PsalmData, parent):
 # Hauptfunktion
 # ---------------------------------------------------------------------------
 
-def build_tei(psalm: PsalmData, enriched_groups: list[EnrichedVerseGroup]) -> etree._Element:
+def redistribute_crossverse_nhd(groups: list[EnrichedVerseGroup]) -> None:
+    """Verschiebt die nhd-Uebersetzung einer Cross-Verse-Fortsetzungs-Zeile.
+
+    Wenn die letzte Zeile der vorherigen Versgruppe mit "-" endet
+    (Silbentrennung ueber Vers-Grenze), und die erste Nicht-Gloss-Zeile des
+    aktuellen Verses mit einem kleingeschriebenen Wort startet, ist diese
+    erste Zeile eine Fortsetzung aus dem vorigen Vers. Ihre nhd-Uebersetzung
+    wandert an das Ende der nhd-Liste des Vorgaenger-Verses.
+
+    Beispiel: V1-2 endet "...anderer han-" + V3-5 beginnt "gta iz. ..."
+    -> "erlaubte es" (Uebersetzung) gehoert zu V1-2.
+
+    Die Cross-Verse-part-Attribute werden erst spaeter in build_tei auf dem
+    serialisierten String gesetzt (chain_cross_verse_hyphens). Deshalb hier
+    Detektion ueber Text-Pattern statt ueber seg.part.
+    """
+    for i in range(1, len(groups)):
+        curr = groups[i]
+        prev = groups[i - 1]
+        # Letzte text-Zeile im Vorgaenger: endet sie auf "-"?
+        prev_last_text = None
+        for line in reversed(prev.lines):
+            if not line.is_gloss and line.segments:
+                prev_last_text = line
+                break
+        if prev_last_text is None:
+            continue
+        last_seg_text = ''
+        for seg in reversed(prev_last_text.segments):
+            if seg.text.strip():
+                last_seg_text = seg.text.rstrip()
+                break
+        if not last_seg_text.endswith('-'):
+            continue
+        # Erste text-Zeile im aktuellen Vers: faengt sie mit Kleinbuchstaben an?
+        first_text_line = None
+        for line in curr.lines:
+            if not line.is_gloss:
+                first_text_line = line
+                break
+        if first_text_line is None or not first_text_line.nhd:
+            continue
+        first_seg = next((s for s in first_text_line.segments if s.text.strip()), None)
+        if first_seg is None:
+            continue
+        first_char = first_seg.text.lstrip()[:1]
+        if not first_char or not first_char.islower():
+            continue
+        # Cross-Verse-Fragment bestaetigt. nhd umverteilen.
+        prev_target = None
+        for line in reversed(prev.lines):
+            if not line.is_gloss and line.nhd:
+                prev_target = line
+                break
+        if prev_target is None:
+            for line in prev.lines:
+                if not line.is_gloss:
+                    prev_target = line
+                    break
+        if prev_target is None:
+            continue
+        carried = first_text_line.nhd.strip()
+        if prev_target.nhd.strip():
+            prev_target.nhd = prev_target.nhd.rstrip() + ' ' + carried
+        else:
+            prev_target.nhd = carried
+        first_text_line.nhd = ''
+
+
+def build_tei(psalm: PsalmData, enriched_groups: list[EnrichedVerseGroup],
+              psalm_number: int = 2) -> etree._Element:
     """Baut den vollständigen TEI-Baum."""
 
     tei = E('TEI')
     set_xml_attr(tei, 'lang', 'goh')
 
     # Header
-    tei.append(build_header())
+    tei.append(build_header(psalm_number))
 
     # Facsimile
     tei.append(build_facsimile())
@@ -461,16 +533,24 @@ def build_tei(psalm: PsalmData, enriched_groups: list[EnrichedVerseGroup]) -> et
     front = SE(text, 'front')
     intro = SE(front, 'div', type='introduction')
     p = SE(intro, 'p')
-    p.text = ('Diese digitale Edition zeigt Psalm 2 aus Notkers Psalmenkommentar '
+    p.text = (f'Diese digitale Edition zeigt Psalm {psalm_number} aus Notkers Psalmenkommentar '
               'als Prototyp für eine vollständige Edition aller 150 Psalmen. '
               'Der Text basiert auf der Handschrift CSg 0021 (Stiftsbibliothek St. Gallen) '
               'und der kritischen Edition von Tax/Sehrt (1979).')
 
     # Body
     body = SE(text, 'body')
-    psalm_div = SE(body, 'div', type='psalm', n='2')
+    psalm_div = SE(body, 'div', type='psalm', n=str(psalm_number))
     head = SE(psalm_div, 'head')
-    head.text = 'Psalm 2'
+    head.text = f'Psalm {psalm_number}'
+
+    # Iteration 2 / Pfeifer-Review: Wenn die erste Zeile einer Versgruppe mit
+    # einem Cross-Verse-Fortsetzungs-Fragment beginnt (part="F"), gehoert deren
+    # nhd-Uebersetzung zur vorhergehenden Versgruppe. Ohne diese Umverteilung
+    # wuerde z.B. "erlaubte es" (= Uebersetzung von "gta iz" in V3-5 Zeile 1,
+    # das die V1-2-Schlusssilbe "han-gta iz" fortsetzt) am Anfang von V3-5
+    # stehen, obwohl es inhaltlich zu V1-2 gehoert.
+    redistribute_crossverse_nhd(enriched_groups)
 
     for vg in enriched_groups:
         build_verse_div(vg, psalm_div)
@@ -557,18 +637,53 @@ def basic_validation(tei: etree._Element):
 # Main
 # ---------------------------------------------------------------------------
 
-def main():
-    docx_path = Path(__file__).parent.parent / 'data' / 'Probeseite_Notker.docx'
-    output_path = Path(__file__).parent.parent / 'data' / 'tei' / 'psalm2.xml'
+def write_tei_index(tei_dir: Path):
+    """Schreibt data/tei/index.json mit der Liste aller verfuegbaren Psalmen.
 
-    print('=== Schritt 1: DOCX parsen ===')
+    Wird vom Frontend (docs/index.html) gelesen, um die Psalm-Nav zu
+    rendern und den Default-Psalm zu bestimmen. Ohne Code-Aenderung
+    erkennt das Frontend neue psalm{N}.xml-Dateien.
+    """
+    import json, re
+    psalms = []
+    for xml_file in sorted(tei_dir.glob('psalm*.xml')):
+        m = re.match(r'psalm(\d+)\.xml', xml_file.name)
+        if m:
+            psalms.append(int(m.group(1)))
+    psalms.sort()
+    index = {'available_psalms': psalms, 'count': len(psalms)}
+    (tei_dir / 'index.json').write_text(
+        json.dumps(index, ensure_ascii=False, indent=2), encoding='utf-8'
+    )
+    print(f'  TEI-Index: {len(psalms)} Psalm(en) verfuegbar: {psalms}')
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='DOCX -> TEI-XML Pipeline')
+    parser.add_argument('psalm', nargs='?', type=int, default=2,
+                        help='Psalm-Nummer (Default: 2 — der aktuelle Prototyp-Umfang)')
+    parser.add_argument('--docx', type=str, default=None,
+                        help='Pfad zur Quell-DOCX (Default: data/Probeseite_Notker.docx)')
+    args = parser.parse_args()
+
+    root = Path(__file__).parent.parent
+    docx_path = Path(args.docx) if args.docx else root / 'data' / 'Probeseite_Notker.docx'
+    tei_dir = root / 'data' / 'tei'
+    output_path = tei_dir / f'psalm{args.psalm}.xml'
+
+    print(f'=== Psalm {args.psalm} — Pipeline ===')
+    print(f'  Input:  {docx_path}')
+    print(f'  Output: {output_path}')
+
+    print('\n=== Schritt 1: DOCX parsen ===')
     psalm = parse_probeseite(str(docx_path))
 
     print('\n=== Schritt 2: Schichten klassifizieren ===')
     enriched = classify_and_enrich(psalm)
 
     print('\n=== Schritt 3: TEI-XML generieren ===')
-    tei = build_tei(psalm, enriched)
+    tei = build_tei(psalm, enriched, psalm_number=args.psalm)
 
     print('\n=== Validierung ===')
     basic_validation(tei)
@@ -592,6 +707,18 @@ def main():
             f.write(step3)
         delta = len(step3) - len(tei_text)
         print(f'  Normalisierung: Pfeifer-Korrekturen + Whitespace + Cross-Verse-Hyphen ({delta:+d} Zeichen)')
+
+    # Index aller verfuegbaren Psalmen schreiben (fuer Frontend-Auto-Discovery)
+    write_tei_index(tei_dir)
+
+    # Vault synchronisieren (knowledge/*.md -> docs/vault/*.md), damit ein
+    # vergessener Sync nicht zu stale Vault-Dateien fuehrt.
+    try:
+        import subprocess
+        subprocess.run([sys.executable, str(Path(__file__).parent / 'sync_vault.py')],
+                       check=False, timeout=30)
+    except Exception as e:
+        print(f'  Vault-Sync uebersprungen: {e}')
 
     # Statistik
     xml_str = etree.tostring(tei, encoding='unicode', pretty_print=True)

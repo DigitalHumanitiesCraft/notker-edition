@@ -27,7 +27,7 @@ Notkers Psalmenkommentar verschränkt lateinischen Psalmtext, althochdeutsche Ü
 TEI-XML ist die kanonische Datenquelle. JSON wird daraus für die Web-UI abgeleitet.
 
 ```
-Probeseite_Notker.docx → Pipeline (4 Python-Scripts) → psalm2.xml → psalm2.json → index.html
+Probeseite_Notker.docx → Pipeline (4 Python-Scripts) → psalm{N}.xml → psalm{N}.json → index.html
 ```
 
 Kein Framework, kein Build-Step — maximale Langlebigkeit.
@@ -35,8 +35,11 @@ Kein Framework, kein Build-Step — maximale Langlebigkeit.
 ## Lokale Nutzung
 
 ```bash
-# Pipeline ausführen (regeneriert TEI + JSON)
+# Pipeline ausführen (regeneriert TEI + JSON für Psalm 2)
 python scripts/build_tei.py
+python scripts/tei_to_json.py
+
+# Alle vorhandenen Psalmen (wenn mehrere TEI-Dateien existieren)
 python scripts/tei_to_json.py
 
 # Lokaler Server (für JSON-Fetch + IIIF-Viewer)
@@ -48,6 +51,19 @@ python -m http.server
 
 `docs/index.html` funktioniert auch direkt als Datei (Fallback auf eingebettete Demo-Daten).
 
+## Neuen Psalm hinzufügen
+
+Das System ist auf Multi-Psalm-Skalierung ausgelegt. Wenn eine neue DOCX vorliegt:
+
+```bash
+python scripts/build_tei.py 3 --docx data/Psalm3.docx   # → data/tei/psalm3.xml
+python scripts/tei_to_json.py 3                         # → data/processed/psalm3.json
+```
+
+`data/tei/index.json` und `data/processed/index.json` werden automatisch aktualisiert.
+Das Frontend liest diese Indices und macht den neuen Psalm in der Navigation klickbar —
+kein Code-Change in `docs/index.html` nötig. Deep-Link per URL-Hash: `#psalm=3`.
+
 ## Erweiterbarkeit
 
 Drei Ausbaustufen der Text-Bild-Verknüpfung:
@@ -56,7 +72,7 @@ Drei Ausbaustufen der Text-Bild-Verknüpfung:
 2. **Zeilen-Synopse (nächste Stufe):** Vers-Klick zoomt auf die exakte Zeile (~4–8h Annotation).
 3. **Token-Synopse (Gesamtprojekt):** Mouse-Over hebt korrespondierende Stelle hervor.
 
-Das Toggle-System skaliert auf alle 150 Psalmen. Die Pipeline braucht nur neue Probeseite-Daten als Input.
+**Slot-System** (Panel-Registry): neue Pool-Einträge (Quellen-Handschriften, weitere Überlieferungen) lassen sich deklarativ in `docs/index.html` als `POOL`-Eintrag ergänzen, ohne das Layout umzubauen.
 
 ## Zitierhinweis
 

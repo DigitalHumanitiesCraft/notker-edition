@@ -610,31 +610,74 @@ def tei_to_json(tei_path: str) -> dict:
 # Main
 # ---------------------------------------------------------------------------
 
-def main():
-    tei_path = Path(__file__).parent.parent / 'data' / 'tei' / 'psalm2.xml'
-    output_path = Path(__file__).parent.parent / 'data' / 'processed' / 'psalm2.json'
-
+def convert_psalm(psalm_num: int, tei_dir: Path, json_dir: Path) -> bool:
+    """Konvertiert psalm{N}.xml zu psalm{N}.json. True bei Erfolg."""
+    tei_path = tei_dir / f'psalm{psalm_num}.xml'
+    output_path = json_dir / f'psalm{psalm_num}.json'
     if not tei_path.exists():
-        print(f'FEHLER: {tei_path} nicht gefunden')
-        sys.exit(1)
-
-    print(f'Lese TEI: {tei_path}')
+        print(f'  Skip Psalm {psalm_num}: {tei_path.name} nicht vorhanden')
+        return False
+    print(f'  Lese: {tei_path.name}')
     result = tei_to_json(str(tei_path))
-
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-
-    print(f'JSON geschrieben: {output_path}')
-    print(f'  Verse: {len(result["verses"])}')
     total_sections = sum(len(v["sections"]) for v in result["verses"])
     total_glosses = sum(len(v["glosses"]) for v in result["verses"])
     total_sources = sum(len(v["sources"]) for v in result["verses"])
-    print(f'  Sections: {total_sections}')
-    print(f'  Glossen: {total_glosses}')
-    print(f'  Quellen: {total_sources}')
-    print(f'  Psalter-Zeugen: {len(result["psalm_text_comparison"]["witnesses"])}')
-    print(f'  Wiener Notker: {len(result["wiener_notker"]["text"])} Zeichen')
+    print(f'  -> {output_path.name}: {len(result["verses"])} Verse, '
+          f'{total_sections} Sections, {total_glosses} Glossen, {total_sources} Quellen')
+    return True
+
+
+def write_json_index(json_dir: Path) -> None:
+    """data/processed/index.json mit verfuegbaren Psalmen fuer das Frontend."""
+    psalms = []
+    for jf in sorted(json_dir.glob('psalm*.json')):
+        if jf.name == 'index.json':
+            continue
+        m = re.match(r'psalm(\d+)\.json', jf.name)
+        if m:
+            psalms.append(int(m.group(1)))
+    psalms.sort()
+    index = {'available_psalms': psalms, 'count': len(psalms),
+             'default': psalms[0] if psalms else None}
+    (json_dir / 'index.json').write_text(
+        json.dumps(index, ensure_ascii=False, indent=2), encoding='utf-8'
+    )
+    print(f'  JSON-Index: {len(psalms)} Psalm(en): {psalms}')
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='TEI-XML -> JSON Pipeline')
+    parser.add_argument('psalm', nargs='?', type=int, default=None,
+                        help='Psalm-Nummer. Ohne Argument: alle psalm*.xml in data/tei/')
+    args = parser.parse_args()
+
+    root = Path(__file__).parent.parent
+    tei_dir = root / 'data' / 'tei'
+    json_dir = root / 'data' / 'processed'
+
+    if args.psalm is not None:
+        if not convert_psalm(args.psalm, tei_dir, json_dir):
+            sys.exit(1)
+    else:
+        xml_files = sorted(tei_dir.glob('psalm*.xml'))
+        nums = []
+        for xf in xml_files:
+            m = re.match(r'psalm(\d+)\.xml', xf.name)
+            if m:
+                nums.append(int(m.group(1)))
+        nums.sort()
+        if not nums:
+            print(f'FEHLER: keine psalm*.xml in {tei_dir}')
+            sys.exit(1)
+        print(f'Konvertiere {len(nums)} Psalm(en): {nums}')
+        for n in nums:
+            convert_psalm(n, tei_dir, json_dir)
+
+    write_json_index(json_dir)
 
 
 if __name__ == '__main__':
