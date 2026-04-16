@@ -102,23 +102,34 @@ aside .vault-build {
 /* Frontmatter-Meta oben im Dokument */
 .doc-frontmatter {
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--color-muted);
   background: hsl(40, 15%, 97%);
   border: 1px solid var(--color-border-light);
   border-radius: 4px;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
   margin: 0.5rem 0 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1.25rem;
+  row-gap: 0.35rem;
+  align-items: baseline;
 }
 .doc-frontmatter-item {
-  display: inline-flex;
-  gap: 0.35rem;
+  display: contents;
 }
-.doc-frontmatter-key { color: hsl(0, 0%, 40%); font-weight: 500; }
-.doc-frontmatter-value { font-family: 'Fira Code', 'Consolas', monospace; }
+.doc-frontmatter-key {
+  color: hsl(0, 0%, 40%);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+.doc-frontmatter-value {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  color: hsl(0, 0%, 20%);
+  word-break: break-word;
+}
 /* Wikilink rendering */
 main a.wikilink {
   background: hsl(40, 50%, 95%);
