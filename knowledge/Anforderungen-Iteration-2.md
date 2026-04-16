@@ -5,7 +5,7 @@ updated: 2026-04-15
 tags: [notker, requirements, iteration-2]
 iteration: 2
 baseline: "[[Anforderungen]]"
-feedback-source: "Pfeifer 15.04.2026 (Mail + Google Doc)"
+feedback-source: "Review vom 15.04.2026 (Mail + Google Doc)"
 status: phase-a-b-c1-done
 ---
 
@@ -13,13 +13,13 @@ status: phase-a-b-c1-done
 
 ## Kontext
 
-Iteration 1 live unter dhcraft.org/notker-edition, Übergabe-Briefing 23.03.2026. Auftraggeber-Review durch Philipp Pfeifer am 15.04.2026 mit strukturiertem Feedback (Architekturwünsche, Bugs, Textkorrekturen). Iteration 2 setzt das Review um, bevor das gesamte Konvolut an die Gutachter geht.
+Iteration 1 live unter dhcraft.org/notker-edition, Übergabe-Briefing 23.03.2026. Auftraggeber-Review am 15.04.2026 mit strukturiertem Feedback (Architekturwünsche, Bugs, Textkorrekturen). Iteration 2 setzt das Review um, bevor das gesamte Konvolut an die Gutachter geht.
 
 Iteration 1 definiert die Baseline: [[Anforderungen]] (Epics 1–7, US-1.1 bis US-7.1). Iteration 2 ergänzt Epics 8–11, erweitert US-1.2, US-1.3, US-2.2 und dokumentiert die Bug- und Korrektur-Backlogs.
 
 ## Epic 8 – Panel-Flexibilisierung (neu)
 
-Pfeifer wünscht freie Belegung der drei Hauptbereiche (links, Mitte, rechts) aus einem Pool verfügbarer Inhalte statt der festen Rollenzuordnung Quellenapparat | Edition | Facsimile. Das bricht mit dem aktuellen Layout und ist die strukturell größte Änderung der Iteration.
+Der Auftraggeber wünscht freie Belegung der drei Hauptbereiche (links, Mitte, rechts) aus einem Pool verfügbarer Inhalte statt der festen Rollenzuordnung Quellenapparat | Edition | Facsimile. Das bricht mit dem aktuellen Layout und ist die strukturell größte Änderung der Iteration.
 
 **US-8.1** Als Forscher will ich pro Panel über ein Dropdown auswählen, welchen Inhalt ich dort sehe, damit ich meine Arbeitsansicht frei konfigurieren kann.
 
@@ -48,7 +48,7 @@ Akzeptanzkriterien:
 
 ## Epic 9 – Zeilengetreue Synopse (neu)
 
-Pfeifer hat die Übersetzung zeilengetreu erstellt (daher die Bindestriche als Zeilenumbruch-Marker), um sie rechts neben dem Grundtext zu spiegeln. Die aktuelle Darstellung ignoriert die Zeilengrenzen und setzt die Übersetzung als Fließtext unter den Vers, was die Bindestriche zu Störartefakten macht.
+Der Auftraggeber hat die Übersetzung zeilengetreu erstellt (daher die Bindestriche als Zeilenumbruch-Marker), um sie rechts neben dem Grundtext zu spiegeln. Die aktuelle Darstellung ignoriert die Zeilengrenzen und setzt die Übersetzung als Fließtext unter den Vers, was die Bindestriche zu Störartefakten macht.
 
 **US-9.1** Als Gutachter will ich Grundtext und nhd. Übersetzung zeilengetreu nebeneinander sehen, damit ich die Entsprechung pro Zeile nachvollziehen kann.
 
@@ -75,7 +75,7 @@ Akzeptanzkriterien:
 
 ## Epic 10 – Psalter-Zeugen als verlinkbare Layer (neu, erweitert Epic 2/6)
 
-Pfeifer möchte die Psalmen-Zeugen G, R, H analog zu den patristischen Quellen als Hervorhebungs-Layer nutzen: „an welchen Stellen verwendet Notker den G-Psalter?".
+Der Auftraggeber möchte die Psalmen-Zeugen G, R, H analog zu den patristischen Quellen als Hervorhebungs-Layer nutzen: „an welchen Stellen verwendet Notker den G-Psalter?".
 
 **US-10.1** Als Forscher will ich G, R, H wie Quellen filtern, um zu sehen, welche Textstellen auf welchen Psalter-Zeugen zurückgehen.
 
@@ -87,7 +87,7 @@ Akzeptanzkriterien:
 **US-10.2** Als Editor will ich die Siglen-Semantik dokumentiert haben, damit die Zuordnung nicht geraten werden muss.
 
 Akzeptanzkriterien:
-- Klärung mit Pfeifer: sind G/R/H textkritische Varianten oder Referenzen auf den verwendeten Psalter?
+- Klärung mit dem Auftraggeber: sind G/R/H textkritische Varianten oder Referenzen auf den verwendeten Psalter?
 - Entscheidung im TEI mit `<respStmt>` und `@cert="high|low"` fixiert.
 - Im UI erscheint ein Info-Tooltip pro Sigle mit der Semantik.
 
@@ -95,7 +95,7 @@ Akzeptanzkriterien:
 
 ## Epic 11 – Bugfixes Iteration 1 (neu)
 
-Pfeifers Bug-Liste aus dem Review. Alle verifiziert im aktuellen `docs/index.html`.
+Bug-Liste aus dem Review. Alle verifiziert im aktuellen `docs/index.html`.
 
 **BUG-11.1** Toggle „lat./ahd. trennen" zeigt keinen Effekt.
 
@@ -105,7 +105,7 @@ Akzeptanzkriterium: Toggle zeigt in allen Kombinationen mit Layer-Toggles und nh
 
 **BUG-11.2** Linkes Panel (Quellenapparat) ist nicht scrollbar.
 
-Ursache: `.sources-content` hat keine `overflow-y: auto` / feste Höhe; bei mehr Quellen als Viewport-Höhe wird der untere Teil abgeschnitten, ohne dass die Panel-Scrollbar erscheint. Pfeifer konnte dadurch Augustinus 2 (V3–5, V6) nicht gegenprüfen.
+Ursache: `.sources-content` hat keine `overflow-y: auto` / feste Höhe; bei mehr Quellen als Viewport-Höhe wird der untere Teil abgeschnitten, ohne dass die Panel-Scrollbar erscheint. Dadurch konnten Augustinus 2 (V3–5, V6) nicht gegenprüft werden.
 
 Akzeptanzkriterium: Panel scrollt unabhängig vom Hauptbereich, Scrollposition bleibt beim Verse-Wechsel erhalten.
 
@@ -125,11 +125,11 @@ Akzeptanzkriterium: Alle Quellen-Übersetzungen im gleichen Kontrast; kein Fade 
 
 Ursache: `.source-german` oder `.nhd-translation` erhält global `font-style: italic`. Es fehlt die typografische Differenzierung, welcher Abschnitt lat. und welcher ahd. übersetzt.
 
-Akzeptanzkriterium: Visuelle Unterscheidung zwischen Übersetzung-von-Latein und Übersetzung-von-Althochdeutsch (z. B. Kursiv nur für lat.-Quelle, aufrecht für ahd.-Quelle; oder kleiner Sigel-Präfix). Entscheidung gemeinsam mit Pfeifer.
+Akzeptanzkriterium: Visuelle Unterscheidung zwischen Übersetzung-von-Latein und Übersetzung-von-Althochdeutsch (z. B. Kursiv nur für lat.-Quelle, aufrecht für ahd.-Quelle; oder kleiner Sigel-Präfix). Entscheidung gemeinsam mit dem Auftraggeber.
 
 ## Epic 12 – Textkorrekturen (neu)
 
-Pfeifers Datenkorrekturen. Alle punktuell in TEI-XML patchbar. Jede Korrektur ist atomar, per Testfall prüfbar, und beeinflusst nur `data/tei/psalm2.xml` (und abgeleitet `data/processed/psalm2.json`).
+Datenkorrekturen aus dem Review. Alle punktuell in TEI-XML patchbar. Jede Korrektur ist atomar, per Testfall prüfbar, und beeinflusst nur `data/tei/psalm2.xml` (und abgeleitet `data/processed/psalm2.json`).
 
 **US-12.1** Korrekturen in patristischen Quellen-Übersetzungen.
 
@@ -147,7 +147,7 @@ Pfeifers Datenkorrekturen. Alle punktuell in TEI-XML patchbar. Jede Korrektur is
 | V8–9 | Cassiodor | „unerlegenden" → „unterlegenen" |
 | V12–13 | Cassiodor | Komma nach „das heißt" entfernen |
 
-Augustinus 2 zu V3–5 und V6 von Pfeifer nicht kontrolliert (blockiert durch BUG-11.2). Nach Bugfix nachreichen.
+Augustinus 2 zu V3–5 und V6 wurde nicht kontrolliert (blockiert durch BUG-11.2). Nach Bugfix nachreichen.
 
 **US-12.2** Korrekturen in nhd. Übersetzung.
 
@@ -173,7 +173,7 @@ Akzeptanzkriterium: Segment wird in TEI von `<gloss>` zu regulärem `<seg type="
 
 **US-1.3 (erweitert)** nhd. Übersetzung als separater Toggle *auch im Quellenapparat*.
 
-Pfeifer: „Vielleicht könnte man auch hier einen Toggle Button für die nhd. Übersetzung haben." Bezieht sich auf die Quellen-Panel-Übersetzungen (`source-german`). Aktuell immer sichtbar.
+Review: „Vielleicht könnte man auch hier einen Toggle Button für die nhd. Übersetzung haben." Bezieht sich auf die Quellen-Panel-Übersetzungen (`source-german`). Aktuell immer sichtbar.
 
 Akzeptanzkriterium: Ein Toggle steuert nhd. Übersetzung im Hauptbereich und im Quellenapparat gleichzeitig; optional zweiter Toggle nur für Quellen.
 
@@ -187,17 +187,17 @@ Akzeptanzkriterium: Ein Toggle steuert nhd. Übersetzung im Hauptbereich und im 
 |-----------|---------|------------|
 | P1 — Blocker für Review | BUG-11.1, BUG-11.2, BUG-11.3, US-12.1, US-12.2, US-12.3 | Alle verhindern entweder Prüfung oder verfälschen Inhalt. Ohne Fix kein zweites Review. |
 | P2 — sichtbare Qualität | BUG-11.4, BUG-11.5, US-1.3-Erweiterung | Kosmetik und Lesbarkeit, schnell umsetzbar. |
-| P3 — Architektur | US-8.1, US-8.2, US-8.3 | Strukturell größte Änderung, gemeinsam mit Pfeifer abzustimmen. |
+| P3 — Architektur | US-8.1, US-8.2, US-8.3 | Strukturell größte Änderung, gemeinsam mit Auftraggeber abzustimmen. |
 | P4 — Synopse | US-9.1, US-9.2, US-9.3 | Abhängig von Datenmodell-Erweiterung, mittelgroßer Aufwand. |
 | P5 — Layer-Erweiterung | US-10.1, US-10.2 | Hängt von Siglen-Klärung (US-10.2) ab. |
 
 ## Umsetzungsplan
 
-Drei Phasen, jeweils releasbar. Nach jeder Phase kurze Rücksprache mit Pfeifer (statt großem Endreview).
+Drei Phasen, jeweils releasbar. Nach jeder Phase kurze Rücksprache mit dem Auftraggeber (statt großem Endreview).
 
 ### Phase A — Korrektur (P1)
 
-Ziel: alle Blocker fix, Pfeifer kann Review vollständig durchführen. **Testgetrieben** für alle Pipeline-Transformationen (Errata, Parser), manuell für CSS-Bugs.
+Ziel: alle Blocker fix, das Review kann vollständig durchgeführt werden. **Testgetrieben** für alle Pipeline-Transformationen (Errata, Parser), manuell für CSS-Bugs.
 
 **Kritische Entscheidung (2026-04-15, während Umsetzung):** Textkorrekturen werden *nicht* händisch in `data/tei/psalm2.xml` gepatcht. Grund: die Pipeline ist re-runbar, manuelle TEI-Edits würden bei jedem Re-Parse der DOCX überschrieben. Stattdessen Errata-Layer zwischen TEI-Build und JSON-Ableitung. Jede Korrektur als YAML-Regel mit Kontext-basiertem Matching, idempotent, auditierbar.
 
@@ -207,7 +207,7 @@ Ziel: alle Blocker fix, Pfeifer kann Review vollständig durchführen. **Testget
 |-------|-------|-------|
 | **Unit** | Einzelregel-Anwendung, Idempotenz (2. Lauf = identischer Output), Ambiguitäts-Erkennung (Regel matcht mehrfach → Fehler, nicht silent), YAML-Schema. Parser-Heuristik an DOCX-Paragraph-Fixtures. | klein, schnell |
 | **Integration** | End-to-End DOCX → TEI → Errata → TEI-final → JSON. Ground-Truth-Vergleich pro Korrektur. Erweiterung `test_pipeline.py`. | mittel |
-| **Regression** | Eine Acceptance pro Pfeifer-Korrektur: `alt` nicht vorhanden an Position X + `neu` vorhanden an Position X. Macht jede Korrektur atomar testbar. | ~20 Tests |
+| **Regression** | Eine Acceptance pro Review-Korrektur: `alt` nicht vorhanden an Position X + `neu` vorhanden an Position X. Macht jede Korrektur atomar testbar. | Ein Test pro Korrektur |
 | **Invarianten** | TEI-RelaxNG (existiert: `validate_tei.py`), Glossenzähler = 13 nach V6-Fix, 7 Vers-`<div>`, keine leeren `<seg>`, keine orphan `<lb/>`. | global |
 
 CSS-Bugs in A.3 werden nicht getestet (Over-Engineering für einmalige DOM-Fixes) — stattdessen Screenshot-Vergleich vorher/nachher als Abnahme-Artefakt.
@@ -216,13 +216,13 @@ CSS-Bugs in A.3 werden nicht getestet (Over-Engineering für einmalige DOM-Fixes
 
 - `tests/test_errata.py` — Unit-Tests für Errata-Regel-Anwendung, Idempotenz, Ambiguität.
 - `tests/test_gloss_classification.py` — Parser-Heuristik-Tests inkl. Regression für V6.
-- Erweiterung `scripts/test_pipeline.py` — 20 Acceptance-Tests pro Pfeifer-Korrektur, Glossenzähler, Invarianten.
+- Erweiterung `scripts/test_pipeline.py` — Acceptance-Tests pro Review-Korrektur, Glossenzähler, Invarianten.
 - Ground-Truth-Fixtures: pro Korrektur `old_context` + `new_context` (±20 Zeichen Kontext) aus der Probeseite.
 - Ergebnis: alle neuen Tests laufen **rot** (erwartet).
 
 #### A.1 — Errata-Mechanismus
 
-- `data/errata.yaml` — 20 Textkorrekturen aus US-12.1 + US-12.2. Kommentar-Konvention pro Regel: `# Pfeifer 2026-04-15 Review, Quelle: {Cassiodor V1-2 | Augustinus V3-5 | nhd. V8-9 | ...}`.
+- `data/errata.yaml` — Textkorrekturen aus US-12.1 + US-12.2. Kommentar-Konvention pro Regel: `# Review 2026-04-15, Quelle: {Cassiodor V1-2 | Augustinus V3-5 | nhd. V8-9 | ...}`.
 - Regel-Schema: `{id, context_before, find, replace, context_after, rationale}`. Matching erfolgt mit Kontext (eindeutig), nicht mit globalem find/replace.
 - `scripts/apply_errata.py` — liest TEI, lädt YAML, wendet Regeln an. Ambiguitäts-Check: matcht eine Regel mehr oder weniger als erwartet → Fehler, Exit 1.
 - Pipeline-Integration: `build_tei.py → apply_errata.py → tei_to_json.py`. Das Zwischenprodukt `data/tei/psalm2-errata-applied.xml` wird nicht committed (.gitignore), nur `data/tei/psalm2.xml` (Original-Parse) und `data/processed/psalm2.json` (Ergebnis).
@@ -247,7 +247,7 @@ CSS-Bugs in A.3 werden nicht getestet (Over-Engineering für einmalige DOM-Fixes
 - Alle Toggle-Kombinationen (4 Layer × nhd × split = 32 States) manuell durchschalten, URL-Hash-Reload, Regression Iteration 1.
 - Screenshot-Paket vorher/nachher.
 - PR gegen `main`, Body verweist auf `Anforderungen-Iteration-2.md#umsetzungsplan` und listet alle aufgelösten US-12.* und BUG-11.*.
-- Bericht an Operator mit Test-Zählern (grün/gesamt), Screenshot-Liste, Pfeifer-Nachreich-Offenen (Augustinus 2 V3–5/V6).
+- Bericht mit Test-Status, Screenshot-Liste, Nachreichungen vom Auftraggeber (Augustinus 2 V3–5/V6).
 
 ### Phase B — Lesbarkeit (P2)
 
@@ -260,9 +260,9 @@ Ziel: Darstellungsqualität, niedrigrisiko.
 
 ### Phase C — Struktur (P3, P4, P5)
 
-Ziel: Pfeifers Vision realisieren. Benötigt Architekturentscheidung.
+Ziel: Vision des Auftraggebers realisieren. Benötigt Architekturentscheidung.
 
-10. **Entscheidungsgespräch mit Pfeifer (Videokonferenz):**
+10. **Entscheidungsgespräch mit dem Auftraggeber (Videokonferenz):**
     - Dropdown-Modell (US-8) vs. Erweiterung der bestehenden Toggle-Gruppen (kleiner Umbau)?
     - Zeilensynopse (US-9) über TEI-`<lb/>` oder über Koordinaten-Annotation pro Zeile?
     - Siglen-Semantik G/R/H (US-10.2).
@@ -308,13 +308,13 @@ US-8.3 ── US-8.1 ── US-8.2┘
 
 **Kontrast (BUG-11.4):** CSS-Property `mask-image` oder `background: linear-gradient(...)` auf `.sources-content` entfernen oder nur an `scroll-timeline` binden.
 
-**Kursiv (BUG-11.5):** `.source-german` aufteilen: `.source-german.lang-lat` kursiv, `.source-german.lang-ahd` aufrecht (oder gemeinsam mit Pfeifer festgelegte Lösung). Pipeline erweitern: `source.source_language` als Feld im JSON (aus TEI-`@xml:lang`).
+**Kursiv (BUG-11.5):** `.source-german` aufteilen: `.source-german.lang-lat` kursiv, `.source-german.lang-ahd` aufrecht (oder gemeinsam mit dem Auftraggeber festgelegte Lösung). Pipeline erweitern: `source.source_language` als Feld im JSON (aus TEI-`@xml:lang`).
 
 **nhd.-Toggle auf Quellen (US-1.3-Ext):** `toggleNhd()` zusätzlich Klasse `.hide-source-nhd` auf `#sources-panel` toggeln; CSS `.hide-source-nhd .source-german { display: none; }`.
 
 ### Phase C — Dateieingriffe
 
-**US-9.2 — TEI-Erweiterung:** `<lb/>`-Elemente an Zeilenumbrüchen. `scripts/parse_probeseite.py` muss DOCX-Zeilenumbrüche erkennen (Soft-Return vs. Hard-Return). Fallback: Pfeifer liefert Zeilenumbruch-Markierungen explizit in der DOCX.
+**US-9.2 — TEI-Erweiterung:** `<lb/>`-Elemente an Zeilenumbrüchen. `scripts/parse_probeseite.py` muss DOCX-Zeilenumbrüche erkennen (Soft-Return vs. Hard-Return). Fallback: Auftraggeber liefert Zeilenumbruch-Markierungen explizit in der DOCX.
 
 **US-9.1 — Zeilen-Layout:** Renderer `renderVerses()` erweitern um Modus „lines": Pro `verse.lines[]` ein CSS-Grid-Row mit zwei Spalten (Grundtext links, nhd. rechts). Grundtext verwendet `<br>` oder CSS `white-space: pre-line` auf Zeilenbasis. Bindestriche am Zeilenende aus Daten entfernen.
 
@@ -343,21 +343,21 @@ Manuelle End-to-End-Prüfung nach jeder Phase:
 
 ## Getroffene Entscheidungen
 
-Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mit Pfeifer als Vorschlag ein. Punkt 4 bleibt bis Pfeifer-Bestätigung provisorisch.
+Diese Entscheidungen sind seitens Digital Humanities Craft getroffen und gehen in den Videocall mit dem Auftraggeber als Vorschlag ein. Punkt 4 bleibt bis zur Bestätigung durch den Auftraggeber provisorisch.
 
 ### 1. Panel-Modell (US-8) — Dropdown nur rechts, Mitte fix
 
 **Entscheidung.** Rechtes Panel: Dropdown mit Facsimile (Default) | Wiener Notker | Psalter G | Psalter R | Psalter H | Anmerkungen. Linkes Panel: Quellenapparat Default, optional zweiter Dropdown-Eintrag für Anmerkungen. Mittleres Panel: Edition fix, ohne Dropdown.
 
-**Begründung.** Pfeifer wünscht Dropdowns in allen drei Feldern, hat aber im gleichen Feedback das bestehende Drei-Spalten-Layout als „sehr gelungen" bezeichnet. Drei volle Dropdowns würden die visuelle Klarheit und die Minuten-zum-Eindruck-Wirkung für Gutachter gefährden — sie müssten erst konfigurieren, bevor sie sehen. Sein inhaltliches Kernziel (Notker neben G/R/H oder Wiener Notker vergleichen) wird bereits vollständig erfüllt, wenn nur das rechte Panel wechselbar ist. Der Umbau halbiert sich (eine Registry statt drei, CSS-Grid nicht zwingend), das Risiko einer leeren Zentralspalte entfällt.
+**Begründung.** Der Auftraggeber wünscht Dropdowns in allen drei Feldern, hat aber im gleichen Feedback das bestehende Drei-Spalten-Layout als „sehr gelungen" bezeichnet. Drei volle Dropdowns würden die visuelle Klarheit und die Minuten-zum-Eindruck-Wirkung für Gutachter gefährden — sie müssten erst konfigurieren, bevor sie sehen. Das inhaltliche Kernziel (Notker neben G/R/H oder Wiener Notker vergleichen) wird bereits vollständig erfüllt, wenn nur das rechte Panel wechselbar ist. Der Umbau halbiert sich (eine Registry statt drei, CSS-Grid nicht zwingend), das Risiko einer leeren Zentralspalte entfällt.
 
-**Implikation.** US-8.1 und US-8.3 bleiben bestehen, werden aber auf ein Panel fokussiert. US-8.2 (Schließen/Wiederherstellen) bleibt für alle Panels relevant. Falls Pfeifer im Videocall auf volle Dropdown-Flexibilität besteht, ist die Skalierung auf drei Panels trivial, weil die Registry schon steht.
+**Implikation.** US-8.1 und US-8.3 bleiben bestehen, werden aber auf ein Panel fokussiert. US-8.2 (Schließen/Wiederherstellen) bleibt für alle Panels relevant. Falls im Videocall auf volle Dropdown-Flexibilität bestanden wird, ist die Skalierung auf drei Panels trivial, weil die Registry schon steht.
 
 ### 2. Zeilensynopse (US-9) — TEI-`<lb/>` aus Bindestrichen geparst
 
 **Entscheidung.** `scripts/parse_probeseite.py` erweitern: Bindestriche am Zeilenende in der DOCX-Übersetzung (`wort-\nwort2`) werden als Zeilenumbruch-Signal konsumiert — Bindestrich verschwindet aus dem Text, stattdessen `<lb/>` im TEI. JSON-Ableitung gruppiert Segments in `lines[]`. Der Grundtext benötigt analoge Zeilenumbruch-Markierung, Quelle klärt der Videocall (DOCX der Probeseite oder Tax/Sehrt-Vorlage).
 
-**Begründung.** Die Alternative (CSS-Grid ohne Datenänderung) scheidet aus — wir haben ohne die Bindestriche keine Information, wo Pfeifers Zeilen sind. Die gewählte Lösung konsumiert die Artefakte als Daten, statt sie als Störung zu behandeln. Skaliert auf die übrigen 149 Psalmen. Kein zusätzliches Liefer-Ping an Pfeifer für die Übersetzung.
+**Begründung.** Die Alternative (CSS-Grid ohne Datenänderung) scheidet aus — ohne die Bindestriche fehlt die Information, wo die Zeilen des Auftraggebers liegen. Die gewählte Lösung konsumiert die Artefakte als Daten, statt sie als Störung zu behandeln. Skaliert auf die übrigen 149 Psalmen. Kein zusätzliches Liefer-Ping für die Übersetzung nötig.
 
 **Offene Nachfrage im Videocall.** Quelle für die Grundtext-Zeilenumbrüche der Handschrift.
 
@@ -369,15 +369,15 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 
 ### 4. Siglen-Semantik G/R/H (US-10.2) — provisorisch als Psalter-Zeugen, Filter-Layer
 
-**Entscheidung.** G = Gallicanum, R = Romanum, H = Hebraicum werden als Psalter-Zeugen modelliert (`@type="psalter_witness"`), nicht als Varianten-Apparat. Visualisierung als eigene Filter-Gruppe im Quellen-Panel, analog patristischer Quellen. `@cert="low"` bis Pfeifer-Bestätigung. Nicht-blockierend für US-10.1.
+**Entscheidung.** G = Gallicanum, R = Romanum, H = Hebraicum werden als Psalter-Zeugen modelliert (`@type="psalter_witness"`), nicht als Varianten-Apparat. Visualisierung als eigene Filter-Gruppe im Quellen-Panel, analog patristischer Quellen. `@cert="low"` bis zur Bestätigung durch den Auftraggeber. Nicht-blockierend für US-10.1.
 
-**Begründung.** Die Filter-Layer-Darstellung beantwortet Pfeifers explizite Frage („an welchen Stellen verwendet Notker den G-Psalter?") direkt. Ein Varianten-Apparat wäre eine andere Story. **Sigelkonflikt:** „R" ist doppelt belegt (Remigius patristisch und Romanum-Psalter) — im UI mit unterschiedlichen Chip-Farben oder Prefix disambiguieren, im TEI über `@type` trennbar.
+**Begründung.** Die Filter-Layer-Darstellung beantwortet die explizite Frage des Auftraggebers („an welchen Stellen verwendet Notker den G-Psalter?") direkt. Ein Varianten-Apparat wäre eine andere Story. **Sigelkonflikt:** „R" ist doppelt belegt (Remigius patristisch und Romanum-Psalter) — im UI mit unterschiedlichen Chip-Farben oder Prefix disambiguieren, im TEI über `@type` trennbar.
 
-### 5. Research-Vault-Zugriff (Pfeifers Zusatzfrage) — kein Repo-Zugriff, Methoden-Paket
+### 5. Research-Vault-Zugriff — öffentliche Vault-Seite statt Repo-Zugriff
 
-**Entscheidung.** Kein Repo-Zugriff für Pfeifers Antragskollegen. Stattdessen: (a) `docs/methode.html` als öffentliche, verlinkbare Methodenseite ausbauen und stabilisieren (existiert bereits als Gerüst); (b) konsolidiertes PDF „Methodik Notker-Edition-Prototyp v1" als zitierbaren Antrags-Stand; (c) bei Bedarf für Pfeifer persönlich ein Read-only-Snapshot-Branch.
+**Entscheidung.** Kein Repo-Zugriff für die Antragskollegen. Stattdessen: (a) `docs/vault.html` rendert alle Wissensdokumente öffentlich und verlinkbar; (b) `docs/methode.html` als stabile Methodenseite; (c) konsolidiertes PDF „Methodik Notker-Edition-Prototyp v1" als zitierbarer Antrags-Stand.
 
-**Begründung.** Antragskollegen brauchen zitierbaren stabilen Stand, nicht Live-Repo. DHCraft behält Qualitätskontrolle über die Methodendarstellung (Kernprofil). Antworten-Mail an Pfeifer als separate L2-Nebentask.
+**Begründung.** Antragskollegen brauchen zitierbaren stabilen Stand, nicht Live-Repo. Digital Humanities Craft behält Qualitätskontrolle über die Methodendarstellung.
 
 ## Verknüpfungen
 
@@ -409,7 +409,7 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 | US-9.2 TEI-Zeilenstruktur Grundtext | C | done | `<ab n="X">` pro Notker-Zeile (war schon im TEI) plus `line_n` in jeder JSON-Section. Frontend hat `data-line`-Attribut. Echte Handschriften-Zeilenumbrüche der CSg 0021 weiterhin nur via DOCX-Tabelle abgeleitet, nicht aus dem Original gelesen. |
 | US-9.3 Vers-Anker für nhd.-Zeilen | C | done | Zeilen werden pro Vers extrahiert, kein Vers-Drift mehr |
 | US-10.1 Psalter-Filter | C.1 | done | G + R + H als Filter-Gruppe |
-| US-10.2 Siglen-Semantik (R-Disambiguierung) | C | done | `disambiguate_sigles()` in `tei_to_json.py`: R in `psalm_citation` → Psalter-Romanum, sonst → Patristik-Remigius. JSON liefert `sigles_psalter` + `sigles_sources` getrennt. Filter-Keys mit Präfix `psa:`/`src:`. Pfeifer-Bestätigung weiterhin offen (semantisch korrekt nach Best-Effort-Heuristik). |
+| US-10.2 Siglen-Semantik (R-Disambiguierung) | C | done | `disambiguate_sigles()` in `tei_to_json.py`: R in `psalm_citation` → Psalter-Romanum, sonst → Patristik-Remigius. JSON liefert `sigles_psalter` + `sigles_sources` getrennt. Filter-Keys mit Präfix `psa:`/`src:`. Bestätigung durch Auftraggeber weiterhin offen (semantisch korrekt nach Best-Effort-Heuristik). |
 | Cross-Verse-Hyphen im TEI verkettet | — | done | `chain_cross_verse_hyphens()` in `build_tei.py`: V1-2 `han-` und V3-5 `gta` jetzt mit `@part="I"`/`@part="F"` + `@xml:id`/`@next`/`@prev` semantisch verbunden |
 | Whitespace-Normalisierung | — | done | `normalize_whitespace_in_text_nodes()` in `parse_probeseite.py`: doppelte Leerzeichen in Element-Inhalten zusammengefasst |
 | Errata-Layer entfernt (Refactor) | — | done | `f49ff58` 779 Zeilen weg, jetzt Pipeline-Normalisierung |
@@ -425,21 +425,18 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 - `scripts/tei_to_json.py` liefert `translation_nhd_lines: [str]` pro Vers
 - `docs/index.html` mit drei generischen Slots, 9-Eintrag-Pool, Restore-Bar, URL-Hash `slots=...&closed=...`
 - `tests/test_gloss_classification.py` (6 Unit-Tests)
-- `knowledge/Pfeifer-Mail-Iteration-2a.md` (Mail-Draft)
-
 **Offen für Iteration 3:**
-- Echte Handschriften-Zeilenumbrüche der CSg 0021: aktuell werden DOCX-Tabellenzeilen als Notker-Zeilen interpretiert. Wenn Pfeifer eine Sehrt/Tax-Edition mit expliziten Zeilenmarken liefert oder die Zeilen aus dem Facsimile manuell ableitet, könnte die Modellierung verfeinert werden.
-- R-Disambiguierung Bestätigung: Best-Effort-Heuristik (R in psalm_citation = Romanum, sonst Remigius) ist semantisch plausibel, aber Pfeifer-Bestätigung würde sie absichern.
-- Augustinus-2-Korrekturen V3–5/V6: Pfeifer konnte wegen BUG-11.2 nicht prüfen, Nachreichung erwartet (BUG-11.2 ist gefixt).
-- R-Sigel-Disambiguierung im TEI-Datenmodell (erfordert Pfeifer-Input)
+- Echte Handschriften-Zeilenumbrüche der CSg 0021: aktuell werden DOCX-Tabellenzeilen als Notker-Zeilen interpretiert. Mit einer Sehrt/Tax-Edition mit expliziten Zeilenmarken oder Zeilen aus dem Facsimile manuell abgeleitet könnte die Modellierung verfeinert werden.
+- R-Disambiguierung Bestätigung: Best-Effort-Heuristik (R in psalm_citation = Romanum, sonst Remigius) ist semantisch plausibel, aber eine Bestätigung durch den Auftraggeber würde sie absichern.
+- Augustinus-2-Korrekturen V3–5/V6: konnten wegen BUG-11.2 nicht geprüft werden, Nachreichung erwartet (BUG-11.2 ist gefixt).
+- R-Sigel-Disambiguierung im TEI-Datenmodell (erfordert Input des Auftraggebers)
 
 ---
 
-## Iteration 2c — Follow-up Screenshots (2026-04-16)
+## Iteration 2c — Follow-up (2026-04-16)
 
-Während des Operator-Reviews der iteration-2b-Auslieferung sind weitere
-Befunde aufgetaucht. Alle adressierbar ohne neue Stories, daher direkt
-umgesetzt:
+Nach der Iteration-2b-Auslieferung sind weitere Befunde aufgetaucht.
+Alle adressierbar ohne neue Stories, daher direkt umgesetzt:
 
 | Befund | Status | Nachweis |
 |--------|--------|----------|

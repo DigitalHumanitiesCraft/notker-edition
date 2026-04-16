@@ -51,7 +51,7 @@ Die Haupttext-Tabellen haben **scheinbar** 3–6 Spalten, tatsächlich aber nur 
 | Spalte | Inhalt | Formatierung |
 |---|---|---|
 | Haupttext (merged) | Notkers Text mit Farbcodierung | olive/grün/schwarz |
-| nhd. Übersetzung | Philipps Arbeitsübersetzung | kursiv, keine Farbe |
+| nhd. Übersetzung | Arbeitsübersetzung des Auftraggebers | kursiv, keine Farbe |
 | Siglen | Quellen-Siglen pro Zeile | keine Formatierung |
 
 **Quellenapparat-Zeilen** (eingebettet in Haupttext-Tabellen):
@@ -161,7 +161,7 @@ verhältnis 1:1, keine `[...]`-Auslassung.
 | C | Kontext: Cassiodor als Kommentarquelle (NICHT Psalter-Zeuge) | Tables 1, 2, 4, 7, 8 |
 | H | Unklar: Hebraicum-Psalter oder Kommentarquelle? | Tables 2, 5, 7 |
 
-**Offenes Problem:** G und R in der Siglen-Spalte könnten anzeigen, welcher Psalmtext-Version die Zeile textlich folgt (= textkritische Angabe), oder sie könnten Kommentarquellen markieren. Dies ist mit Philipp zu klären.
+**Offenes Problem:** G und R in der Siglen-Spalte könnten anzeigen, welcher Psalmtext-Version die Zeile textlich folgt (= textkritische Angabe), oder sie könnten Kommentarquellen markieren. Dies ist mit dem Auftraggeber zu klären.
 
 ### Im Psalmtext-Vergleich (Table 11 Rows 4–6 + Table 12)
 

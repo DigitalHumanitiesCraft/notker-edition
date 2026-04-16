@@ -12,35 +12,32 @@ tags: [digital-humanities, notker, research-plan]
 
 Prototyp einer digitalen Edition von Notkers Psalmenkommentar. Psalm 2 (13 Verse). Proof of Concept für Drittmittelantrag.
 
-| Rolle | Person / Organisation |
+| Rolle | Institution |
 |---|---|
-| Auftraggeber | Dr. Philipp Pfeifer, Universität Graz |
-| Kooperation | Georg Vogeler, Bernhard Bauer (ZIM Graz) |
-| Auftragnehmer | Digital Humanities Craft OG |
-| Operative Kommunikation | Christian Steiner (office@dhcraft.org) |
-
-Budget: 2.000 € netto pauschal. SAP-Bestellnummer per 21.03. noch offen.
+| Auftraggeber | Institut für Germanistik, Universität Graz |
+| Kooperation | ZIM Graz |
+| Umsetzung | Digital Humanities Craft |
 
 ## Arbeitsphasen
 
-### Phase 1 – Dokumentation & Klärung ✓
+### Phase 1 – Dokumentation & Klärung
 
-- [x] Probeseite vollständig analysiert (13 Tabellen, 3 Farben, 14 Glossen)
-- [x] Research Vault aufgebaut (11 Dokumente)
+- [x] Probeseite vollständig analysiert (Farbcodierung, Glossen, Tabellenstruktur)
+- [x] Research Vault aufgebaut
 - [x] Architekturentscheidung: TEI-XML kanonisch, JSON abgeleitet
 
-### Phase 2 – Datenaufbereitung (AP1) ✓
+### Phase 2 – Datenaufbereitung (AP1)
 
 - [x] `parse_probeseite.py`: DOCX → Python-Zwischenformat
 - [x] `classify_layers.py`: Sprachwechsel, Segment-Verkettung
-- [x] `build_tei.py`: → `data/tei/psalm2.xml` (770 Zeilen)
-- [x] `tei_to_json.py`: → `data/processed/psalm2.json` (1.211 Zeilen, 92 Sections inkl. 14 inline Glossen)
+- [x] `build_tei.py` → `data/tei/psalm2.xml`
+- [x] `tei_to_json.py` → `data/processed/psalm2.json`
 - [x] `validate_tei.py`: TEI-Validierung gegen RelaxNG
 
-### Phase 3 – Interface (AP2) ✓
+### Phase 3 – Interface (AP2)
 
 - [x] 3-Panel-Layout (Quellen | Haupttext | Facsimile)
-- [x] 6 Toggles + Keyboard-Shortcuts
+- [x] Textschicht-Toggles + Keyboard-Shortcuts
 - [x] Quellenapparat mit Sigle-Filtern
 - [x] IIIF-Viewer mit Text-Bild-Synopse (Seiten-Ebene)
 - [x] Psalmtext-Vergleich (5 Zeugen) als Tab
@@ -48,47 +45,45 @@ Budget: 2.000 € netto pauschal. SAP-Bestellnummer per 21.03. noch offen.
 - [x] URL-Persistenz (Hash-Fragment für Deep Links)
 - [x] Async JSON-Fetch mit file://-Fallback
 
-### Phase 4 – Übergabe Iteration 1 ✓
+### Phase 4 – Übergabe Iteration 1
 
 - [x] ReadMe.md geschrieben
 - [x] Knowledge Vault synchronisiert
 - [x] Push auf GitHub und GitHub Pages aktiviert
-- [x] Übergabe an Philipp (Briefing 23.03.2026)
+- [x] Übergabe an Auftraggeber
 
-### Phase 5 – Iteration 2 (Pfeifer-Review) ✓
+### Phase 5 – Iteration 2 (Review-Einarbeitung)
 
-Nach Pfeifer-Review (15.04.2026) mit ~20 Textkorrekturen, 6 Bugs und 4
-Architektur-Wünschen:
+Nach Review mit Textkorrekturen, Bugs und Architektur-Wünschen:
 
-- [x] **Errata-Refactor**: Korrekturen als Pipeline-Normalisierung statt YAML-Layer
-  (`PFEIFER_CORRECTIONS` in `parse_probeseite.py`, 779 Zeilen Layer-Code entfernt)
-- [x] **Slot-System (US-8)**: drei konfigurierbare Slots, 10-Eintrag-Pool,
-  Schließen + Wiederherstellen, URL-Hash mit `slots=A:sources,B:edition,C:facsimile`
-- [x] **Zeilengetreue nhd. Übersetzung (US-9)**: TEI `<lg type="line-faithful">`,
+- [x] **Errata-Refactor**: Korrekturen als Pipeline-Normalisierung direkt im
+  Parser (`PFEIFER_CORRECTIONS`), idempotent
+- [x] **Slot-System**: drei konfigurierbare Slots mit Inhalts-Pool,
+  Schließen + Wiederherstellen, URL-Hash-persistent
+- [x] **Zeilengetreue nhd. Übersetzung**: TEI `<lg type="line-faithful">`,
   Edition zeigt nhd. zeilengenau, Pool nhd. zeigt Fließtext mit aufgelösten
   Bindestrichen
-- [x] **Psalter-Filter (US-10)** mit R-Disambiguierung: G/R/H als Filter-Layer,
+- [x] **Psalter-Filter** mit R-Disambiguierung: G/R/H als Filter-Layer,
   R semantisch separiert (Romanum vs. Remigius nach Section-Type)
 - [x] **Datenqualität**: Cross-Verse-Hyphen via `@part`-Verkettung, Whitespace-
   Normalisierung, `line_n` pro Section
-- [x] 29/29 Pipeline-Tests grün, 0 Warnings, 0 Errors
+- [x] Multi-Psalm-Pipeline: Psalm-Parameter in Build-Scripts, Indices, Frontend-Hash
+- [x] Research Vault öffentlich unter `/vault.html`
 
-Vollständig in [[Anforderungen-Iteration-2]] dokumentiert, Branch
-`iteration-2-pfeifer-review` (10 Commits ahead von origin), nicht gepusht.
+Branch gepusht, PR gegen `main` gemergt, auf GitHub Pages deployt.
 
-### Phase 6 – Übergabe Iteration 2 ← aktuell
+### Phase 6 – Abnahme Iteration 2
 
-- [ ] Push + PR gegen `main`
-- [ ] Pfeifer-Mail (Draft in [[Pfeifer-Mail-Iteration-2a]])
-- [ ] Videocall: Augustinus-2-Nachreichungen V3-5/V6, R-Disambiguierung
-  bestätigen, Handschriften-Zeilenumbrüche der CSg 0021
+- [ ] Review durch Auftraggeber auf der deployten Seite
+- [ ] Augustinus-2-Nachreichungen V3-5/V6
+- [ ] Bestätigung der R-Disambiguierungs-Heuristik
+- [ ] Handschriften-Zeilenumbrüche der CSg 0021 klären (zeilengenauer Grundtext)
 
 ## Offene Punkte (niedrige Priorität)
 
 | Frage | Status |
 |---|---|
 | Querverweise auf Bibelstellen (US-7.1) | Daten fehlen, Platzhalter im Datenmodell |
-| SAP-Bestellnummer | Administrativ, kein Entwicklungsblocker |
 | Vers→Seite-Mapping verifizieren | Vorläufig, gegen Facsimile prüfen |
 | Echte Handschriften-Zeilenumbrüche der CSg 0021 | Aktuell nur über DOCX-Tabellenzeilen abgeleitet |
 

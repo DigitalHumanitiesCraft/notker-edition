@@ -40,7 +40,7 @@ Drei Ansichtsmodi bauen aufeinander auf:
 
 ### 2.1 Glossierung
 
-14 Interlinearglossen in Psalm 2 (vgl. [[Probeseite Analyse#Interlinearglossen]]). Darstellung **inline**, eingerückt, in reduziertem Schriftgrad (0.85rem), Blaugrau. Per Toggle abschaltbar (Standard: AN). So erscheinen Glossen als das, was sie sind: eine Annotationsebene zwischen Zeile und Rand, weder Haupttext noch Fußnote.
+Interlinearglossen aus Psalm 2 (vgl. [[Probeseite Analyse#Interlinearglossen]]). Darstellung **inline**, eingerückt, in reduziertem Schriftgrad (0.85rem), Blaugrau. Per Toggle abschaltbar (Standard: AN). So erscheinen Glossen als das, was sie sind: eine Annotationsebene zwischen Zeile und Rand, weder Haupttext noch Fußnote.
 
 ### 2.2 Quellenapparat
 
@@ -56,7 +56,7 @@ Rechtes Panel, ein-/ausklappbar, standardmäßig geöffnet (Gutachter sehen sofo
 
 **Text-Bild-Synopse.** Versklick navigiert den Viewer zur korrekten Handschriftenseite (Seiten-Synopse, nicht Zeilensynopse). Mapping: Vers → Seite.
 
-Einschränkung, die benannt werden muss: Auf einer dicht beschriebenen Handschriftenseite muss der Nutzer den Vers selbst finden. Zeilenverknüpfung wäre wünschenswert, erfordert aber manuelle Koordinaten-Annotation (geschätzt 4–8h) und übersteigt das Prototyp-Budget. Die Seiten-Synopse demonstriert das Prinzip und skaliert.
+Einschränkung, die benannt werden muss: Auf einer dicht beschriebenen Handschriftenseite muss der Nutzer den Vers selbst finden. Zeilenverknüpfung wäre wünschenswert, erfordert aber manuelle Koordinaten-Annotation und übersteigt das Prototyp-Budget. Die Seiten-Synopse demonstriert das Prinzip und skaliert.
 
 ### 2.4 Neuhochdeutsche Übersetzung
 
@@ -64,7 +64,7 @@ Per Toggle zuschaltbar (Standard: AUS). Darstellung unterhalb jedes Verses, kurs
 
 ### 2.5 Navigation
 
-**Versnavigation.** 13 Verse, nummeriert am linken Rand. Klick scrollt und aktualisiert das Quellen-Panel. Aktiver Vers erhält subtilen Hintergrund-Highlight.
+**Versnavigation.** Verse nummeriert am linken Rand. Klick scrollt und aktualisiert das Quellen-Panel. Aktiver Vers erhält subtilen Hintergrund-Highlight.
 
 **Psalmleiste.** Horizontale Leiste im Header, Psalm 1–150. Nur Psalm 2 aktiv, alle anderen ausgegraut. Rein visuelles Skalierungssignal für Gutachter.
 
@@ -86,7 +86,7 @@ Aus dem **Pool** kann pro Slot ein Inhaltstyp gewählt werden:
 |---|---|---|
 | Quellen | Patristischer Apparat (A/C/R/Br + Filter) | bestehender Apparat |
 | Notkers Text | Edition mit Schichten-Toggles | Haupttext |
-| Nhd. Übersetzung | Pfeifers nhd. als Fließtext-Lese-Ansicht | aufgelöste Bindestriche |
+| Nhd. Übersetzung | Arbeitsübersetzung als Fließtext-Lese-Ansicht | aufgelöste Bindestriche |
 | Wiener Notker | Paralleltext ÖNB Cod. 2681 | NEU als eigener Slot |
 | Psalter G | Gallicanum als zusammenhängender Psaltertext | NEU |
 | Psalter R | Romanum | NEU |
@@ -114,7 +114,7 @@ Editionstext in Serifenschrift (Gentium Book Plus via Google Fonts, Fallback Pal
 | H1 | 1.5rem | Projekttitel |
 | Psalmzitat | 1.1rem | QVARE FREMVERVNT GENTES |
 | Haupttext | 1.0rem | Übersetzung, Kommentar |
-| nhd. Übersetzung | 0.9rem | Philipps Arbeitsübersetzung |
+| nhd. Übersetzung | 0.9rem | Arbeitsübersetzung des Auftraggebers |
 | Glossen | 0.85rem | Interlinearglossen |
 | UI-Labels | 0.8rem | Toggles, Filter, Fußzeile |
 
@@ -221,7 +221,7 @@ Fünf Ebenen, geordnet nach visueller Prominenz. **Progressive Disclosure**: Sta
 | D-3 | Quellenfilter-Farbe | Individuelle Sigle-Farben (ermöglicht mehrere Filter gleichzeitig) |
 | D-4 | Serifenschrift | Gentium Book Plus (frei, gute ahd.-Zeichenabdeckung) |
 
-### Abhängig von Scope-Klärung mit Philipp
+### Abhängig von Scope-Klärung mit dem Auftraggeber
 
 | Nr. | Frage |
 |---|---|

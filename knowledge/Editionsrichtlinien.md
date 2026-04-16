@@ -8,7 +8,7 @@ tags: [notker, tei, encoding, guidelines]
 
 # Editionsrichtlinien: Notkers Psalmenkommentar
 
-Kodierungsrichtlinien für die digitale Edition von Notkers Psalmenkommentar in TEI-XML. Dieses Dokument beschreibt alle Textphänomene, die in der Probeseite vorkommen, und legt fest, wie sie kodiert werden. Es dient als Referenz für die manuelle Nachbearbeitung, die Erweiterung auf alle 150 Psalmen und die Kommunikation mit Philipp.
+Kodierungsrichtlinien für die digitale Edition von Notkers Psalmenkommentar in TEI-XML. Dieses Dokument beschreibt alle Textphänomene, die in der Probeseite vorkommen, und legt fest, wie sie kodiert werden. Es dient als Referenz für die manuelle Nachbearbeitung, die Erweiterung auf alle 150 Psalmen und die Kommunikation mit dem Auftraggeber.
 
 ---
 
@@ -114,10 +114,10 @@ Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erschein
 
 ### 1.4 Neuhochdeutsche Übersetzung
 
-Philipps Arbeitsübersetzung des gesamten Notker-Textes. Zeilenweise in der Probeseite (kursiv, keine Farbe). Ist nicht Teil der Edition im engeren Sinn, sondern philologische Arbeitsgrundlage.
+Arbeitsübersetzung des Auftraggebers zum gesamten Notker-Text. Zeilenweise in der Probeseite (kursiv, keine Farbe). Ist nicht Teil der Edition im engeren Sinn, sondern philologische Arbeitsgrundlage.
 
 **Kodierung:** Pro Versgruppe als `<note type="translation_nhd" resp="#pfeifer" xml:lang="de">`
-mit zwei parallelen Repräsentationen — Fließtext und Pfeifers zeilengetreue Aufteilung:
+mit zwei parallelen Repräsentationen — Fließtext und zeilengetreue Aufteilung:
 
 ```xml
 <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
@@ -131,10 +131,10 @@ mit zwei parallelen Repräsentationen — Fließtext und Pfeifers zeilengetreue 
 </note>
 ```
 
-- `@resp="#pfeifer"` — Attribution an Philipp (deklariert im Header als `<editor>`)
+- `@resp="#pfeifer"` — Attribution an den Übersetzer (deklariert im Header als `<editor>`)
 - Im `<note>`, nicht als `<seg>`, weil es kein Teil von Notkers Text ist
-- `<p>` ist Lese-Ansicht (Fließtext, Pfeifer-Korrekturen einschließlich Cross-Line-Patterns)
-- `<lg type="line-faithful">` mit `<l>` pro Zeile bildet Pfeifers zeilengetreue
+- `<p>` ist Lese-Ansicht (Fließtext, Review-Korrekturen einschließlich Cross-Line-Patterns)
+- `<lg type="line-faithful">` mit `<l>` pro Zeile bildet die zeilengetreue
   Aufteilung ab. Trailing-Bindestriche bleiben (markieren Zeilen-Trennung wie in der Druckedition).
 - Iteration 2 / US-9: Frontend rendert Edition zeilengenau, Pool nhd. als Fließtext mit aufgelösten Bindestrichen.
 
@@ -162,7 +162,7 @@ Patristische Quellentexte (Augustinus, Cassiodor, Remigius, Breviarium), auf die
 - `<bibl>` → Kurzname der Quelle
 - `<quote xml:lang="la">` → Lateinischer Originaltext
 - `<hi rend="bold">` → Hervorgehobene Begriffe (aus DOCX-Bold)
-- `<note type="translation">` → Philipps dt. Übersetzung der Quelle
+- `<note type="translation">` → dt. Arbeitsübersetzung der Quelle
 
 **Warum `<cit>` statt `<app>`?** Die Quellen sind Notkers Vorlagen (Zitate), keine textkritischen Varianten. `<app>` wird nur im Psaltervergleich verwendet (siehe 1.7).
 
@@ -176,7 +176,7 @@ In der Probeseite steht in der letzten Spalte jeder Haupttext-Zeile eine oder me
 <note type="sigle" place="margin">G, R</note>
 ```
 
-**Offene Frage (mit Philipp zu klären):** Bezeichnen G und R in der Haupttext-Spalte die Psalmtext-Version, der die Zeile textlich folgt (textkritische Angabe)? Oder markieren sie, welche Kommentarquelle Notker an dieser Stelle benutzt? Die Siglen A und C erscheinen sowohl als Kommentarquellen (im Quellenapparat) als auch in der Haupttext-Siglen-Spalte — die Kontexte sind verschieden.
+**Offene Frage (mit dem Auftraggeber zu klären):** Bezeichnen G und R in der Haupttext-Spalte die Psalmtext-Version, der die Zeile textlich folgt (textkritische Angabe)? Oder markieren sie, welche Kommentarquelle Notker an dieser Stelle benutzt? Die Siglen A und C erscheinen sowohl als Kommentarquellen (im Quellenapparat) als auch in der Haupttext-Siglen-Spalte — die Kontexte sind verschieden.
 
 Bis zur Klärung: keine semantische Auszeichnung über `<note>` hinaus.
 
@@ -331,9 +331,9 @@ patristische Quelle). Die JSON-Pipeline (`disambiguate_sigles()` in
 - R-Marginnote auf einer Section vom Typ `commentary`/`translation`/`gloss` → Remigius (Patristik)
 
 Begründung: Wenn Notker einen Psalmtext zitiert und am Rand „R" steht, verweist
-Pfeifer auf den Wortlaut der Romanum-Psalter-Tradition. Steht „R" neben einem
+das auf den Wortlaut der Romanum-Psalter-Tradition. Steht „R" neben einem
 Kommentar-Segment, ist es eine Quellen-Referenz auf Remigius' Auslegung. Die
-Heuristik ist plausibel und konsistent mit Pfeifers Notations-Praxis in der
+Heuristik ist plausibel und konsistent mit der Notations-Praxis in der
 Probeseite, wartet aber auf finale Bestätigung.
 
 JSON-Output pro Section: `sigles_psalter` und `sigles_sources` als zwei getrennte
@@ -353,9 +353,9 @@ Im `<encodingDesc>/<segmentation>`: Beschreibung der funktionalen Textschichten-
 
 | Phänomen | Status | Auswirkung auf Kodierung |
 |---|---|---|
-| Siglen G, R in Haupttext-Spalte | Mit Philipp klären | `<note type="sigle">` ohne semantische Typisierung |
-| Sigle H im Haupttext | Mit Philipp klären | Psalter-Zeuge oder Kommentarquelle? |
-| Siglen RII, N | Mit Philipp klären | `<bibl cert="low">` mit `<note type="editorial">` |
+| Siglen G, R in Haupttext-Spalte | Mit Auftraggeber klären | `<note type="sigle">` ohne semantische Typisierung |
+| Sigle H im Haupttext | Mit Auftraggeber klären | Psalter-Zeuge oder Kommentarquelle? |
+| Siglen RII, N | Mit Auftraggeber klären | `<bibl cert="low">` mit `<note type="editorial">` |
 | Querverweise auf Bibelstellen | Daten fehlen | Nicht kodiert, im Datenmodell vorbereitet |
 | Versgrenze 12/13 | DOCX hat nur „2,12" | Vers 13 als Stub, Daten in Vers 12 |
 

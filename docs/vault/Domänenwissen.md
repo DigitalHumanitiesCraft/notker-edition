@@ -31,15 +31,15 @@ Notkers exegetischer Kommentar. Enthält SOWOHL althochdeutsche als AUCH lateini
 
 ### 4. Interlinearglossen (eigener Annotationstyp)
 
-Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erscheinen. 14 Glossen in Psalm 2 identifiziert. Sie übersetzen lateinische Fachtermini ins Althochdeutsche (z.B. `penêmida` → `Vorherbestimmung`, `uuerlt-lúste` → `Weltlüste`). Siehe [[Probeseite Analyse#Interlinearglossen]] für das vollständige Inventar.
+Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erscheinen. Sie übersetzen lateinische Fachtermini ins Althochdeutsche (z.B. `penêmida` → `Vorherbestimmung`, `uuerlt-lúste` → `Weltlüste`). Siehe [[Probeseite Analyse#Interlinearglossen]] für das vollständige Inventar.
 
 ### 5. Patristische Quellentexte
 
-Die Kommentare von Augustinus, Cassiodor, Remigius u.a., auf die sich Notker bezieht. In der Probeseite als eigene Tabellenzeilen mit Sigle, lateinischem Original und deutscher Übersetzung (Philipps Arbeit).
+Die Kommentare von Augustinus, Cassiodor, Remigius u.a., auf die sich Notker bezieht. In der Probeseite als eigene Tabellenzeilen mit Sigle, lateinischem Original und deutscher Arbeitsübersetzung.
 
 ### 6. Neuhochdeutsche Übersetzung
 
-Philipps eigene Arbeitsübersetzung des gesamten Notker-Textes, zeilenweise in der Probeseite (kursiv, keine Farbe).
+Arbeitsübersetzung des Auftraggebers, die den gesamten Notker-Text zeilenweise in der Probeseite (kursiv, keine Farbe) wiedergibt.
 
 ## Drei überlagernde Farblogiken
 
@@ -81,7 +81,7 @@ Quelle: Referenzkorpus Altdeutsch (ReA), ein tiefenannotiertes Mehrebenenkorpus 
 ### 3. Facsimile
 
 e-codices, CSg 0021. IIIF-fähig.
-- Einstieg Psalm 2: [Seite 11](https://www.e-codices.unifr.ch/de/csg/0021/11/0/) (von Philipp bestätigt)
+- Einstieg Psalm 2: [Seite 11](https://www.e-codices.unifr.ch/de/csg/0021/11/0/) (bestätigt)
 - IIIF-Manifest (zu verifizieren): `https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json`
 - Seiten-Range für Psalm 2: ab S. 11, Ende noch zu klären
 
@@ -105,8 +105,8 @@ e-codices, CSg 0021. IIIF-fähig.
 
 | Sigle | Vermutung | Vorkommen | Klärungsbedarf |
 |---|---|---|---|
-| RII | Zweite Remigius-Quelle oder -Rezension? | Table 4, Row 15 (einmalig) | Mit Philipp klären |
-| N | Unbekannt | Table 4, Row 5 (einmalig) | Mit Philipp klären |
+| RII | Zweite Remigius-Quelle oder -Rezension? | Table 4, Row 15 (einmalig) | Mit Auftraggeber klären |
+| N | Unbekannt | Table 4, Row 5 (einmalig) | Mit Auftraggeber klären |
 
 ### Siglen in der Haupttext-Spalte (unklar)
 
@@ -128,7 +128,7 @@ Die Funktion von **H** in der Siglen-Spalte ist besonders unklar: Hebraicum-Psal
 
 **Siglen-Disambiguation:** A, C, R, H haben je nach Kontext verschiedene Bedeutungen. Im Quellenapparat: Kommentarwerke. Im Psalmtext-Vergleich: Psalter-Handschriften. In der Haupttext-Siglen-Spalte: unklar.
 
-### Disambiguierungs-Heuristik (Iteration 2 / DHCraft-Vorschlag)
+### Disambiguierungs-Heuristik (Iteration 2)
 
 Für die UI-Filter wird die Sigle in der Marginspalte des Notker-Textes
 disambiguiert anhand des **Section-Types**, dem die Sigle zugeordnet ist:
@@ -141,15 +141,15 @@ disambiguiert anhand des **Section-Types**, dem die Sigle zugeordnet ist:
 | A, C, Br | Augustinus-, Cassiodor-, Br-Psalter | Augustinus, Cassiodor, Breviarium (Patristik) |
 
 **Begründung der R-Heuristik**: Wenn Notker einen Psalmtext zitiert und neben
-der Zeile ein „R" steht, verweist Pfeifer auf den Wortlaut der Romanum-Tradition.
+der Zeile ein „R" steht, verweist das auf den Wortlaut der Romanum-Tradition.
 Steht „R" neben einem Kommentar-Segment, verweist es auf Remigius' Auslegung.
-Diese Lesart ist mit Pfeifers Notations-Praxis in der Probeseite konsistent.
+Diese Lesart ist mit der Notations-Praxis in der Probeseite konsistent.
 
 Implementiert in `disambiguate_sigles()` ([scripts/tei_to_json.py](../scripts/tei_to_json.py)).
 JSON-Output pro Section: `sigles_psalter` und `sigles_sources` getrennt; im
 Frontend wirken die Filter auf das semantisch passende Feld.
 
-Pfeifer-Bestätigung der Heuristik steht aus.
+Bestätigung der Heuristik durch den Auftraggeber steht aus.
 
 ## Referenzsysteme
 

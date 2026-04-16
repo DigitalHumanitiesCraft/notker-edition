@@ -29,7 +29,7 @@ Probeseite_Notker.docx
 ```
 
 Ehemaliger Errata-Layer (`apply_errata.py` + `errata.yaml` + `tests/test_errata.py`)
-in Iteration 2 entfernt — die 21 Pfeifer-Korrekturen leben jetzt als
+in Iteration 2 entfernt — die Korrekturen aus dem Review leben jetzt als
 `PFEIFER_CORRECTIONS: list[tuple[str, str]]` in `parse_probeseite.py` und werden
 über `apply_corrections()` einmal auf den fertigen TEI-String angewendet.
 
@@ -84,8 +84,8 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 ### 1.5 Validierung und Tests
 
 - `validate_tei.py`: RelaxNG-Validierung + Strukturstatistik (auch in test_pipeline integriert)
-- `test_pipeline.py`: 29 Tests (DOCX↔TEI↔JSON), Ground-Truth-Vergleich, Pfeifer-Korrekturen
-- `tests/test_gloss_classification.py`: 6 Unit-Tests für Glossen-Heuristik
+- `test_pipeline.py`: DOCX↔TEI↔JSON, Ground-Truth-Vergleich, Review-Korrekturen
+- `tests/test_gloss_classification.py`: Unit-Tests für Glossen-Heuristik
 
 ## 2. TEI-XML-Modell
 
@@ -184,7 +184,7 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 
 **`@part="I"`/`@part="F"` plus `@xml:id`/`@next`/`@prev` für Cross-Verse-Verkettungen:** Wenn ein Wort über die Vers-Grenze geteilt ist (z.B. „han-" / „gta"), reicht `@part` allein nicht (Reihenfolge nicht implizit über Vers-Grenze). Daher zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen. Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`).
 
-**`<lg type="line-faithful">` für nhd. Übersetzung** (Iteration 2 / US-9): Pfeifer hat zeilengetreu übersetzt. Pro Zeile ein `<l>` unter `<note type="translation_nhd"><lg type="line-faithful">`. Daneben weiterhin `<p>` mit Fließtext für Lese-Ansicht.
+**`<lg type="line-faithful">` für nhd. Übersetzung** (Iteration 2 / US-9): Die Arbeitsübersetzung ist zeilengetreu zur Handschrift gefertigt. Pro Zeile ein `<l>` unter `<note type="translation_nhd"><lg type="line-faithful">`. Daneben weiterhin `<p>` mit Fließtext für Lese-Ansicht.
 
 **Ungeklärte Siglen:** RII und N mit `@cert="low"` in Taxonomie + `<note type="editorial">ungeklärt</note>`.
 

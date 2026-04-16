@@ -16,7 +16,7 @@ Prototyp für Drittmittelantrag. Zielgruppe: Gutachter, die die Vision einer dig
 **US-1.1** Als Gutachter will ich Notkers Text für Psalm 2 vollständig lesen können.
 
 Akzeptanzkriterien:
-- Alle 13 Verse dargestellt
+- Alle Verse des Psalms dargestellt
 - Vers- und Zeilenreferenzen sichtbar
 - Seitenumbrüche der Edition (R10–R13) markiert
 
@@ -32,7 +32,7 @@ Akzeptanzkriterien:
 Akzeptanzkriterien:
 - nhd. Übersetzung einblendbar (Toggle)
 - Zuordnung auf Vers-/Abschnittsebene
-- Datengrundlage: Philipps Übersetzung aus der Probeseite
+- Datengrundlage: Arbeitsübersetzung des Auftraggebers aus der Probeseite
 
 ## Epic 2 – Quellenapparat (must-have)
 
@@ -41,7 +41,7 @@ Akzeptanzkriterien:
 Akzeptanzkriterien:
 - Klick auf Vers öffnet/aktualisiert Quellen-Panel
 - Quellen-Panel zeigt: Sigle, Quellenname, lat. Text, dt. Übersetzung
-- Alle 13 Verse abgedeckt
+- Alle Verse des Psalms abgedeckt
 
 **US-2.2** Als Forscher will ich nach einzelnen Quellen filtern können.
 
@@ -74,9 +74,8 @@ Akzeptanzkriterien:
 Akzeptanzkriterien:
 - Toggle für Glossen (unabhängig von den drei Textschichten)
 - Glossen visuell als Annotation erkennbar (kleinere Schrift, eigene Farbe)
-- 14 Glossen in Psalm 2
 
-**Anmerkung:** US-4.1 und US-4.2 sind Philipps explizite Wünsche vom 21.03. Sie gehen über das ursprüngliche Toggle-Konzept (nur lat./ahd.) hinaus und erfordern die dreigliedrige Textfunktions-Klassifikation aus der [[Probeseite Analyse]].
+**Anmerkung:** US-4.1 und US-4.2 sind explizite Wünsche des Auftraggebers. Sie gehen über das ursprüngliche Toggle-Konzept (nur lat./ahd.) hinaus und erfordern die dreigliedrige Textfunktions-Klassifikation aus der [[Probeseite Analyse]].
 
 ## Epic 5 – Gesamteindruck (must-have)
 
@@ -108,7 +107,7 @@ Akzeptanzkriterien:
 - Wiener Notker (ÖNB Cod. 2681) als einblendbarer Paralleltext
 - Zuordnung auf Versebene
 
-**Anmerkung:** Daten für US-6.1 und US-6.2 liegen vollständig in der Probeseite vor. Budget-Klärung mit Philipp ausstehend.
+**Anmerkung:** Daten für US-6.1 und US-6.2 liegen vollständig in der Probeseite vor.
 
 ## Epic 7 – Querverweise (scope offen, Daten fehlen)
 
@@ -118,7 +117,7 @@ Akzeptanzkriterien:
 - Eigener Reiter/Panel für Bibelstellen-Querverweise
 - Zuordnung auf Versebene
 
-**Anmerkung:** Philipps Wunsch vom 21.03. Datengrundlage existiert noch nicht. Nicht im Prototyp umsetzbar, aber im Datenmodell vorbereiten.
+**Anmerkung:** Wunsch des Auftraggebers. Datengrundlage existiert noch nicht. Nicht im Prototyp umsetzbar, aber im Datenmodell vorbereiten.
 
 ## Priorisierung Iteration 1 (Stand 2026-03-23)
 
@@ -130,18 +129,18 @@ Akzeptanzkriterien:
 | P4 (scope offen) | US-6.1, US-6.2 | done |
 | P5 (nicht im Prototyp) | US-7.1 | nicht umgesetzt (Datenfehlen) |
 
-## Iteration 2 (Pfeifer-Review)
+## Iteration 2 (Review-Einarbeitung)
 
-Iteration 2 ergänzt diese Baseline um Epics 8–11 und erweitert U-1.2/1.3/2.2.
+Iteration 2 ergänzt diese Baseline um Epics 8–12 und erweitert U-1.2/1.3/2.2.
 Vollständige Spezifikation in [[Anforderungen-Iteration-2]]. Kurzüberblick:
 
-| Epic | Inhalt | Stand 2026-04-16 |
+| Epic | Inhalt | Stand |
 |---|---|---|
-| Epic 8 | Panel-Flexibilisierung (Dropdown pro Slot, Pool aus 10 Inhalten, Schließen + Wiederherstellen) | done |
+| Epic 8 | Panel-Flexibilisierung (Dropdown pro Slot, Inhalts-Pool, Schließen + Wiederherstellen) | done |
 | Epic 9 | Zeilengetreue Synopse (nhd. zeilengenau in Edition, Fließtext im Pool) | nhd. done; Grundtext-Zeilenstruktur via `<ab n="X">` modelliert |
 | Epic 10 | Psalter G/R/H als Filter-Layer + R-Disambiguierung | done (Heuristik: R in psalm_citation = Romanum, sonst Remigius) |
-| Epic 11 | Bugfixes Iteration 1 (BUG-11.1 bis 11.5) | done |
-| Epic 12 | Textkorrekturen (21 Pfeifer-Fixes + V6-Glossen-Reklassifikation) | done |
+| Epic 11 | Bugfixes Iteration 1 | done |
+| Epic 12 | Textkorrekturen aus Review + V6-Glossen-Reklassifikation | done |
 
 ## Verknüpfungen
 

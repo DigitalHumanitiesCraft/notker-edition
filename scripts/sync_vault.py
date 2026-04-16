@@ -50,8 +50,14 @@ def main():
     for old in dst_dir.glob('*.md'):
         old.unlink()
 
+    # Mail-Entwuerfe sind interne Arbeitsdokumente und gehoeren nicht in den
+    # oeffentlichen Vault. Alle Dateien mit Prefix "Pfeifer-Mail-" oder generell
+    # "_"-Prefix werden uebersprungen.
     files = []
     for md in sorted(src_dir.glob('*.md')):
+        if md.name.startswith('Pfeifer-Mail-') or md.name.startswith('_'):
+            print(f'  skip:   {md.name} (intern)')
+            continue
         dst = dst_dir / md.name
         shutil.copy2(md, dst)
         files.append(md.name)
