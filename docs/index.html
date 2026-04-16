@@ -774,13 +774,162 @@ body {
 .footer a:hover { text-decoration: underline; }
 
 /* ========================================================================
+   SLOT SYSTEM (Iteration 2 / US-8) — three configurable slots with content pool
+   ======================================================================== */
+.slot {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-panel-bg);
+  border-right: 1px solid var(--color-border);
+  overflow: hidden;
+  min-width: 0;
+  flex: 1 1 0;
+  min-width: 220px;
+}
+.slot:last-child { border-right: none; }
+.slot.collapsed {
+  display: none;
+}
+.slot-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-panel-bg);
+  flex-shrink: 0;
+}
+.slot-picker {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+  font-weight: 600;
+  color: hsl(0, 0%, 30%);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, border-color 0.15s;
+}
+.slot-picker:hover { background: hsl(0, 0%, 96%); border-color: var(--color-border-light); }
+.slot-picker:focus { outline: none; border-color: var(--color-psalm); }
+.slot-close {
+  cursor: pointer;
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: hsl(0, 0%, 50%);
+  background: transparent;
+  border: none;
+  transition: background 0.15s, color 0.15s;
+}
+.slot-close:hover { background: hsl(0, 0%, 90%); color: hsl(0, 0%, 20%); }
+.slot-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+/* Pool content blocks — generic container styles, plus dark variant for facsimile */
+.pool-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 1rem;
+}
+.pool-content--dark {
+  background: hsl(0, 0%, 5%);
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.pool-psalter-text,
+.pool-nhd-text,
+.pool-notes-text {
+  font-family: var(--font-edition);
+  font-size: var(--size-edition);
+  line-height: 1.7;
+  color: var(--color-text);
+}
+.pool-psalter-verse,
+.pool-nhd-verse,
+.pool-notes-entry {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+}
+.pool-psalter-verse .verse-num,
+.pool-nhd-verse .verse-num,
+.pool-notes-entry .verse-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+  color: var(--color-muted);
+  width: 1.5rem;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.pool-psalter-meta,
+.pool-nhd-meta,
+.pool-notes-meta {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Restore-Bar — appears when slots are closed */
+.restore-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: hsl(0, 0%, 98%);
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+}
+.restore-bar:empty { display: none; }
+.restore-btn {
+  cursor: pointer;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--color-border-light);
+  color: hsl(0, 0%, 35%);
+  transition: background 0.15s, border-color 0.15s;
+}
+.restore-btn:hover { background: hsl(0, 0%, 92%); border-color: var(--color-border); }
+
+/* Panel-divider used between slots — keep existing .panel-divider rules */
+.panel-divider.hidden { display: none; }
+
+/* ========================================================================
    RESPONSIVE (Design.md §2.4)
    ======================================================================== */
 @media (max-width: 1199px) {
-  .facsimile-panel { display: none; }
+  .slot[data-slot="C"] { display: none; }
+  #divider-BC { display: none; }
 }
 @media (max-width: 899px) {
-  .sources-panel { display: none; }
+  .slot[data-slot="A"] { display: none; }
+  #divider-AB { display: none; }
   .verse { padding-left: 1.5rem; }
   .verse-number { width: 1.2rem; font-size: var(--size-ui-sm); }
 }
@@ -929,21 +1078,52 @@ body {
 </header>
 
 <!-- ===== MAIN ===== -->
+<!-- Iteration 2 / US-8: Three configurable slots. Default A=sources, B=edition, C=facsimile.
+     Pool contents (sources-panel, text-panel, facsimile-panel etc.) live as detached DOM
+     fragments and are moved into the slot-bodies via mountSlot(). -->
 <div class="main-container">
+  <section class="slot" data-slot="A">
+    <header class="slot-header">
+      <select class="slot-picker" data-slot="A" onchange="onSlotPick('A', this.value)" aria-label="Inhalt linkes Feld"></select>
+      <button class="slot-close" onclick="closeSlot('A')" title="Feld schließen" aria-label="Feld schließen">&#x2715;</button>
+    </header>
+    <div class="slot-body" id="slot-body-A"></div>
+  </section>
+
+  <div class="panel-divider" id="divider-AB"></div>
+
+  <section class="slot" data-slot="B">
+    <header class="slot-header">
+      <select class="slot-picker" data-slot="B" onchange="onSlotPick('B', this.value)" aria-label="Inhalt mittleres Feld"></select>
+      <button class="slot-close" onclick="closeSlot('B')" title="Feld schließen" aria-label="Feld schließen">&#x2715;</button>
+    </header>
+    <div class="slot-body" id="slot-body-B"></div>
+  </section>
+
+  <div class="panel-divider" id="divider-BC"></div>
+
+  <section class="slot" data-slot="C">
+    <header class="slot-header">
+      <select class="slot-picker" data-slot="C" onchange="onSlotPick('C', this.value)" aria-label="Inhalt rechtes Feld"></select>
+      <button class="slot-close" onclick="closeSlot('C')" title="Feld schließen" aria-label="Feld schließen">&#x2715;</button>
+    </header>
+    <div class="slot-body" id="slot-body-C"></div>
+  </section>
+</div>
+
+<!-- Restore-Bar — populated dynamically when slots are closed -->
+<div class="restore-bar" id="restore-bar"></div>
+
+<!-- Pool content templates — live detached, moved into slots by mountSlot() -->
+<div id="pool-templates" style="display:none">
 
   <!-- Sources Panel -->
-  <aside class="sources-panel" id="sources-panel">
-    <div class="sources-panel-header">
-      <span>Quellenapparat</span>
-      <span class="panel-close" onclick="togglePanel('sources')" title="Quellenapparat schließen">&#x2715;</span>
-    </div>
+  <div class="sources-panel" id="sources-panel">
     <div class="source-filters" id="source-filters"></div>
     <div class="sources-content" id="sources-content">
       <div class="sources-empty">Klicken Sie auf einen Vers, um die zugehörigen Quellen anzuzeigen.</div>
     </div>
-  </aside>
-
-  <div class="panel-divider" id="divider-left"></div>
+  </div>
 
   <!-- Main Text Panel -->
   <main class="text-panel" id="text-panel">
@@ -1007,21 +1187,38 @@ body {
     </div>
   </main>
 
-  <div class="panel-divider" id="divider-right"></div>
-
   <!-- Facsimile Panel -->
-  <aside class="facsimile-panel" id="facsimile-panel">
+  <div class="facsimile-panel pool-content--dark" id="facsimile-panel">
     <div class="facsimile-header">
       <span>CSg 0021 – <span id="facsimile-page-indicator">Seite 11</span></span>
-      <span class="facsimile-close" onclick="togglePanel('facsimile')" title="Panel schließen">&#x2715;</span>
     </div>
     <div id="osd-viewer"></div>
-  </aside>
+  </div>
 
-  <!-- Facsimile open button (visible when panel collapsed) -->
-  <button class="panel-toggle right" id="facsimile-toggle-btn" onclick="togglePanel('facsimile')" title="Handschrift CSg 0021 anzeigen" style="display:none; width:auto; padding: 0 8px; font-size: 0.7rem; white-space: nowrap;">
-    Handschrift &#x25B6;
-  </button>
+  <!-- Pool: Nhd. Übersetzung (Solo-Panel) -->
+  <div class="pool-content" id="pool-nhd">
+    <div class="pool-nhd-meta">Neuhochdeutsche Übersetzung (Philipp Pfeifer, zeilengetreu).</div>
+    <div class="pool-nhd-text" id="pool-nhd-body"></div>
+  </div>
+
+  <!-- Pool: Wiener Notker (Solo-Panel) -->
+  <div class="pool-content" id="pool-wiener">
+    <div class="pool-nhd-meta" id="pool-wiener-meta"></div>
+    <div class="pool-nhd-text" id="pool-wiener-body"></div>
+  </div>
+
+  <!-- Pool: Psalter G/R/H (eines reicht — Inhalt wird beim Mount neu befüllt) -->
+  <div class="pool-content" id="pool-psalter">
+    <div class="pool-psalter-meta" id="pool-psalter-meta"></div>
+    <div class="pool-psalter-text" id="pool-psalter-body"></div>
+  </div>
+
+  <!-- Pool: Anmerkungen (Editorisches) -->
+  <div class="pool-content" id="pool-notes">
+    <div class="pool-notes-meta">Editorische Anmerkungen, Siglen-Schlüssel, Forschungshinweise.</div>
+    <div class="pool-notes-text" id="pool-notes-body"></div>
+  </div>
+
 </div>
 
 <!-- ===== FOOTER ===== -->
@@ -2383,10 +2580,10 @@ function stateToHash() {
   if (!state.showSourceNhd) p.set('qnhd', '0');
   const src = [...state.sourceFilter].join(',');
   if (src) p.set('src', src);
-  const panels = [];
-  if (state.panels.sources) panels.push('src');
-  if (state.panels.facsimile) panels.push('facs');
-  if (panels.length) p.set('panels', panels.join(','));
+  // Iteration 2 / US-8: slot configuration. Format: A:sources,B:edition,C:facsimile
+  const slotStr = SLOT_IDS.map(sid => sid + ':' + state.slots[sid]).join(',');
+  p.set('slots', slotStr);
+  if (state.slotsClosed.size) p.set('closed', [...state.slotsClosed].join(','));
   return '#' + p.toString();
 }
 
@@ -2410,10 +2607,25 @@ function parseUrlHash() {
     state.sourceFilter.clear();
     p.get('src').split(',').forEach(s => { if (s) state.sourceFilter.add(s); });
   }
-  if (p.has('panels')) {
+  // Iteration 2 / US-8: slots
+  if (p.has('slots')) {
+    const assigned = new Set();
+    p.get('slots').split(',').forEach(pair => {
+      const [sid, poolId] = pair.split(':');
+      if (SLOT_IDS.includes(sid) && POOL[poolId] && !assigned.has(poolId)) {
+        state.slots[sid] = poolId;
+        assigned.add(poolId);
+      }
+    });
+  }
+  if (p.has('closed')) {
+    state.slotsClosed = new Set(p.get('closed').split(',').filter(s => SLOT_IDS.includes(s)));
+  }
+  // Legacy: `panels=src,facs` from Iteration 1 — translate to slot-closed state
+  if (p.has('panels') && !p.has('slots')) {
     const pn = p.get('panels').split(',');
-    state.panels.sources = pn.includes('src');
-    state.panels.facsimile = pn.includes('facs');
+    if (!pn.includes('src')) state.slotsClosed.add('A');
+    if (!pn.includes('facs')) state.slotsClosed.add('C');
   }
 }
 
@@ -2455,8 +2667,195 @@ const state = {
   splitLanguages: false,
   showSourceNhd: true,  // Iteration 2 / US-1.3-Erweiterung: default visible
   sourceFilter: new Set(),
-  panels: { sources: true, facsimile: true }
+  // Iteration 2 / US-8: pro Slot wird ein Pool-Eintrag montiert.
+  slots: { A: 'sources', B: 'edition', C: 'facsimile' },
+  slotsClosed: new Set(),
 };
+
+// ============================================================================
+// SLOT SYSTEM (Iteration 2 / US-8) — pool registry, mount/switch/close/restore
+// ============================================================================
+//
+// Pool-Eintrag: { id, label, templateId, onMount?, onUnmount? }
+// templateId: ID eines DOM-Knotens unter #pool-templates, der in den Slot-Body
+// verschoben wird (per appendChild, nicht clone). Damit bleibt nur eine
+// Instanz pro Pool-Eintrag — Edition kann nicht gleichzeitig in zwei Slots
+// sein, was Sinn macht (gemeinsamer State).
+//
+// onMount(slotEl): nachdem das Template eingefuegt wurde — z.B. um Inhalt zu
+// rendern (Psalter-Text befuellen, OSD initialisieren, ...).
+// onUnmount(slotEl): vor dem Verschieben in den Pool zurueck.
+
+const POOL = {
+  sources: {
+    label: 'Quellen',
+    templateId: 'sources-panel',
+    onMount: () => { renderSourceFilters(); updateSourcesPanel(); }
+  },
+  edition: {
+    label: 'Notkers Text',
+    templateId: 'text-panel',
+  },
+  nhd: {
+    label: 'Nhd. Übersetzung',
+    templateId: 'pool-nhd',
+    onMount: () => renderPoolNhd()
+  },
+  wiener: {
+    label: 'Wiener Notker',
+    templateId: 'pool-wiener',
+    onMount: () => renderPoolWiener()
+  },
+  psalter_g: {
+    label: 'Psalter G (Gallicanum)',
+    templateId: 'pool-psalter',
+    onMount: () => renderPoolPsalter('G')
+  },
+  psalter_r: {
+    label: 'Psalter R (Romanum)',
+    templateId: 'pool-psalter',
+    onMount: () => renderPoolPsalter('R')
+  },
+  psalter_h: {
+    label: 'Psalter H (Hebraicum)',
+    templateId: 'pool-psalter',
+    onMount: () => renderPoolPsalter('H')
+  },
+  facsimile: {
+    label: 'Handschrift Notker (CSg 0021)',
+    templateId: 'facsimile-panel',
+    onMount: () => { if (!window._osdInitialized) initOSD(); }
+  },
+  notes: {
+    label: 'Anmerkungen',
+    templateId: 'pool-notes',
+    onMount: () => renderPoolNotes()
+  },
+};
+
+const SLOT_IDS = ['A', 'B', 'C'];
+
+function templateHome() {
+  return document.getElementById('pool-templates');
+}
+
+function poolEntryInUseBy(poolId) {
+  // Returns slotId where this pool entry is currently mounted, or null.
+  for (const sid of SLOT_IDS) {
+    if (state.slots[sid] === poolId) return sid;
+  }
+  return null;
+}
+
+function mountSlot(slotId, poolId) {
+  const entry = POOL[poolId];
+  if (!entry) { console.warn('Unknown pool entry:', poolId); return; }
+  const body = document.getElementById('slot-body-' + slotId);
+  if (!body) return;
+
+  // Detach current contents back to the template home (preserve them)
+  while (body.firstChild) {
+    templateHome().appendChild(body.firstChild);
+  }
+
+  // Move the requested template into this slot body
+  const tpl = document.getElementById(entry.templateId);
+  if (!tpl) { console.warn('Template not found:', entry.templateId); return; }
+  body.appendChild(tpl);
+
+  state.slots[slotId] = poolId;
+  if (entry.onMount) entry.onMount(body);
+}
+
+function refreshSlotPickers() {
+  // Build the dropdown options for each slot picker. Hide options already
+  // mounted in another slot to prevent duplicates (single-instance pool).
+  SLOT_IDS.forEach(sid => {
+    const sel = document.querySelector('.slot-picker[data-slot="' + sid + '"]');
+    if (!sel) return;
+    sel.innerHTML = '';
+    Object.entries(POOL).forEach(([poolId, entry]) => {
+      const usedBy = poolEntryInUseBy(poolId);
+      // Show option if it's free OR currently in this slot
+      if (usedBy && usedBy !== sid) return;
+      const opt = document.createElement('option');
+      opt.value = poolId;
+      opt.textContent = entry.label;
+      if (state.slots[sid] === poolId) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function onSlotPick(slotId, poolId) {
+  // If the picked content is currently in another slot, swap them.
+  const otherSlot = poolEntryInUseBy(poolId);
+  if (otherSlot && otherSlot !== slotId) {
+    const previousHere = state.slots[slotId];
+    mountSlot(otherSlot, previousHere);
+  }
+  mountSlot(slotId, poolId);
+  refreshSlotPickers();
+  updateUrlHash();
+}
+
+function closeSlot(slotId) {
+  if (state.slotsClosed.has(slotId)) return;
+  if (state.slotsClosed.size >= SLOT_IDS.length - 1) return;  // never close all
+  state.slotsClosed.add(slotId);
+  document.querySelector('.slot[data-slot="' + slotId + '"]')?.classList.add('collapsed');
+  updateDividers();
+  renderRestoreBar();
+  updateUrlHash();
+}
+
+function restoreSlot(slotId) {
+  state.slotsClosed.delete(slotId);
+  document.querySelector('.slot[data-slot="' + slotId + '"]')?.classList.remove('collapsed');
+  updateDividers();
+  renderRestoreBar();
+  // OSD needs a refresh after the panel becomes visible again
+  if (state.slots[slotId] === 'facsimile' && window._osdViewer) {
+    setTimeout(() => window._osdViewer.viewport.applyConstraints(true), 50);
+  }
+  updateUrlHash();
+}
+
+function updateDividers() {
+  // Hide a divider if either neighbour slot is collapsed
+  const dAB = document.getElementById('divider-AB');
+  const dBC = document.getElementById('divider-BC');
+  if (dAB) dAB.classList.toggle('hidden', state.slotsClosed.has('A') || state.slotsClosed.has('B'));
+  if (dBC) dBC.classList.toggle('hidden', state.slotsClosed.has('B') || state.slotsClosed.has('C'));
+}
+
+function renderRestoreBar() {
+  const bar = document.getElementById('restore-bar');
+  if (!bar) return;
+  bar.innerHTML = '';
+  state.slotsClosed.forEach(slotId => {
+    const poolId = state.slots[slotId];
+    const label = POOL[poolId]?.label || poolId;
+    const btn = document.createElement('button');
+    btn.className = 'restore-btn';
+    btn.textContent = '▸ ' + label;
+    btn.title = label + ' wieder einblenden';
+    btn.onclick = () => restoreSlot(slotId);
+    bar.appendChild(btn);
+  });
+}
+
+function initSlots() {
+  // Mount all three slots according to current state.slots
+  SLOT_IDS.forEach(sid => mountSlot(sid, state.slots[sid]));
+  refreshSlotPickers();
+  // Apply closed state
+  state.slotsClosed.forEach(sid => {
+    document.querySelector('.slot[data-slot="' + sid + '"]')?.classList.add('collapsed');
+  });
+  updateDividers();
+  renderRestoreBar();
+}
 
 // ============================================================================
 // RENDERING
@@ -2467,8 +2866,10 @@ async function init() {
   diagnoseData();
   parseUrlHash();
   renderPsalmNav();
-  renderSourceFilters();
   renderVerses();
+  // Iteration 2 / US-8: mount slots from state (also runs renderSourceFilters
+  // and updateSourcesPanel via POOL.sources.onMount, and initOSD via facsimile)
+  initSlots();
   selectVerse(state.activeVerse);
   setupKeyboardShortcuts();
   setupDividerDrag();
@@ -2487,10 +2888,6 @@ function syncUiToState() {
   document.querySelectorAll('.source-filter').forEach(el => {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
   });
-  if (!state.panels.sources) togglePanel('sources');
-  if (!state.panels.facsimile) togglePanel('facsimile');
-  // Initialize IIIF viewer if facsimile panel is open (default)
-  if (state.panels.facsimile && !window._osdInitialized) initOSD();
   if (state.showNhd) document.querySelectorAll('.nhd-translation').forEach(el => el.classList.add('visible'));
   if (state.splitLanguages) {
     document.querySelectorAll('.verse-interleaved').forEach(el => el.classList.add('hidden-by-split'));
@@ -2731,7 +3128,10 @@ function selectVerse(num) {
 function navigateFacsimile(verseNum) {
   const pageIdx = VERSE_TO_PAGE[verseNum];
   if (pageIdx == null) return;
-  if (window._osdViewer && state.panels.facsimile) {
+  // Iteration 2 / US-8: facsimile is one of nine pool entries; check the
+  // facsimile slot exists, is open, and viewer initialized.
+  const facsimileSlot = poolEntryInUseBy('facsimile');
+  if (window._osdViewer && facsimileSlot && !state.slotsClosed.has(facsimileSlot)) {
     const currentPage = window._osdViewer.currentPage();
     if (currentPage !== pageIdx) {
       window._osdViewer.goToPage(pageIdx);
@@ -2860,21 +3260,6 @@ function updateSourcesPanel() {
     `).join('');
 }
 
-function togglePanel(panel) {
-  state.panels[panel] = !state.panels[panel];
-  if (panel === 'sources') {
-    document.getElementById('sources-panel').classList.toggle('collapsed', !state.panels.sources);
-    document.getElementById('divider-left').style.display = state.panels.sources ? '' : 'none';
-  } else if (panel === 'facsimile') {
-    const fp = document.getElementById('facsimile-panel');
-    fp.classList.toggle('collapsed', !state.panels.facsimile);
-    document.getElementById('divider-right').style.display = state.panels.facsimile ? '' : 'none';
-    document.getElementById('facsimile-toggle-btn').style.display = state.panels.facsimile ? 'none' : '';
-    if (state.panels.facsimile && !window._osdInitialized) initOSD();
-  }
-  updateUrlHash();
-}
-
 // ============================================================================
 // IIIF VIEWER
 // ============================================================================
@@ -2975,24 +3360,28 @@ function setupKeyboardShortcuts() {
 // ============================================================================
 
 function setupDividerDrag() {
-  setupDrag('divider-left', 'sources-panel', 'left');
-  setupDrag('divider-right', 'facsimile-panel', 'right');
+  // Iteration 2 / US-8: dividers between slots. Drag resizes the slot LEFT of
+  // the divider; the slot RIGHT of it absorbs the change via flex-grow.
+  setupSlotDrag('divider-AB', 'A');
+  setupSlotDrag('divider-BC', 'B');
 }
 
-function setupDrag(dividerId, panelId, side) {
+function setupSlotDrag(dividerId, leftSlotId) {
   const divider = document.getElementById(dividerId);
-  const panel = document.getElementById(panelId);
-  if (!divider || !panel) return;
+  const slot = document.querySelector('.slot[data-slot="' + leftSlotId + '"]');
+  if (!divider || !slot) return;
 
   let startX, startWidth;
   divider.addEventListener('mousedown', e => {
     e.preventDefault();
     startX = e.clientX;
-    startWidth = panel.offsetWidth;
+    startWidth = slot.offsetWidth;
     divider.classList.add('dragging');
     const onMove = ev => {
-      const dx = side === 'left' ? ev.clientX - startX : startX - ev.clientX;
-      panel.style.width = Math.max(180, Math.min(500, startWidth + dx)) + 'px';
+      const dx = ev.clientX - startX;
+      const w = Math.max(180, Math.min(800, startWidth + dx));
+      // Force fixed width on the left slot — flex on the others fills the rest
+      slot.style.flex = '0 0 ' + w + 'px';
     };
     const onUp = () => {
       divider.classList.remove('dragging');
@@ -3071,6 +3460,85 @@ function renderWiener() {
   container.innerHTML = `
     <div class="wiener-header">${escHtml(wn.manuscript || '')} — Edition: ${escHtml(wn.edition || '')}</div>
     <div class="wiener-text">${formatVersedText(wn.text)}</div>
+  `;
+}
+
+// ============================================================================
+// POOL CONTENT RENDERERS (Iteration 2 / US-8)
+// ============================================================================
+
+function renderPoolNhd() {
+  const body = document.getElementById('pool-nhd-body');
+  if (!body) return;
+  const verses = EDITION_DATA.verses || [];
+  body.innerHTML = verses.map(v => {
+    // Aggregate the nhd. translation per verse: each translation section + the
+    // dedicated translation_nhd field, joined by spaces. Pfeifer wrote line-faithful
+    // text, so we render verse-grouped paragraphs (line-faithful synopsis lives in US-9).
+    const parts = [];
+    if (v.translation_nhd) parts.push(v.translation_nhd);
+    (v.sections || []).filter(s => s.type === 'translation').forEach(s => {
+      if (s.text && !parts.includes(s.text)) parts.push(s.text);
+    });
+    const text = parts.join(' ');
+    if (!text.trim()) return '';
+    return `<div class="pool-nhd-verse"><span class="verse-num">${v.number}</span>${escHtml(text)}</div>`;
+  }).join('');
+}
+
+function renderPoolWiener() {
+  const wn = EDITION_DATA.wiener_notker || {};
+  const meta = document.getElementById('pool-wiener-meta');
+  const body = document.getElementById('pool-wiener-body');
+  if (meta) meta.textContent = (wn.manuscript || 'Wiener Notker') + (wn.edition ? ' — Edition: ' + wn.edition : '');
+  if (body) body.innerHTML = wn.text ? formatVersedText(wn.text) :
+    '<p style="color: var(--color-muted); font-style: italic;">Kein Wiener-Notker-Text vorhanden.</p>';
+}
+
+function renderPoolPsalter(siglum) {
+  const witnesses = EDITION_DATA.psalm_text_comparison?.witnesses || [];
+  const w = witnesses.find(x => x.sigle === siglum);
+  const meta = document.getElementById('pool-psalter-meta');
+  const body = document.getElementById('pool-psalter-body');
+  if (!w) {
+    if (meta) meta.textContent = `Psalter ${siglum} — keine Daten verfügbar.`;
+    if (body) body.innerHTML = '';
+    return;
+  }
+  if (meta) meta.textContent = `${w.name || ('Psalter ' + siglum)}` + (w.manuscript ? ' — ' + w.manuscript : '');
+  if (body) body.innerHTML = formatVersedText(w.text || '');
+}
+
+function renderPoolNotes() {
+  const body = document.getElementById('pool-notes-body');
+  if (!body) return;
+  // Sigle key + provisional rationale. Future: extract <note> elements from TEI into JSON.
+  const sigles = [
+    { s: 'A', n: 'Augustinus', d: 'Enarrationes in Psalmos (CCSL 38)' },
+    { s: 'C', n: 'Cassiodor', d: 'Expositio Psalmorum (CCSL 97)' },
+    { s: 'R', n: 'Remigius von Auxerre', d: 'Enarrationes in Psalmos (PL 131) — Sigle R kollidiert mit Romanum-Psalter, Disambiguierung in Klärung.' },
+    { s: 'Br', n: 'Breviarium in Psalmos', d: 'Pseudo-Hieronymus' },
+    { s: 'G', n: 'Gallicanum', d: 'Hieronymus, ältere Vulgata-Fassung' },
+    { s: 'H', n: 'Hebraicum', d: 'Hieronymus iuxta Hebraeos' },
+  ];
+  body.innerHTML = `
+    <div style="font-family: var(--font-ui); font-size: var(--size-ui); margin-bottom: 1rem;">
+      <strong>Siglen-Schlüssel</strong>
+    </div>
+    <table style="width:100%; border-collapse: collapse; font-size: var(--size-nhd);">
+      ${sigles.map(x => `
+        <tr style="border-bottom: 1px solid var(--color-border-light);">
+          <td style="padding: 0.4rem 0.6rem; vertical-align: top; font-weight: 600; width: 3rem;">${escHtml(x.s)}</td>
+          <td style="padding: 0.4rem 0.6rem; vertical-align: top;">
+            <strong>${escHtml(x.n)}</strong><br>
+            <span style="color: var(--color-muted); font-size: var(--size-ui-sm);">${escHtml(x.d)}</span>
+          </td>
+        </tr>
+      `).join('')}
+    </table>
+    <p style="margin-top: 1.5rem; color: var(--color-muted); font-size: var(--size-ui-sm); font-style: italic;">
+      Editorische Anmerkungen aus dem TEI-Apparat werden in einer späteren Iteration hier verlinkt.
+    </p>
   `;
 }
 
