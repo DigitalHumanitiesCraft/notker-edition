@@ -20,6 +20,12 @@ from typing import Optional
 
 from lxml import etree
 
+# Windows-Konsolen sind per Default cp1252 — Pipeline-Output enthält Umlaute,
+# Pfeile und kombinierende Diakritika. UTF-8 erzwingen, sonst bricht report().
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
 # ---------------------------------------------------------------------------
 # Konfiguration
 # ---------------------------------------------------------------------------
@@ -36,12 +42,12 @@ NS = {'tei': TEI_NS}
 
 # Ground Truth aus knowledge/Probeseite Analyse.md
 EXPECTED_VERSE_COUNT = 13  # Psalm 2 hat 13 Verse
-EXPECTED_GLOSS_COUNT = 14  # 14 identifizierte Glossen
+EXPECTED_GLOSS_COUNT = 13  # 13 Glossen nach V6-Reklassifikation (Iteration 2, US-12.3)
 EXPECTED_PSALTER_WITNESSES = {'G', 'R', 'H', 'A', 'C'}
 EXPECTED_SOURCE_SIGLES = {'A', 'C', 'R', 'Br'}  # Gesicherte; RII und N optional
 EXPECTED_FUNCTIONS = {'psalm', 'translation', 'commentary'}
 
-# Bekannte Glossentexte (Ground Truth aus Probeseite Analyse)
+# Bekannte Glossentexte (Ground Truth aus Probeseite Analyse, Iteration 2 korrigiert)
 KNOWN_GLOSSES = [
     'iúdon diêt',
     'in gotes martyro',
@@ -57,6 +63,83 @@ KNOWN_GLOSSES = [
     'chuninga des flêisches',
     'kerich',
     'in slago dero brâuuo',
+]
+# Nicht mehr in dieser Liste: "ze_gótes sélbes ána-sihte. [...]" - Pfeifer 2026-04-15
+# Review: ist Haupttext, nicht Glosse (US-12.3, V6)
+
+
+# ---------------------------------------------------------------------------
+# Pfeifer Iteration 2 Textkorrekturen (US-12.1 + US-12.2)
+# Jede Korrektur: Akzeptanztest "old NICHT mehr im TEI, new PRESENT im TEI"
+# ---------------------------------------------------------------------------
+
+PFEIFER_CORRECTIONS = [
+    # --- US-12.1 Quellen-Uebersetzungen ---
+    {'id': 'pfeifer-01', 'src': 'Cassiodor V1-2',
+     'old': 'In vier Teilen ist dieses Psalms',
+     'new': 'In vier Teile ist dieses Psalms'},
+    {'id': 'pfeifer-02', 'src': 'Cassiodor V1-2',
+     'old': 'als sie Grüde des Zorns',
+     'new': 'als sie Gründe des Zorns'},
+    {'id': 'pfeifer-03', 'src': 'Remigius V1-2',
+     'old': 'über die Welt der Erde ausgebreitet',
+     'new': 'über das Universum der Welt ausgebreitet'},
+    {'id': 'pfeifer-04', 'src': 'Augustinus V3-5',
+     'old': 'verplfichtet',
+     'new': 'verpflichtet'},
+    {'id': 'pfeifer-05', 'src': 'Augustinus V3-5',
+     'old': 'damit uns nicht',
+     'new': 'damit wir nicht'},
+    {'id': 'pfeifer-06', 'src': 'Cassiodor V7',
+     'old': 'Vater [...]\u201eIch habe dich heute geboren\u201c',
+     'new': 'Vater [...] \u201eIch habe dich heute geboren\u201c'},
+    {'id': 'pfeifer-07', 'src': 'Augustinus V7',
+     'old': 'nur die Gegenwart, weil was auch immer',
+     'new': 'nur die Gegenwart, weil, was auch immer'},
+    {'id': 'pfeifer-08', 'src': 'Augustinus V7',
+     'old': 'womit er das ewige Geschlecht',
+     'new': 'womit das ewige Geschlecht'},
+    {'id': 'pfeifer-09', 'src': 'Augustinus V8-9',
+     'old': 'nach der Vorstellung der Menschen [...] sodass',
+     'new': 'nach der Vorstellung der Menschen [...], sodass'},
+    {'id': 'pfeifer-10', 'src': 'Cassiodor V8-9',
+     'old': 'in der unerlegenden Natur',
+     'new': 'in der unterlegenen Natur'},
+    {'id': 'pfeifer-11', 'src': 'Cassiodor V12-13',
+     'old': 'gerechten Weg, das heißt, vom himmlichen',
+     'new': 'gerechten Weg, das heißt vom himmlichen'},
+
+    # --- US-12.2 nhd. Uebersetzungen ---
+    {'id': 'pfeifer-12', 'src': 'seg V3-5 (ahd.)',
+     'old': 'Prechen chádensie íro',
+     'new': 'Prechen cháden sie íro'},
+    {'id': 'pfeifer-13', 'src': 'nhd. V3-5 (Wille gleichermassen)',
+     'old': 'geht ihnen der Wille, gleichermaßen',
+     'new': 'geht ihnen der Wille gleichermaßen'},
+    {'id': 'pfeifer-14', 'src': 'nhd. V3-5 (Himmel Komma)',
+     'old': 'Der lebt im Himmel wird ver-',
+     'new': 'Der lebt im Himmel, wird ver-'},
+    {'id': 'pfeifer-15', 'src': 'nhd. V3-5 (spottenswert dass)',
+     'old': 'war, das sie seine Vorherbestimmung',
+     'new': 'war, dass sie seine Vorherbestimmung'},
+    {'id': 'pfeifer-16', 'src': 'nhd. V7 (mir Komma mein)',
+     'old': 'Mein Vater sagte zu mir mein Sohn',
+     'new': 'Mein Vater sagte zu mir, mein Sohn'},
+    {'id': 'pfeifer-17', 'src': 'nhd. V8-9 (Erbe Punkt Welches)',
+     'old': 'dein Erbe Welches ist das',
+     'new': 'dein Erbe. Welches ist das'},
+    {'id': 'pfeifer-18', 'src': 'nhd. V8-9 (Stab Komma das ist)',
+     'old': 'mit eisernem Stab . das ist unbeugsame',
+     'new': 'mit eisernem Stab, das ist unbeugsame'},
+    {'id': 'pfeifer-19', 'src': 'nhd. V8-9 (Stab Komma das heisst)',
+     'old': 'mit eisernem Stab das heißt mit unbeugsamem',
+     'new': 'mit eisernem Stab, das heißt mit unbeugsamem'},
+    {'id': 'pfeifer-20', 'src': 'nhd. V10-11 (Köper -> Körper)',
+     'old': 'unterdrückt den Köper',
+     'new': 'unterdrückt den Körper'},
+    {'id': 'pfeifer-21', 'src': 'nhd. V12 (abgleitet)',
+     'old': 'ihr nicht ableitet vom',
+     'new': 'ihr nicht abgleitet vom'},
 ]
 
 
@@ -274,7 +357,10 @@ def test_tei_part_chains(runner: TestRunner, root):
     if len(chain_starts) != len(chain_ends):
         issues.append(f'@part="I" ({len(chain_starts)}) ≠ @part="F" ({len(chain_ends)})')
 
-    # Prüfe konsekutive Verkettung innerhalb jedes Vers-divs
+    # Prüfe konsekutive Verkettung innerhalb jedes Vers-divs.
+    # Cross-Verse-Verkettungen (Wortteile ueber Vers-Grenzen) sind erlaubt: sie
+    # haben @next/@prev-Verweise auf das Pendant im naechsten Vers (xml:id mit
+    # Praefix "seg-cross-").
     for verse_div in root.findall('.//tei:div[@type="verse"]', NS):
         abs_in_verse = verse_div.findall('tei:ab', NS)
         part_segs = []
@@ -288,13 +374,20 @@ def test_tei_part_chains(runner: TestRunner, root):
         for seg in part_segs:
             part = seg.get('part')
             seg_type = seg.get('type')
+            seg_id = seg.get('{http://www.w3.org/XML/1998/namespace}id', '')
+            is_cross_verse = seg_id.startswith('seg-cross-')
 
             if part == 'I':
+                # Cross-Verse-I darf "offen" bleiben — ihr F steht im naechsten verse_div
                 if open_chain:
                     issues.append(f'Neue Kette startet bevor vorherige endet '
                                   f'(Vers {verse_div.get("n")}, Typ {seg_type})')
-                open_chain = seg_type
+                if not is_cross_verse:
+                    open_chain = seg_type
             elif part in ('M', 'F'):
+                if is_cross_verse and part == 'F':
+                    # Cross-Verse-F: I steht im vorherigen verse_div, kein open_chain noetig
+                    continue
                 if not open_chain:
                     issues.append(f'Verwaister @part="{part}" ohne vorheriges I '
                                   f'(Vers {verse_div.get("n")}, Typ {seg_type})')
@@ -477,7 +570,10 @@ def test_tei_verse_boundary_truncation(runner: TestRunner, root):
         last_seg = segs[-1]
         text = ''.join(last_seg.itertext()).rstrip()
         if text.endswith('-'):
-            # Prüfe ob nächster Vers-div mit Fortsetzung beginnt
+            # Cross-Verse-Verkettung via @part="I" mit @next ist OK — semantisch
+            # zusammengefuehrt, auch wenn der Text optisch noch geteilt ist.
+            if last_seg.get('part') == 'I' and last_seg.get('next'):
+                continue
             if i + 1 < len(verse_divs):
                 next_vd = verse_divs[i + 1]
                 next_abs = next_vd.findall('tei:ab', NS)
@@ -715,6 +811,119 @@ def test_json_nhd_contamination(runner: TestRunner, data):
 
 
 # ---------------------------------------------------------------------------
+# Pfeifer Iteration 2: Akzeptanztests pro Textkorrektur (US-12.1 + US-12.2)
+# ---------------------------------------------------------------------------
+
+def test_pfeifer_old_text_absent(runner: TestRunner, root):
+    """Jede Pfeifer-Korrektur: alter Text nicht mehr im TEI vorhanden."""
+    tei_text = ''.join(root.itertext())
+    offenders = []
+    for corr in PFEIFER_CORRECTIONS:
+        if corr['old'] in tei_text:
+            offenders.append(f"{corr['id']} ({corr['src']}): '{corr['old'][:50]}...'")
+
+    runner.add(
+        f'Pfeifer Korrekturen (alt absent, {len(PFEIFER_CORRECTIONS)} geprueft)',
+        len(offenders) == 0,
+        f'{len(PFEIFER_CORRECTIONS) - len(offenders)}/{len(PFEIFER_CORRECTIONS)} alte Texte entfernt',
+        details=offenders,
+    )
+
+
+def test_pfeifer_new_text_present(runner: TestRunner, root):
+    """Jede Pfeifer-Korrektur: neuer Text im TEI vorhanden."""
+    tei_text = ''.join(root.itertext())
+    missing = []
+    for corr in PFEIFER_CORRECTIONS:
+        if corr['new'] not in tei_text:
+            missing.append(f"{corr['id']} ({corr['src']}): '{corr['new'][:50]}...'")
+
+    runner.add(
+        f'Pfeifer Korrekturen (neu praesent, {len(PFEIFER_CORRECTIONS)} geprueft)',
+        len(missing) == 0,
+        f'{len(PFEIFER_CORRECTIONS) - len(missing)}/{len(PFEIFER_CORRECTIONS)} neue Texte vorhanden',
+        details=missing,
+    )
+
+
+def test_v6_ze_gotes_is_commentary(runner: TestRunner, root):
+    """V6-Reklassifikation: 'ze_gótes sélbes' ist commentary-Segment, keine Glosse."""
+    # Finde das V6-div
+    v6_div = None
+    for vd in root.findall('.//tei:div[@type="verse"]', NS):
+        if vd.get('n') == '6':
+            v6_div = vd
+            break
+
+    if v6_div is None:
+        runner.add('V6 Reklassifikation: ze_gótes sélbes ist commentary',
+                   False, 'Vers 6 nicht gefunden im TEI')
+        return
+
+    # Alle Texte in V6
+    v6_text = ''.join(v6_div.itertext())
+    has_phrase = 'ze_gótes sélbes' in v6_text or 'ze gótes sélbes' in v6_text
+
+    if not has_phrase:
+        runner.add('V6 Reklassifikation: ze_gótes sélbes ist commentary',
+                   False, 'Phrase "ze_gótes sélbes" nicht in V6 gefunden')
+        return
+
+    # Darf NICHT in einem <gloss>-Element stehen
+    glosses_in_v6 = v6_div.findall('.//tei:gloss', NS)
+    gloss_texts = [''.join(g.itertext()) for g in glosses_in_v6]
+    still_gloss = any('ze_gótes' in t or 'ze gótes' in t for t in gloss_texts)
+
+    if still_gloss:
+        runner.add('V6 Reklassifikation: ze_gótes sélbes ist commentary',
+                   False, 'Phrase steht immer noch in <gloss>-Element',
+                   details=[f'Gloss: {t[:80]}' for t in gloss_texts if 'ze' in t.lower()])
+        return
+
+    # Muss in commentary-seg vorhanden sein
+    seg_commentary = v6_div.findall('.//tei:seg[@type="commentary"]', NS)
+    seg_texts = [''.join(s.itertext()) for s in seg_commentary]
+    in_commentary = any('ze_gótes' in t or 'ze gótes' in t for t in seg_texts)
+
+    if in_commentary:
+        runner.add('V6 Reklassifikation: ze_gótes sélbes ist commentary',
+                   True, 'Phrase korrekt als commentary-seg in V6')
+    else:
+        runner.add('V6 Reklassifikation: ze_gótes sélbes ist commentary',
+                   False, 'Phrase nicht in commentary-seg gefunden (aber auch nicht in gloss)',
+                   details=[f'Commentary-segs: {len(seg_commentary)}'])
+
+
+def test_v6_nhd_contains_ze_gotes(runner: TestRunner, root):
+    """V6 nhd-Uebersetzung enthaelt die Reklassifizierte Passage."""
+    v6_div = None
+    for vd in root.findall('.//tei:div[@type="verse"]', NS):
+        if vd.get('n') == '6':
+            v6_div = vd
+            break
+
+    if v6_div is None:
+        runner.add('V6 nhd enthaelt "zu Gottes eigenem Angesicht"',
+                   False, 'Vers 6 nicht gefunden')
+        return
+
+    nhd_note = v6_div.find(f'{{{TEI_NS}}}note[@type="translation_nhd"]')
+    if nhd_note is None:
+        runner.add('V6 nhd enthaelt "zu Gottes eigenem Angesicht"',
+                   False, 'Keine translation_nhd-Note in V6')
+        return
+
+    nhd_text = ''.join(nhd_note.itertext())
+    if 'zu Gottes eigenem Angesicht' in nhd_text:
+        runner.add('V6 nhd enthaelt "zu Gottes eigenem Angesicht"',
+                   True, 'nhd-Uebersetzung vollstaendig mit reklassifizierter Passage')
+    else:
+        runner.add('V6 nhd enthaelt "zu Gottes eigenem Angesicht"',
+                   False, 'nhd-Uebersetzung fehlt die reklassifizierte Passage',
+                   details=[f'nhd-Text (150 Zeichen): {nhd_text[:150]}'])
+
+
+# ---------------------------------------------------------------------------
 # DOCX ↔ TEI Vergleich
 # ---------------------------------------------------------------------------
 
@@ -823,6 +1032,13 @@ def main():
     test_tei_nhd_contamination(runner, root)
     test_tei_verse_boundary_truncation(runner, root)
     test_tei_whitespace(runner, root)
+
+    # --- Pfeifer Iteration 2 Korrekturen (US-12) ---
+    print('\n--- Pfeifer Iteration 2 Korrekturen ---')
+    test_pfeifer_old_text_absent(runner, root)
+    test_pfeifer_new_text_present(runner, root)
+    test_v6_ze_gotes_is_commentary(runner, root)
+    test_v6_nhd_contains_ze_gotes(runner, root)
 
     # --- JSON-Tests ---
     print('\n--- JSON-Tests ---')

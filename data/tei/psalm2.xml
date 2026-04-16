@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="goh">
   <teiHeader>
     <fileDesc>
@@ -86,7 +84,7 @@
         </segmentation>
       </editorialDecl>
       <projectDesc>
-        <p>Prototyp für einen Drittmittelantrag. Nur Psalm 2 (13 Verse). Auftraggeber: Dr. Philipp Pfeifer, Universität Graz.</p>
+        <p>Prototyp für einen Drittmittelantrag. Aktueller Psalm: 2. Auftraggeber: Dr. Philipp Pfeifer, Universität Graz.</p>
       </projectDesc>
     </encodingDesc>
     <profileDesc>
@@ -178,19 +176,32 @@
           </ab>
           <ab n="13">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">mo geuuiêchten. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I" xml:id="seg-cross-1-i" next="#seg-cross-1-f">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer</p>
+            <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-</p>
+            <lg type="line-faithful">
+              <l>PSALM DAVIDS</l>
+              <l>WARUM LÄRMTEN DIE VÖLKER. Warum wüt-</l>
+              <l>teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor-</l>
+              <l>bereitet sinnlos, das heißt vergeblich? Und warum dach-</l>
+              <l>ten seine Leute grundlos, ihn auszulöschen? Sie gedachten</l>
+              <l>dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten</l>
+              <l>kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten.</l>
+              <l>Die Landkönige waren zugegen bei der Passion des Herren, nicht</l>
+              <l>ansehend, sondern ihren Willen zeigend und die Anführer der Pries-</l>
+              <l>ter versammelten sich gegen den Herrn und gegen sei-</l>
+              <l>nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
               <quote xml:lang="la">Quattuor membris psalmi huius species decora formata est. In primo loquitur propheta de Iudaeis propter passionem Christi. Secundo uerba sunt dementium Iudaeorum. [...] Corripit enim populos propheta, cur fremuerint contra Dominum Saluatorem, cum <hi rend="bold">causas</hi>
                 <hi rend="bold">iracundiae</hi> non haberent.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">In vier Teilen ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Grüde des Zorns nicht hatten.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">In vier Teile ist dieses Psalms schöne Gestalt geformt. Im ersten spricht der Prophet über die Juden wegen der Passion Christi. (Im) zweiten sind die Wörter der unsinnigen Juden. Es schilt nämlich der Prophet die Völker, weil sie lärmten gegen den Herrn, den Retter, als sie Gründe des Zorns nicht hatten.</note>
             </cit>
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
@@ -200,7 +211,7 @@
             <cit ana="#src-R">
               <bibl>Remigius</bibl>
               <quote xml:lang="la">Sed hoc meditatio inanis fuit, quia ad nullum effectum peruenit. Quod enim amplius nomen eius obscurare uolerunt, eo amplius per uniuersum mundum dilatatum est.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich  seinen Namen mehr verdecken wollten, ist dieser mehr über die Welt der Erde ausgebreitet.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich seinen Namen mehr verdecken wollten, ist dieser mehr über das Universum der Welt ausgebreitet.</note>
             </cit>
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
@@ -216,7 +227,7 @@
         </div>
         <div type="verse" n="3-5">
           <ab n="1">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F" xml:id="seg-cross-1-f" prev="#seg-cross-1-i">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Disrum-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>
@@ -228,7 +239,7 @@
           <ab n="3">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">
               <foreign xml:lang="la">idest christi et apostolorum.</foreign> Sús einoton sie sic(h). </seg>
-            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Prechen chádensie íro</seg>
+            <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Prechen cháden sie íro</seg>
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="4">
@@ -297,7 +308,21 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">In <foreign xml:lang="la">iudicio</foreign> tuôt er iz . so <foreign xml:lang="la">retributio peccatorum</foreign> ist. </seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>erlaubte es. Deshalb geht ihnen der Wille, gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, das sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</p>
+            <p>en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</p>
+            <lg type="line-faithful">
+              <l>en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben,</l>
+              <l>das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre</l>
+              <l>Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein</l>
+              <l>auf die christliche Religion. Der lebt im Himmel, wird ver-</l>
+              <l>lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot-</l>
+              <l>tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund</l>
+              <l>und mit Nase irgendeinen Hohn tue, sondern dass es spottens-</l>
+              <l>wert war, dass sie seine Vorherbestimmung glaubten zu ver-</l>
+              <l>ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen</l>
+              <l>zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann</l>
+              <l>spricht er ihnen zu mit Zorn und mit Heißmut ver-</l>
+              <l>wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-C">
@@ -309,7 +334,7 @@
               <bibl>Augustinus</bibl>
               <quote xml:lang="la">Disrumpamus [...] iugum ipsorum, demus operam ut non nos alliget, neque imponatur nobis <hi rend="bold">christiana</hi>
                 <hi rend="bold">religio</hi>.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit uns nicht verplfichtet noch uns aufgezwungen wird die christliche Religion.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Zerreißen wir [...] das Joch derselben, lasst und Arbeit tun, damit wir nicht verpflichtet noch uns aufgezwungen wird die christliche Religion.</note>
             </cit>
             <cit ana="#src-Br">
               <bibl>Breviarium</bibl>
@@ -369,15 +394,26 @@
             <note type="sigle" place="margin">C</note>
           </ab>
           <ab n="8">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="M">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
             <note type="sigle" place="margin">A, C</note>
           </ab>
-          <ab ana="#fn-gloss" n="9">
-            <gloss xml:lang="goh">ze_gótes sélbes ána-sihte. [...]</gloss>
-            <note type="translation_gloss" xml:lang="de">zu Gottes eigenem Angesicht. [...]</note>
+          <ab n="9">
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ze_gótes sélbes ána-sihte. [...]</seg>
+            <note type="sigle" place="margin">A, C</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde</p>
+            <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]</p>
+            <lg type="line-faithful">
+              <l>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,</l>
+              <l>seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von</l>
+              <l>meinem Vater gegen ihren Willen zum König (ein)gesetzt über</l>
+              <l>seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das</l>
+              <l>heißt das Evangelium lehrend. Zion steht in Jerusalem und weil</l>
+              <l>man fern dort herabsehen kann, deshalb heißt er Zion.</l>
+              <l>Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be-</l>
+              <l>zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde</l>
+              <l>zu Gottes eigenem Angesicht. [...]</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-A">
@@ -484,19 +520,26 @@
             <note type="sigle" place="margin">A</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</p>
+            <p>Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</p>
+            <lg type="line-faithful">
+              <l>Der Herr sagte zu mir: Mein Sohn bist du, ich habe</l>
+              <l>dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir,</l>
+              <l>mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver-</l>
+              <l>gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch</l>
+              <l>geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
               <quote xml:lang="la">Dominum significat <hi rend="bold">Patrem</hi> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">„Herr“ steht für den Vater [...]„Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">„Herr“ steht für den Vater [...] „Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.</note>
             </cit>
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
               <quote xml:lang="la">[...] tamen hodie quia praesentiam significat atque in aeternitate nec <hi rend="bold">praeteritum</hi> quidquam est, quasi esse desierit, nec <hi rend="bold">futurum</hi>, quasi <hi rend="bold">nondum</hi>
                 <hi rend="bold">sit</hi>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <hi rend="bold">Filius</hi>, fides sincerissima et catholica praedicat.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit er das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil, was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt.</note>
             </cit>
           </note>
         </div>
@@ -568,19 +611,32 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">bríchest tu an ín.</seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab . das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.</p>
+            <p>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe. Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab, das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.</p>
+            <lg type="line-faithful">
+              <l>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch</l>
+              <l>bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe.</l>
+              <l>Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde.</l>
+              <l>Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest.</l>
+              <l>Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er</l>
+              <l>sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem</l>
+              <l>Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab,</l>
+              <l>das heißt mit unbeugsamem Recht. Dich kann davon nie-</l>
+              <l>man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der</l>
+              <l>Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer-</l>
+              <l>brichst du an ihnen.</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
               <quote xml:lang="la">Hoc iam temporaliter secundum susceptum hominem [...] ut scilicet gentes nomini christiano copulentur atque ita a morte redimantur, et possideantur a deo.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...] sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses (ist) nun zeitlich nach der Vorstellung der Menschen [...], sodass freilich die Völker im christlichen Namen vereint werden und so vom Tod erlöst werden und besessen werden von Gott.</note>
             </cit>
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
               <quote xml:lang="la">Hoc per habitum dicitur formaque seruilem, ex eo quod filius est uirginis. Quidquid enim in tempore accepit Christus secundum hominem ea quae non habebat acquirit. Hic enim iubetur ut <hi rend="bold">petat</hi> secundum <hi rend="bold">naturam</hi>
                 <hi rend="bold"> inferiorem</hi> et accepta possideat, nam secundum potentiam Verbi indifferenter omnia quae habet Pater, habet et Filius; [...] Gentes autem significat nationes toto orbe diuisas</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unerlegenden Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Dieses ist durch die Haltung und die sklavische Form gesagt, aus diesem, weil er der Sohn einer Jungfrau ist. Was auch immer nämlich Christus in der Zeit erhielt, er eignete sich diese an, das er nicht hatte als Mensch. Hier nämlich wird verlagt und er bitte in der unterlegenen Natur und besitzt das Erhaltene, denn nach der Kraft des Wortes sind alle ungetrennt, was der Vater hat, hat auch der Sohn [...]. „Völker“ aber bezeichnet die auf der ganzen Welt verteilten Völker.</note>
             </cit>
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
@@ -646,7 +702,18 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun. </seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Köper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.</p>
+            <p>STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.</p>
+            <lg type="line-faithful">
+              <l>STIMME DES PROPHETEN: Und nun, Könige, er-</l>
+              <l>kennt. Und nun erkennt, Könige. Könige der Erde,</l>
+              <l>Könige des Fleisches, Könige deshalb, weil ihr unterdrückt</l>
+              <l>den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet</l>
+              <l>die Erde. Lasst euch lehren, Landherrscher. Meister des Kör-</l>
+              <l>pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit</l>
+              <l>Furcht. Das nicht hebe euch, dass ihr Könige genannt seid.</l>
+              <l>Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm</l>
+              <l>dankt solchen Namens sowohl mit Freude als auch mit Furcht.</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-C">
@@ -729,7 +796,16 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">(Staatsbibliothek Bamberg Ms. 44)</seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht ableitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</p>
+            <p>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</p>
+            <lg type="line-faithful">
+              <l>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-</l>
+              <l>kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass</l>
+              <l>sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech-</l>
+              <l>ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen</l>
+              <l>soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-</l>
+              <l>trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe</l>
+              <l>kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</l>
+            </lg>
           </note>
           <note type="sources">
             <cit ana="#src-C">
@@ -737,7 +813,7 @@
               <quote xml:lang="la">Et pereatis de uia iusta, id est, a <hi rend="bold">caelesti</hi>
                 <hi rend="bold"> Rege Christo</hi>, quia via est <hi rend="bold">recte</hi>
                 <hi rend="bold">ambulantium</hi> ad uitam, dux euntium, iter ad beatitudinem festinantium.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Und ihr abweicht vom gerechten Weg, das heißt, vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Und ihr abweicht vom gerechten Weg, das heißt vom himmlichen König Christus, weil (er ist) der richtige Weg der Gehenden zum Leben, der Führer der Gehenden, der Weg zur Seligkeit der Eilenden.</note>
             </cit>
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>

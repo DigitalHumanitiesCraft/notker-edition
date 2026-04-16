@@ -141,6 +141,11 @@ def collect_segments(verse_div) -> list[dict]:
         line_sigles = []
         if sigle_note is not None and sigle_note.text:
             line_sigles = parse_sigles(sigle_note.text)
+        # Iteration 2 / US-9.2: Notker-Zeilennummer aus <ab n="X">.
+        try:
+            line_n = int(ab.get('n', '0'))
+        except (TypeError, ValueError):
+            line_n = 0
 
         if ab.get('ana') == '#fn-gloss':
             # Glosse als Marker in den Segment-Stream einfügen
@@ -154,6 +159,7 @@ def collect_segments(verse_div) -> list[dict]:
                     'part': '',
                     'has_foreign': False,
                     'sigles': [],
+                    'line_n': line_n,
                     '_gloss_nhd': clean_text(text_content(nhd_note)) if nhd_note is not None else '',
                     '_gloss_target': gloss_el.get('target', '').lstrip('#'),
                 })
@@ -167,6 +173,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'part': seg.get('part', ''),
                 'has_foreign': has_foreign(seg),
                 'sigles': list(line_sigles),
+                'line_n': line_n,
             })
 
     # Phase 2: Verkettete Segmente zusammenführen
@@ -185,6 +192,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'text': seg['text'],
                 'language': tei_lang_to_json_lang(seg.get('lang', 'goh'), False),
                 'source_sigles': [],
+                'line_n': seg.get('line_n', 0),
                 'translation_nhd': seg.get('_gloss_nhd', ''),
                 'relates_to': seg.get('_gloss_target', ''),
             })
@@ -219,6 +227,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'text': clean_text(chain_text),
                 'language': tei_lang_to_json_lang(seg['lang'], chain_has_foreign),
                 'source_sigles': list(dict.fromkeys(chain_sigles)),
+                'line_n': seg.get('line_n', 0),
             })
             i = j
 
@@ -231,6 +240,7 @@ def collect_segments(verse_div) -> list[dict]:
                     'text': text,
                     'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
                     'source_sigles': list(seg['sigles']),
+                    'line_n': seg.get('line_n', 0),
                 })
             i += 1
 
@@ -274,6 +284,15 @@ def collect_segments(verse_div) -> list[dict]:
         else:
             result.append(sec)
 
+    # Phase 4: Disambiguierung der Sigles in Psalter-Zeugen vs. patristische
+    # Quellen (R ist ambig: Romanum bei psalm_citation, sonst Remigius).
+    # source_sigles ist nur interner Akkumulator; im JSON-Output erscheinen
+    # nur die disambiguierten Felder.
+    for sec in result:
+        psa, src = disambiguate_sigles(sec['type'], sec.pop('source_sigles', []))
+        sec['sigles_psalter'] = psa
+        sec['sigles_sources'] = src
+
     # Gloss-Einträge bleiben in sections[] an ihrer korrekten Position
     # Die UI rendert type="gloss" Sections inline im Textfluss
     return result
@@ -298,11 +317,58 @@ def collect_glosses(verse_div) -> list[dict]:
 
 
 def collect_nhd(verse_div) -> str:
-    """Sammelt die nhd. Übersetzung eines Vers-divs."""
+    """Sammelt die nhd. Übersetzung eines Vers-divs als Fließtext."""
     nhd_note = verse_div.find(f'{{{TEI_NS}}}note[@type="translation_nhd"]')
-    if nhd_note is not None:
-        return clean_text(text_content(nhd_note))
-    return ''
+    if nhd_note is None:
+        return ''
+    p = nhd_note.find(f'{{{TEI_NS}}}p')
+    if p is not None:
+        return clean_text(text_content(p))
+    return clean_text(text_content(nhd_note))
+
+
+PSALTER_SIGLES = {'G', 'H'}        # eindeutig Psalter-Zeugen
+SOURCE_SIGLES = {'A', 'C', 'Br', 'RII', 'N'}  # eindeutig patristische Quellen
+# 'R' ist ambig:
+#   - in psalm_citation-Sections: R = Romanum-Psalter
+#   - in commentary/translation/gloss-Sections: R = Remigius (patristic)
+
+
+def disambiguate_sigles(section_type: str, sigles: list[str]) -> tuple[list[str], list[str]]:
+    """Teilt eine Sigles-Liste in (psalter_sigles, source_sigles).
+
+    Disambiguierung anhand des Section-Types fuer R (Romanum vs. Remigius).
+    Fuer alle anderen Sigles ist die Zuordnung eindeutig.
+    """
+    psalter, sources = [], []
+    for s in sigles:
+        if s in PSALTER_SIGLES:
+            psalter.append(s)
+        elif s in SOURCE_SIGLES:
+            sources.append(s)
+        elif s == 'R':
+            if section_type == 'psalm_citation':
+                psalter.append(s)
+            else:
+                sources.append(s)
+        else:
+            sources.append(s)  # Unbekannte Sigle vorsichtshalber als Quelle
+    return psalter, sources
+
+
+def collect_nhd_lines(verse_div) -> list[str]:
+    """Sammelt die zeilengetreue nhd. Übersetzung als Liste (Iteration 2 / US-9).
+
+    Liest die <l>-Elemente unter <note type="translation_nhd"><lg type="line-faithful">.
+    Fallback: leere Liste, wenn keine line-faithful-Daten vorhanden.
+    """
+    nhd_note = verse_div.find(f'{{{TEI_NS}}}note[@type="translation_nhd"]')
+    if nhd_note is None:
+        return []
+    lg = nhd_note.find(f'{{{TEI_NS}}}lg[@type="line-faithful"]')
+    if lg is None:
+        return []
+    return [clean_text(text_content(l)) for l in lg.findall(f'{{{TEI_NS}}}l') if text_content(l).strip()]
 
 
 def collect_sources(verse_div) -> list[dict]:
@@ -327,6 +393,10 @@ def collect_sources(verse_div) -> list[dict]:
 
         quote = cit.find(f'{{{TEI_NS}}}quote')
         latin = clean_text(rich_text_content(quote)) if quote is not None else ''
+        # Iteration 2 / BUG-11.5: source language from quote's xml:lang.
+        # Ermöglicht typografische Differenzierung im UI (kursiv fuer lat.,
+        # aufrecht fuer ahd.).
+        source_language = get_lang(quote) if quote is not None else 'la'
 
         tr_note = cit.find(f'{{{TEI_NS}}}note[@type="translation"]')
         german = clean_text(text_content(tr_note)) if tr_note is not None else ''
@@ -336,6 +406,7 @@ def collect_sources(verse_div) -> list[dict]:
             'name': name,
             'latin_text': latin,
             'german_translation': german,
+            'source_language': source_language or 'la',
         })
 
     return sources
@@ -404,12 +475,17 @@ def collect_wiener_notker(tei_root) -> dict:
 # Cross-verse hyphenation fix
 # ---------------------------------------------------------------------------
 
-def fix_cross_verse_hyphens(verses: list[dict]):
-    """
-    Löst Silbentrennungen an Versgruppen-Grenzen auf.
-    Wenn der letzte Section-Text eines Verses mit '-' endet und der
-    nächste Vers (mit Daten) eine erste Section gleichen Typs hat,
-    werden die Texte zusammengeführt.
+def merge_cross_verse_hyphens(verses: list[dict]):
+    """Loest die Textseite der Cross-Verse-Silbentrennung im JSON auf.
+
+    Komplement zu chain_cross_verse_hyphens (build_tei.py): das TEI verkettet
+    semantisch via @part="I"/"F" + @next/@prev, behaelt aber die getrennten
+    Texte fuer Vers-Treue. Das JSON ist das UI-Format, in dem die Texte fuer
+    die Lese-Anzeige zusammengefuehrt werden ("han-" + "gta" -> "hangta").
+
+    Wenn der letzte Section-Text eines Verses mit '-' endet und der naechste
+    Vers eine erste Section gleichen Typs hat, werden die Texte (und sigles)
+    zusammengefuehrt und die erste Section des Folgeverses entfernt.
     """
     real_verses = [v for v in verses if v.get('sections')]
     for i in range(len(real_verses) - 1):
@@ -426,10 +502,11 @@ def fix_cross_verse_hyphens(verses: list[dict]):
             # Merge: "han-" + "gta iz..." → "hangta iz..."
             merged = merge_hyphenated(last_sec['text'], first_sec['text'])
             last_sec['text'] = merged
-            # Sigles zusammenführen
-            for s in first_sec.get('source_sigles', []):
-                if s not in last_sec.get('source_sigles', []):
-                    last_sec.setdefault('source_sigles', []).append(s)
+            # Disambiguierte Sigles zusammenfuehren (sigles_psalter + sigles_sources)
+            for field in ('sigles_psalter', 'sigles_sources'):
+                for s in first_sec.get(field, []):
+                    if s not in last_sec.get(field, []):
+                        last_sec.setdefault(field, []).append(s)
             # Erste Section des nächsten Verses entfernen
             nxt['sections'] = nxt['sections'][1:]
 
@@ -479,6 +556,7 @@ def tei_to_json(tei_path: str) -> dict:
         sections = collect_segments(verse_div)
         glosses = collect_glosses(verse_div)
         nhd = collect_nhd(verse_div)
+        nhd_lines = collect_nhd_lines(verse_div)
         sources = collect_sources(verse_div)
 
         # Für Versgruppen: alle Daten unter der ersten Versnummer,
@@ -491,6 +569,7 @@ def tei_to_json(tei_path: str) -> dict:
                     'sections': sections,
                     'glosses': glosses,
                     'translation_nhd': nhd,
+                    'translation_nhd_lines': nhd_lines,
                     'sources': sources,
                 })
             else:
@@ -502,12 +581,13 @@ def tei_to_json(tei_path: str) -> dict:
                     'sections': [],
                     'glosses': [],
                     'translation_nhd': '',
+                    'translation_nhd_lines': [],
                     'sources': [],
                 })
 
     # Post-Processing: Silbentrennungen an Versgruppen-Grenzen auflösen
     # z.B. V1-2 endet "han-", V3-5 beginnt "gta iz" → "hangta iz"
-    fix_cross_verse_hyphens(result['verses'])
+    merge_cross_verse_hyphens(result['verses'])
 
     # Vers 13 fehlt in der DOCX-Versstruktur (Probeseite hat nur "2,12" als
     # Überschrift, aber der Text deckt Verse 12 und 13 ab). Vers 13 ergänzen.
@@ -530,31 +610,74 @@ def tei_to_json(tei_path: str) -> dict:
 # Main
 # ---------------------------------------------------------------------------
 
-def main():
-    tei_path = Path(__file__).parent.parent / 'data' / 'tei' / 'psalm2.xml'
-    output_path = Path(__file__).parent.parent / 'data' / 'processed' / 'psalm2.json'
-
+def convert_psalm(psalm_num: int, tei_dir: Path, json_dir: Path) -> bool:
+    """Konvertiert psalm{N}.xml zu psalm{N}.json. True bei Erfolg."""
+    tei_path = tei_dir / f'psalm{psalm_num}.xml'
+    output_path = json_dir / f'psalm{psalm_num}.json'
     if not tei_path.exists():
-        print(f'FEHLER: {tei_path} nicht gefunden')
-        sys.exit(1)
-
-    print(f'Lese TEI: {tei_path}')
+        print(f'  Skip Psalm {psalm_num}: {tei_path.name} nicht vorhanden')
+        return False
+    print(f'  Lese: {tei_path.name}')
     result = tei_to_json(str(tei_path))
-
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-
-    print(f'JSON geschrieben: {output_path}')
-    print(f'  Verse: {len(result["verses"])}')
     total_sections = sum(len(v["sections"]) for v in result["verses"])
     total_glosses = sum(len(v["glosses"]) for v in result["verses"])
     total_sources = sum(len(v["sources"]) for v in result["verses"])
-    print(f'  Sections: {total_sections}')
-    print(f'  Glossen: {total_glosses}')
-    print(f'  Quellen: {total_sources}')
-    print(f'  Psalter-Zeugen: {len(result["psalm_text_comparison"]["witnesses"])}')
-    print(f'  Wiener Notker: {len(result["wiener_notker"]["text"])} Zeichen')
+    print(f'  -> {output_path.name}: {len(result["verses"])} Verse, '
+          f'{total_sections} Sections, {total_glosses} Glossen, {total_sources} Quellen')
+    return True
+
+
+def write_json_index(json_dir: Path) -> None:
+    """data/processed/index.json mit verfuegbaren Psalmen fuer das Frontend."""
+    psalms = []
+    for jf in sorted(json_dir.glob('psalm*.json')):
+        if jf.name == 'index.json':
+            continue
+        m = re.match(r'psalm(\d+)\.json', jf.name)
+        if m:
+            psalms.append(int(m.group(1)))
+    psalms.sort()
+    index = {'available_psalms': psalms, 'count': len(psalms),
+             'default': psalms[0] if psalms else None}
+    (json_dir / 'index.json').write_text(
+        json.dumps(index, ensure_ascii=False, indent=2), encoding='utf-8'
+    )
+    print(f'  JSON-Index: {len(psalms)} Psalm(en): {psalms}')
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='TEI-XML -> JSON Pipeline')
+    parser.add_argument('psalm', nargs='?', type=int, default=None,
+                        help='Psalm-Nummer. Ohne Argument: alle psalm*.xml in data/tei/')
+    args = parser.parse_args()
+
+    root = Path(__file__).parent.parent
+    tei_dir = root / 'data' / 'tei'
+    json_dir = root / 'data' / 'processed'
+
+    if args.psalm is not None:
+        if not convert_psalm(args.psalm, tei_dir, json_dir):
+            sys.exit(1)
+    else:
+        xml_files = sorted(tei_dir.glob('psalm*.xml'))
+        nums = []
+        for xf in xml_files:
+            m = re.match(r'psalm(\d+)\.xml', xf.name)
+            if m:
+                nums.append(int(m.group(1)))
+        nums.sort()
+        if not nums:
+            print(f'FEHLER: keine psalm*.xml in {tei_dir}')
+            sys.exit(1)
+        print(f'Konvertiere {len(nums)} Psalm(en): {nums}')
+        for n in nums:
+            convert_psalm(n, tei_dir, json_dir)
+
+    write_json_index(json_dir)
 
 
 if __name__ == '__main__':

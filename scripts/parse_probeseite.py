@@ -19,6 +19,154 @@ from docx.oxml.ns import qn
 
 
 # ---------------------------------------------------------------------------
+# Pipeline-Normalisierungen (ehemals Errata-Layer)
+# ---------------------------------------------------------------------------
+#
+# Textkorrekturen aus Pfeifer-Reviews werden direkt im Parser angewendet,
+# nicht als nachgelagerte Schicht. Damit bleibt die Pipeline linear:
+# DOCX -> parse -> classify -> TEI -> JSON.
+#
+# Wenn Pfeifer eine korrigierte DOCX liefert, in der die Stellen bereits
+# stimmen, sind die Replacements No-Ops (str.replace findet nichts).
+# Quelle aller Korrekturen: Pfeifer-Review 2026-04-15.
+
+PFEIFER_CORRECTIONS: list[tuple[str, str]] = [
+    # Cassiodor V1-2 (German)
+    ('In vier Teilen ist dieses Psalms', 'In vier Teile ist dieses Psalms'),
+    ('als sie Grüde des Zorns', 'als sie Gründe des Zorns'),
+    # Remigius V1-2 (German)
+    ('mehr über die Welt der Erde ausgebreitet', 'mehr über das Universum der Welt ausgebreitet'),
+    # Augustinus V3-5 (German) — Tippfehler
+    ('verplfichtet', 'verpflichtet'),
+    ('lasst und Arbeit tun, damit uns nicht', 'lasst und Arbeit tun, damit wir nicht'),
+    # Cassiodor V7 (German) — Abstand nach [...]
+    ('Vater [...]\u201eIch habe dich heute geboren', 'Vater [...] \u201eIch habe dich heute geboren'),
+    # Augustinus V7 (German) — Komma nach weil
+    ('nur die Gegenwart, weil was auch immer', 'nur die Gegenwart, weil, was auch immer'),
+    # Augustinus 2 V7 (German) — Streichung
+    ('womit er das ewige Geschlecht', 'womit das ewige Geschlecht'),
+    # Augustinus V8-9 (German) — Komma nach [...]
+    ('Vorstellung der Menschen [...] sodass', 'Vorstellung der Menschen [...], sodass'),
+    # Cassiodor V8-9 (German) — Tippfehler
+    ('in der unerlegenden Natur', 'in der unterlegenen Natur'),
+    # Cassiodor V12-13 (German) — Komma raus
+    ('gerechten Weg, das heißt, vom himmlichen', 'gerechten Weg, das heißt vom himmlichen'),
+    # Haupttext V3-5 ahd. — Wortgrenze
+    ('Prechen chádensie íro', 'Prechen cháden sie íro'),
+    # nhd. V3-5 — Komma raus
+    ('geht ihnen der Wille, gleichermaßen', 'geht ihnen der Wille gleichermaßen'),
+    # nhd. V3-5 — Komma rein
+    ('Der lebt im Himmel wird ver-', 'Der lebt im Himmel, wird ver-'),
+    # nhd. V3-5 — das/dass
+    ('war, das sie seine Vorherbestimmung', 'war, dass sie seine Vorherbestimmung'),
+    # nhd. V7 — Komma rein
+    ('Mein Vater sagte zu mir mein Sohn', 'Mein Vater sagte zu mir, mein Sohn'),
+    # nhd. V8-9 — Punkt rein
+    ('dein Erbe Welches ist das', 'dein Erbe. Welches ist das'),
+    # nhd. V8-9 — Punkt zu Komma
+    ('mit eisernem Stab . das ist unbeugsame', 'mit eisernem Stab, das ist unbeugsame'),
+    # nhd. V8-9 — Komma rein
+    ('mit eisernem Stab das heißt mit unbeugsamem', 'mit eisernem Stab, das heißt mit unbeugsamem'),
+    # nhd. V10-11 — Tippfehler
+    ('unterdrückt den Köper', 'unterdrückt den Körper'),
+    # nhd. V12 — Tippfehler
+    ('ihr nicht ableitet vom', 'ihr nicht abgleitet vom'),
+    # V8-9 intra-line: "Stab . das ist" -> "Stab, das ist" (Punkt durch Komma).
+    # Kommt im Fliesstext "eisernem Stab . das ist" vor.
+    ('eisernem Stab . das ist', 'eisernem Stab, das ist'),
+]
+
+
+# Korrekturen, die nur auf einzelnen <l>-Zeilen wirken (zeilengenaue nhd.-Uebersetzung).
+# Sie werden pro Zeile vor dem Einbau ins TEI angewendet (siehe build_tei.py).
+# Gruende:
+# - Die Patterns beziehen sich auf Zeilenende/Zeilenanfang eines <l> und wuerden
+#   im Fliesstext nicht matchen (Zeilenbegrenzung ist die semantische Einheit).
+# - Der frueher im finalen TEI-String verwendete Marker "</l>" war fragil gegen
+#   Formatierungs-Aenderungen.
+PFEIFER_LINE_CORRECTIONS: list[tuple[str, str]] = [
+    # V7: "Mein Vater sagte zu mir" am Zeilenende -> Komma anhaengen
+    ('Mein Vater sagte zu mir', 'Mein Vater sagte zu mir,'),
+    # V8-9: "dein Erbe" am Zeilenende -> Punkt anhaengen
+    ('gebe ich dir dein Erbe', 'gebe ich dir dein Erbe.'),
+    # V8-9: "Stab . das ist" als Zeilenanfang -> "Stab, das ist"
+    ('Stab . das ist unbeugsame', 'Stab, das ist unbeugsame'),
+    # V8-9: "mit eisernem Stab" am Zeilenende -> Komma anhaengen
+    ('richtest du mit eisernem Stab', 'richtest du mit eisernem Stab,'),
+    # V10-11: "den Köper" -> "den Körper" (Zeilenanfang nach "unterdrueckt")
+    ('den Köper.', 'den Körper.'),
+]
+
+
+def apply_corrections(text: str) -> str:
+    """Wendet die Pfeifer-Korrekturen auf einen aggregierten Text an.
+
+    Idempotent: erneutes Anwenden ist No-Op. Sicher gegen DOCX-Updates,
+    in denen die Korrekturen bereits enthalten sind.
+    """
+    if not text:
+        return text
+    for old, new in PFEIFER_CORRECTIONS:
+        if old in text:
+            text = text.replace(old, new)
+    return text
+
+
+def apply_line_corrections(line_text: str) -> str:
+    """Wendet zeilenbezogene Korrekturen auf einen einzelnen <l>-Text an.
+
+    Greift nur dann, wenn `line_text` exakt das Muster enthaelt, das am
+    Zeilenende/Zeilenanfang einer line-faithful-Zeile steht. Wird pro
+    Zeile von build_tei aufgerufen.
+    """
+    if not line_text:
+        return line_text
+    # Endungs-Muster: Zeile endet mit dem alten String (modulo trailing whitespace).
+    # Anfangs-Muster: Zeile faengt mit dem alten String an.
+    # Substring-Muster: String steht intra-line.
+    stripped = line_text.rstrip()
+    for old, new in PFEIFER_LINE_CORRECTIONS:
+        if stripped.endswith(old):
+            # "zu mir" am Ende -> "zu mir,"
+            line_text = stripped[:-len(old)] + new + line_text[len(stripped):]
+            stripped = line_text.rstrip()
+            continue
+        if old in line_text:
+            line_text = line_text.replace(old, new)
+            stripped = line_text.rstrip()
+    return line_text
+
+
+def normalize_whitespace_in_text_nodes(tei_text: str) -> str:
+    """Mehrfach-Leerzeichen in Element-Inhalten zusammenfassen.
+
+    Wirkt nur auf Text zwischen Tags (>...<), nicht auf Indentation. Behebt
+    DOCX-Artefakte wie "nämlich  seinen Namen" → "nämlich seinen Namen".
+
+    Erhalten bleiben:
+      - XML-Indentation (whitespace zwischen </X> und <Y>, kein Element-Inhalt)
+      - Einzelne Leerzeichen in Wort-Sequenzen
+    """
+    import re
+
+    def collapse(m):
+        before = m.group(1)
+        content = m.group(2)
+        after = m.group(3)
+        # Nur sammeln, wenn Content tatsächliche Wort-Inhalte hat (nicht nur whitespace)
+        if not content.strip():
+            return m.group(0)
+        # Multi-spaces in Wort-Inhalten zu single space (innerhalb des content)
+        collapsed = re.sub(r'  +', ' ', content)
+        return before + collapsed + after
+
+    # Match: zwischen > und < — Element-Text-Inhalte
+    return re.sub(r'(>)([^<]*)(<)', collapse, tei_text)
+
+
+
+
+# ---------------------------------------------------------------------------
 # Dataclasses (Zwischenformat)
 # ---------------------------------------------------------------------------
 
@@ -293,6 +441,13 @@ def detect_gloss_line(text_runs: list[Run], nhd: str, sigles: str) -> bool:
     # Text mit Punkt am Ende → eher Kommentar als Glosse
     # (Ausnahme: ".i." = id est, das ist eine Glosse)
     if full_text.endswith('.') and not full_text.startswith('.i.'):
+        return False
+
+    # Editorischer Auslassungsmarker "[...]" signalisiert Fortsetzung von Fließtext
+    # (Kommentar- oder Haupttext), nicht eine kurze Interlinearglosse.
+    # Pfeifer 2026-04-15 Review (V6 "ze_gótes sélbes ána-sihte. [...]"): als Haupttext,
+    # nicht als Glosse zu klassifizieren.
+    if '[...]' in full_text:
         return False
 
     # Vollständige Sätze mit Verb → Kommentar
