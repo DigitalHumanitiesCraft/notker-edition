@@ -88,6 +88,33 @@ def apply_corrections(text: str) -> str:
     return text
 
 
+def normalize_whitespace_in_text_nodes(tei_text: str) -> str:
+    """Mehrfach-Leerzeichen in Element-Inhalten zusammenfassen.
+
+    Wirkt nur auf Text zwischen Tags (>...<), nicht auf Indentation. Behebt
+    DOCX-Artefakte wie "nämlich  seinen Namen" → "nämlich seinen Namen".
+
+    Erhalten bleiben:
+      - XML-Indentation (whitespace zwischen </X> und <Y>, kein Element-Inhalt)
+      - Einzelne Leerzeichen in Wort-Sequenzen
+    """
+    import re
+
+    def collapse(m):
+        before = m.group(1)
+        content = m.group(2)
+        after = m.group(3)
+        # Nur sammeln, wenn Content tatsächliche Wort-Inhalte hat (nicht nur whitespace)
+        if not content.strip():
+            return m.group(0)
+        # Multi-spaces in Wort-Inhalten zu single space (innerhalb des content)
+        collapsed = re.sub(r'  +', ' ', content)
+        return before + collapsed + after
+
+    # Match: zwischen > und < — Element-Text-Inhalte
+    return re.sub(r'(>)([^<]*)(<)', collapse, tei_text)
+
+
 
 
 # ---------------------------------------------------------------------------

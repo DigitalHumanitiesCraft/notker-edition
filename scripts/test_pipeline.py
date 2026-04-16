@@ -357,7 +357,10 @@ def test_tei_part_chains(runner: TestRunner, root):
     if len(chain_starts) != len(chain_ends):
         issues.append(f'@part="I" ({len(chain_starts)}) ≠ @part="F" ({len(chain_ends)})')
 
-    # Prüfe konsekutive Verkettung innerhalb jedes Vers-divs
+    # Prüfe konsekutive Verkettung innerhalb jedes Vers-divs.
+    # Cross-Verse-Verkettungen (Wortteile ueber Vers-Grenzen) sind erlaubt: sie
+    # haben @next/@prev-Verweise auf das Pendant im naechsten Vers (xml:id mit
+    # Praefix "seg-cross-").
     for verse_div in root.findall('.//tei:div[@type="verse"]', NS):
         abs_in_verse = verse_div.findall('tei:ab', NS)
         part_segs = []
@@ -371,13 +374,20 @@ def test_tei_part_chains(runner: TestRunner, root):
         for seg in part_segs:
             part = seg.get('part')
             seg_type = seg.get('type')
+            seg_id = seg.get('{http://www.w3.org/XML/1998/namespace}id', '')
+            is_cross_verse = seg_id.startswith('seg-cross-')
 
             if part == 'I':
+                # Cross-Verse-I darf "offen" bleiben — ihr F steht im naechsten verse_div
                 if open_chain:
                     issues.append(f'Neue Kette startet bevor vorherige endet '
                                   f'(Vers {verse_div.get("n")}, Typ {seg_type})')
-                open_chain = seg_type
+                if not is_cross_verse:
+                    open_chain = seg_type
             elif part in ('M', 'F'):
+                if is_cross_verse and part == 'F':
+                    # Cross-Verse-F: I steht im vorherigen verse_div, kein open_chain noetig
+                    continue
                 if not open_chain:
                     issues.append(f'Verwaister @part="{part}" ohne vorheriges I '
                                   f'(Vers {verse_div.get("n")}, Typ {seg_type})')
@@ -560,7 +570,10 @@ def test_tei_verse_boundary_truncation(runner: TestRunner, root):
         last_seg = segs[-1]
         text = ''.join(last_seg.itertext()).rstrip()
         if text.endswith('-'):
-            # Prüfe ob nächster Vers-div mit Fortsetzung beginnt
+            # Cross-Verse-Verkettung via @part="I" mit @next ist OK — semantisch
+            # zusammengefuehrt, auch wenn der Text optisch noch geteilt ist.
+            if last_seg.get('part') == 'I' and last_seg.get('next'):
+                continue
             if i + 1 < len(verse_divs):
                 next_vd = verse_divs[i + 1]
                 next_abs = next_vd.findall('tei:ab', NS)

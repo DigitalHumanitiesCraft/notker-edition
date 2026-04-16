@@ -406,16 +406,18 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 | US-8.2 Schließen + Wiederherstellen | C | done | `53de31f` × pro Slot + Restore-Bar unten |
 | US-8.3 Content-Registry | C | done | `53de31f` `POOL`-Objekt, deklarativ erweiterbar |
 | US-9.1 Zeilengetreue nhd.-Übersetzung | C | done | TEI `<lg type="line-faithful">`, Edition rendert `.nhd-line` pro Zeile |
-| US-9.2 TEI-`<lb/>`-Erweiterung Grundtext | C | blocked | Grundtext-Zeilenumbrüche der Handschrift fehlen — Pfeifer-Input |
+| US-9.2 TEI-Zeilenstruktur Grundtext | C | done | `<ab n="X">` pro Notker-Zeile (war schon im TEI) plus `line_n` in jeder JSON-Section. Frontend hat `data-line`-Attribut. Echte Handschriften-Zeilenumbrüche der CSg 0021 weiterhin nur via DOCX-Tabelle abgeleitet, nicht aus dem Original gelesen. |
 | US-9.3 Vers-Anker für nhd.-Zeilen | C | done | Zeilen werden pro Vers extrahiert, kein Vers-Drift mehr |
-| US-10.1 Psalter-Filter | C.1 | done | G + R + H als Filter-Gruppe, R mit Disambiguierungs-Tooltip |
-| US-10.2 Siglen-Semantik klären | C | blocked | Erfordert Pfeifer-Bestätigung; `@cert="low"` gesetzt |
+| US-10.1 Psalter-Filter | C.1 | done | G + R + H als Filter-Gruppe |
+| US-10.2 Siglen-Semantik (R-Disambiguierung) | C | done | `disambiguate_sigles()` in `tei_to_json.py`: R in `psalm_citation` → Psalter-Romanum, sonst → Patristik-Remigius. JSON liefert `sigles_psalter` + `sigles_sources` getrennt. Filter-Keys mit Präfix `psa:`/`src:`. Pfeifer-Bestätigung weiterhin offen (semantisch korrekt nach Best-Effort-Heuristik). |
+| Cross-Verse-Hyphen im TEI verkettet | — | done | `chain_cross_verse_hyphens()` in `build_tei.py`: V1-2 `han-` und V3-5 `gta` jetzt mit `@part="I"`/`@part="F"` + `@xml:id`/`@next`/`@prev` semantisch verbunden |
+| Whitespace-Normalisierung | — | done | `normalize_whitespace_in_text_nodes()` in `parse_probeseite.py`: doppelte Leerzeichen in Element-Inhalten zusammengefasst |
 | Errata-Layer entfernt (Refactor) | — | done | `f49ff58` 779 Zeilen weg, jetzt Pipeline-Normalisierung |
 
 **Test-Bilanz:**
 - `tests/test_gloss_classification.py`: 6/6 grün
-- `scripts/test_pipeline.py`: 27 grün, 2 pre-existing Warnings (Trailing-Hyphen V7, doppeltes Leerzeichen Remigius V1-2 — beide Iteration-1-Altlasten, nicht in Pfeifer-Liste)
-- Browser-Smoke-Test (Playwright): 0 JS-Errors, alle Slot-Operationen verifiziert (mount, swap, close, restore, deep-link)
+- `scripts/test_pipeline.py`: **29/29 grün, 0 Warnings** (alle vorher bekannten WARN behoben — Cross-Verse-Hyphen jetzt via `@part`-Verkettung, doppeltes Leerzeichen via Whitespace-Normalisierung)
+- Browser-Smoke-Test (Playwright): 0 JS-Errors, R-Disambiguierung verifiziert (`src:R` → 16 Patristik-Sections, `psa:R` → 13 Psalter-Sections, keine Überlappung)
 
 **Artefakte auf der Branch** `iteration-2-pfeifer-review`:
 - `scripts/parse_probeseite.py` mit `PFEIFER_CORRECTIONS` + `apply_corrections()` (~80 Zeilen statt 762 Zeilen Errata-Layer)
@@ -425,8 +427,8 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 - `tests/test_gloss_classification.py` (6 Unit-Tests)
 - `knowledge/Pfeifer-Mail-Iteration-2a.md` (Mail-Draft)
 
-**Offen für Iteration 3 (extern blockiert):**
-- US-9.2 Grundtext zeilengetreu: braucht Daten zu Handschrift-Zeilenumbrüchen
-- US-10.2 R-Sigle endgültig disambiguieren: braucht Pfeifer-Klärung Remigius vs. Romanum
-- Augustinus-2-Korrekturen V3–5/V6: Pfeifer konnte wegen BUG-11.2 nicht prüfen, Nachreichung erwartet (BUG-11.2 ist gefixt, kann jetzt nachgereicht werden)
+**Offen für Iteration 3:**
+- Echte Handschriften-Zeilenumbrüche der CSg 0021: aktuell werden DOCX-Tabellenzeilen als Notker-Zeilen interpretiert. Wenn Pfeifer eine Sehrt/Tax-Edition mit expliziten Zeilenmarken liefert oder die Zeilen aus dem Facsimile manuell ableitet, könnte die Modellierung verfeinert werden.
+- R-Disambiguierung Bestätigung: Best-Effort-Heuristik (R in psalm_citation = Romanum, sonst Remigius) ist semantisch plausibel, aber Pfeifer-Bestätigung würde sie absichern.
+- Augustinus-2-Korrekturen V3–5/V6: Pfeifer konnte wegen BUG-11.2 nicht prüfen, Nachreichung erwartet (BUG-11.2 ist gefixt).
 - R-Sigel-Disambiguierung im TEI-Datenmodell (erfordert Pfeifer-Input)

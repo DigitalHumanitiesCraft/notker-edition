@@ -2602,8 +2602,15 @@ function parseUrlHash() {
   state.splitLanguages = p.get('split') === '1';
   if (p.has('qnhd')) state.showSourceNhd = p.get('qnhd') !== '0';
   if (p.has('src')) {
+    // Iteration 2 / US-10.2: filter-keys haben jetzt Praefix "src:" oder "psa:".
+    // Legacy-Format (nur Sigle, ohne Praefix) wird nach "src:" mit fallback
+    // konvertiert — alte Deep-Links bleiben funktional.
     state.sourceFilter.clear();
-    p.get('src').split(',').forEach(s => { if (s) state.sourceFilter.add(s); });
+    p.get('src').split(',').forEach(s => {
+      if (!s) return;
+      if (s.includes(':')) state.sourceFilter.add(s);
+      else state.sourceFilter.add('src:' + s);
+    });
   }
   // Iteration 2 / US-8: slots
   if (p.has('slots')) {
@@ -2889,7 +2896,7 @@ function syncUiToState() {
   document.querySelector('.toggle-btn[data-toggle="source-nhd"]')?.classList.toggle('active', state.showSourceNhd);
   document.getElementById('sources-panel')?.classList.toggle('hide-source-german', !state.showSourceNhd);
   document.querySelectorAll('.source-filter').forEach(el => {
-    el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
+    el.classList.toggle('active', state.sourceFilter.has(el.dataset.filterKey));
   });
   if (state.showNhd) document.querySelectorAll('.nhd-translation').forEach(el => el.classList.add('visible'));
   if (state.splitLanguages) {
@@ -2965,9 +2972,13 @@ function renderSourceFilters() {
       el.className = 'source-filter';
       el.dataset.sigle = s.sigle;
       el.dataset.group = g.group;
+      // Iteration 2 / US-10.2: filter-key kombiniert Gruppe + Sigle
+      // ("psa:R" fuer Romanum, "src:R" fuer Remigius)
+      const filterKey = (g.group === 'psalter' ? 'psa' : 'src') + ':' + s.sigle;
+      el.dataset.filterKey = filterKey;
       el.textContent = s.sigle;
       el.title = s.label;
-      el.onclick = () => toggleSourceFilter(s.sigle);
+      el.onclick = () => toggleSourceFilter(filterKey);
       row.appendChild(el);
     });
     container.appendChild(row);
@@ -3025,6 +3036,10 @@ function renderVerses() {
         secEl.dataset.type = sec.type;
         secEl.dataset.language = sec.language;
         if (sec.source_sigles) secEl.dataset.sigles = sec.source_sigles.join(',');
+        // Iteration 2 / US-9.2 + US-10.2: disambiguierte Sigles + Notker-Zeile
+        if (sec.sigles_psalter) secEl.dataset.siglesPsalter = sec.sigles_psalter.join(',');
+        if (sec.sigles_sources) secEl.dataset.siglesSources = sec.sigles_sources.join(',');
+        if (sec.line_n) secEl.dataset.line = sec.line_n;
         secEl.textContent = sec.text;
         if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
         interleaved.appendChild(secEl);
@@ -3210,14 +3225,15 @@ function toggleSplit() {
   updateUrlHash();
 }
 
-function toggleSourceFilter(sigle) {
-  if (state.sourceFilter.has(sigle)) {
-    state.sourceFilter.delete(sigle);
+function toggleSourceFilter(filterKey) {
+  // filterKey ist entweder "src:X" (Quelle) oder "psa:X" (Psalter).
+  if (state.sourceFilter.has(filterKey)) {
+    state.sourceFilter.delete(filterKey);
   } else {
-    state.sourceFilter.add(sigle);
+    state.sourceFilter.add(filterKey);
   }
   document.querySelectorAll('.source-filter').forEach(el => {
-    el.classList.toggle('active', state.sourceFilter.has(el.dataset.sigle));
+    el.classList.toggle('active', state.sourceFilter.has(el.dataset.filterKey));
   });
   updateSourceHighlights();
   updateSourcesPanel();
@@ -3225,15 +3241,21 @@ function toggleSourceFilter(sigle) {
 }
 
 function updateSourceHighlights() {
+  // Iteration 2 / US-10.2: state.sourceFilter speichert Eintraege mit Gruppen-Praefix
+  // (z.B. "psa:R" fuer Romanum-Psalter, "src:R" fuer Remigius-Quelle). Highlight
+  // wirkt auf das passende disambiguierte Feld.
   document.querySelectorAll('.section').forEach(el => {
     el.removeAttribute('data-highlight');
     if (state.sourceFilter.size === 0) return;
-    const sigles = (el.dataset.sigles || '').split(',');
-    for (const s of state.sourceFilter) {
-      if (sigles.includes(s)) {
-        el.dataset.highlight = s;
-        break;
-      }
+    const psaSigles = (el.dataset.siglesPsalter || '').split(',').filter(Boolean);
+    const srcSigles = (el.dataset.siglesSources || '').split(',').filter(Boolean);
+    for (const entry of state.sourceFilter) {
+      const [group, sigle] = entry.includes(':') ? entry.split(':') : ['any', entry];
+      let matched = false;
+      if (group === 'psa') matched = psaSigles.includes(sigle);
+      else if (group === 'src') matched = srcSigles.includes(sigle);
+      else matched = psaSigles.includes(sigle) || srcSigles.includes(sigle);
+      if (matched) { el.dataset.highlight = sigle; break; }
     }
   });
 }
@@ -3247,8 +3269,12 @@ function updateSourcesPanel() {
   }
 
   let filtered = verse.sources;
-  if (state.sourceFilter.size > 0) {
-    filtered = filtered.filter(s => state.sourceFilter.has(s.sigle));
+  // Iteration 2 / US-10.2: Quellen-Apparat zeigt nur Quellen-Sigles (src:X),
+  // nicht Psalter-Filter (psa:X). Wenn nur Psalter aktiv sind, alles zeigen.
+  const srcFilterActive = [...state.sourceFilter].filter(k => k.startsWith('src:'));
+  if (srcFilterActive.length > 0) {
+    const wantedSigles = new Set(srcFilterActive.map(k => k.split(':')[1]));
+    filtered = filtered.filter(s => wantedSigles.has(s.sigle));
   }
 
   if (filtered.length === 0) {

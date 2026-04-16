@@ -141,6 +141,11 @@ def collect_segments(verse_div) -> list[dict]:
         line_sigles = []
         if sigle_note is not None and sigle_note.text:
             line_sigles = parse_sigles(sigle_note.text)
+        # Iteration 2 / US-9.2: Notker-Zeilennummer aus <ab n="X">.
+        try:
+            line_n = int(ab.get('n', '0'))
+        except (TypeError, ValueError):
+            line_n = 0
 
         if ab.get('ana') == '#fn-gloss':
             # Glosse als Marker in den Segment-Stream einfügen
@@ -154,6 +159,7 @@ def collect_segments(verse_div) -> list[dict]:
                     'part': '',
                     'has_foreign': False,
                     'sigles': [],
+                    'line_n': line_n,
                     '_gloss_nhd': clean_text(text_content(nhd_note)) if nhd_note is not None else '',
                     '_gloss_target': gloss_el.get('target', '').lstrip('#'),
                 })
@@ -167,6 +173,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'part': seg.get('part', ''),
                 'has_foreign': has_foreign(seg),
                 'sigles': list(line_sigles),
+                'line_n': line_n,
             })
 
     # Phase 2: Verkettete Segmente zusammenführen
@@ -185,6 +192,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'text': seg['text'],
                 'language': tei_lang_to_json_lang(seg.get('lang', 'goh'), False),
                 'source_sigles': [],
+                'line_n': seg.get('line_n', 0),
                 'translation_nhd': seg.get('_gloss_nhd', ''),
                 'relates_to': seg.get('_gloss_target', ''),
             })
@@ -219,6 +227,7 @@ def collect_segments(verse_div) -> list[dict]:
                 'text': clean_text(chain_text),
                 'language': tei_lang_to_json_lang(seg['lang'], chain_has_foreign),
                 'source_sigles': list(dict.fromkeys(chain_sigles)),
+                'line_n': seg.get('line_n', 0),
             })
             i = j
 
@@ -231,6 +240,7 @@ def collect_segments(verse_div) -> list[dict]:
                     'text': text,
                     'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
                     'source_sigles': list(seg['sigles']),
+                    'line_n': seg.get('line_n', 0),
                 })
             i += 1
 
@@ -274,6 +284,13 @@ def collect_segments(verse_div) -> list[dict]:
         else:
             result.append(sec)
 
+    # Phase 4: Disambiguierung der Sigles in Psalter-Zeugen vs. patristische
+    # Quellen (R ist ambig: Romanum bei psalm_citation, sonst Remigius).
+    for sec in result:
+        psa, src = disambiguate_sigles(sec['type'], sec.get('source_sigles', []))
+        sec['sigles_psalter'] = psa
+        sec['sigles_sources'] = src
+
     # Gloss-Einträge bleiben in sections[] an ihrer korrekten Position
     # Die UI rendert type="gloss" Sections inline im Textfluss
     return result
@@ -306,6 +323,35 @@ def collect_nhd(verse_div) -> str:
     if p is not None:
         return clean_text(text_content(p))
     return clean_text(text_content(nhd_note))
+
+
+PSALTER_SIGLES = {'G', 'H'}        # eindeutig Psalter-Zeugen
+SOURCE_SIGLES = {'A', 'C', 'Br', 'RII', 'N'}  # eindeutig patristische Quellen
+# 'R' ist ambig:
+#   - in psalm_citation-Sections: R = Romanum-Psalter
+#   - in commentary/translation/gloss-Sections: R = Remigius (patristic)
+
+
+def disambiguate_sigles(section_type: str, sigles: list[str]) -> tuple[list[str], list[str]]:
+    """Teilt eine Sigles-Liste in (psalter_sigles, source_sigles).
+
+    Disambiguierung anhand des Section-Types fuer R (Romanum vs. Remigius).
+    Fuer alle anderen Sigles ist die Zuordnung eindeutig.
+    """
+    psalter, sources = [], []
+    for s in sigles:
+        if s in PSALTER_SIGLES:
+            psalter.append(s)
+        elif s in SOURCE_SIGLES:
+            sources.append(s)
+        elif s == 'R':
+            if section_type == 'psalm_citation':
+                psalter.append(s)
+            else:
+                sources.append(s)
+        else:
+            sources.append(s)  # Unbekannte Sigle vorsichtshalber als Quelle
+    return psalter, sources
 
 
 def collect_nhd_lines(verse_div) -> list[str]:

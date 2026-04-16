@@ -20,7 +20,13 @@
           "source_sigles": [
             "G",
             "R"
-          ]
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
@@ -29,7 +35,13 @@
           "source_sigles": [
             "G",
             "R"
-          ]
+          ],
+          "line_n": 2,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "translation",
@@ -39,6 +51,14 @@
             "G",
             "R",
             "C"
+          ],
+          "line_n": 2,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R",
+            "C"
           ]
         },
         {
@@ -46,8 +66,11 @@
           "text": "iúdon diêt",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 3,
           "translation_nhd": "Juden Volk",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
@@ -58,6 +81,15 @@
             "G",
             "R",
             "A"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "C",
+            "A"
           ]
         },
         {
@@ -66,6 +98,14 @@
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "G",
+            "R",
+            "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
             "R",
             "A"
           ]
@@ -78,6 +118,14 @@
             "G",
             "R",
             "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R",
+            "A"
           ]
         },
         {
@@ -88,6 +136,14 @@
             "A",
             "G",
             "R"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "R"
           ]
         },
         {
@@ -97,21 +153,35 @@
           "source_sigles": [
             "G",
             "R"
-          ]
+          ],
+          "line_n": 7,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "in gotes martyro",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 9,
           "translation_nhd": "in Gottes Martyrium",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "Tie lánt-chuninga uuâren gágenuuerte in passione domini",
           "language": "ahd_lat_mixed",
           "source_sigles": [
+            "C"
+          ],
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C"
           ]
         },
@@ -121,6 +191,11 @@
           "language": "ahd",
           "source_sigles": [
             "C"
+          ],
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
@@ -129,6 +204,11 @@
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "C"
+          ],
+          "line_n": 11,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
@@ -136,6 +216,11 @@
           "text": "unde uuíder sînemo geuuiêchten.",
           "language": "ahd",
           "source_sigles": [
+            "C"
+          ],
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C"
           ]
         },
@@ -147,6 +232,11 @@
             "C",
             "G",
             "R"
+          ],
+          "line_n": 13,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         }
       ],
@@ -235,13 +325,24 @@
           "source_sigles": [
             "G",
             "R"
-          ]
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "idest christi et apostolorum. Sús einoton sie sic(h).",
           "language": "ahd_lat_mixed",
           "source_sigles": [
+            "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C"
           ]
         },
@@ -251,21 +352,32 @@
           "language": "ahd",
           "source_sigles": [
             "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
           "type": "commentary",
           "text": "Ne-lâzen unsich",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 4,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "christis uobunga",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 5,
           "translation_nhd": "Christi Glauben",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
@@ -274,6 +386,14 @@
           "source_sigles": [
             "A",
             "G",
+            "R"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
             "R"
           ]
         },
@@ -285,6 +405,14 @@
             "A",
             "G",
             "R"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "A"
           ]
         },
         {
@@ -292,6 +420,11 @@
           "text": "Ter in hímile bûet . ter spóttot íro . unde násesnûdet an_sîe.",
           "language": "ahd",
           "source_sigles": [
+            "C"
+          ],
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C"
           ]
         },
@@ -304,6 +437,15 @@
             "G",
             "R",
             "H"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "C",
+            "R"
           ]
         },
         {
@@ -311,16 +453,22 @@
           "text": "penêmida",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 10,
           "translation_nhd": "Vorherbestimmung",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": ".i. ténchende in uppe",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 12,
           "translation_nhd": "das heißt Denkende vergeblich",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
@@ -331,6 +479,15 @@
             "G",
             "R",
             "H"
+          ],
+          "line_n": 13,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
@@ -340,21 +497,33 @@
           "source_sigles": [
             "G",
             "H"
-          ]
+          ],
+          "line_n": 14,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "in ubertêilido lon sundon",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 16,
           "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "In iudicio tuôt er iz . so retributio peccatorum ist.",
           "language": "ahd_lat_mixed",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 17,
+          "sigles_psalter": [],
+          "sigles_sources": []
         }
       ],
       "glosses": [
@@ -465,6 +634,14 @@
             "G",
             "A",
             "C"
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         },
         {
@@ -473,6 +650,14 @@
           "language": "ahd",
           "source_sigles": [
             "G",
+            "C",
+            "A"
+          ],
+          "line_n": 2,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
             "C",
             "A"
           ]
@@ -485,6 +670,14 @@
             "G",
             "A",
             "C"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         },
         {
@@ -493,6 +686,14 @@
           "language": "ahd",
           "source_sigles": [
             "G",
+            "A",
+            "C"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
             "A",
             "C"
           ]
@@ -507,6 +708,16 @@
             "C",
             "R",
             "N"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C",
+            "R",
+            "N"
           ]
         },
         {
@@ -514,6 +725,12 @@
           "text": "daz chit latine specula . in únsera uuîs uuarta. Der bezêichnenet ȩcclesiam . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde ze_gótes sélbes ána-sihte. [...]",
           "language": "ahd_lat_mixed",
           "source_sigles": [
+            "C",
+            "A"
+          ],
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C",
             "A"
           ]
@@ -596,6 +813,14 @@
             "G",
             "R",
             "H"
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
           ]
         },
         {
@@ -606,21 +831,36 @@
             "G",
             "R",
             "H"
-          ]
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "âna zît",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 2,
           "translation_nhd": "ohne Zeit",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
           "text": "hodie genui te .",
           "language": "lat",
           "source_sigles": [
+            "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C"
           ]
         },
@@ -630,6 +870,11 @@
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
@@ -638,6 +883,11 @@
           "language": "ahd",
           "source_sigles": [
             "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
@@ -645,14 +895,22 @@
           "text": "irgân-",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 4,
           "translation_nhd": "vergan-",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "mîn sun bist du . hiûto gebár ih tih.",
           "language": "ahd",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         },
@@ -662,6 +920,11 @@
           "language": "ahd",
           "source_sigles": [
             "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
           ]
         },
         {
@@ -669,14 +932,22 @@
           "text": "gen chúnftîg",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 6,
           "translation_nhd": "gen künftig",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
           "text": "Postula a me et",
           "language": "lat",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         }
@@ -735,7 +1006,14 @@
             "G",
             "R",
             "H"
-          ]
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "translation",
@@ -745,6 +1023,14 @@
             "G",
             "R",
             "H"
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
           ]
         },
         {
@@ -756,6 +1042,15 @@
             "R",
             "H",
             "A"
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R",
+            "A"
           ]
         },
         {
@@ -764,6 +1059,11 @@
           "language": "ahd",
           "source_sigles": [
             "A"
+          ],
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
           ]
         },
         {
@@ -771,8 +1071,11 @@
           "text": "alle liûte",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 3,
           "translation_nhd": "alle Völker",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
@@ -782,6 +1085,14 @@
             "G",
             "R",
             "H"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "R"
           ]
         },
         {
@@ -792,13 +1103,25 @@
             "G",
             "R",
             "H"
-          ]
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G",
+            "R",
+            "H"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "Vnde gíbo ih tir ze_besízzene . énde déro erdo .",
           "language": "ahd",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         },
@@ -807,6 +1130,11 @@
           "text": "déro dû bítest.",
           "language": "ahd",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         },
@@ -817,6 +1145,13 @@
           "source_sigles": [
             "G",
             "R"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
           ]
         },
         {
@@ -826,7 +1161,13 @@
           "source_sigles": [
             "G",
             "R"
-          ]
+          ],
+          "line_n": 7,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
@@ -834,6 +1175,13 @@
           "language": "ahd_lat_mixed",
           "source_sigles": [
             "G",
+            "R"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
             "R"
           ]
         },
@@ -844,6 +1192,13 @@
           "source_sigles": [
             "G",
             "R"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
           ]
         },
         {
@@ -852,33 +1207,52 @@
           "language": "ahd",
           "source_sigles": [
             "A"
+          ],
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
           ]
         },
         {
           "type": "psalm_citation",
           "text": "Tamquam uas figuli confringes eos.",
           "language": "lat",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "Sámoso",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "uuerlt-lúste",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 11,
           "translation_nhd": "Weltlüste",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "háfenâres faz ferbríchest tû sie.",
           "language": "ahd",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         },
@@ -887,6 +1261,11 @@
           "text": "Terrenas concupiscentias férbríchest tu an ín.",
           "language": "ahd_lat_mixed",
           "source_sigles": [
+            "A"
+          ],
+          "line_n": 12,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         }
@@ -970,25 +1349,45 @@
             "G",
             "R",
             "C"
+          ],
+          "line_n": 1,
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": [
+            "C"
           ]
         },
         {
           "type": "translation",
           "text": "Vnde nu fernément chúninga.",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "Chúninga déro erdo .",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
           "language": "ahd",
           "source_sigles": [
+            "A",
+            "C"
+          ],
+          "line_n": 3,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A",
             "C"
           ]
@@ -1001,6 +1400,14 @@
             "A",
             "C",
             "G"
+          ],
+          "line_n": 4,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         },
         {
@@ -1009,7 +1416,12 @@
           "language": "ahd",
           "source_sigles": [
             "G"
-          ]
+          ],
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
@@ -1019,6 +1431,14 @@
             "G",
             "A",
             "C"
+          ],
+          "line_n": 5,
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         },
         {
@@ -1026,6 +1446,12 @@
           "text": "Seruite domino in timore.",
           "language": "lat",
           "source_sigles": [
+            "A",
+            "C"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A",
             "C"
           ]
@@ -1038,6 +1464,13 @@
             "A",
             "C",
             "Br"
+          ],
+          "line_n": 6,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C",
+            "Br"
           ]
         },
         {
@@ -1045,6 +1478,11 @@
           "text": "Daz nehéue iûuh . daz ir reges kenámot pirnt.",
           "language": "ahd_lat_mixed",
           "source_sigles": [
+            "Br"
+          ],
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "Br"
           ]
         },
@@ -1054,13 +1492,23 @@
           "language": "lat",
           "source_sigles": [
             "R"
-          ]
+          ],
+          "line_n": 8,
+          "sigles_psalter": [
+            "R"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "Vnde rîdono sînt ímo frô.",
           "language": "ahd",
           "source_sigles": [
+            "R"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "R"
           ]
         },
@@ -1069,6 +1517,11 @@
           "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
           "language": "ahd",
           "source_sigles": [
+            "R"
+          ],
+          "line_n": 8,
+          "sigles_psalter": [],
+          "sigles_sources": [
             "R"
           ]
         }
@@ -1149,77 +1602,113 @@
           "type": "psalm_citation",
           "text": "Apprehendite disciplinam nequando irascatur dominus . et pereatis de uia iusta.",
           "language": "lat",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 1,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "Lírnent zúht . unde uuésent in égi .",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "daz sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába rehtemo uuége.",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 2,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 4,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
           "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
           "language": "lat",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 5,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "kerich",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 6,
           "translation_nhd": "Gericht?",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "So sîn zorn irhêizzet in spûote",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": ". unde uindicta",
           "language": "ahd_lat_mixed",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 7,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
           "text": "in slago dero brâuuo",
           "language": "ahd",
           "source_sigles": [],
+          "line_n": 8,
           "translation_nhd": "im Schlag der Brauen",
-          "relates_to": ""
+          "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "chúmet in ictu oculi .",
           "language": "ahd_lat_mixed",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
           "text": "so sint sâlig . diê sih ze_ímo fersêhent.",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 9,
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
           "text": "(Staatsbibliothek Bamberg Ms. 44)",
           "language": "ahd",
-          "source_sigles": []
+          "source_sigles": [],
+          "line_n": 10,
+          "sigles_psalter": [],
+          "sigles_sources": []
         }
       ],
       "glosses": [

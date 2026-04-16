@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="goh">
   <teiHeader>
     <fileDesc>
@@ -178,7 +176,7 @@
           </ab>
           <ab n="13">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">mo geuuiêchten. </seg>
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I" xml:id="seg-cross-1-i" next="#seg-cross-1-f">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
           </ab>
@@ -213,7 +211,7 @@
             <cit ana="#src-R">
               <bibl>Remigius</bibl>
               <quote xml:lang="la">Sed hoc meditatio inanis fuit, quia ad nullum effectum peruenit. Quod enim amplius nomen eius obscurare uolerunt, eo amplius per uniuersum mundum dilatatum est.</quote>
-              <note type="translation" resp="#pfeifer" xml:lang="de">Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich  seinen Namen mehr verdecken wollten, ist dieser mehr über das Universum der Welt ausgebreitet.</note>
+              <note type="translation" resp="#pfeifer" xml:lang="de">Aber dieses Nachdenken ist sinnlos, weil es zu keinem Effekt führt. Weil (sie) nämlich seinen Namen mehr verdecken wollten, ist dieser mehr über das Universum der Welt ausgebreitet.</note>
             </cit>
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
@@ -229,7 +227,7 @@
         </div>
         <div type="verse" n="3-5">
           <ab n="1">
-            <seg type="commentary" ana="#fn-comm" xml:lang="goh">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
+            <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F" xml:id="seg-cross-1-f" prev="#seg-cross-1-i">gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Disrum-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>

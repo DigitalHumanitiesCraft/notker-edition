@@ -11,7 +11,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from parse_probeseite import parse_probeseite, PsalmData, SourceEntry, apply_corrections
+from parse_probeseite import parse_probeseite, PsalmData, SourceEntry, apply_corrections, normalize_whitespace_in_text_nodes
 from classify_layers import (
     classify_and_enrich, EnrichedVerseGroup, EnrichedLine, EnrichedSegment
 )
@@ -580,18 +580,86 @@ def main():
     # Pipeline-interne Textnormalisierung (Pfeifer-Korrekturen, vormals Errata-Layer).
     # Wirkt auf den fertigen TEI-String, weil einige Korrekturen Zeilenumbrueche
     # ueberbruecken (Pfeifer hat zeilengetreu uebersetzt, daher Bindestriche).
+    # Plus: generische Whitespace-Normalisierung (DOCX-Artefakte wie doppelte
+    # Leerzeichen) und Cross-Verse-Hyphen-Verkettung (han-/gta).
     with open(output_path, encoding='utf-8') as f:
         tei_text = f.read()
-    normalized = apply_corrections(tei_text)
-    if normalized != tei_text:
+    step1 = apply_corrections(tei_text)
+    step2 = normalize_whitespace_in_text_nodes(step1)
+    step3 = chain_cross_verse_hyphens(step2)
+    if step3 != tei_text:
         with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
-            f.write(normalized)
-        print(f'  Normalisierung: Pfeifer-Korrekturen angewendet ({len(normalized) - len(tei_text):+d} Zeichen)')
+            f.write(step3)
+        delta = len(step3) - len(tei_text)
+        print(f'  Normalisierung: Pfeifer-Korrekturen + Whitespace + Cross-Verse-Hyphen ({delta:+d} Zeichen)')
 
     # Statistik
     xml_str = etree.tostring(tei, encoding='unicode', pretty_print=True)
     print(f'  Dateigröße: {len(xml_str.encode("utf-8")):,} Bytes')
     print(f'  Zeilen: {xml_str.count(chr(10)):,}')
+
+def chain_cross_verse_hyphens(tei_text: str) -> str:
+    """Verkettet Wortteile, die ueber Vers-Grenzen geteilt sind.
+
+    Wenn das letzte <seg> eines Verses mit "-" endet und das erste <seg>
+    des naechsten Verses gleichen Typs hat, fuegen wir TEI-Verkettung an:
+      - last seg bekommt @part="I", @xml:id="seg-X-i", @next="#seg-X-f"
+      - first seg des naechsten Verses bekommt @part="F", @xml:id="seg-X-f", @prev="#seg-X-i"
+
+    Idempotent (sucht nach part-Attributen).
+    """
+    import re
+    from lxml import etree
+
+    parser = etree.XMLParser(remove_blank_text=False)
+    root = etree.fromstring(tei_text.encode('utf-8'), parser)
+    ns = {'t': 'http://www.tei-c.org/ns/1.0'}
+
+    verse_divs = root.findall('.//t:div[@type="verse"]', ns)
+    chain_id = 0
+    changes = 0
+
+    for i in range(len(verse_divs) - 1):
+        curr = verse_divs[i]
+        nxt = verse_divs[i + 1]
+
+        # Letztes seg im current verse mit Trailing-Hyphen
+        curr_segs = curr.findall('.//t:seg', ns)
+        nxt_segs = nxt.findall('.//t:seg', ns)
+        if not curr_segs or not nxt_segs:
+            continue
+
+        last_seg = curr_segs[-1]
+        first_seg = nxt_segs[0]
+
+        # Skip wenn schon verkettet
+        if last_seg.get('part') or first_seg.get('part'):
+            continue
+
+        last_text = ''.join(last_seg.itertext()).rstrip()
+        if not last_text.endswith('-'):
+            continue
+
+        if last_seg.get('type') != first_seg.get('type'):
+            continue
+
+        chain_id += 1
+        seg_i_id = f'seg-cross-{chain_id}-i'
+        seg_f_id = f'seg-cross-{chain_id}-f'
+
+        last_seg.set('part', 'I')
+        last_seg.set('{http://www.w3.org/XML/1998/namespace}id', seg_i_id)
+        last_seg.set('next', '#' + seg_f_id)
+        first_seg.set('part', 'F')
+        first_seg.set('{http://www.w3.org/XML/1998/namespace}id', seg_f_id)
+        first_seg.set('prev', '#' + seg_i_id)
+        changes += 1
+
+    if changes == 0:
+        return tei_text
+    # Re-serialize
+    return etree.tostring(root, encoding='unicode', xml_declaration=False)
+
 
 if __name__ == '__main__':
     main()
