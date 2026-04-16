@@ -20,6 +20,12 @@ from typing import Optional
 
 from lxml import etree
 
+# Windows-Konsolen sind per Default cp1252 — Pipeline-Output enthält Umlaute,
+# Pfeile und kombinierende Diakritika. UTF-8 erzwingen, sonst bricht report().
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
 # ---------------------------------------------------------------------------
 # Konfiguration
 # ---------------------------------------------------------------------------
