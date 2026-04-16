@@ -298,11 +298,29 @@ def collect_glosses(verse_div) -> list[dict]:
 
 
 def collect_nhd(verse_div) -> str:
-    """Sammelt die nhd. Übersetzung eines Vers-divs."""
+    """Sammelt die nhd. Übersetzung eines Vers-divs als Fließtext."""
     nhd_note = verse_div.find(f'{{{TEI_NS}}}note[@type="translation_nhd"]')
-    if nhd_note is not None:
-        return clean_text(text_content(nhd_note))
-    return ''
+    if nhd_note is None:
+        return ''
+    p = nhd_note.find(f'{{{TEI_NS}}}p')
+    if p is not None:
+        return clean_text(text_content(p))
+    return clean_text(text_content(nhd_note))
+
+
+def collect_nhd_lines(verse_div) -> list[str]:
+    """Sammelt die zeilengetreue nhd. Übersetzung als Liste (Iteration 2 / US-9).
+
+    Liest die <l>-Elemente unter <note type="translation_nhd"><lg type="line-faithful">.
+    Fallback: leere Liste, wenn keine line-faithful-Daten vorhanden.
+    """
+    nhd_note = verse_div.find(f'{{{TEI_NS}}}note[@type="translation_nhd"]')
+    if nhd_note is None:
+        return []
+    lg = nhd_note.find(f'{{{TEI_NS}}}lg[@type="line-faithful"]')
+    if lg is None:
+        return []
+    return [clean_text(text_content(l)) for l in lg.findall(f'{{{TEI_NS}}}l') if text_content(l).strip()]
 
 
 def collect_sources(verse_div) -> list[dict]:
@@ -484,6 +502,7 @@ def tei_to_json(tei_path: str) -> dict:
         sections = collect_segments(verse_div)
         glosses = collect_glosses(verse_div)
         nhd = collect_nhd(verse_div)
+        nhd_lines = collect_nhd_lines(verse_div)
         sources = collect_sources(verse_div)
 
         # Für Versgruppen: alle Daten unter der ersten Versnummer,
@@ -496,6 +515,7 @@ def tei_to_json(tei_path: str) -> dict:
                     'sections': sections,
                     'glosses': glosses,
                     'translation_nhd': nhd,
+                    'translation_nhd_lines': nhd_lines,
                     'sources': sources,
                 })
             else:
@@ -507,6 +527,7 @@ def tei_to_json(tei_path: str) -> dict:
                     'sections': [],
                     'glosses': [],
                     'translation_nhd': '',
+                    'translation_nhd_lines': [],
                     'sources': [],
                 })
 

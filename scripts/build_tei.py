@@ -318,18 +318,27 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
             pass
 
     # nhd. Übersetzung gesammelt pro Versgruppe (ohne Glossen-nhd)
-    nhd_parts = []
+    # Iteration 2 / US-9: Pfeifer hat zeilengetreu uebersetzt. Eine <l> pro
+    # line.nhd, plus weiterhin <p> mit Fliesstext fuer Backward-Compat.
+    nhd_lines = []
     for line in vg.lines:
         if not line.is_gloss and line.nhd:
-            # Whitespace normalisieren (DOCX-Artefakte)
             clean_nhd = ' '.join(line.nhd.split())
             if clean_nhd:
-                nhd_parts.append(clean_nhd)
-    if nhd_parts:
+                nhd_lines.append(clean_nhd)
+    if nhd_lines:
         nhd_note = SE(div, 'note', type='translation_nhd', resp='#pfeifer')
         set_xml_attr(nhd_note, 'lang', 'de')
+        # Fliesstext (vollstaendig korrigiert via apply_corrections am Pipeline-Ende,
+        # incl. cross-line patterns wie "mir mein Sohn" -> "mir, mein Sohn").
         p = SE(nhd_note, 'p')
-        p.text = ' '.join(nhd_parts)
+        p.text = ' '.join(nhd_lines)
+        # Zeilengetreue Variante: pro Zeile ein <l>. Intra-line Korrekturen werden
+        # vorab angewendet, damit die line-faithful-Anzeige sie auch traegt.
+        lg = SE(nhd_note, 'lg', type='line-faithful')
+        for line_text in nhd_lines:
+            l = SE(lg, 'l')
+            l.text = apply_corrections(line_text)
 
     # Quellenapparat
     if vg.sources:

@@ -1,7 +1,7 @@
 ---
 type: journal
 created: 2026-02-24
-updated: 2026-04-15
+updated: 2026-04-16
 tags: [notker, project-log]
 ---
 
@@ -203,14 +203,58 @@ testgetrieben (A.0 rot → A.1 grün → A.2 grün → A.3 manuell → A.4 E2E).
 4. Siglen G/R/H provisorisch als Psalter-Zeugen mit `@cert="low"`
 5. Research-Vault-Zugriff: kein Repo-Zugriff, Methoden-HTML/PDF als Ersatz
 
+## 2026-04-16 – Iteration 2b: Errata-Refactor, Slot-System, US-9 Zeilensynopse
+
+Nach Operator-Entscheidung „nicht auf Pfeifer-Videocall warten" Auslieferung
+der drei verbleibenden Architektur-Stories in einem Rutsch:
+
+**Errata-Refactor (`f49ff58`):** Auf Operator-Hinweis „Errata-Layer ist Overhead"
+das gesamte Errata-System entfernt. Statt YAML + dataclass + Loader + Tests
+(762 Zeilen Infrastruktur) eine einfache Liste `PFEIFER_CORRECTIONS: list[tuple[str, str]]`
+in `parse_probeseite.py` (~80 Zeilen) und ein Aufruf von `apply_corrections()`
+auf den fertigen TEI-String in `build_tei.py`. Pipeline ist jetzt linear:
+DOCX → parse → classify → build → normalize → write. Alle 21 Korrekturen
+weiterhin im finalen TEI; Tests grün.
+
+**US-8 Panel-Dropdowns (`53de31f`):** Drei feste Panels durch konfigurierbare
+Slots ersetzt. Pool-Registry mit 9 Inhalten (sources, edition, nhd, wiener,
+psalter G/R/H, facsimile, notes, comparison). DOM-Knoten werden zwischen
+Slots verschoben (single-instance pool, Auto-Swap). Restore-Bar am unteren
+Rand für geschlossene Slots. URL-Hash `slots=A:nhd,B:edition,C:psalter_g&closed=`.
+
+**Cleanup:** Edition-Tabs (Edition/Comparison/Wiener) aus dem Editor entfernt —
+Wiener Notker und Psalmtext-Vergleich sind jetzt eigenständige Pool-Einträge,
+keine Tabs mehr nötig. switchTab() und renderWiener() weg.
+
+**US-9 Zeilensynopse (nhd):** Pipeline schreibt zusätzlich `<lg type="line-faithful">`
+mit `<l>` pro line.nhd ins TEI; tei_to_json.py liefert `translation_nhd_lines: [str]`.
+Edition rendert die nhd. Übersetzung jetzt zeilengetreu (Trailing-Bindestriche
+bleiben als Trennungsmarkierung). Pool-Eintrag „Nhd. Übersetzung" rendert
+denselben Inhalt als Fließtext mit aufgelösten Bindestrichen
+(„ver- gegangen" → „vergegangen"). Cross-line-Korrekturen (z. B. „mir, mein Sohn")
+greifen via TEI-String-Normalize.
+
+**US-10.1 R-Sigle:** R im Psalter-Filter ergänzt mit explizitem Disambiguierungs-
+Tooltip („Sigle teilt sich mit Remigius im Quellenapparat"). Provisorisch
+bis zur Pfeifer-Klärung.
+
+**Browser-Walkthrough mit Playwright:** 0 JS-Errors, alle Slot-Operationen,
+Layer-Toggles, Vers-Klick-Sync, URL-Deep-Link, Cap-auf-2-geschlossene-Slots,
+Pool-Swap A↔C grün. Drei Screenshots in `C:/tmp/notker-iter2-*.png`.
+
+**Stand der Branch `iteration-2-pfeifer-review`:** alle aus Pfeifers Liste
+adressierbaren Punkte umgesetzt. Offen nur, was extern blockiert ist
+(Grundtext-Zeilenumbrüche der Handschrift, R-Disambiguierung-Klärung,
+Augustinus-2-Nachreichungen V3–5/V6).
+
 ## Offene Punkte
 
 ### Nächste Schritte
-- [ ] PR gegen `main` erstellen (Branch schon gepusht, URL in Abschlussbericht)
-- [ ] Augustinus-2-Korrekturen V3–5/V6 von Pfeifer nachreichen lassen
-- [ ] Videocall mit Pfeifer für Panel-Modell, Siglen-Semantik, Kursiv-Konvention,
-      Grundtext-Zeilenumbrüche
-- [ ] US-8 Panel-Dropdown umsetzen
+- [ ] PR gegen `main` erstellen (Branch noch nicht gepusht)
+- [ ] Augustinus-2-Korrekturen V3–5/V6 von Pfeifer nachreichen lassen — Scroll-Bug
+      ist gefixt, Pfeifer kann jetzt selbst prüfen
+- [ ] Videocall mit Pfeifer für: R-Sigle endgültig (Remigius vs. Romanum),
+      Grundtext-Zeilenumbrüche der Handschrift (Daten oder Quelle dafür)
 - [ ] Methoden-Paket (docs/methode.html stabilisieren + zitierbares PDF) für Antrag
 
 ### Bekannte Limitationen (Stand Iteration 2)

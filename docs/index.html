@@ -666,6 +666,13 @@ body {
   display: none;
 }
 .nhd-translation.visible { display: block; }
+.nhd-line {
+  /* Iteration 2 / US-9: zeilengetreue Wiedergabe — eine Notker-Zeile pro DOM-Zeile.
+     Trailing-Bindestriche stehen bewusst, sie zeigen die Zeilen-Trennung. */
+  display: block;
+  margin: 0;
+  padding: 0;
+}
 
 /* Split view — lat./ahd. columns */
 .verse-split {
@@ -1160,30 +1167,15 @@ body {
         Psalmenkommentar lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen
         Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
         einzeln sichtbar und navigierbar.
-        <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L).
+        <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L). Über die <strong style="color:hsl(0,0%,40%)">Auswahl-Felder</strong> jedes Bereichs können Sie wählen, was links, in der Mitte und rechts angezeigt wird.
         Klicken Sie auf einen Vers, um den Quellenapparat und das Digitalisat zu synchronisieren.</span>
         <span style="display:block; margin-top: 0.4rem;">Hs.: CSg 0021 · Ed.: Tax/Sehrt, S. R10–R13 ·
         <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none;">Editionsrichtlinien</a> ·
         <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a></span>
       </div>
-      <!-- Content tabs -->
-      <div class="content-tabs" id="content-tabs">
-        <button class="content-tab active" data-tab="edition" onclick="switchTab('edition')">Edition</button>
-        <button class="content-tab" data-tab="comparison" onclick="switchTab('comparison')">Psalmtext-Vergleich</button>
-        <button class="content-tab" data-tab="wiener" onclick="switchTab('wiener')">Wiener Notker</button>
-      </div>
-
-      <div id="tab-edition">
-        <div id="verses-container"></div>
-      </div>
-
-      <div id="tab-comparison" style="display:none">
-        <div id="comparison-container"></div>
-      </div>
-
-      <div id="tab-wiener" style="display:none">
-        <div id="wiener-container"></div>
-      </div>
+      <!-- Iteration 2 / US-8: Wiener Notker und Psalmtext-Vergleich sind jetzt
+           eigene Pool-Eintraege. Edition zeigt nur noch Notkers Text. -->
+      <div id="verses-container"></div>
     </div>
   </main>
 
@@ -1211,6 +1203,12 @@ body {
   <div class="pool-content" id="pool-psalter">
     <div class="pool-psalter-meta" id="pool-psalter-meta"></div>
     <div class="pool-psalter-text" id="pool-psalter-body"></div>
+  </div>
+
+  <!-- Pool: Psalmtext-Vergleich (synoptische Tabelle aller fuenf Zeugen) -->
+  <div class="pool-content" id="pool-comparison">
+    <div class="pool-nhd-meta">Synoptische Darstellung der fünf Textzeugen (G, R, H, A-Psalter, C-Psalter).</div>
+    <div id="comparison-container"></div>
   </div>
 
   <!-- Pool: Anmerkungen (Editorisches) -->
@@ -2726,6 +2724,11 @@ const POOL = {
     templateId: 'facsimile-panel',
     onMount: () => { if (!window._osdInitialized) initOSD(); }
   },
+  comparison: {
+    label: 'Psalmtext-Vergleich (alle Zeugen)',
+    templateId: 'pool-comparison',
+    onMount: () => { if (!window._comparisonRendered) renderComparison(); }
+  },
   notes: {
     label: 'Anmerkungen',
     templateId: 'pool-notes',
@@ -2944,6 +2947,7 @@ function renderSourceFilters() {
       group: 'psalter',
       items: [
         { sigle: 'G', label: 'Gallicanum (Psalter-Zeuge, @cert=low)' },
+        { sigle: 'R', label: 'Romanum — Sigle teilt sich mit Remigius im Quellenapparat. Filter wirkt auf alle R-Markierungen, bis die Disambiguierung mit Pfeifer geklärt ist.' },
         { sigle: 'H', label: 'Hebraicum (Psalter-Zeuge, @cert=low)' },
       ],
     },
@@ -3076,7 +3080,18 @@ function renderVerses() {
     el.appendChild(splitView);
 
     // NHD translation (Design D-2: below verse)
-    if (verse.translation_nhd) {
+    // Iteration 2 / US-9: zeilengetreue Wiedergabe (Pfeifer hat zeilengenau
+    // uebersetzt). Bindestriche bleiben am Zeilenende erhalten — sie zeigen
+    // die Trennung zur naechsten Zeile, wie in der Druckedition.
+    if (verse.translation_nhd_lines && verse.translation_nhd_lines.length) {
+      const nhdEl = document.createElement('div');
+      nhdEl.className = 'nhd-translation';
+      nhdEl.innerHTML = verse.translation_nhd_lines.map(line =>
+        `<div class="nhd-line">${escHtml(line)}</div>`
+      ).join('');
+      if (state.showNhd) nhdEl.classList.add('visible');
+      el.appendChild(nhdEl);
+    } else if (verse.translation_nhd) {
       const nhdEl = document.createElement('div');
       nhdEl.className = 'nhd-translation';
       nhdEl.textContent = verse.translation_nhd;
@@ -3397,23 +3412,9 @@ function setupSlotDrag(dividerId, leftSlotId) {
 // BOOT
 // ============================================================================
 // ============================================================================
-// CONTENT TABS (Edition / Psalmtext-Vergleich / Wiener Notker)
+// HELPER: split continuous psalter text into verses
 // ============================================================================
 
-function switchTab(tabName) {
-  ['edition', 'comparison', 'wiener'].forEach(t => {
-    const el = document.getElementById('tab-' + t);
-    if (el) el.style.display = t === tabName ? '' : 'none';
-  });
-  document.querySelectorAll('.content-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.tab === tabName);
-  });
-  // Lazy-render comparison and wiener on first open
-  if (tabName === 'comparison' && !window._comparisonRendered) renderComparison();
-  if (tabName === 'wiener' && !window._wienerRendered) renderWiener();
-}
-
-// Split continuous text into verses at number+uppercase patterns (e.g. "1Quare", "2Astiterunt")
 function splitIntoVerses(text) {
   // Match verse numbers: digit(s) followed by uppercase letter (or "[" for lacunae)
   const parts = text.split(/(?=\d{1,2}[A-Z\[])/);
@@ -3435,6 +3436,7 @@ function formatVersedText(text) {
 function renderComparison() {
   window._comparisonRendered = true;
   const container = document.getElementById('comparison-container');
+  if (!container) return;
   const witnesses = EDITION_DATA.psalm_text_comparison?.witnesses || [];
   if (witnesses.length === 0) {
     container.innerHTML = '<p style="color: var(--color-muted); font-style: italic;">Keine Psalmtext-Vergleichsdaten vorhanden.</p>';
@@ -3449,38 +3451,22 @@ function renderComparison() {
   container.innerHTML = html;
 }
 
-function renderWiener() {
-  window._wienerRendered = true;
-  const container = document.getElementById('wiener-container');
-  const wn = EDITION_DATA.wiener_notker;
-  if (!wn || !wn.text) {
-    container.innerHTML = '<p style="color: var(--color-muted); font-style: italic;">Kein Wiener-Notker-Text vorhanden.</p>';
-    return;
-  }
-  container.innerHTML = `
-    <div class="wiener-header">${escHtml(wn.manuscript || '')} — Edition: ${escHtml(wn.edition || '')}</div>
-    <div class="wiener-text">${formatVersedText(wn.text)}</div>
-  `;
-}
-
 // ============================================================================
 // POOL CONTENT RENDERERS (Iteration 2 / US-8)
 // ============================================================================
 
 function renderPoolNhd() {
+  // Iteration 2 / US-9: Fliesstext-View der nhd. Uebersetzung. Nutzt
+  // translation_nhd (vollstaendig korrigiert via apply_corrections), entfernt
+  // Trennungs-Bindestriche am Zeilenende: "ver- gegangen" -> "vergegangen".
   const body = document.getElementById('pool-nhd-body');
   if (!body) return;
   const verses = EDITION_DATA.verses || [];
   body.innerHTML = verses.map(v => {
-    // Aggregate the nhd. translation per verse: each translation section + the
-    // dedicated translation_nhd field, joined by spaces. Pfeifer wrote line-faithful
-    // text, so we render verse-grouped paragraphs (line-faithful synopsis lives in US-9).
-    const parts = [];
-    if (v.translation_nhd) parts.push(v.translation_nhd);
-    (v.sections || []).filter(s => s.type === 'translation').forEach(s => {
-      if (s.text && !parts.includes(s.text)) parts.push(s.text);
-    });
-    const text = parts.join(' ');
+    let text = v.translation_nhd || '';
+    // Wort-Trennung an Notker-Zeilengrenzen aufloesen: "<wort>- <fortsetzung>"
+    // -> "<wort><fortsetzung>". Nur am Wortende (Bindestrich gefolgt von Space).
+    text = text.replace(/(\S)-\s+/g, '$1');
     if (!text.trim()) return '';
     return `<div class="pool-nhd-verse"><span class="verse-num">${v.number}</span>${escHtml(text)}</div>`;
   }).join('');

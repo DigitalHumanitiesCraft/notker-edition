@@ -389,47 +389,44 @@ Diese Entscheidungen sind DHCraft-seitig getroffen und gehen in den Videocall mi
 
 ---
 
-## Umsetzungs-Status (Stand 2026-04-15)
+## Umsetzungs-Status (Stand 2026-04-16)
 
-| Story | Phase | Status | Commit / Nachweis |
-|-------|-------|--------|-------------------|
-| US-12.1 Quellen-Übersetzungen (11 Korrekturen) | A | ✅ | `d5e8803` via `data/errata.yaml` pfeifer-01 bis pfeifer-11 |
-| US-12.2 Haupttext + nhd. (10 Korrekturen) | A | ✅ | `d5e8803` via `data/errata.yaml` pfeifer-12 bis pfeifer-21 |
-| US-12.3 V6-Glossen-Reklassifikation | A | ✅ | `1d06916` Parser-Heuristik, Glossen 14→13 |
-| BUG-11.1 Split-Toggle | A | ✅ | `efd7422` renderVerses State-Klassen; Screenshot bestätigt |
-| BUG-11.2 Sources-Panel-Scroll | A | ✅ | `efd7422` Flex-Container; Screenshot bestätigt |
-| BUG-11.3 ×-Button | A | ✅ | `efd7422` dedizierte `.collapsed`-Regel; Screenshot bestätigt |
-| BUG-11.4 Kontrast-Fade | B | ✅ | `f2eb99d` mask-image entfernt |
-| BUG-11.5 Kursiv nach Sprache | B | ✅ | `f2eb99d` Pipeline `source_language`, CSS-Regeln |
-| US-1.3-Erweiterung Quellen-Toggle | B | ✅ | `f2eb99d` Taste Q, Default an, URL-Hash `qnhd` |
-| US-10.1 Psalter-Filter | C.1 | 🟡 teilweise | `56a0955` G + H als Filter-Gruppe; R wegen Konflikt weggelassen |
-| US-10.2 Siglen-Semantik klären | C | ⏸ geblockt | Erfordert Pfeifer-Bestätigung; `@cert="low"` gesetzt |
-| US-8.1 Panel-Dropdown rechts | C | ⏳ offen | Bereit, wartet auf Operator-Go nach Videocall |
-| US-8.2 Schließen / Wiederherstellen | C | 🟡 teilweise | Schließen funktioniert (BUG-11.3), Wiederherstellen fehlt |
-| US-8.3 Content-Registry | C | ⏳ offen | Abhängig von US-8.1 |
-| US-9.1 Zeilengetreue Synopse | C | ⏸ geblockt | Grundtext-Zeilenumbrüche fehlen |
-| US-9.2 TEI-`<lb/>`-Erweiterung | C | ⏸ geblockt | dto. |
-| US-9.3 Vers-Grenzen vor Zeilen-Grenzen | C | ⏸ geblockt | dto. |
+| Story | Phase | Status | Nachweis |
+|-------|-------|--------|----------|
+| US-12.1 Quellen-Übersetzungen (11 Korrekturen) | A | done | `PFEIFER_CORRECTIONS` in `parse_probeseite.py` |
+| US-12.2 Haupttext + nhd. (10 Korrekturen) | A | done | `PFEIFER_CORRECTIONS` |
+| US-12.3 V6-Glossen-Reklassifikation | A | done | `1d06916` Parser-Heuristik, Glossen 14→13 |
+| BUG-11.1 Split-Toggle | A | done | `efd7422` |
+| BUG-11.2 Sources-Panel-Scroll | A | done | `efd7422` |
+| BUG-11.3 ×-Button | A | done | `efd7422`, Iteration 2 ersetzt durch slot-system × |
+| BUG-11.4 Kontrast-Fade | B | done | `f2eb99d` mask-image entfernt |
+| BUG-11.5 Kursiv nach Sprache | B | done | `f2eb99d` Pipeline `source_language`, CSS-Regeln |
+| US-1.3-Erweiterung Quellen-Toggle | B | done | `f2eb99d` Taste Q, Default an, URL-Hash `qnhd` |
+| US-8.1 Panel-Dropdown pro Feld | C | done | `53de31f` Slot-System mit 9-Eintrag-Pool |
+| US-8.2 Schließen + Wiederherstellen | C | done | `53de31f` × pro Slot + Restore-Bar unten |
+| US-8.3 Content-Registry | C | done | `53de31f` `POOL`-Objekt, deklarativ erweiterbar |
+| US-9.1 Zeilengetreue nhd.-Übersetzung | C | done | TEI `<lg type="line-faithful">`, Edition rendert `.nhd-line` pro Zeile |
+| US-9.2 TEI-`<lb/>`-Erweiterung Grundtext | C | blocked | Grundtext-Zeilenumbrüche der Handschrift fehlen — Pfeifer-Input |
+| US-9.3 Vers-Anker für nhd.-Zeilen | C | done | Zeilen werden pro Vers extrahiert, kein Vers-Drift mehr |
+| US-10.1 Psalter-Filter | C.1 | done | G + R + H als Filter-Gruppe, R mit Disambiguierungs-Tooltip |
+| US-10.2 Siglen-Semantik klären | C | blocked | Erfordert Pfeifer-Bestätigung; `@cert="low"` gesetzt |
+| Errata-Layer entfernt (Refactor) | — | done | `f49ff58` 779 Zeilen weg, jetzt Pipeline-Normalisierung |
 
-**Legende:** ✅ done · 🟡 teilweise · ⏳ offen · ⏸ geblockt (externe Abhängigkeit)
-
-**Test-Bilanz Phase A–C.1:**
-- `tests/test_errata.py`: 9/9 grün
+**Test-Bilanz:**
 - `tests/test_gloss_classification.py`: 6/6 grün
-- `scripts/test_pipeline.py`: 27 grün, 2 pre-existing Warnings (Iteration 1, keine Phase-A-Ziele)
-- **Gesamt: 42 grüne Tests**
+- `scripts/test_pipeline.py`: 27 grün, 2 pre-existing Warnings (Trailing-Hyphen V7, doppeltes Leerzeichen Remigius V1-2 — beide Iteration-1-Altlasten, nicht in Pfeifer-Liste)
+- Browser-Smoke-Test (Playwright): 0 JS-Errors, alle Slot-Operationen verifiziert (mount, swap, close, restore, deep-link)
 
 **Artefakte auf der Branch** `iteration-2-pfeifer-review`:
-- `data/errata.yaml` (21 Regeln)
-- `scripts/apply_errata.py` (YAML-Loader, Matcher, CLI)
-- `scripts/capture_bug_screenshots.py` (Playwright-Automatisierung)
-- `tests/test_errata.py`, `tests/test_gloss_classification.py`
-- `screenshots/iteration-2/{before,after}/` (5 Bildpaare)
+- `scripts/parse_probeseite.py` mit `PFEIFER_CORRECTIONS` + `apply_corrections()` (~80 Zeilen statt 762 Zeilen Errata-Layer)
+- `scripts/build_tei.py` mit normalize-Schritt + `<lg type="line-faithful">`
+- `scripts/tei_to_json.py` liefert `translation_nhd_lines: [str]` pro Vers
+- `docs/index.html` mit drei generischen Slots, 9-Eintrag-Pool, Restore-Bar, URL-Hash `slots=...&closed=...`
+- `tests/test_gloss_classification.py` (6 Unit-Tests)
 - `knowledge/Pfeifer-Mail-Iteration-2a.md` (Mail-Draft)
 
-**Bewusst weggelassen / für Iteration 3:**
-- Augustinus-2-Korrekturen V3–5/V6: Pfeifer konnte wegen BUG-11.2 nicht prüfen —
-  Nachreichung erwartet
-- Videocall-Entscheidungen (Panel-Modell final, Siglen-Semantik, Kursiv-Konvention
-  bestätigen, Grundtext-Zeilenumbrüche)
+**Offen für Iteration 3 (extern blockiert):**
+- US-9.2 Grundtext zeilengetreu: braucht Daten zu Handschrift-Zeilenumbrüchen
+- US-10.2 R-Sigle endgültig disambiguieren: braucht Pfeifer-Klärung Remigius vs. Romanum
+- Augustinus-2-Korrekturen V3–5/V6: Pfeifer konnte wegen BUG-11.2 nicht prüfen, Nachreichung erwartet (BUG-11.2 ist gefixt, kann jetzt nachgereicht werden)
 - R-Sigel-Disambiguierung im TEI-Datenmodell (erfordert Pfeifer-Input)
