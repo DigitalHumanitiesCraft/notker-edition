@@ -185,16 +185,29 @@ body {
   background: #fff;
   z-index: 10;
 }
+.header-brand {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.header-brand:hover .header-title { color: var(--color-psalm); }
 .header-title {
   font-family: var(--font-edition);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text);
   white-space: nowrap;
+  transition: color 0.15s;
 }
 .header-subtitle {
   font-size: var(--size-ui);
   color: hsl(0, 0%, 50%);
+}
+.header-links a.active {
+  color: var(--color-text);
+  font-weight: 600;
 }
 
 /* Header page links */
@@ -1100,10 +1113,10 @@ body {
 
 <!-- ===== HEADER ===== -->
 <header class="header">
-  <div>
+  <a href="index.html" class="header-brand" title="Zur Edition">
     <div class="header-title">Notker Psalmenkommentar</div>
     <div class="header-subtitle">Digitale Edition – Prototyp</div>
-  </div>
+  </a>
   <nav class="header-links" aria-label="Seiten-Navigation">
     <a href="richtlinien.html" title="Kodierungskonventionen der TEI-XML-Edition">Richtlinien</a>
     <a href="methode.html" title="Promptotyping-Methode, Datenfluss und technische Entscheidungen">Methode</a>
@@ -3026,6 +3039,13 @@ function syncUiToState() {
 function renderPsalmNav() {
   const nav = document.getElementById('psalm-nav');
   nav.innerHTML = '';
+  // Wenn nur ein Psalm verfuegbar ist (Prototyp-Zustand), macht die 1-150-
+  // Orientierungs-Leiste keinen Sinn — verstecken.
+  if (AVAILABLE_PSALMS.length <= 1) {
+    nav.style.display = 'none';
+    return;
+  }
+  nav.style.display = '';
   // Visuelle Orientierung in der Gesamtedition (1-150). Verfuegbare Psalmen
   // (aus data/processed/index.json) werden anklickbar gemacht, nicht
   // verfuegbare sind disabled. Der aktive Psalm (ACTIVE_PSALM) ist orange.

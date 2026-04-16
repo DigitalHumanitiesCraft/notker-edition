@@ -21,9 +21,32 @@ body {
   font-family: var(--font-ui);
   color: hsl(0, 0%, 15%);
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #fff;
+  flex-shrink: 0;
+}
+.site-header .brand { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.1rem; }
+.site-header .brand:hover .brand-title { color: var(--color-psalm); }
+.site-header .brand-title { font-family: var(--font-edition); font-size: 1.25rem; font-weight: 700; color: hsl(0,0%,15%); white-space: nowrap; transition: color 0.15s; }
+.site-header .brand-subtitle { font-family: var(--font-ui); font-size: 0.8rem; color: hsl(0,0%,50%); }
+.site-header .site-links { margin-left: auto; display: flex; gap: 1.25rem; font-family: var(--font-ui); font-size: 0.8rem; }
+.site-header .site-links a { color: hsl(0,0%,45%); text-decoration: none; transition: color 0.15s; }
+.site-header .site-links a:hover { color: var(--color-psalm); }
+.site-header .site-links a.active { color: hsl(0,0%,15%); font-weight: 600; }
+.vault-body {
   display: grid;
   grid-template-columns: 280px 1fr;
-  min-height: 100vh;
+  flex: 1;
+  min-height: 0;
 }
 aside {
   background: hsl(40, 15%, 97%);
@@ -58,29 +81,6 @@ aside nav a.active {
   color: #fff;
   font-weight: 500;
 }
-aside .back-link {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--color-muted);
-  margin-bottom: 0.75rem;
-  text-decoration: none;
-  padding: 0 0.25rem;
-}
-aside .back-link:hover { text-decoration: underline; }
-aside .site-nav {
-  display: flex;
-  gap: 0.75rem;
-  padding: 0 0.25rem 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border-light);
-  font-size: 0.75rem;
-}
-aside .site-nav a {
-  color: var(--color-psalm);
-  text-decoration: none;
-}
-aside .site-nav a:hover { text-decoration: underline; }
-aside .site-nav a.active { color: hsl(0, 0%, 30%); font-weight: 600; cursor: default; text-decoration: none; }
 aside .vault-info {
   margin-top: 2rem;
   padding: 0.75rem;
@@ -211,13 +211,21 @@ main a:hover { text-decoration: underline; }
 </head>
 <body>
 
-<aside>
-  <a href="index.html" class="back-link">&larr; Zurück zur Edition</a>
-  <nav class="site-nav">
+<header class="site-header">
+  <a href="index.html" class="brand" title="Zur Edition">
+    <span class="brand-title">Notker Psalmenkommentar</span>
+    <span class="brand-subtitle">Digitale Edition – Prototyp</span>
+  </a>
+  <nav class="site-links" aria-label="Seiten-Navigation">
     <a href="richtlinien.html">Richtlinien</a>
     <a href="methode.html">Methode</a>
     <a href="vault.html" class="active">Vault</a>
   </nav>
+</header>
+
+<div class="vault-body">
+
+<aside>
   <h2>Promptotyping-Vault</h2>
   <nav id="doc-list">
     <div class="loading">Lade Dokumente...</div>
@@ -239,6 +247,8 @@ main a:hover { text-decoration: underline; }
     </p>
   </div>
 </main>
+
+</div>
 
 <script>
 const VAULT_DIR = 'vault/';

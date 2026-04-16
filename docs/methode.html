@@ -13,10 +13,24 @@
   --color-psalm: hsl(15, 60%, 40%);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-edition); color: hsl(0,0%,15%); line-height: 1.7; max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
-nav { font-family: var(--font-ui); font-size: 0.8rem; margin-bottom: 2rem; color: hsl(0,0%,50%); }
-nav a { color: var(--color-psalm); text-decoration: none; }
-nav a:hover { text-decoration: underline; }
+body { font-family: var(--font-edition); color: hsl(0,0%,15%); line-height: 1.7; }
+main { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
+.site-header {
+  border-bottom: 1px solid hsl(0,0%,88%);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #fff;
+}
+.site-header .brand { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.1rem; }
+.site-header .brand:hover .brand-title { color: var(--color-psalm); }
+.site-header .brand-title { font-family: var(--font-edition); font-size: 1.25rem; font-weight: 700; color: hsl(0,0%,15%); white-space: nowrap; transition: color 0.15s; }
+.site-header .brand-subtitle { font-family: var(--font-ui); font-size: 0.8rem; color: hsl(0,0%,50%); }
+.site-header .site-links { margin-left: auto; display: flex; gap: 1.25rem; font-family: var(--font-ui); font-size: 0.8rem; }
+.site-header .site-links a { color: hsl(0,0%,45%); text-decoration: none; transition: color 0.15s; }
+.site-header .site-links a:hover { color: var(--color-psalm); }
+.site-header .site-links a.active { color: hsl(0,0%,15%); font-weight: 600; }
 h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
 .subtitle { font-family: var(--font-ui); font-size: 0.85rem; color: hsl(0,0%,50%); margin-bottom: 2rem; }
 h2 { font-size: 1.15rem; margin: 2rem 0 0.75rem; padding-bottom: 0.3rem; border-bottom: 1px solid hsl(0,0%,88%); }
@@ -45,7 +59,19 @@ footer a { color: hsl(0,0%,45%); }
 </head>
 <body>
 
-<nav><a href="index.html">&larr; Zurück zur Edition</a></nav>
+<header class="site-header">
+  <a href="index.html" class="brand" title="Zur Edition">
+    <span class="brand-title">Notker Psalmenkommentar</span>
+    <span class="brand-subtitle">Digitale Edition – Prototyp</span>
+  </a>
+  <nav class="site-links" aria-label="Seiten-Navigation">
+    <a href="richtlinien.html">Richtlinien</a>
+    <a href="methode.html" class="active">Methode</a>
+    <a href="vault.html">Vault</a>
+  </nav>
+</header>
+
+<main>
 
 <h1>Methode und technischer Aufbau</h1>
 <p class="subtitle">Vom Manuskript zur interaktiven Edition: Datenfluss, Werkzeuge und Entscheidungen</p>
@@ -149,5 +175,6 @@ footer a { color: hsl(0,0%,45%); }
   Notker Psalmenkommentar – Digitale Edition (Prototyp) · Dr. Philipp Pfeifer, Universität Graz · <a href="https://dhcraft.org">Digital Humanities Craft OG</a>
 </footer>
 
+</main>
 </body>
 </html>
