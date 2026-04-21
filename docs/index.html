@@ -123,6 +123,11 @@
   --color-src-R:  hsl(25, 70%, 50%);   /* Remigius — Orange */
   --color-src-Br: hsl(280, 40%, 55%);  /* Breviarium — Violett */
 
+  /* Psalter witness colors — Psalmtext-Zeugen, distinkt von Quellen-Farben */
+  --color-psa-G:  hsl(185, 55%, 35%);  /* Gallicanum — Teal */
+  --color-psa-H:  hsl(245, 35%, 48%);  /* Hebraicum — Indigo */
+  --color-psa-R:  hsl(340, 45%, 48%);  /* Romanum — Magenta-Rose (unterscheidbar von Remigius-Orange) */
+
   /* Functional colors */
   --color-active-verse: hsl(40, 15%, 96%);
   --color-panel-bg:     hsl(0, 0%, 97.5%);
@@ -258,6 +263,32 @@ body {
   opacity: 0.6;
 }
 
+/* Reset-Button in der Top-Nav (rechts): setzt Slot-Breiten + geschlossene Slots zurueck */
+.header-reset {
+  margin-left: 0.6rem;
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--size-ui-sm);
+  color: var(--color-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.header-reset:hover {
+  background: hsl(0, 0%, 95%);
+  color: var(--color-text);
+  border-color: var(--color-border-light);
+}
+.header-reset:focus { outline: none; border-color: var(--color-psalm); }
+@media (max-width: 899px) {
+  .header-reset { padding: 0.3rem 0.45rem; font-size: 0; }
+  .header-reset span { font-size: var(--size-ui); }
+}
+
 /* ========================================================================
    MAIN LAYOUT — Three panels
    ======================================================================== */
@@ -357,18 +388,16 @@ body {
 }
 .source-filter:hover { background: hsl(0, 0%, 93%); }
 .source-filter.active { border-color: currentColor; background: color-mix(in srgb, currentColor 10%, white); }
-.source-filter[data-sigle="A"] { color: var(--color-src-A); }
-.source-filter[data-sigle="C"] { color: var(--color-src-C); }
-.source-filter[data-sigle="R"] { color: var(--color-src-R); }
-.source-filter[data-sigle="Br"] { color: var(--color-src-Br); }
-/* Psalter-Gruppe hat eigene Farbe (gedeckt grau-blau, unterscheidbar) */
-.source-filter[data-group="psalter"] {
-  color: hsl(220, 25%, 45%);
-  border-style: dashed;
-}
-.source-filter[data-group="psalter"].active {
-  background: hsl(220, 25%, 93%);
-}
+/* Quellen-Chips (Kommentarquellen) — jeweils eigene Farbe */
+.source-filter[data-group="sources"][data-sigle="A"]  { color: var(--color-src-A); }
+.source-filter[data-group="sources"][data-sigle="C"]  { color: var(--color-src-C); }
+.source-filter[data-group="sources"][data-sigle="R"]  { color: var(--color-src-R); }
+.source-filter[data-group="sources"][data-sigle="Br"] { color: var(--color-src-Br); }
+/* Psalter-Chips — eigene Farben, gestrichelter Rand als Gruppen-Kennzeichen */
+.source-filter[data-group="psalter"] { border-style: dashed; }
+.source-filter[data-group="psalter"][data-sigle="G"] { color: var(--color-psa-G); }
+.source-filter[data-group="psalter"][data-sigle="H"] { color: var(--color-psa-H); }
+.source-filter[data-group="psalter"][data-sigle="R"] { color: var(--color-psa-R); }
 
 /* Source entries */
 .sources-content {
@@ -683,11 +712,15 @@ body {
 }
 .section.hidden { display: none; }
 
-/* Source highlight stripe */
-.section[data-highlight="A"] { border-left: 3px solid var(--color-src-A); padding-left: 0.5rem; }
-.section[data-highlight="C"] { border-left: 3px solid var(--color-src-C); padding-left: 0.5rem; }
-.section[data-highlight="R"] { border-left: 3px solid var(--color-src-R); padding-left: 0.5rem; }
-.section[data-highlight="Br"] { border-left: 3px solid var(--color-src-Br); padding-left: 0.5rem; }
+/* Source/Psalter-Highlight: Streifen werden per JS als linear-gradient auf
+   background-image gesetzt. Dadurch koennen sich mehrere Siglen auf derselben
+   Section stapeln (Bug 4 Fix). Padding-left wird ebenfalls per JS gesetzt,
+   damit mehrere Streifen Platz haben ohne den Text zu ueberlagern. */
+.section[data-highlight] {
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: auto 100%;
+}
 
 /* Glosses — inline, indented (Design D-1: resolved as inline) */
 .gloss {
@@ -830,9 +863,8 @@ body {
   background: var(--color-panel-bg);
   border-right: 1px solid var(--color-border);
   overflow: hidden;
-  min-width: 0;
+  min-width: 240px;
   flex: 1 1 0;
-  min-width: 220px;
 }
 .slot:last-child { border-right: none; }
 .slot.collapsed {
@@ -1123,6 +1155,9 @@ body {
     <a href="vault.html" title="Research-Vault: Domänenwissen, Anforderungen, Entscheidungen">Vault</a>
   </nav>
   <nav class="psalm-nav" aria-label="Psalm-Navigation" id="psalm-nav"></nav>
+  <button class="header-reset" type="button" onclick="resetLayout()" title="Alle Felder wieder öffnen und Breiten auf Startzustand zurücksetzen" aria-label="Ansicht zurücksetzen">
+    <span aria-hidden="true">↺</span> Ansicht zurücksetzen
+  </button>
 </header>
 
 <!-- ===== MAIN ===== -->
@@ -3450,23 +3485,60 @@ function toggleSourceFilter(filterKey) {
   updateUrlHash();
 }
 
+// Farb-Lookup fuer Highlight-Streifen. Keys sind "group:sigle" (matching
+// state.sourceFilter). Wird in updateSourceHighlights() verwendet, um pro
+// Section einen mehrfarbigen linear-gradient zu bauen.
+const SIGLE_STRIPE_COLORS = {
+  'src:A':  'var(--color-src-A)',
+  'src:C':  'var(--color-src-C)',
+  'src:R':  'var(--color-src-R)',
+  'src:Br': 'var(--color-src-Br)',
+  'psa:G':  'var(--color-psa-G)',
+  'psa:H':  'var(--color-psa-H)',
+  'psa:R':  'var(--color-psa-R)',
+};
+const STRIPE_WIDTH_PX = 3;
+const STRIPE_BASE_PADDING_REM = 0.4;
+const STRIPE_PER_MATCH_REM = 0.2;
+
 function updateSourceHighlights() {
-  // Iteration 2 / US-10.2: state.sourceFilter speichert Eintraege mit Gruppen-Praefix
-  // (z.B. "psa:R" fuer Romanum-Psalter, "src:R" fuer Remigius-Quelle). Highlight
-  // wirkt auf das passende disambiguierte Feld.
+  // Iteration 2 / Bug-3+4-Fix: state.sourceFilter speichert Eintraege mit
+  // Gruppen-Praefix ("psa:R" fuer Romanum, "src:R" fuer Remigius). Alle
+  // passenden Filter werden gesammelt (kein break) und als gestapelte
+  // Streifen am linken Rand der Section gerendert.
   document.querySelectorAll('.section').forEach(el => {
+    // Reset zuerst
     el.removeAttribute('data-highlight');
+    el.style.backgroundImage = '';
+    el.style.paddingLeft = '';
     if (state.sourceFilter.size === 0) return;
+
     const psaSigles = (el.dataset.siglesPsalter || '').split(',').filter(Boolean);
     const srcSigles = (el.dataset.siglesSources || '').split(',').filter(Boolean);
+
+    const matched = [];
     for (const entry of state.sourceFilter) {
       const [group, sigle] = entry.includes(':') ? entry.split(':') : ['any', entry];
-      let matched = false;
-      if (group === 'psa') matched = psaSigles.includes(sigle);
-      else if (group === 'src') matched = srcSigles.includes(sigle);
-      else matched = psaSigles.includes(sigle) || srcSigles.includes(sigle);
-      if (matched) { el.dataset.highlight = sigle; break; }
+      let isMatch = false;
+      if (group === 'psa') isMatch = psaSigles.includes(sigle);
+      else if (group === 'src') isMatch = srcSigles.includes(sigle);
+      else isMatch = psaSigles.includes(sigle) || srcSigles.includes(sigle);
+      if (isMatch) matched.push(entry);
     }
+    if (matched.length === 0) return;
+
+    // Jede Sigle bekommt einen 3px-Streifen, nebeneinander angeordnet.
+    // linear-gradient mit harten Kanten: "color N M" setzt die Farbe fix
+    // von N bis M Pixel (kein Farbverlauf dazwischen).
+    const stops = [];
+    matched.forEach((key, i) => {
+      const color = SIGLE_STRIPE_COLORS[key] || 'currentColor';
+      stops.push(`${color} ${i * STRIPE_WIDTH_PX}px ${(i + 1) * STRIPE_WIDTH_PX}px`);
+    });
+    stops.push(`transparent ${matched.length * STRIPE_WIDTH_PX}px`);
+    el.style.backgroundImage = `linear-gradient(to right, ${stops.join(', ')})`;
+    el.style.paddingLeft = `calc(${STRIPE_BASE_PADDING_REM}rem + ${matched.length * STRIPE_WIDTH_PX}px)`;
+    el.dataset.highlight = matched.join(' ');
   });
 }
 
@@ -3611,37 +3683,57 @@ function setupKeyboardShortcuts() {
 // ============================================================================
 
 function setupDividerDrag() {
-  // Iteration 2 / US-8: dividers between slots. Drag resizes the slot LEFT of
-  // the divider; the slot RIGHT of it absorbs the change via flex-grow.
-  setupSlotDrag('divider-AB', 'A');
-  setupSlotDrag('divider-BC', 'B');
+  // Symmetric drag: resizing affects only the two adjacent slots. Growing the
+  // left slot shrinks the right by the same dx (both respect min-width: 240).
+  // Non-adjacent slots are untouched — no more asymmetric "C absorbs everything".
+  // Reset via "Ansicht zurücksetzen"-Button in der Top-Nav.
+  setupSlotDrag('divider-AB', 'A', 'B');
+  setupSlotDrag('divider-BC', 'B', 'C');
 }
 
-function setupSlotDrag(dividerId, leftSlotId) {
+function setupSlotDrag(dividerId, leftSlotId, rightSlotId) {
   const divider = document.getElementById(dividerId);
-  const slot = document.querySelector('.slot[data-slot="' + leftSlotId + '"]');
-  if (!divider || !slot) return;
+  const leftSlot = document.querySelector('.slot[data-slot="' + leftSlotId + '"]');
+  const rightSlot = document.querySelector('.slot[data-slot="' + rightSlotId + '"]');
+  if (!divider || !leftSlot || !rightSlot) return;
 
-  let startX, startWidth;
+  const MIN = 240; // Must match .slot { min-width } in CSS
+
   divider.addEventListener('mousedown', e => {
     e.preventDefault();
-    startX = e.clientX;
-    startWidth = slot.offsetWidth;
+    const startX = e.clientX;
+    const startLeftW = leftSlot.offsetWidth;
+    const startRightW = rightSlot.offsetWidth;
     divider.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+
     const onMove = ev => {
-      const dx = ev.clientX - startX;
-      const w = Math.max(180, Math.min(800, startWidth + dx));
-      // Force fixed width on the left slot — flex on the others fills the rest
-      slot.style.flex = '0 0 ' + w + 'px';
+      let dx = ev.clientX - startX;
+      if (startLeftW + dx < MIN) dx = MIN - startLeftW;
+      if (startRightW - dx < MIN) dx = startRightW - MIN;
+      // flex-basis 1 1 N: both slots retain explicit width but can still shrink
+      // proportionally if the window itself becomes too narrow.
+      leftSlot.style.flex = '0 1 ' + (startLeftW + dx) + 'px';
+      rightSlot.style.flex = '0 1 ' + (startRightW - dx) + 'px';
     };
     const onUp = () => {
       divider.classList.remove('dragging');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup', onUp);
     };
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup', onUp);
   });
+}
+
+// Reset-Button (Top-Nav): alle Slots wieder oeffnen + explizite Breiten entfernen,
+// sodass .slot auf `flex: 1 1 0` zurueckfaellt (gleichmaessige Drittel-Verteilung).
+function resetLayout() {
+  Array.from(state.slotsClosed).forEach(sid => restoreSlot(sid));
+  document.querySelectorAll('.slot').forEach(s => { s.style.flex = ''; });
 }
 
 // ============================================================================

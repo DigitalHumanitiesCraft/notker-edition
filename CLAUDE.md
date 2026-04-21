@@ -28,6 +28,7 @@ Repository: https://github.com/DigitalHumanitiesCraft/notker-edition
 | `knowledge/Technik.md` | Pipeline, TEI-Modell, JSON-Schema, Web-Stack, IIIF |
 | `knowledge/Editionsrichtlinien.md` | TEI-Kodierungsregeln für alle Textphänomene |
 | `knowledge/Journal.md` | Projektchronologie, Entscheidungen |
+| `knowledge/Offene Korrekturen.md` | Bug-Tracker auf tieferer Ebene (TEI, Pipeline, UI) |
 
 ## Architektur
 
