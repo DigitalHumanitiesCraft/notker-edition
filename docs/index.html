@@ -692,10 +692,9 @@ body {
   margin-left: 1rem;
 }
 
-/* Text sections */
+/* Text sections — inline spans, flow innerhalb einer Notker-Zeile */
 .section {
   font-family: var(--font-edition);
-  line-height: 1.7;
   transition: opacity 0.25s ease;
 }
 .section[data-type="psalm_citation"] {
@@ -712,90 +711,74 @@ body {
 }
 .section.hidden { display: none; }
 
-/* Source/Psalter-Highlight: Streifen werden per JS als linear-gradient auf
-   background-image gesetzt. Dadurch koennen sich mehrere Siglen auf derselben
-   Section stapeln (Bug 4 Fix). Padding-left wird ebenfalls per JS gesetzt,
-   damit mehrere Streifen Platz haben ohne den Text zu ueberlagern. */
-.section[data-highlight] {
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-size: auto 100%;
-}
-
-/* Glosses — inline, indented (Design D-1: resolved as inline) */
-.gloss {
-  font-family: var(--font-edition);
-  font-size: var(--size-gloss);
-  color: var(--color-gloss);
-  padding: 0.15rem 0 0.15rem 1.25rem;
-  line-height: 1.5;
-  transition: opacity 0.25s ease;
-}
-.gloss .gloss-arrow { margin: 0 0.3rem; opacity: 0.5; }
-.gloss .gloss-nhd { font-style: italic; }
-.gloss.hidden { display: none; }
-
-/* NHD translation — below verse (Design D-2: resolved as below) */
-.nhd-translation {
-  font-family: var(--font-edition);
-  font-size: var(--size-nhd);
-  font-style: italic;
-  color: var(--color-nhd);
-  line-height: 1.6;
-  padding: 0.5rem 0 0;
-  margin-top: 0.25rem;
-  border-top: 1px dashed var(--color-border-light);
-  transition: opacity 0.25s ease;
-  display: none;
-}
-.nhd-translation.visible { display: block; }
-/* Eine Notker-Zeile pro DOM-Zeile (zeilengetreue nhd.-Anzeige).
-   Trailing-Bindestriche bleiben — sie markieren die Zeilen-Trennung
-   wie in Pfeifers Druckedition. */
-.nhd-line {
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-/* Split view — lat./ahd. columns */
-.verse-split {
-  display: none;
-  gap: 1.5rem;
-}
-.verse-split.visible {
+/* ============================================================
+   VERSE-GRID — zwei Spalten: Haupttext | nhd. Uebersetzung
+   Struktur pro Vers: fuer jede Notker-Zeile (line_n) ein
+   Zeilenpaar (verse-line + verse-nhd). Glossen bekommen
+   eigenes Zeilenpaar, leicht eingerueckt.
+   ============================================================ */
+.verse-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 1.5rem;
+  row-gap: 0.2rem;
+  align-items: start;
 }
-.verse-split .split-col-header {
-  font-family: var(--font-ui);
-  font-size: var(--size-ui-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-muted);
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--color-border-light);
-  margin-bottom: 0.4rem;
+/* Wenn nhd. abgeschaltet: nur Haupttext-Spalte, rechte Zellen verborgen. */
+.verse.nhd-hidden .verse-grid {
+  grid-template-columns: 1fr;
 }
-/* Glosses span both columns in split view */
-.verse-split .split-gloss {
-  grid-column: 1 / -1;
-  font-family: var(--font-edition);
-  font-size: var(--size-gloss);
-  color: var(--color-gloss);
-  padding: 0.15rem 0 0.15rem 1.25rem;
-  line-height: 1.5;
-}
-.verse-split .split-gloss .gloss-arrow { margin: 0 0.3rem; opacity: 0.5; }
-.verse-split .split-gloss .gloss-nhd { font-style: italic; }
-.verse-split .split-col {
+.verse.nhd-hidden .verse-nhd { display: none; }
+
+.verse-line {
   font-family: var(--font-edition);
   line-height: 1.7;
+  min-height: 1em;  /* keeps empty rows visible */
 }
-.verse-split .split-lat { color: var(--color-psalm); }
-.verse-split .split-ahd { color: var(--color-translation); }
-.verse-interleaved { display: block; }
-.verse-interleaved.hidden-by-split { display: none; }
+.verse-nhd {
+  font-family: var(--font-edition);
+  font-size: var(--size-nhd);
+  color: var(--color-nhd);
+  line-height: 1.7;
+  font-style: normal;
+}
+.verse-nhd i { font-style: italic; }
+
+/* Gloss-Zeilen: eingerückt, kleinere Schrift */
+.verse-line--gloss,
+.verse-nhd--gloss {
+  padding-left: 1.25rem;
+  font-size: var(--size-gloss);
+  color: var(--color-gloss);
+  line-height: 1.5;
+}
+.verse-nhd--gloss { font-style: italic; }
+.verse-line--gloss.hidden,
+.verse-nhd--gloss.hidden { display: none; }
+
+/* Source/Psalter-Highlight: Streifen werden jetzt pro Haupttext-Zeile
+   (aggregiert aus allen enthaltenen Sections) als linear-gradient auf
+   background-image gesetzt. Mehrere Siglen stapeln sich mit 1px Luecke
+   dazwischen. Padding-left wird per JS gesetzt, damit die Streifen die
+   Text-Position nicht ueberlappen. Leichter Vertikal-Inset (3px) laesst
+   Streifen als Marker wirken; aufeinanderfolgende Zeilen mit identischem
+   Highlight verbinden sich zu einer durchgehenden Saeule. */
+.verse-line[data-highlight] {
+  background-repeat: no-repeat;
+  background-position: left 3px;
+  background-size: auto calc(100% - 6px);
+}
+.verse-line[data-highlight].verse-line--continues-below {
+  background-size: auto calc(100% - 3px);
+}
+.verse-line[data-highlight].verse-line--continues-above {
+  background-position: left 0;
+  background-size: auto calc(100% - 3px);
+}
+.verse-line[data-highlight].verse-line--continues-above.verse-line--continues-below {
+  background-position: left 0;
+  background-size: auto 100%;
+}
 
 /* ========================================================================
    FACSIMILE PANEL (right)
@@ -1229,11 +1212,8 @@ body {
         <span class="dot"></span>Glossen<span class="kbd">4</span>
       </button>
       <div class="toggle-divider"></div>
-      <button class="toggle-btn" data-toggle="nhd" onclick="toggleNhd()" title="Neuhochdeutsche Arbeitsübersetzung (Philipp Pfeifer) anzeigen (Taste N)">
+      <button class="toggle-btn active" data-toggle="nhd" onclick="toggleNhd()" title="Neuhochdeutsche Arbeitsübersetzung (Philipp Pfeifer) parallel anzeigen (Taste N)">
         nhd.<span class="kbd">N</span>
-      </button>
-      <button class="toggle-btn" data-toggle="split" onclick="toggleSplit()" title="Text in Latein- und Althochdeutsch-Spalten trennen (Taste L)">
-        lat./ahd.<span class="kbd">L</span>
       </button>
     </div>
 
@@ -2689,8 +2669,8 @@ function stateToHash() {
   p.set('v', state.activeVerse);
   const layers = [...state.visibleLayers].map(l => LAYER_SHORT[l]).filter(Boolean).join(',');
   if (layers) p.set('layers', layers);
-  if (state.showNhd) p.set('nhd', '1');
-  if (state.splitLanguages) p.set('split', '1');
+  // nhd. ist default AN; nur bei !showNhd in den Hash schreiben.
+  if (!state.showNhd) p.set('nhd', '0');
   if (!state.showSourceNhd) p.set('qnhd', '0');
   const src = [...state.sourceFilter].join(',');
   if (src) p.set('src', src);
@@ -2714,8 +2694,8 @@ function parseUrlHash() {
     state.visibleLayers.clear();
     p.get('layers').split(',').forEach(s => { const l = LAYER_LONG[s]; if (l) state.visibleLayers.add(l); });
   }
-  state.showNhd = p.get('nhd') === '1';
-  state.splitLanguages = p.get('split') === '1';
+  // nhd. default AN; nur explizit nhd=0 schaltet ab.
+  if (p.has('nhd')) state.showNhd = p.get('nhd') !== '0';
   if (p.has('qnhd')) state.showSourceNhd = p.get('qnhd') !== '0';
   if (p.has('src')) {
     // Iteration 2 / US-10.2: filter-keys haben jetzt Praefix "src:" oder "psa:".
@@ -2787,8 +2767,8 @@ const VERSE_TO_PAGE = {
 const state = {
   activeVerse: 1,
   visibleLayers: new Set(['psalm_citation', 'translation', 'commentary', 'glosses']),
-  showNhd: false,
-  splitLanguages: false,
+  // Parallel-Layout: nhd. default AN (Standard-Zwei-Spalten-Ansicht).
+  showNhd: true,
   showSourceNhd: true,  // Iteration 2 / US-1.3-Erweiterung: default visible
   sourceFilter: new Set(),
   // Iteration 2 / US-8: pro Slot wird ein Pool-Eintrag montiert.
@@ -3057,17 +3037,12 @@ function syncUiToState() {
     btn.classList.toggle('active', state.visibleLayers.has(btn.dataset.layer));
   });
   document.querySelector('.toggle-btn[data-toggle="nhd"]')?.classList.toggle('active', state.showNhd);
-  document.querySelector('.toggle-btn[data-toggle="split"]')?.classList.toggle('active', state.splitLanguages);
   document.querySelector('.toggle-btn[data-toggle="source-nhd"]')?.classList.toggle('active', state.showSourceNhd);
   document.getElementById('sources-panel')?.classList.toggle('hide-source-german', !state.showSourceNhd);
   document.querySelectorAll('.source-filter').forEach(el => {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.filterKey));
   });
-  if (state.showNhd) document.querySelectorAll('.nhd-translation').forEach(el => el.classList.add('visible'));
-  if (state.splitLanguages) {
-    document.querySelectorAll('.verse-interleaved').forEach(el => el.classList.add('hidden-by-split'));
-    document.querySelectorAll('.verse-split').forEach(el => el.classList.add('visible'));
-  }
+  document.querySelectorAll('.verse').forEach(el => el.classList.toggle('nhd-hidden', !state.showNhd));
   updateSourceHighlights();
 }
 
@@ -3231,110 +3206,89 @@ function renderVerses() {
       el.appendChild(pageEl);
     }
 
-    // Interleaved view container
-    // Iteration 2 / BUG-11.1: apply state-dependent classes at creation so that
-    // re-renders from toggleLayer() preserve the split-mode view.
-    const interleaved = document.createElement('div');
-    interleaved.className = 'verse-interleaved' + (state.splitLanguages ? ' hidden-by-split' : '');
+    // Parallel-Layout: Grid mit zwei Spalten — Haupttext | nhd. Uebersetzung.
+    // Pro Notker-Zeile (line_n) ein Grid-Row-Paar. Glossen bekommen ein
+    // eigenes Zeilenpaar. Orientiert sich an Pfeifers DOCX-Tabellenlayout.
+    if (!state.showNhd) el.classList.add('nhd-hidden');
 
-    // Sections + inline glosses (interleaved in correct reading order from JSON)
-    verse.sections.forEach(sec => {
-      if (sec.type === 'gloss') {
-        // Gloss section — render inline at its correct position
-        interleaved.appendChild(createGlossElement(sec));
-      } else {
-        const secEl = document.createElement('div');
-        secEl.className = 'section';
-        secEl.dataset.type = sec.type;
-        secEl.dataset.language = sec.language;
-        if (sec.sigles_psalter) secEl.dataset.siglesPsalter = sec.sigles_psalter.join(',');
-        if (sec.sigles_sources) secEl.dataset.siglesSources = sec.sigles_sources.join(',');
-        if (sec.line_n) secEl.dataset.line = sec.line_n;
-        secEl.textContent = sec.text;
-        if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
-        interleaved.appendChild(secEl);
-      }
-    });
+    const grid = document.createElement('div');
+    grid.className = 'verse-grid';
 
-    // Fallback: if old-format JSON has glosses in separate array (backward compat)
-    if (verse.glosses.length > 0 && !verse.sections.some(s => s.type === 'gloss')) {
-      verse.glosses.forEach(gloss => {
-        interleaved.appendChild(createGlossElement(gloss));
-      });
+    const nhdLines = verse.translation_nhd_lines || [];
+    let nhdIdx = 0;
+    const sections = verse.sections || [];
+
+    // Fallback fuer Legacy-JSON ohne sections: gesamten nhd-Text als eine Zeile
+    if (sections.length === 0 && verse.translation_nhd) {
+      const nhdOnly = document.createElement('div');
+      nhdOnly.className = 'verse-nhd';
+      nhdOnly.textContent = verse.translation_nhd;
+      grid.appendChild(document.createElement('div'));
+      grid.appendChild(nhdOnly);
     }
 
-    el.appendChild(interleaved);
-
-    // Split view — two-column grid with glosses spanning both columns
-    // Iteration 2 / BUG-11.1: same class-persistence fix as .verse-interleaved.
-    const splitView = document.createElement('div');
-    splitView.className = 'verse-split' + (state.splitLanguages ? ' visible' : '');
-
-    // Column headers
-    splitView.innerHTML = '<div class="split-col-header">Latein</div><div class="split-col-header">Althochdeutsch</div>';
-
-    // Walk sections in order, placing each in correct column
-    verse.sections.forEach(sec => {
+    // Gruppiere Sections nach line_n (Glossen bleiben eigenstaendig in der Reihenfolge).
+    const rows = [];
+    let currentGroup = null;
+    for (const sec of sections) {
       if (sec.type === 'gloss') {
-        // Glosses span both columns
-        if (state.visibleLayers.has('glosses')) {
-          const glossEl = document.createElement('div');
-          glossEl.className = 'split-gloss';
-          glossEl.innerHTML = `${escHtml(sec.text)}<span class="gloss-arrow">\u2192</span><span class="gloss-nhd">${escHtml(sec.translation_nhd || '')}</span>`;
-          splitView.appendChild(glossEl);
+        rows.push({ kind: 'gloss', sec });
+        currentGroup = null;
+      } else {
+        if (!currentGroup || currentGroup.line_n !== sec.line_n) {
+          currentGroup = { kind: 'main', line_n: sec.line_n, sections: [] };
+          rows.push(currentGroup);
         }
-      } else if (!state.visibleLayers.has(sec.type)) {
-        // Hidden layer — skip
-      } else if (sec.language === 'lat') {
-        const d = document.createElement('div');
-        d.className = 'split-col split-lat';
-        d.textContent = sec.text;
-        splitView.appendChild(d);
-        // Empty right cell
-        splitView.appendChild(document.createElement('div'));
+        currentGroup.sections.push(sec);
+      }
+    }
+
+    rows.forEach(row => {
+      if (row.kind === 'gloss') {
+        const left = document.createElement('div');
+        left.className = 'verse-line verse-line--gloss';
+        left.dataset.type = 'gloss';
+        left.textContent = row.sec.text;
+        if (!state.visibleLayers.has('glosses')) left.classList.add('hidden');
+        grid.appendChild(left);
+
+        const right = document.createElement('div');
+        right.className = 'verse-nhd verse-nhd--gloss';
+        right.textContent = row.sec.translation_nhd || '';
+        if (!state.visibleLayers.has('glosses')) right.classList.add('hidden');
+        grid.appendChild(right);
       } else {
-        // ahd or ahd_lat_mixed → right column
-        splitView.appendChild(document.createElement('div'));
-        const d = document.createElement('div');
-        d.className = 'split-col split-ahd';
-        d.textContent = sec.text;
-        splitView.appendChild(d);
+        const left = document.createElement('div');
+        left.className = 'verse-line';
+        left.dataset.lineN = row.line_n;
+        row.sections.forEach((sec, idx) => {
+          const secEl = document.createElement('span');
+          secEl.className = 'section';
+          secEl.dataset.type = sec.type;
+          secEl.dataset.language = sec.language || '';
+          if (sec.sigles_psalter?.length) secEl.dataset.siglesPsalter = sec.sigles_psalter.join(',');
+          if (sec.sigles_sources?.length) secEl.dataset.siglesSources = sec.sigles_sources.join(',');
+          if (sec.line_n) secEl.dataset.line = sec.line_n;
+          secEl.textContent = sec.text;
+          if (!state.visibleLayers.has(sec.type)) secEl.classList.add('hidden');
+          left.appendChild(secEl);
+          if (idx < row.sections.length - 1) left.appendChild(document.createTextNode(' '));
+        });
+        grid.appendChild(left);
+
+        const right = document.createElement('div');
+        right.className = 'verse-nhd';
+        right.dataset.lineN = row.line_n;
+        right.innerHTML = safeItalicHtml(nhdLines[nhdIdx] || '');
+        nhdIdx++;
+        grid.appendChild(right);
       }
     });
 
-    el.appendChild(splitView);
-
-    // NHD translation (Design D-2: below verse)
-    // Iteration 2 / US-9: zeilengetreue Wiedergabe (Pfeifer hat zeilengenau
-    // uebersetzt). Bindestriche bleiben am Zeilenende erhalten — sie zeigen
-    // die Trennung zur naechsten Zeile, wie in der Druckedition.
-    if (verse.translation_nhd_lines && verse.translation_nhd_lines.length) {
-      const nhdEl = document.createElement('div');
-      nhdEl.className = 'nhd-translation';
-      nhdEl.innerHTML = verse.translation_nhd_lines.map(line =>
-        `<div class="nhd-line">${escHtml(line)}</div>`
-      ).join('');
-      if (state.showNhd) nhdEl.classList.add('visible');
-      el.appendChild(nhdEl);
-    } else if (verse.translation_nhd) {
-      const nhdEl = document.createElement('div');
-      nhdEl.className = 'nhd-translation';
-      nhdEl.textContent = verse.translation_nhd;
-      if (state.showNhd) nhdEl.classList.add('visible');
-      el.appendChild(nhdEl);
-    }
+    el.appendChild(grid);
 
     container.appendChild(el);
   });
-}
-
-function createGlossElement(gloss) {
-  const glossEl = document.createElement('div');
-  glossEl.className = 'gloss';
-  glossEl.dataset.text = gloss.text;
-  if (!state.visibleLayers.has('glosses')) glossEl.classList.add('hidden');
-  glossEl.innerHTML = `${escHtml(gloss.text)}<span class="gloss-arrow">\u2192</span><span class="gloss-nhd">${escHtml(gloss.translation_nhd)}</span>`;
-  return glossEl;
 }
 
 function escHtml(str) {
@@ -3349,6 +3303,15 @@ function safeBoldHtml(str) {
   return escHtml(str)
     .replace(/&lt;b&gt;/g, '<b>')
     .replace(/&lt;\/b&gt;/g, '</b>');
+}
+
+function safeItalicHtml(str) {
+  // Escape everything, then restore only <i> and </i> tags.
+  // Bug 8: Pipeline emits <i>...</i> aus TEI <hi rend="italic"> in <l>-nhd-Zeilen,
+  // um Kursivierung der Latein-Uebersetzungsteile zu rendern.
+  return escHtml(str)
+    .replace(/&lt;i&gt;/g, '<i>')
+    .replace(/&lt;\/i&gt;/g, '</i>');
 }
 
 // ============================================================================
@@ -3393,7 +3356,7 @@ function toggleLayer(layer) {
 
   // Update sections visibility
   if (layer === 'glosses') {
-    document.querySelectorAll('.gloss').forEach(el => {
+    document.querySelectorAll('.verse-line--gloss, .verse-nhd--gloss').forEach(el => {
       el.classList.toggle('hidden', !state.visibleLayers.has('glosses'));
     });
   } else {
@@ -3401,8 +3364,6 @@ function toggleLayer(layer) {
       el.classList.toggle('hidden', !state.visibleLayers.has(layer));
     });
   }
-  // Re-render split view if active
-  if (state.splitLanguages) renderVerses();
   // Leer-Hinweis ein-/ausblenden (alle Schichten aus)
   updateLayersEmptyHint();
   updateUrlHash();
@@ -3430,19 +3391,19 @@ function updateLayersEmptyHint() {
 function enableAllLayers() {
   ['psalm_citation', 'translation', 'commentary', 'glosses'].forEach(l => state.visibleLayers.add(l));
   document.querySelectorAll('.toggle-btn[data-layer]').forEach(btn => btn.classList.add('active'));
-  document.querySelectorAll('.section').forEach(el => el.classList.remove('hidden'));
-  document.querySelectorAll('.gloss').forEach(el => el.classList.remove('hidden'));
+  document.querySelectorAll('.section, .verse-line--gloss, .verse-nhd--gloss').forEach(el => el.classList.remove('hidden'));
   updateLayersEmptyHint();
   ensurePoolVisible('edition');
   updateUrlHash();
 }
 
 function toggleNhd() {
+  // Parallel-Layout: state.showNhd steuert, ob die rechte Grid-Spalte
+  // (nhd.-Uebersetzung) sichtbar ist. Bei 1-Spalte: .verse bekommt
+  // .nhd-hidden, .verse-grid kollabiert zu einer einzigen Spalte.
   state.showNhd = !state.showNhd;
   document.querySelector('.toggle-btn[data-toggle="nhd"]').classList.toggle('active', state.showNhd);
-  document.querySelectorAll('.nhd-translation').forEach(el => {
-    el.classList.toggle('visible', state.showNhd);
-  });
+  document.querySelectorAll('.verse').forEach(el => el.classList.toggle('nhd-hidden', !state.showNhd));
   updateUrlHash();
 }
 
@@ -3454,19 +3415,6 @@ function toggleSourceNhd() {
   if (panel) panel.classList.toggle('hide-source-german', !state.showSourceNhd);
   // Wenn eingeschaltet und Quellen-Panel zu: wieder oeffnen.
   if (state.showSourceNhd) ensurePoolVisible('sources');
-  updateUrlHash();
-}
-
-function toggleSplit() {
-  state.splitLanguages = !state.splitLanguages;
-  document.querySelector('.toggle-btn[data-toggle="split"]').classList.toggle('active', state.splitLanguages);
-  document.querySelectorAll('.verse-interleaved').forEach(el => {
-    el.classList.toggle('hidden-by-split', state.splitLanguages);
-  });
-  document.querySelectorAll('.verse-split').forEach(el => {
-    el.classList.toggle('visible', state.splitLanguages);
-  });
-  if (state.splitLanguages) renderVerses();
   updateUrlHash();
 }
 
@@ -3497,48 +3445,73 @@ const SIGLE_STRIPE_COLORS = {
   'psa:H':  'var(--color-psa-H)',
   'psa:R':  'var(--color-psa-R)',
 };
-const STRIPE_WIDTH_PX = 3;
-const STRIPE_BASE_PADDING_REM = 0.4;
-const STRIPE_PER_MATCH_REM = 0.2;
+const STRIPE_WIDTH_PX = 4;       // Breite eines Farbstreifens
+const STRIPE_GAP_PX = 1;          // Transparente Luecke zwischen zwei Streifen
+const STRIPE_TEXT_GAP_PX = 6;     // Abstand zwischen letztem Streifen und Text
+const STRIPE_BASE_PADDING_REM = 0.25; // Grundpadding der Section (ohne Stripes)
 
 function updateSourceHighlights() {
-  // Iteration 2 / Bug-3+4-Fix: state.sourceFilter speichert Eintraege mit
-  // Gruppen-Praefix ("psa:R" fuer Romanum, "src:R" fuer Remigius). Alle
-  // passenden Filter werden gesammelt (kein break) und als gestapelte
-  // Streifen am linken Rand der Section gerendert.
-  document.querySelectorAll('.section').forEach(el => {
-    // Reset zuerst
+  // Parallel-Layout (Bug 3+4 + Grid-Refactor):
+  // Sections sind jetzt Inline-Spans innerhalb einer .verse-line. Streifen
+  // liegen deshalb am Zeilen-Container (.verse-line), nicht an einzelnen
+  // Sections. Sigles werden pro Zeile aggregiert (Union aus allen Sections).
+  // Mehrere Filter-Matches stapeln sich als 4px-Streifen mit 1px-Luecke.
+  document.querySelectorAll('.verse-line').forEach(el => {
     el.removeAttribute('data-highlight');
     el.style.backgroundImage = '';
     el.style.paddingLeft = '';
+    el.classList.remove('verse-line--continues-above', 'verse-line--continues-below');
     if (state.sourceFilter.size === 0) return;
 
-    const psaSigles = (el.dataset.siglesPsalter || '').split(',').filter(Boolean);
-    const srcSigles = (el.dataset.siglesSources || '').split(',').filter(Boolean);
+    const psaSigles = new Set();
+    const srcSigles = new Set();
+    el.querySelectorAll('.section').forEach(sec => {
+      (sec.dataset.siglesPsalter || '').split(',').filter(Boolean).forEach(s => psaSigles.add(s));
+      (sec.dataset.siglesSources || '').split(',').filter(Boolean).forEach(s => srcSigles.add(s));
+    });
 
     const matched = [];
     for (const entry of state.sourceFilter) {
       const [group, sigle] = entry.includes(':') ? entry.split(':') : ['any', entry];
       let isMatch = false;
-      if (group === 'psa') isMatch = psaSigles.includes(sigle);
-      else if (group === 'src') isMatch = srcSigles.includes(sigle);
-      else isMatch = psaSigles.includes(sigle) || srcSigles.includes(sigle);
+      if (group === 'psa') isMatch = psaSigles.has(sigle);
+      else if (group === 'src') isMatch = srcSigles.has(sigle);
+      else isMatch = psaSigles.has(sigle) || srcSigles.has(sigle);
       if (isMatch) matched.push(entry);
     }
     if (matched.length === 0) return;
 
-    // Jede Sigle bekommt einen 3px-Streifen, nebeneinander angeordnet.
-    // linear-gradient mit harten Kanten: "color N M" setzt die Farbe fix
-    // von N bis M Pixel (kein Farbverlauf dazwischen).
     const stops = [];
     matched.forEach((key, i) => {
       const color = SIGLE_STRIPE_COLORS[key] || 'currentColor';
-      stops.push(`${color} ${i * STRIPE_WIDTH_PX}px ${(i + 1) * STRIPE_WIDTH_PX}px`);
+      const start = i * (STRIPE_WIDTH_PX + STRIPE_GAP_PX);
+      const end = start + STRIPE_WIDTH_PX;
+      stops.push(`${color} ${start}px ${end}px`);
+      if (i < matched.length - 1) {
+        stops.push(`transparent ${end}px ${end + STRIPE_GAP_PX}px`);
+      }
     });
-    stops.push(`transparent ${matched.length * STRIPE_WIDTH_PX}px`);
+    const totalStripeWidth =
+      matched.length * STRIPE_WIDTH_PX + (matched.length - 1) * STRIPE_GAP_PX;
+    stops.push(`transparent ${totalStripeWidth}px`);
     el.style.backgroundImage = `linear-gradient(to right, ${stops.join(', ')})`;
-    el.style.paddingLeft = `calc(${STRIPE_BASE_PADDING_REM}rem + ${matched.length * STRIPE_WIDTH_PX}px)`;
+    el.style.paddingLeft =
+      `calc(${STRIPE_BASE_PADDING_REM}rem + ${totalStripeWidth + STRIPE_TEXT_GAP_PX}px)`;
     el.dataset.highlight = matched.join(' ');
+  });
+
+  // Aufeinanderfolgende .verse-lines mit identischem data-highlight verbinden,
+  // sodass die Streifen als durchgehende Saeule erscheinen. Gloss-Zeilen
+  // zwischen zwei Haupt-Zeilen unterbrechen NICHT (sie stehen im Lesefluss).
+  document.querySelectorAll('.verse-grid').forEach(container => {
+    const lines = [...container.querySelectorAll('.verse-line[data-highlight]')];
+    for (let i = 0; i < lines.length - 1; i++) {
+      const a = lines[i];
+      const b = lines[i + 1];
+      if (a.dataset.highlight !== b.dataset.highlight) continue;
+      a.classList.add('verse-line--continues-below');
+      b.classList.add('verse-line--continues-above');
+    }
   });
 }
 
@@ -3672,7 +3645,6 @@ function setupKeyboardShortcuts() {
       case '3': toggleLayer('commentary'); break;
       case '4': toggleLayer('glosses'); break;
       case 'n': case 'N': toggleNhd(); break;
-      case 'l': case 'L': toggleSplit(); break;
       case 'q': case 'Q': toggleSourceNhd(); break;
     }
   });
@@ -3744,8 +3716,10 @@ function resetLayout() {
 // ============================================================================
 
 function splitIntoVerses(text) {
-  // Match verse numbers: digit(s) followed by uppercase letter (or "[" for lacunae)
-  const parts = text.split(/(?=\d{1,2}[A-Z\[])/);
+  // Match verse numbers: digit(s) followed by uppercase letter (or "[" for lacunae).
+  // Bug 5 Fix: negative lookbehind (?<!\d) verhindert, dass die Regex bei "10"
+  // auch vor der "0" matcht (das trennt sonst "10Et" in "1" + "0Et").
+  const parts = text.split(/(?<!\d)(?=\d{1,2}[A-Z\[])/);
   return parts.filter(p => p.trim()).map(p => {
     const m = p.match(/^(\d{1,2})(.+)$/s);
     if (m) return { num: m[1], text: m[2].trim() };

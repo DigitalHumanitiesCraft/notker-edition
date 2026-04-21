@@ -192,7 +192,8 @@ class Segment:
 class TextLine:
     """Eine Haupttext-Zeile der Probeseite."""
     segments: list       # List[Segment]
-    nhd: str = ''        # nhd. Übersetzung (kursiv-Spalte)
+    nhd: str = ''        # nhd. Übersetzung (kursiv-Spalte, Flattext fuer Backcompat)
+    nhd_runs: list = field(default_factory=list)  # Runs der nhd-Zelle mit italic-Info
     sigles: str = ''     # Siglen-Spalte (z.B. 'G, R')
     line_number: int = 0
 
@@ -202,6 +203,7 @@ class GlossLine:
     """Eine Interlinearglosse."""
     text: str            # ahd./lat. Glossentext
     nhd: str = ''        # nhd. Übersetzung
+    nhd_runs: list = field(default_factory=list)  # Runs mit italic-Info
     sigles: str = ''
     line_number: int = 0
 
@@ -649,14 +651,21 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
     #   4 Spalten:   Col 0-1 merged, Col 2 = nhd, Col 3 = Siglen
     #   3 Spalten:   Col 0 = Haupttext, Col 1 = nhd, Col 2 = Siglen (wenn nicht merged)
     nhd = ''
+    nhd_runs: list[Run] = []
     sigles = ''
     haupttext = cell_text(cells[0])
 
+    def assign_nhd(cell):
+        """Setzt nhd (str) + nhd_runs aus einer Zelle, wenn != Haupttext."""
+        nonlocal nhd, nhd_runs
+        text = cell_text(cell)
+        if text != haupttext:
+            nhd = text
+            nhd_runs = get_cell_runs(cell)
+
     if ncols >= 5:
-        nhd_candidate = cell_text(cells[3])
+        assign_nhd(cells[3])
         sigles_candidate = cell_text(cells[4])
-        if nhd_candidate != haupttext:
-            nhd = nhd_candidate
         if len(sigles_candidate) <= 15:
             sigles = sigles_candidate
     elif ncols == 4:
@@ -667,19 +676,17 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
         col1 = cell_text(cells[1])
         if col0 == col1:
             # Cols 0-1 gemergt → Col 2 = nhd, Col 3 = Siglen
-            nhd_candidate = cell_text(cells[2])
+            assign_nhd(cells[2])
             sigles_candidate = cell_text(cells[3])
-            if nhd_candidate != haupttext:
-                nhd = nhd_candidate
             if len(sigles_candidate) <= 15:
                 sigles = sigles_candidate
         else:
             # Nicht gemergt → Col 3 = nhd (Fallback)
-            nhd_candidate = cell_text(cells[3])
-            if nhd_candidate != haupttext:
-                nhd = nhd_candidate
+            assign_nhd(cells[3])
     elif ncols == 3 and not is_merged_row(row):
+        # nhd immer uebernehmen (kein Haupttext-Vergleich, weil Col 1 nie Haupttext ist)
         nhd = cell_text(cells[1])
+        nhd_runs = get_cell_runs(cells[1])
         sigles = cell_text(cells[2])
 
     # Glossen-Erkennung
@@ -691,12 +698,14 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
         group.lines.append(GlossLine(
             text=full_text,
             nhd=nhd_clean,
+            nhd_runs=nhd_runs,
             sigles=sigles,
         ))
     else:
         group.lines.append(TextLine(
             segments=segments,
             nhd=nhd,
+            nhd_runs=nhd_runs,
             sigles=sigles,
         ))
 

@@ -680,20 +680,24 @@ def test_json_verse_coverage(runner: TestRunner, data):
 
 
 def test_json_no_trailing_hyphens(runner: TestRunner, data):
-    """Prüft ob Silbentrennungen im JSON aufgelöst sind."""
-    issues = []
+    """Bug 7 Fix: Zeilentreue Sections duerfen mit '-' enden (Zeilentrennung
+    aus Pfeifers Druckedition). Der Test berichtet die Anzahl, faellt nicht mehr
+    darauf zurueck, dass Silbentrennung ein Fehler waere. Dient nur der Info.
+    """
+    count = 0
+    samples = []
     for v in data.get('verses', []):
         for sec in v.get('sections', []):
-            # Glossen können legitim mit '-' enden (geteilte Glossen, z.B. "irgân-")
             if sec.get('type') == 'gloss':
                 continue
             text = sec.get('text', '')
             if text.endswith('-'):
-                issues.append(f'Vers {v["number"]}: "{text[-30:]}"')
-
-    runner.add('JSON: Keine offenen Silbentrennungen', len(issues) == 0,
-               f'{len(issues)} offene Trennungen',
-               severity='warning', details=issues)
+                count += 1
+                if len(samples) < 5:
+                    samples.append(f'Vers {v["number"]}: "...{text[-30:]}"')
+    runner.add('JSON: Zeilentreue Bindestriche (erwartet)', True,
+               f'{count} Sections enden zeilentreu mit "-" (ok)',
+               severity='warning', details=samples)
 
 
 def test_json_section_types(runner: TestRunner, data):

@@ -6,6 +6,7 @@ Generiert ein sauberes, publikationsfähiges TEI-XML aus dem angereicherten
 Zwischenformat von classify_layers.py.
 """
 
+import re
 import sys
 from pathlib import Path
 
@@ -39,6 +40,79 @@ def SE(parent, tag, **attrib):
 def set_xml_attr(el, attr, val):
     """Setzt ein xml:-Attribut (z.B. xml:lang, xml:id)."""
     el.set(f'{{{XML_NS}}}{attr}', val)
+
+
+# ---------------------------------------------------------------------------
+# NHD-Line Helpers — Italic-Support fuer zeilengetreue nhd. Uebersetzung
+# ---------------------------------------------------------------------------
+
+def italic_chunks(runs) -> list[tuple[bool, str]]:
+    """Gruppiert aufeinanderfolgende Runs gleicher italic-Property zu Chunks.
+
+    Normalisiert Whitespace innerhalb jedes Chunks, entfernt fuehrendes/
+    nachfolgendes Whitespace am ersten/letzten Chunk (wie ' '.join(text.split())
+    es auf der Flachversion machen wuerde).
+    """
+    chunks: list[tuple[bool, str]] = []
+    for r in runs:
+        if not r.text:
+            continue
+        text = re.sub(r'\s+', ' ', r.text)
+        if chunks and chunks[-1][0] == r.italic:
+            chunks[-1] = (chunks[-1][0], chunks[-1][1] + text)
+        else:
+            chunks.append((r.italic, text))
+    if chunks:
+        chunks[0] = (chunks[0][0], chunks[0][1].lstrip())
+        chunks[-1] = (chunks[-1][0], chunks[-1][1].rstrip())
+    return [(i, t) for i, t in chunks if t]
+
+
+def _append_chunks_to_l(l_elem, chunks: list[tuple[bool, str]]):
+    """Schreibt chunks als gemischten Inhalt in ein <l>: text + <hi rend='italic'>."""
+    last_child = None
+    for italic, text in chunks:
+        if not text:
+            continue
+        if italic:
+            hi = SE(l_elem, 'hi', rend='italic')
+            hi.text = text
+            last_child = hi
+        else:
+            if last_child is None:
+                l_elem.text = (l_elem.text or '') + text
+            else:
+                last_child.tail = (last_child.tail or '') + text
+
+
+def build_nhd_l(lg_elem, raw_text: str, chunks: list[tuple[bool, str]]):
+    """Baut ein <l>-Element mit italic-aware Inhalt.
+
+    Wendet apply_corrections + apply_line_corrections auf den Flachtext an.
+    Wenn die Korrekturen den Text nicht veraendern ODER per-Chunk-Korrekturen
+    dasselbe Ergebnis liefern, werden italic-Chunks erhalten. Andernfalls
+    Fallback auf flaches <l> (ohne italic), um Text-Korrektheit zu garantieren.
+    """
+    l = SE(lg_elem, 'l')
+    flat = ' '.join(raw_text.split())
+    corrected = apply_line_corrections(apply_corrections(flat))
+    if not chunks:
+        l.text = corrected
+        return l
+    if corrected == flat:
+        _append_chunks_to_l(l, chunks)
+        return l
+    # Korrekturen haben den Text veraendert: versuche per-Chunk, verifiziere Gleichheit.
+    corrected_chunks = [
+        (italic, apply_line_corrections(apply_corrections(t)))
+        for italic, t in chunks
+    ]
+    if ''.join(t for _, t in corrected_chunks) == corrected:
+        _append_chunks_to_l(l, corrected_chunks)
+        return l
+    # Fallback: Korrektur lief ueber Chunk-Grenzen — emittiere flach, italic weg.
+    l.text = corrected
+    return l
 
 
 # ---------------------------------------------------------------------------
@@ -320,27 +394,32 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
     # nhd. Übersetzung gesammelt pro Versgruppe (ohne Glossen-nhd)
     # Iteration 2 / US-9: Pfeifer hat zeilengetreu uebersetzt. Eine <l> pro
     # line.nhd, plus weiterhin <p> mit Fliesstext fuer Backward-Compat.
-    nhd_lines = []
+    # Bug 8: italic aus DOCX-Runs via line.nhd_runs -> <hi rend="italic"> in <l>.
+    nhd_entries = []  # Liste von (raw_text, chunks)
     for line in vg.lines:
-        if not line.is_gloss and line.nhd:
-            clean_nhd = ' '.join(line.nhd.split())
-            if clean_nhd:
-                nhd_lines.append(clean_nhd)
-    if nhd_lines:
+        if line.is_gloss or not line.nhd:
+            continue
+        chunks = italic_chunks(line.nhd_runs) if line.nhd_runs else []
+        raw = line.nhd
+        if chunks:
+            # Sanity: chunks-Konkatenation sollte dem nhd-Text entsprechen (modulo Whitespace)
+            if ' '.join(''.join(t for _, t in chunks).split()) != ' '.join(raw.split()):
+                chunks = []  # Drift -> flat fallback
+        clean_nhd = ' '.join(raw.split())
+        if clean_nhd:
+            nhd_entries.append((clean_nhd, chunks))
+    if nhd_entries:
         nhd_note = SE(div, 'note', type='translation_nhd', resp='#pfeifer')
         set_xml_attr(nhd_note, 'lang', 'de')
         # Fliesstext (vollstaendig korrigiert via apply_corrections am Pipeline-Ende,
         # incl. cross-line patterns wie "mir mein Sohn" -> "mir, mein Sohn").
         p = SE(nhd_note, 'p')
-        p.text = ' '.join(nhd_lines)
-        # Zeilengetreue Variante: pro Zeile ein <l>. Zwei Normalisierungen:
-        #  1. apply_corrections: Fliesstext-Korrekturen, die auch intra-line matchen
-        #  2. apply_line_corrections: nur auf einzelnen Zeilen wirkende Patterns
-        #     (z.B. Komma am Zeilenende, wo Fortsetzung in naechster Zeile steht)
+        p.text = ' '.join(raw for raw, _ in nhd_entries)
+        # Zeilengetreue Variante: pro Zeile ein <l>. build_nhd_l wendet die
+        # Pfeifer-Korrekturen an und emittiert bei Bedarf <hi rend="italic">.
         lg = SE(nhd_note, 'lg', type='line-faithful')
-        for line_text in nhd_lines:
-            l = SE(lg, 'l')
-            l.text = apply_line_corrections(apply_corrections(line_text))
+        for raw, chunks in nhd_entries:
+            build_nhd_l(lg, raw, chunks)
 
     # Quellenapparat
     if vg.sources:
@@ -510,6 +589,18 @@ def redistribute_crossverse_nhd(groups: list[EnrichedVerseGroup]) -> None:
             prev_target.nhd = prev_target.nhd.rstrip() + ' ' + carried
         else:
             prev_target.nhd = carried
+        # nhd_runs analog umverteilen, damit italic-Info ueber Versgrenzen hinweg bleibt.
+        # Ein Space-Run als Trennung, falls prev_target bereits Runs hatte.
+        # getattr fuer Kompatibilitaet mit Test-Stubs, die keine nhd_runs haben.
+        src_runs = list(getattr(first_text_line, 'nhd_runs', None) or [])
+        if src_runs:
+            dst_runs = list(getattr(prev_target, 'nhd_runs', None) or [])
+            if dst_runs:
+                from parse_probeseite import Run as _Run
+                prev_target.nhd_runs = dst_runs + [_Run(text=' ', color=None)] + src_runs
+            else:
+                prev_target.nhd_runs = src_runs
+            first_text_line.nhd_runs = []
         first_text_line.nhd = ''
 
 
@@ -550,7 +641,15 @@ def build_tei(psalm: PsalmData, enriched_groups: list[EnrichedVerseGroup],
     # wuerde z.B. "erlaubte es" (= Uebersetzung von "gta iz" in V3-5 Zeile 1,
     # das die V1-2-Schlusssilbe "han-gta iz" fortsetzt) am Anfang von V3-5
     # stehen, obwohl es inhaltlich zu V1-2 gehoert.
-    redistribute_crossverse_nhd(enriched_groups)
+    # Bug 7: Cross-Verse-Nhd-Redistribution deaktiviert.
+    # Frueher verschob diese Funktion die erste nhd-Zeile einer Versgruppe in
+    # die vorherige (z.B. "erlaubte es. ... Reiß-" von Vers 3-5 zu Vers 1-2),
+    # wenn das erste Haupttext-Segment mit Kleinbuchstaben begann. Das
+    # zerstoerte die DOCX-Zeilenstruktur: Pfeifer hat seinen cross-verse-
+    # Uebertext in der Probeseite gezielt in der ERSTEN Zeile der naechsten
+    # Versgruppen-Tabelle notiert (entspricht der Notker-Praxis). Das Parallel-
+    # Layout respektiert das jetzt und behaelt jede Verse-Group zeilengetreu.
+    # redistribute_crossverse_nhd(enriched_groups)
 
     for vg in enriched_groups:
         build_verse_div(vg, psalm_div)

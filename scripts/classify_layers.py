@@ -51,6 +51,7 @@ class EnrichedLine:
     """Eine angereicherte Textzeile."""
     segments: list       # List[EnrichedSegment]
     nhd: str = ''
+    nhd_runs: list = field(default_factory=list)  # Bug 8: italic aus DOCX propagieren
     sigles: str = ''
     line_number: int = 0
     is_gloss: bool = False
@@ -277,6 +278,7 @@ def classify_and_enrich(psalm: PsalmData) -> list[EnrichedVerseGroup]:
                 enriched_lines.append(EnrichedLine(
                     segments=[],
                     nhd=line.nhd,
+                    nhd_runs=list(line.nhd_runs),
                     sigles=line.sigles,
                     line_number=line.line_number,
                     is_gloss=True,
@@ -308,6 +310,7 @@ def classify_and_enrich(psalm: PsalmData) -> list[EnrichedVerseGroup]:
                 enriched_lines.append(EnrichedLine(
                     segments=enriched_segs,
                     nhd=line.nhd,
+                    nhd_runs=list(line.nhd_runs),
                     sigles=line.sigles,
                     line_number=line.line_number,
                 ))

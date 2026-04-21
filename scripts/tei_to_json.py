@@ -53,6 +53,29 @@ def rich_text_content(el) -> str:
     return ''.join(parts)
 
 
+def italic_text_content(el) -> str:
+    """Extrahiert Text mit <i>-Tags für <hi rend='italic'> Elemente.
+
+    Nur <hi rend="italic"> wird erhalten, alle anderen Tags werden als
+    reiner Text extrahiert. Ergebnis ist sicheres HTML (nur <i>-Tags).
+    Wird fuer die zeilengetreue nhd.-Uebersetzung verwendet, um die
+    Kursivierung aus der DOCX-Probeseite bis ins Frontend zu transportieren.
+    """
+    parts = []
+    if el.text:
+        parts.append(el.text)
+    for child in el:
+        local = etree.QName(child.tag).localname if isinstance(child.tag, str) else ''
+        if local == 'hi' and child.get('rend') == 'italic':
+            inner = text_content(child)
+            parts.append(f'<i>{inner}</i>')
+        else:
+            parts.append(italic_text_content(child))
+        if child.tail:
+            parts.append(child.tail)
+    return ''.join(parts)
+
+
 def get_lang(el) -> str:
     """Liest xml:lang eines Elements."""
     return el.get(f'{{{XML_NS}}}lang', '')
@@ -176,16 +199,19 @@ def collect_segments(verse_div) -> list[dict]:
                 'line_n': line_n,
             })
 
-    # Phase 2: Verkettete Segmente zusammenführen
-    # @part="I" beginnt eine Kette, "M" setzt fort, "F" beendet.
-    # Aufeinanderfolgende Segmente gleichen Typs mit I→M→...→F werden zusammengeführt.
-    # Gloss-Marker (_gloss) werden unverändert durchgereicht.
+    # Phase 2: Zeilentreue Sections (Bug 7 Fix)
+    # Frueher wurden @part="I"/"M"/"F"-Ketten ueber <ab>-Grenzen hinweg zu einer
+    # gemeinsamen Section zusammengefuehrt. Das zerstoerte die Zeilenstruktur
+    # der Druckedition — ein Phrase, die in der DOCX auf zwei Zeilen verteilt
+    # ist (z.B. "Et populi medi-" / "tati sunt inania .") erschien im JSON als
+    # eine Section mit der line_n der ersten Zeile.
+    # Jetzt: jeder TEI-<seg> wird als eigene Section emittiert. Die line_n
+    # bleibt erhalten, Zeilenend-Bindestriche bleiben stehen. Das Parallel-
+    # Layout im Frontend gruppiert Sections per line_n zu Grid-Zeilen.
+    # @part-Information kann ueber das Feld 'part' weitergegeben werden, falls
+    # Downstream (z.B. Suche) logische Phrasen rekonstruieren will.
     merged = []
-    i = 0
-    while i < len(raw_segments):
-        seg = raw_segments[i]
-
-        # Gloss-Marker direkt durchreichen (mit Schema-konformen Feldern)
+    for seg in raw_segments:
         if seg['type'] == '_gloss':
             merged.append({
                 'type': 'gloss',
@@ -196,93 +222,29 @@ def collect_segments(verse_div) -> list[dict]:
                 'translation_nhd': seg.get('_gloss_nhd', ''),
                 'relates_to': seg.get('_gloss_target', ''),
             })
-            i += 1
             continue
-
-        if seg['part'] == 'I':
-            # Kette sammeln: I → (M →)* F
-            chain_text = seg['text']
-            chain_sigles = list(seg['sigles'])
-            chain_has_foreign = seg['has_foreign']
-            j = i + 1
-            while j < len(raw_segments):
-                nxt = raw_segments[j]
-                # Gloss-Marker in Ketten überspringen (werden separat gehandhabt)
-                if nxt['type'] == '_gloss':
-                    j += 1
-                    continue
-                if nxt['type'] == seg['type'] and nxt['part'] in ('M', 'F'):
-                    chain_text = merge_hyphenated(chain_text, nxt['text'])
-                    chain_sigles.extend(nxt['sigles'])
-                    chain_has_foreign = chain_has_foreign or nxt['has_foreign']
-                    if nxt['part'] == 'F':
-                        j += 1
-                        break
-                    j += 1
-                else:
-                    break  # Kette unterbrochen
-
-            merged.append({
-                'type': tei_type_to_json_type(seg['type']),
-                'text': clean_text(chain_text),
-                'language': tei_lang_to_json_lang(seg['lang'], chain_has_foreign),
-                'source_sigles': list(dict.fromkeys(chain_sigles)),
-                'line_n': seg.get('line_n', 0),
-            })
-            i = j
-
-        elif seg['part'] in ('', None):
-            # Eigenständiges Segment
-            text = clean_text(seg['text'])
-            if text:
-                merged.append({
-                    'type': tei_type_to_json_type(seg['type']),
-                    'text': text,
-                    'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
-                    'source_sigles': list(seg['sigles']),
-                    'line_n': seg.get('line_n', 0),
-                })
-            i += 1
-
-        else:
-            # Verwaiste M/F-Segmente (sollte nicht vorkommen)
-            text = clean_text(seg['text'])
-            if text:
-                merged.append({
-                    'type': tei_type_to_json_type(seg['type']),
-                    'text': text,
-                    'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
-                    'source_sigles': list(seg['sigles']),
-                })
-            i += 1
-
-    # Phase 3: Unchained trailing hyphens zusammenführen
-    # Wenn aufeinanderfolgende Sections gleichen Typs enden/beginnen mit Trennung
-    # Gloss-Marker werden bei der Hyphen-Suche übersprungen, da Glossen
-    # keine Wörter unterbrechen (z.B. "grís-" [Glosse] "cramoton")
-    result = []
-    for sec in merged:
-        if sec['type'] == 'gloss':
-            # Gloss-Marker temporär behalten für korrekte Hyphen-Logik
-            result.append(sec)
+        text = clean_text(seg['text'])
+        if not text:
             continue
+        entry = {
+            'type': tei_type_to_json_type(seg['type']),
+            'text': text,
+            'language': tei_lang_to_json_lang(seg['lang'], seg['has_foreign']),
+            'source_sigles': list(seg['sigles']),
+            'line_n': seg.get('line_n', 0),
+        }
+        if seg.get('part'):
+            entry['part'] = seg['part']
+        merged.append(entry)
 
-        # Finde den letzten Nicht-Gloss-Eintrag für Hyphen-Merge
-        prev = None
-        for r in reversed(result):
-            if r['type'] != 'gloss':
-                prev = r
-                break
-
-        if (prev is not None
-                and prev['type'] == sec['type']
-                and prev['text'].endswith('-')):
-            prev['text'] = merge_hyphenated(prev['text'], sec['text'])
-            for s in sec['source_sigles']:
-                if s not in prev['source_sigles']:
-                    prev['source_sigles'].append(s)
-        else:
-            result.append(sec)
+    # Phase 3 (Bug 7): KEIN Hyphen-Merge mehr.
+    # Frueher: aufeinanderfolgende Sections gleichen Typs, bei denen die erste
+    # mit '-' endet, wurden zu einer Section zusammengezogen (merge_hyphenated).
+    # Das war fuer die "unter-dem-Vers"-Fliesstext-Anzeige gedacht, zerstoerte
+    # aber die zeilengetreue Darstellung. Im Parallel-Layout bleiben Zeilen-
+    # end-Bindestriche an ihrer Position — sie markieren die Zeilentrennung
+    # wie in Pfeifers Druckedition.
+    result = list(merged)
 
     # Phase 4: Disambiguierung der Sigles in Psalter-Zeugen vs. patristische
     # Quellen (R ist ambig: Romanum bei psalm_citation, sonst Remigius).
@@ -368,7 +330,11 @@ def collect_nhd_lines(verse_div) -> list[str]:
     lg = nhd_note.find(f'{{{TEI_NS}}}lg[@type="line-faithful"]')
     if lg is None:
         return []
-    return [clean_text(text_content(l)) for l in lg.findall(f'{{{TEI_NS}}}l') if text_content(l).strip()]
+    # Bug 8 / Iteration 2: italic aus DOCX <hi rend="italic"> -> <i>-Tags im
+    # JSON, damit Frontend die Kursivierung (Differenzierung ahd. vs. lat.
+    # Grundtext) rendern kann. clean_text normalisiert Whitespace, aber
+    # <i>-Tags bleiben dabei erhalten, weil sie keine Whitespace-Sequenzen sind.
+    return [clean_text(italic_text_content(l)) for l in lg.findall(f'{{{TEI_NS}}}l') if text_content(l).strip()]
 
 
 def collect_sources(verse_div) -> list[dict]:
@@ -587,7 +553,13 @@ def tei_to_json(tei_path: str) -> dict:
 
     # Post-Processing: Silbentrennungen an Versgruppen-Grenzen auflösen
     # z.B. V1-2 endet "han-", V3-5 beginnt "gta iz" → "hangta iz"
-    merge_cross_verse_hyphens(result['verses'])
+    # Bug 7: Cross-Verse-Hyphen-Merge deaktiviert.
+    # Frueher zog diese Funktion "han-" (Ende Vers 1-2) + "gta iz..." (Anfang
+    # Vers 3-5) zu einer Section zusammen. Damit landete die cross-verse-
+    # Fortsetzung in der vorherigen Versgruppe — die DOCX-Struktur zeigt sie
+    # aber im Kopf der naechsten Versgruppe (eigene Zeile). Das Parallel-
+    # Layout rendert die Zeile jetzt dort, wo sie in der DOCX steht.
+    # merge_cross_verse_hyphens(result['verses'])
 
     # Vers 13 fehlt in der DOCX-Versstruktur (Probeseite hat nur "2,12" als
     # Überschrift, aber der Text deckt Verse 12 und 13 ab). Vers 13 ergänzen.

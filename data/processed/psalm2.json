@@ -37,15 +37,14 @@
         },
         {
           "type": "translation",
-          "text": "Ziu gríscramoton an christum ebraicȩ gentes?",
+          "text": "Ziu grís-",
           "language": "ahd",
           "line_n": 2,
           "sigles_psalter": [
             "G"
           ],
           "sigles_sources": [
-            "R",
-            "C"
+            "R"
           ]
         },
         {
@@ -59,16 +58,37 @@
           "sigles_sources": []
         },
         {
+          "type": "translation",
+          "text": "cramoton an christum ebraicȩ gentes?",
+          "language": "ahd_lat_mixed",
+          "line_n": 4,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
           "type": "psalm_citation",
-          "text": "Et populi meditati sunt inania .",
+          "text": "Et populi medi-",
           "language": "lat",
           "line_n": 4,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "tati sunt inania .",
+          "language": "lat",
+          "line_n": 5,
+          "part": "F",
           "sigles_psalter": [
             "G",
             "R"
           ],
           "sigles_sources": [
-            "C",
             "A"
           ]
         },
@@ -87,9 +107,10 @@
         },
         {
           "type": "translation",
-          "text": "Vnde ziu dâhton sîne liûte ardingun . ín ze irloschenne?",
+          "text": "Vnde ziu dâh-",
           "language": "ahd",
           "line_n": 5,
+          "part": "I",
           "sigles_psalter": [
             "G"
           ],
@@ -99,23 +120,58 @@
           ]
         },
         {
-          "type": "commentary",
-          "text": "Sie dâhton des ín ubelo spuên solta.",
+          "type": "translation",
+          "text": "ton sîne liûte ardingun . ín ze irloschenne?",
           "language": "ahd",
           "line_n": 6,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Sie dâhton",
+          "language": "ahd",
+          "line_n": 6,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "des ín ubelo spuên solta.",
+          "language": "ahd",
+          "line_n": 7,
+          "part": "F",
           "sigles_psalter": [
             "G"
           ],
           "sigles_sources": [
-            "A",
             "R"
           ]
         },
         {
           "type": "psalm_citation",
-          "text": "Astiterunt reges terrȩ . et principes conuenerunt in unum aduersus dominum et aduersus christum eivs.",
+          "text": "Astiterunt reges terrȩ . et principes",
           "language": "lat",
           "line_n": 7,
+          "part": "I",
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "conuenerunt in unum aduersus dominum et aduersus christum eivs.",
+          "language": "lat",
+          "line_n": 8,
+          "part": "F",
           "sigles_psalter": [
             "G",
             "R"
@@ -144,29 +200,10 @@
         },
         {
           "type": "commentary",
-          "text": ". nals ána sehendo . nube iro uuíllen oûgendo .",
+          "text": ". nals",
           "language": "ahd",
           "line_n": 10,
-          "sigles_psalter": [],
-          "sigles_sources": [
-            "C"
-          ]
-        },
-        {
-          "type": "translation",
-          "text": "unde principes sacerdotum gesamenoton sih uuider trúhtene .",
-          "language": "ahd_lat_mixed",
-          "line_n": 11,
-          "sigles_psalter": [],
-          "sigles_sources": [
-            "C"
-          ]
-        },
-        {
-          "type": "translation",
-          "text": "unde uuíder sînemo geuuiêchten.",
-          "language": "ahd",
-          "line_n": 12,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "C"
@@ -174,15 +211,64 @@
         },
         {
           "type": "commentary",
-          "text": "Êin herodes uuolta ín slâhen . anderer hangta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
+          "text": "ána sehendo . nube iro uuíllen oûgendo .",
+          "language": "ahd",
+          "line_n": 11,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "unde principes sacer-",
+          "language": "ahd_lat_mixed",
+          "line_n": 11,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "dotum gesamenoton sih uuider trúhtene .",
+          "language": "ahd_lat_mixed",
+          "line_n": 12,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "unde uuíder sîne-",
+          "language": "ahd",
+          "line_n": 12,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "mo geuuiêchten.",
           "language": "ahd",
           "line_n": 13,
-          "sigles_psalter": [
-            "G"
-          ],
+          "part": "F",
+          "sigles_psalter": [],
           "sigles_sources": [
-            "C",
-            "R"
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "Êin herodes uuolta ín slâhen . anderer han-",
+          "language": "ahd",
+          "line_n": 13,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
           ]
         }
       ],
@@ -198,19 +284,19 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-",
+      "translation_nhd": "PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer",
       "translation_nhd_lines": [
-        "PSALM DAVIDS",
-        "WARUM LÄRMTEN DIE VÖLKER. Warum wüt-",
-        "teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor-",
-        "bereitet sinnlos, das heißt vergeblich? Und warum dach-",
+        "<i>PSALM DAVIDS</i>",
+        "<i>WARUM LÄRMTEN DIE VÖLKER</i>. Warum wüt-",
+        "teten an <i>Christus</i> <i>die hebräischen Völker</i>? <i>Und (warum) sind die Völker vor-</i>",
+        "<i>bereitet sinnlos, das heißt vergeblich? </i>Und warum dach-",
         "ten seine Leute grundlos, ihn auszulöschen? Sie gedachten",
-        "dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten",
-        "kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten.",
-        "Die Landkönige waren zugegen bei der Passion des Herren, nicht",
-        "ansehend, sondern ihren Willen zeigend und die Anführer der Pries-",
-        "ter versammelten sich gegen den Herrn und gegen sei-",
-        "nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-"
+        "dessen, (das) ihnen übel bekommen sollte. <i>Es traten hinzu die Könige der Erde und die Fürsten</i>",
+        "<i>kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten</i>.",
+        "Die Landkönige waren zugegen <i>bei der Passion des Herren, </i>nicht",
+        "ansehend, sondern ihren Willen zeigend und die <i>Anführer der Pries</i>-",
+        "<i>ter</i> versammelten sich gegen den Herrn und gegen sei-",
+        "nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer"
       ],
       "sources": [
         {
@@ -265,10 +351,36 @@
       "edition_page": "R10",
       "sections": [
         {
+          "type": "commentary",
+          "text": "gta iz. Pedíu gât ín ter uuíllo . samoso diu uuérch.",
+          "language": "ahd",
+          "line_n": 1,
+          "part": "F",
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "R"
+          ]
+        },
+        {
           "type": "psalm_citation",
-          "text": "Disrumpamus uincula eorum . et proiciamus a nobis iugum ipsorum .",
+          "text": "Disrum-",
           "language": "lat",
           "line_n": 1,
+          "part": "I",
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "pamus uincula eorum . et proiciamus a nobis iugum ipsorum .",
+          "language": "lat",
+          "line_n": 2,
+          "part": "F",
           "sigles_psalter": [
             "G",
             "R"
@@ -287,13 +399,23 @@
         },
         {
           "type": "translation",
-          "text": "Prechen cháden sie íro gebénde . unde uuerfen ába uns íro ioch.",
+          "text": "Prechen cháden sie íro",
           "language": "ahd",
           "line_n": 3,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "C"
           ]
+        },
+        {
+          "type": "translation",
+          "text": "gebénde . unde uuerfen ába uns íro ioch.",
+          "language": "ahd",
+          "line_n": 4,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "commentary",
@@ -328,9 +450,10 @@
         },
         {
           "type": "psalm_citation",
-          "text": "Qui habitat in celis irridbit eos . et dominus subsannabit eos.",
+          "text": "Qui habitat in celis irrid-",
           "language": "lat",
           "line_n": 6,
+          "part": "I",
           "sigles_psalter": [
             "G",
             "R"
@@ -340,10 +463,29 @@
           ]
         },
         {
+          "type": "psalm_citation",
+          "text": "bit eos . et dominus subsannabit eos.",
+          "language": "lat",
+          "line_n": 7,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
           "type": "translation",
-          "text": "Ter in hímile bûet . ter spóttot íro . unde násesnûdet an_sîe.",
+          "text": "Ter in hímile bûet . ter spót-",
           "language": "ahd",
           "line_n": 7,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "tot íro . unde násesnûdet an_sîe.",
+          "language": "ahd",
+          "line_n": 8,
+          "part": "F",
           "sigles_psalter": [],
           "sigles_sources": [
             "C"
@@ -351,17 +493,23 @@
         },
         {
           "type": "commentary",
-          "text": "Nals taz got mit munde unde mit násun dehêinen hûoh tûe . nube daz iz huôhlîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuendenne. Dâr ána uuâren sie meditantes inania.",
+          "text": "Nals taz got mit munde",
           "language": "ahd",
           "line_n": 8,
-          "sigles_psalter": [
-            "G",
-            "H"
-          ],
+          "part": "I",
+          "sigles_psalter": [],
           "sigles_sources": [
-            "C",
-            "R"
+            "C"
           ]
+        },
+        {
+          "type": "commentary",
+          "text": "unde mit násun dehêinen hûoh tûe . nube daz iz huôh-",
+          "language": "ahd",
+          "line_n": 9,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "gloss",
@@ -374,6 +522,16 @@
           "sigles_sources": []
         },
         {
+          "type": "commentary",
+          "text": "lîch uuas . daz sie sîna prȩdistinationem dâhton ze iruuen-",
+          "language": "ahd_lat_mixed",
+          "line_n": 11,
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "C"
+          ]
+        },
+        {
           "type": "gloss",
           "text": ".i. ténchende in uppe",
           "language": "ahd",
@@ -384,10 +542,25 @@
           "sigles_sources": []
         },
         {
+          "type": "commentary",
+          "text": "denne. Dâr ána uuâren sie meditantes inania.",
+          "language": "ahd_lat_mixed",
+          "line_n": 13,
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": [
+            "C",
+            "R"
+          ]
+        },
+        {
           "type": "psalm_citation",
-          "text": "Tunc loquetur ad eos in ira sua . et in furore suo conturbabit eos.",
+          "text": "Tunc loquetur",
           "language": "lat",
           "line_n": 13,
+          "part": "I",
           "sigles_psalter": [
             "G",
             "R",
@@ -398,14 +571,36 @@
           ]
         },
         {
-          "type": "translation",
-          "text": "Tanne spríchet er in zû mit zórne . unde mit hêizmûote getrûobet er sie.",
-          "language": "ahd",
+          "type": "psalm_citation",
+          "text": "ad eos in ira sua . et in furore suo conturbabit eos.",
+          "language": "lat",
           "line_n": 14,
+          "part": "F",
           "sigles_psalter": [
             "G",
             "H"
           ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "Tanne",
+          "language": "ahd",
+          "line_n": 14,
+          "part": "I",
+          "sigles_psalter": [
+            "G",
+            "H"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "spríchet er in zû mit zórne . unde mit hêizmûote getrûo-",
+          "language": "ahd",
+          "line_n": 15,
+          "part": "F",
+          "sigles_psalter": [],
           "sigles_sources": []
         },
         {
@@ -415,6 +610,14 @@
           "line_n": 16,
           "translation_nhd": "im (jüngsten)Gericht Lohn Sünden",
           "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "bet er sie.",
+          "language": "ahd",
+          "line_n": 17,
           "sigles_psalter": [],
           "sigles_sources": []
         },
@@ -449,20 +652,21 @@
           "relates_to": ""
         }
       ],
-      "translation_nhd": "en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
+      "translation_nhd": "erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.",
       "translation_nhd_lines": [
-        "en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben,",
-        "das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre",
+        "erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „<i>Reiß</i>-",
+        "<i>en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben</i>,",
+        "<i>das heißt Christ und der Apostel.</i>“ So vereinigten sie sich. Brechen, sagten sie, ihre",
         "Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein",
-        "auf die christliche Religion. Der lebt im Himmel, wird ver-",
-        "lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot-",
+        "auf die <i>christliche Religion</i>. <i>Der lebt im Himmel, wird ver-</i>",
+        "<i>lachen diese und der Herr wird diese verhöhnen</i>. Der im Himmel wohnt, der spot-",
         "tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund",
         "und mit Nase irgendeinen Hohn tue, sondern dass es spottens-",
         "wert war, dass sie seine Vorherbestimmung glaubten zu ver-",
-        "ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen",
-        "zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann",
+        "ändern. Daran waren sie <i>vergeblich Nachdenkende</i>. <i>Dann wird er sprechen</i>",
+        "<i>zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. </i>Dann",
         "spricht er ihnen zu mit Zorn und mit Heißmut ver-",
-        "wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist."
+        "wirrt er sie. Ihm <i>Gericht </i>tut er es, wenn <i>Vergeltung der Sünden </i>ist."
       ],
       "sources": [
         {
@@ -528,9 +732,10 @@
       "sections": [
         {
           "type": "psalm_citation",
-          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon montem sanctum eius prȩdicans prȩceptum eius.",
+          "text": "VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon",
           "language": "lat",
           "line_n": 1,
+          "part": "I",
           "sigles_psalter": [
             "G"
           ],
@@ -540,16 +745,52 @@
           ]
         },
         {
+          "type": "psalm_citation",
+          "text": "montem sanctum eius prȩdicans prȩceptum eius.",
+          "language": "lat",
+          "line_n": 2,
+          "part": "F",
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": []
+        },
+        {
           "type": "translation",
-          "text": "Ih pin áber fóne mînemo fáter íro úndanches ze chúninge gesezzet uber sînen hêiligen berg .",
+          "text": "Ih pin áber fóne",
           "language": "ahd",
           "line_n": 2,
+          "part": "I",
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "mînemo fáter íro úndanches ze chúninge gesezzet uber",
+          "language": "ahd",
+          "line_n": 3,
+          "part": "M",
           "sigles_psalter": [
             "G"
           ],
           "sigles_sources": [
-            "C",
-            "A"
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "sînen hêiligen berg .",
+          "language": "ahd",
+          "line_n": 4,
+          "part": "F",
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         },
         {
@@ -580,42 +821,89 @@
         },
         {
           "type": "commentary",
-          "text": ". daz chît euangelium lêrende. Syon stât in ierusalem . unde uuanda man ferro dar ába séhen mag . pedîu hêizzet er syon .",
-          "language": "ahd_lat_mixed",
+          "text": ". daz",
+          "language": "ahd",
           "line_n": 4,
+          "part": "I",
           "sigles_psalter": [
             "G"
           ],
           "sigles_sources": [
             "A",
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "chît euangelium lêrende. Syon stât in ierusalem . unde uuan-",
+          "language": "ahd_lat_mixed",
+          "line_n": 5,
+          "part": "M",
+          "sigles_psalter": [],
+          "sigles_sources": [
             "C",
+            "R"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "da man ferro dar ába séhen mag . pedîu hêizzet er syon .",
+          "language": "ahd",
+          "line_n": 6,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
             "R",
             "N"
           ]
         },
         {
           "type": "commentary",
-          "text": "daz chit latine specula . in únsera uuîs uuarta. Der bezêichnenet ȩcclesiam . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde ze_gótes sélbes ána-sihte. [...]",
+          "text": "daz chit latine specula . in únsera uuîs uuarta. Der bezêichne-",
           "language": "ahd_lat_mixed",
           "line_n": 7,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
-            "C",
-            "A"
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "net ȩcclesiam . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde",
+          "language": "ahd_lat_mixed",
+          "line_n": 8,
+          "part": "M",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "ze_gótes sélbes ána-sihte. [...]",
+          "language": "ahd",
+          "line_n": 9,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C"
           ]
         }
       ],
       "glosses": [],
       "translation_nhd": "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]",
       "translation_nhd_lines": [
-        "STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,",
-        "seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von",
+        "<i>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,</i>",
+        "<i>seinen heiligen Berg, verkündend dessen Gebot. </i>Ich bin aber von",
         "meinem Vater gegen ihren Willen zum König (ein)gesetzt über",
-        "seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das",
-        "heißt das Evangelium lehrend. Zion steht in Jerusalem und weil",
+        "seinen heiligen Berg, das ist <i>die Kirche</i>, sein Gebot sagend, das",
+        "heißt <i>das Evangelium </i>lehrend. Zion steht in <i>Jerusalem</i> und weil",
         "man fern dort herabsehen kann, deshalb heißt er Zion.",
-        "Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be-",
-        "zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde",
+        "Das heißt <i>in Latein</i> <i>Specula </i>[Warte]<i> </i>in unserer Weise Warte. Diese be-",
+        "zeichnet<i> die Kirche</i>, weil ihre Hoffnung ist, dass sie erhöht werde",
         "zu Gottes eigenem Angesicht. [...]"
       ],
       "sources": [
@@ -761,7 +1049,7 @@
         },
         {
           "type": "commentary",
-          "text": "Góte neist ne-hêin zît prȩteritum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh geschêhen sol. Pediû ist sin sun hiûto gebórn.",
+          "text": "Góte neist ne-hêin zît prȩteri-",
           "language": "ahd",
           "line_n": 5,
           "sigles_psalter": [],
@@ -778,6 +1066,28 @@
           "relates_to": "",
           "sigles_psalter": [],
           "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "tum noh futurum. Ímo ist hiûto . al daz îo geschah . alde noh",
+          "language": "ahd_lat_mixed",
+          "line_n": 7,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "geschêhen sol. Pediû ist sin sun hiûto gebórn.",
+          "language": "ahd",
+          "line_n": 8,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A"
+          ]
         },
         {
           "type": "psalm_citation",
@@ -809,11 +1119,11 @@
       ],
       "translation_nhd": "Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und",
       "translation_nhd_lines": [
-        "Der Herr sagte zu mir: Mein Sohn bist du, ich habe",
-        "dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir,",
+        "<i>Der Herr sagte zu mir: Mein Sohn bist du, ich habe</i>",
+        "<i>dich heute geboren, d.h. ohne Zeit. </i>Mein Vater sagte zu mir,",
         "mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver-",
         "gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch",
-        "geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und"
+        "geschehen soll/wird. Deshalb ist sein Sohn heute geboren. <i>Bitte von mir und</i>"
       ],
       "sources": [
         {
@@ -863,15 +1173,26 @@
         },
         {
           "type": "commentary",
-          "text": "uuanda dû ménnischo bist . unde an diû mín mínnero bist .",
+          "text": "uuanda dû mén-",
           "language": "ahd",
           "line_n": 1,
+          "part": "I",
           "sigles_psalter": [
             "G",
             "H"
           ],
           "sigles_sources": [
-            "R",
+            "R"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "nischo bist . unde an diû mín mínnero bist .",
+          "language": "ahd",
+          "line_n": 2,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
             "A"
           ]
         },
@@ -942,9 +1263,19 @@
         },
         {
           "type": "commentary",
-          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er sih sélben umbe sie PATRI ópferota.",
+          "text": "Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er",
           "language": "ahd",
           "line_n": 6,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "sih sélben umbe sie PATRI ópferota.",
+          "language": "ahd",
+          "line_n": 7,
+          "part": "F",
           "sigles_psalter": [
             "G"
           ],
@@ -954,9 +1285,22 @@
         },
         {
           "type": "psalm_citation",
-          "text": "Reges eos in virga ferrea .",
+          "text": "Reges eos in virga ferre-",
           "language": "lat",
           "line_n": 7,
+          "part": "I",
+          "sigles_psalter": [
+            "G",
+            "R"
+          ],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "a .",
+          "language": "lat",
+          "line_n": 8,
+          "part": "F",
           "sigles_psalter": [
             "G",
             "R"
@@ -989,13 +1333,23 @@
         },
         {
           "type": "commentary",
-          "text": "daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nieman genemen.",
+          "text": "daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nie-",
           "language": "ahd",
           "line_n": 9,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "A"
           ]
+        },
+        {
+          "type": "commentary",
+          "text": "man genemen.",
+          "language": "ahd",
+          "line_n": 10,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "psalm_citation",
@@ -1035,13 +1389,23 @@
         },
         {
           "type": "commentary",
-          "text": "Terrenas concupiscentias férbríchest tu an ín.",
+          "text": "Terrenas concupiscentias fér-",
           "language": "ahd_lat_mixed",
           "line_n": 12,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "A"
           ]
+        },
+        {
+          "type": "commentary",
+          "text": "bríchest tu an ín.",
+          "language": "ahd",
+          "line_n": 13,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         }
       ],
       "glosses": [
@@ -1058,16 +1422,16 @@
       ],
       "translation_nhd": "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe. Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab, das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.",
       "translation_nhd_lines": [
-        "ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch",
+        "<i>ich werde dir geben die Völker, dein Erbe</i>. Bitte mich, weil du Mensch",
         "bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe.",
-        "Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde.",
+        "Welches ist das? <i>Die Völker</i>. <i>Und deinen Besitz, die Enden der Erde.</i>",
         "Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest.",
         "Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er",
-        "sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem",
-        "Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab,",
+        "sich selbst für sie (dem) VATER opferte. <i>Beherrschen wirst sie mit eisernem</i>",
+        "<i>Stab, das ist unbeugsame Gerechtigkeit</i>. Die richtest du mit eisernem Stab,",
         "das heißt mit unbeugsamem Recht. Dich kann davon nie-",
-        "man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der",
-        "Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer-",
+        "man entfernen. <i>Sowie das Gefäß der Töpfer zebrichst du sie</i>. So wie der",
+        "Töpfer Gefäß zerbrichst du sie. <i>Irdische Begierden </i>zer-",
         "brichst du an ihnen."
       ],
       "sources": [
@@ -1117,9 +1481,10 @@
       "sections": [
         {
           "type": "psalm_citation",
-          "text": "VOX PROPHETȨ. Et nunc reges intellegite.",
+          "text": "VOX PROPHETȨ. Et nunc reges intel-",
           "language": "lat",
           "line_n": 1,
+          "part": "I",
           "sigles_psalter": [
             "G",
             "R"
@@ -1127,6 +1492,15 @@
           "sigles_sources": [
             "C"
           ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "legite.",
+          "language": "lat",
+          "line_n": 2,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         },
         {
           "type": "translation",
@@ -1146,9 +1520,22 @@
         },
         {
           "type": "commentary",
-          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT ten lîchamen. Gehôrrent mînen rat.",
+          "text": "chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT",
           "language": "ahd",
           "line_n": 3,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "type": "commentary",
+          "text": "ten lîchamen. Gehôrrent mînen rat.",
+          "language": "ahd",
+          "line_n": 4,
+          "part": "F",
           "sigles_psalter": [],
           "sigles_sources": [
             "A",
@@ -1157,16 +1544,26 @@
         },
         {
           "type": "psalm_citation",
-          "text": "Erudimini qui iudicatis terram.",
+          "text": "Erudimini qui iudicatis",
           "language": "lat",
           "line_n": 4,
-          "sigles_psalter": [
-            "G"
-          ],
+          "part": "I",
+          "sigles_psalter": [],
           "sigles_sources": [
             "A",
             "C"
           ]
+        },
+        {
+          "type": "psalm_citation",
+          "text": "terram.",
+          "language": "lat",
+          "line_n": 5,
+          "part": "F",
+          "sigles_psalter": [
+            "G"
+          ],
+          "sigles_sources": []
         },
         {
           "type": "translation",
@@ -1180,12 +1577,22 @@
         },
         {
           "type": "commentary",
-          "text": "Mêistera des lîchamen fernément.",
+          "text": "Mêistera des lîcha-",
           "language": "ahd",
           "line_n": 5,
+          "part": "I",
           "sigles_psalter": [
             "G"
           ],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "men fernément.",
+          "language": "ahd",
+          "line_n": 6,
+          "part": "F",
+          "sigles_psalter": [],
           "sigles_sources": [
             "A",
             "C"
@@ -1204,13 +1611,24 @@
         },
         {
           "type": "translation",
-          "text": "Diênont góte mit fórhtun.",
+          "text": "Diênont góte mit",
           "language": "ahd",
           "line_n": 6,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "A",
-            "C",
+            "C"
+          ]
+        },
+        {
+          "type": "translation",
+          "text": "fórhtun.",
+          "language": "ahd",
+          "line_n": 7,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": [
             "Br"
           ]
         },
@@ -1246,26 +1664,36 @@
         },
         {
           "type": "commentary",
-          "text": "Ímo danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
+          "text": "Ímo",
           "language": "ahd",
           "line_n": 8,
+          "part": "I",
           "sigles_psalter": [],
           "sigles_sources": [
             "R"
           ]
+        },
+        {
+          "type": "commentary",
+          "text": "danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun.",
+          "language": "ahd",
+          "line_n": 9,
+          "part": "F",
+          "sigles_psalter": [],
+          "sigles_sources": []
         }
       ],
       "glosses": [],
       "translation_nhd": "STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.",
       "translation_nhd_lines": [
-        "STIMME DES PROPHETEN: Und nun, Könige, er-",
-        "kennt. Und nun erkennt, Könige. Könige der Erde,",
+        "STIMME DES PROPHETEN: <i>Und nun, Könige, er-</i>",
+        "<i>kennt</i>. Und nun erkennt, Könige. Könige der Erde,",
         "Könige des Fleisches, Könige deshalb, weil ihr unterdrückt",
-        "den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet",
-        "die Erde. Lasst euch lehren, Landherrscher. Meister des Kör-",
-        "pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit",
-        "Furcht. Das nicht hebe euch, dass ihr Könige genannt seid.",
-        "Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm",
+        "den Körper. Hört meinen Rat. <i>Seid belehrt, die ihr richtet</i>",
+        "<i>die Erde.</i> Lasst euch lehren, Landherrscher. Meister des Kör-",
+        "pers, erkennt. <i>Dient (dem) Herrn in Furcht</i>. Dient Gott mit",
+        "Furcht. Das nicht hebe euch, dass ihr <i>Könige </i>genannt seid.",
+        "<i>Und jubelt ihm mit Beben.</i> Und zitternd seid ihm froh. Ihm",
         "dankt solchen Namens sowohl mit Freude als auch mit Furcht."
       ],
       "sources": [
@@ -1329,9 +1757,19 @@
       "sections": [
         {
           "type": "psalm_citation",
-          "text": "Apprehendite disciplinam nequando irascatur dominus . et pereatis de uia iusta.",
+          "text": "Apprehendite disciplinam nequando irascatur dominus . et pere-",
           "language": "lat",
           "line_n": 1,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "atis de uia iusta.",
+          "language": "lat",
+          "line_n": 2,
+          "part": "F",
           "sigles_psalter": [],
           "sigles_sources": []
         },
@@ -1345,23 +1783,52 @@
         },
         {
           "type": "translation",
-          "text": "daz sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába rehtemo uuége.",
+          "text": "daz",
           "language": "ahd",
           "line_n": 2,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába re-",
+          "language": "ahd",
+          "line_n": 3,
+          "part": "M",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "translation",
+          "text": "htemo uuége.",
+          "language": "ahd",
+          "line_n": 4,
+          "part": "F",
           "sigles_psalter": [],
           "sigles_sources": []
         },
         {
           "type": "commentary",
-          "text": "CHRISTVS ist ter uueg . an démo mánnolich kân sôl.",
+          "text": "CHRISTVS ist ter uueg . an démo mánnolich kân",
           "language": "ahd",
           "line_n": 4,
+          "part": "I",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "commentary",
+          "text": "sôl.",
+          "language": "ahd",
+          "line_n": 5,
+          "part": "F",
           "sigles_psalter": [],
           "sigles_sources": []
         },
         {
           "type": "psalm_citation",
-          "text": "Cum exarserit in breui ira eius . beati omnes qui confidunt in eo.",
+          "text": "Cum exarserit in breui ira eius . beati omnes qui con-",
           "language": "lat",
           "line_n": 5,
           "sigles_psalter": [],
@@ -1374,6 +1841,14 @@
           "line_n": 6,
           "translation_nhd": "Gericht?",
           "relates_to": "",
+          "sigles_psalter": [],
+          "sigles_sources": []
+        },
+        {
+          "type": "psalm_citation",
+          "text": "fidunt in eo.",
+          "language": "lat",
+          "line_n": 7,
           "sigles_psalter": [],
           "sigles_sources": []
         },
@@ -1442,13 +1917,13 @@
       ],
       "translation_nhd": "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.",
       "translation_nhd_lines": [
-        "Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-",
-        "kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass",
+        "<i>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-</i>",
+        "<i>kommt vom gerechten Weg.</i> Lernt Zucht und seid in Furcht, dass",
         "sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech-",
         "ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen",
-        "soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-",
-        "trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe",
-        "kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen."
+        "soll/muss. <i>Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-</i>",
+        "<i>trauen auf ihn</i>. Wenn sein Zorn erhitzt in Eile und <i>Strafe</i>",
+        "kommt <i>im Schlag der Augen, </i>so sind selig, die sich zu ihm vertrauen."
       ],
       "sources": [
         {

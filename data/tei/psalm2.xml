@@ -181,19 +181,28 @@
             <note type="sigle" place="margin">C</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-</p>
+            <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer</p>
             <lg type="line-faithful">
-              <l>PSALM DAVIDS</l>
-              <l>WARUM LÄRMTEN DIE VÖLKER. Warum wüt-</l>
-              <l>teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor-</l>
-              <l>bereitet sinnlos, das heißt vergeblich? Und warum dach-</l>
+              <l>
+                <hi rend="italic">PSALM DAVIDS</hi>
+              </l>
+              <l>
+                <hi rend="italic">WARUM LÄRMTEN DIE VÖLKER</hi>. Warum wüt-</l>
+              <l>teten an <hi rend="italic">Christus</hi>
+                <hi rend="italic">die hebräischen Völker</hi>? <hi rend="italic">Und (warum) sind die Völker vor-</hi>
+              </l>
+              <l>
+                <hi rend="italic">bereitet sinnlos, das heißt vergeblich? </hi>Und warum dach-</l>
               <l>ten seine Leute grundlos, ihn auszulöschen? Sie gedachten</l>
-              <l>dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten</l>
-              <l>kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten.</l>
-              <l>Die Landkönige waren zugegen bei der Passion des Herren, nicht</l>
-              <l>ansehend, sondern ihren Willen zeigend und die Anführer der Pries-</l>
-              <l>ter versammelten sich gegen den Herrn und gegen sei-</l>
-              <l>nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß-</l>
+              <l>dessen, (das) ihnen übel bekommen sollte. <hi rend="italic">Es traten hinzu die Könige der Erde und die Fürsten</hi>
+              </l>
+              <l>
+                <hi rend="italic">kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten</hi>.</l>
+              <l>Die Landkönige waren zugegen <hi rend="italic">bei der Passion des Herren, </hi>nicht</l>
+              <l>ansehend, sondern ihren Willen zeigend und die <hi rend="italic">Anführer der Pries</hi>-</l>
+              <l>
+                <hi rend="italic">ter</hi> versammelten sich gegen den Herrn und gegen sei-</l>
+              <l>nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer</l>
             </lg>
           </note>
           <note type="sources">
@@ -308,20 +317,27 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">In <foreign xml:lang="la">iudicio</foreign> tuôt er iz . so <foreign xml:lang="la">retributio peccatorum</foreign> ist. </seg>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
-            <p>en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</p>
+            <p>erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „Reiß- en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben, das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein auf die christliche Religion. Der lebt im Himmel, wird ver- lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot- tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund und mit Nase irgendeinen Hohn tue, sondern dass es spottens- wert war, dass sie seine Vorherbestimmung glaubten zu ver- ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann spricht er ihnen zu mit Zorn und mit Heißmut ver- wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</p>
             <lg type="line-faithful">
-              <l>en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben,</l>
-              <l>das heißt Christ und der Apostel.“ So vereinigten sie sich. Brechen, sagten sie, ihre</l>
+              <l>erlaubte es. Deshalb geht ihnen der Wille gleichermaßen wie die Werke. „<hi rend="italic">Reiß</hi>-</l>
+              <l>
+                <hi rend="italic">en wir ihre Stricke auseiander und werfen wir von uns das Joch derselben</hi>,</l>
+              <l>
+                <hi rend="italic">das heißt Christ und der Apostel.</hi>“ So vereinigten sie sich. Brechen, sagten sie, ihre</l>
               <l>Fesseln und abwefen von uns ihr Joch. Nicht lassen wir uns ein</l>
-              <l>auf die christliche Religion. Der lebt im Himmel, wird ver-</l>
-              <l>lachen diese und der Herr wird diese verhöhnen. Der im Himmel wohnt, der spot-</l>
+              <l>auf die <hi rend="italic">christliche Religion</hi>. <hi rend="italic">Der lebt im Himmel, wird ver-</hi>
+              </l>
+              <l>
+                <hi rend="italic">lachen diese und der Herr wird diese verhöhnen</hi>. Der im Himmel wohnt, der spot-</l>
               <l>tet ihrer und verhöhnt an ihnen. Nicht, dass Gott mit Mund</l>
               <l>und mit Nase irgendeinen Hohn tue, sondern dass es spottens-</l>
               <l>wert war, dass sie seine Vorherbestimmung glaubten zu ver-</l>
-              <l>ändern. Daran waren sie vergeblich Nachdenkende. Dann wird er sprechen</l>
-              <l>zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. Dann</l>
+              <l>ändern. Daran waren sie <hi rend="italic">vergeblich Nachdenkende</hi>. <hi rend="italic">Dann wird er sprechen</hi>
+              </l>
+              <l>
+                <hi rend="italic">zu ihnen in seinem Zorn und in seiner Wut wird er sie verwirren. </hi>Dann</l>
               <l>spricht er ihnen zu mit Zorn und mit Heißmut ver-</l>
-              <l>wirrt er sie. Ihm Gericht tut er es, wenn Vergeltung der Sünden ist.</l>
+              <l>wirrt er sie. Ihm <hi rend="italic">Gericht </hi>tut er es, wenn <hi rend="italic">Vergeltung der Sünden </hi>ist.</l>
             </lg>
           </note>
           <note type="sources">
@@ -404,14 +420,18 @@
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]</p>
             <lg type="line-faithful">
-              <l>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,</l>
-              <l>seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von</l>
+              <l>
+                <hi rend="italic">STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion,</hi>
+              </l>
+              <l>
+                <hi rend="italic">seinen heiligen Berg, verkündend dessen Gebot. </hi>Ich bin aber von</l>
               <l>meinem Vater gegen ihren Willen zum König (ein)gesetzt über</l>
-              <l>seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das</l>
-              <l>heißt das Evangelium lehrend. Zion steht in Jerusalem und weil</l>
+              <l>seinen heiligen Berg, das ist <hi rend="italic">die Kirche</hi>, sein Gebot sagend, das</l>
+              <l>heißt <hi rend="italic">das Evangelium </hi>lehrend. Zion steht in <hi rend="italic">Jerusalem</hi> und weil</l>
               <l>man fern dort herabsehen kann, deshalb heißt er Zion.</l>
-              <l>Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be-</l>
-              <l>zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde</l>
+              <l>Das heißt <hi rend="italic">in Latein</hi>
+                <hi rend="italic">Specula </hi>[Warte]<hi rend="italic"> </hi>in unserer Weise Warte. Diese be-</l>
+              <l>zeichnet<hi rend="italic"> die Kirche</hi>, weil ihre Hoffnung ist, dass sie erhöht werde</l>
               <l>zu Gottes eigenem Angesicht. [...]</l>
             </lg>
           </note>
@@ -522,11 +542,15 @@
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</p>
             <lg type="line-faithful">
-              <l>Der Herr sagte zu mir: Mein Sohn bist du, ich habe</l>
-              <l>dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir,</l>
+              <l>
+                <hi rend="italic">Der Herr sagte zu mir: Mein Sohn bist du, ich habe</hi>
+              </l>
+              <l>
+                <hi rend="italic">dich heute geboren, d.h. ohne Zeit. </hi>Mein Vater sagte zu mir,</l>
               <l>mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver-</l>
               <l>gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch</l>
-              <l>geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</l>
+              <l>geschehen soll/wird. Deshalb ist sein Sohn heute geboren. <hi rend="italic">Bitte von mir und</hi>
+              </l>
             </lg>
           </note>
           <note type="sources">
@@ -613,16 +637,20 @@
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe. Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde. Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest. Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab, das heißt mit unbeugsamem Recht. Dich kann davon nie- man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer- brichst du an ihnen.</p>
             <lg type="line-faithful">
-              <l>ich werde dir geben die Völker, dein Erbe. Bitte mich, weil du Mensch</l>
+              <l>
+                <hi rend="italic">ich werde dir geben die Völker, dein Erbe</hi>. Bitte mich, weil du Mensch</l>
               <l>bist und darum mein Kleinerer bist, so gebe ich dir dein Erbe.</l>
-              <l>Welches ist das? Die Völker. Und deinen Besitz, die Enden der Erde.</l>
+              <l>Welches ist das? <hi rend="italic">Die Völker</hi>. <hi rend="italic">Und deinen Besitz, die Enden der Erde.</hi>
+              </l>
               <l>Und (ich) gebe dir zu besitzen (die) Enden der Erde, derer du bittest.</l>
               <l>Das ist deshalb gesprochen, weil CHRISTUS ihrer genau erbat, als er</l>
-              <l>sich selbst für sie (dem) VATER opferte. Beherrschen wirst sie mit eisernem</l>
-              <l>Stab, das ist unbeugsame Gerechtigkeit. Die richtest du mit eisernem Stab,</l>
+              <l>sich selbst für sie (dem) VATER opferte. <hi rend="italic">Beherrschen wirst sie mit eisernem</hi>
+              </l>
+              <l>
+                <hi rend="italic">Stab, das ist unbeugsame Gerechtigkeit</hi>. Die richtest du mit eisernem Stab,</l>
               <l>das heißt mit unbeugsamem Recht. Dich kann davon nie-</l>
-              <l>man entfernen. Sowie das Gefäß der Töpfer zebrichst du sie. So wie der</l>
-              <l>Töpfer Gefäß zerbrichst du sie. Irdische Begierden zer-</l>
+              <l>man entfernen. <hi rend="italic">Sowie das Gefäß der Töpfer zebrichst du sie</hi>. So wie der</l>
+              <l>Töpfer Gefäß zerbrichst du sie. <hi rend="italic">Irdische Begierden </hi>zer-</l>
               <l>brichst du an ihnen.</l>
             </lg>
           </note>
@@ -704,14 +732,19 @@
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>STIMME DES PROPHETEN: Und nun, Könige, er- kennt. Und nun erkennt, Könige. Könige der Erde, Könige des Fleisches, Könige deshalb, weil ihr unterdrückt den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet die Erde. Lasst euch lehren, Landherrscher. Meister des Kör- pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit Furcht. Das nicht hebe euch, dass ihr Könige genannt seid. Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm dankt solchen Namens sowohl mit Freude als auch mit Furcht.</p>
             <lg type="line-faithful">
-              <l>STIMME DES PROPHETEN: Und nun, Könige, er-</l>
-              <l>kennt. Und nun erkennt, Könige. Könige der Erde,</l>
+              <l>STIMME DES PROPHETEN: <hi rend="italic">Und nun, Könige, er-</hi>
+              </l>
+              <l>
+                <hi rend="italic">kennt</hi>. Und nun erkennt, Könige. Könige der Erde,</l>
               <l>Könige des Fleisches, Könige deshalb, weil ihr unterdrückt</l>
-              <l>den Körper. Hört meinen Rat. Seid belehrt, die ihr richtet</l>
-              <l>die Erde. Lasst euch lehren, Landherrscher. Meister des Kör-</l>
-              <l>pers, erkennt. Dient (dem) Herrn in Furcht. Dient Gott mit</l>
-              <l>Furcht. Das nicht hebe euch, dass ihr Könige genannt seid.</l>
-              <l>Und jubelt ihm mit Beben. Und zitternd seid ihm froh. Ihm</l>
+              <l>den Körper. Hört meinen Rat. <hi rend="italic">Seid belehrt, die ihr richtet</hi>
+              </l>
+              <l>
+                <hi rend="italic">die Erde.</hi> Lasst euch lehren, Landherrscher. Meister des Kör-</l>
+              <l>pers, erkennt. <hi rend="italic">Dient (dem) Herrn in Furcht</hi>. Dient Gott mit</l>
+              <l>Furcht. Das nicht hebe euch, dass ihr <hi rend="italic">Könige </hi>genannt seid.</l>
+              <l>
+                <hi rend="italic">Und jubelt ihm mit Beben.</hi> Und zitternd seid ihm froh. Ihm</l>
               <l>dankt solchen Namens sowohl mit Freude als auch mit Furcht.</l>
             </lg>
           </note>
@@ -798,13 +831,19 @@
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab- kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech- ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver- trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</p>
             <lg type="line-faithful">
-              <l>Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-</l>
-              <l>kommt vom gerechten Weg. Lernt Zucht und seid in Furcht, dass</l>
+              <l>
+                <hi rend="italic">Begreift die Diziplin, damit nicht irgenwann der Herr erzürnt und ihr ab-</hi>
+              </l>
+              <l>
+                <hi rend="italic">kommt vom gerechten Weg.</hi> Lernt Zucht und seid in Furcht, dass</l>
               <l>sich Gott irgendwann nicht erzürne und ihr nicht abgleitet vom rech-</l>
               <l>ten Weg. CHRISTUS ist der Weg, auf dem jeder gehen</l>
-              <l>soll/muss. Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-</l>
-              <l>trauen auf ihn. Wenn sein Zorn erhitzt in Eile und Strafe</l>
-              <l>kommt im Schlag der Augen, so sind selig, die sich zu ihm vertrauen.</l>
+              <l>soll/muss. <hi rend="italic">Wenn entbrennt in Kürze sein Zorn, selig (sind) alle, die ver-</hi>
+              </l>
+              <l>
+                <hi rend="italic">trauen auf ihn</hi>. Wenn sein Zorn erhitzt in Eile und <hi rend="italic">Strafe</hi>
+              </l>
+              <l>kommt <hi rend="italic">im Schlag der Augen, </hi>so sind selig, die sich zu ihm vertrauen.</l>
             </lg>
           </note>
           <note type="sources">
