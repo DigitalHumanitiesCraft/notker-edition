@@ -11,7 +11,7 @@ Technische Referenz für Pipeline, TEI-Modell, JSON-Schema und Web-Stack. Für e
 
 ## 1. Pipeline
 
-**TEI-XML ist die kanonische Datenquelle.** JSON wird daraus für die Web-UI abgeleitet.
+**TEI-XML ist die kanonische Datenquelle.** JSON wird daraus für die Web-UI abgeleitet — TEI bewahrt die philologische Information vollständig, JSON ist ein Projektions-Format, das nur enthält, was die Weboberfläche braucht.
 
 ```
 Probeseite_Notker.docx
@@ -28,12 +28,13 @@ Probeseite_Notker.docx
   → docs/index.html         Single-File-Webanwendung mit Slot-System
 ```
 
-Ehemaliger Errata-Layer (`apply_errata.py` + `errata.yaml` + `tests/test_errata.py`)
-in Iteration 2 entfernt — die Korrekturen aus dem Review leben jetzt als
-`PFEIFER_CORRECTIONS: list[tuple[str, str]]` in `parse_probeseite.py` und werden
-über `apply_corrections()` einmal auf den fertigen TEI-String angewendet.
+**Warum vier Pipeline-Schritte statt einem Skript?** Trennung der Verantwortlichkeiten. `parse_probeseite` kennt die DOCX-Struktur und nichts darüber hinaus. `classify_layers` weiß nichts von TEI, arbeitet auf den geparsten Dataclasses. `build_tei` kennt die Editionsrichtlinien und erzeugt valides TEI. `tei_to_json` bedient die UI. Jeder Schritt ist isoliert testbar und einzeln austauschbar — etwa für einen Wechsel des DOCX-Formats oder eine neue Frontend-Technologie.
+
+Der ehemalige Errata-Layer (`apply_errata.py` + `errata.yaml` + `tests/test_errata.py`) wurde in Iteration 2 entfernt, als klar wurde, dass die Text-Korrekturen aus dem Pfeifer-Review stabil genug sind, um sie statt als YAML-Regelsystem als einfache Liste `PFEIFER_CORRECTIONS: list[tuple[str, str]]` in `parse_probeseite.py` zu führen. `apply_corrections()` läuft einmal auf den fertigen TEI-String; idempotent, auditierbar via Git-Log.
 
 ### 1.1 DOCX-Parsing (`parse_probeseite.py`)
+
+Extrahiert Haupttext, Quellenapparat, Glossen und Übersetzung aus der DOCX. Die Probeseite wurde für eine Druckausgabe gesetzt, nicht für eine digitale Weiterverarbeitung — die Pipeline muss die tabellarische Satzstruktur zurück in eine semantische Struktur überführen.
 
 13 Tabellen in 3 Gruppen (Details in [[Probeseite Analyse]]):
 
@@ -43,33 +44,36 @@ in Iteration 2 entfernt — die Korrekturen aus dem Review leben jetzt als
 | Nur Haupttext | T2, T5, T8, T10 | Cols 0–2 identisch, 3 Spalten |
 | Eigenständig | T6, T9, T12, T13 | Verschiedene Strukturen |
 
-**Farbextraktion** auf Run-Ebene (nicht Paragraph):
+**Farbextraktion auf Run-Ebene**, nicht auf Paragraph-Ebene. Begründung: ein einzelner Absatz der Probeseite enthält oft mehrere Textschichten nacheinander (z. B. Psalmzitat + unmittelbar anschließende Übersetzung). Paragraph-Level-Farbanalyse würde die Schichten zusammenwerfen.
+
 ```python
 COLOR_MAP = {
     '806000': 'psalm',       # olive → Psalmzitation
-    '00B050': 'translation',  # grün → Übersetzung
-    None: 'commentary',       # schwarz → Kommentar
+    '00B050': 'translation', # grün → Übersetzung
+    None: 'commentary',      # schwarz → Kommentar
 }
 ```
 
-**Vers-Zuordnung** aus Paragraphen zwischen Tabellen (Regex `2,\d+`).
+**Vers-Zuordnung** aus Paragraphen zwischen Tabellen (Regex `2,\d+`). Die DOCX markiert Vers-Grenzen nicht innerhalb der Tabellen, sondern über textuelle Zwischenüberschriften — der Parser liest diese mit.
 
 ### 1.2 Schichtenklassifikation (`classify_layers.py`)
+
+Veredelt die rohen Parser-Daten. Farbe allein identifiziert die Textfunktion; zusätzlich braucht es Sprach-Grenzen (Notker mischt innerhalb einer Schicht Latein und Althochdeutsch) und die Information, welche Segmente über eine Zeilengrenze hinweg zusammengehören.
 
 | Methode | Aufgabe | Genauigkeit |
 |---|---|---|
 | Regelbasiert | Farbe → Funktion, Siglen, Bold | Sicher |
-| Heuristik | Glossen-Erkennung (≤5 Wörter, schwarz, kurze nhd) | Mittel |
-| Regelbasiert | Sprachwechsel in Übersetzung/Kommentar (Wörterbuch + Morphologie) | >95% |
+| Heuristik | Glossen-Erkennung (≤ 5 Wörter, schwarz, kurze nhd) | Mittel |
+| Regelbasiert | Sprachwechsel in Übersetzung/Kommentar (Wörterbuch + Morphologie) | > 95 % |
 | Regelbasiert | Segment-Verkettung (`@part` bei Farb-Kontinuität + Silbentrennung) | Sicher |
 
 ### 1.3 TEI-Generierung (`build_tei.py`)
 
-`lxml.etree`, Validierung gegen TEI-All RelaxNG nach Generierung.
+Serialisiert die klassifizierten Dataclasses in TEI-konformes XML mit `lxml.etree` und validiert gegen das TEI-All-RelaxNG-Schema. Die Validierung fängt strukturelle Fehler ab, bevor sie im JSON oder in der UI auftauchen und dort schwerer zu diagnostizieren wären.
 
 ### 1.4 TEI→JSON (`tei_to_json.py`)
 
-Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten und Silbentrennungen auf. Interface-Vertrag mit der UI.
+Traversiert das TEI und erzeugt ein flaches, UI-freundliches JSON: `<ab>`-Zeilen werden zu Vers-Sections aggregiert, `@part`-Ketten und Silbentrennungen textlich aufgelöst, Siglen disambiguiert. Zwei Formate nebeneinander zu führen kostet Pipeline-Komplexität, macht aber die UI unabhängig vom TEI-Traversal — ein Frontend-Redesign oder ein Wechsel des Viewer-Frameworks erfordert keine XML-Verarbeitung im Browser.
 
 **Besondere Features:**
 - **Siglen-Parsing:** Klammernotation `G [A, C]` wird korrekt als separate Siglen geparst (Regex: `[A-Z][a-z]*(?:II)?`)
@@ -174,19 +178,19 @@ Traversiert TEI, aggregiert `<ab>`-Zeilen zu Vers-Sections, löst `@part`-Ketten
 
 ### 2.5 Encoding-Entscheidungen
 
-**`<seg>` statt `<quote>` für Psalmzitate:** Notker paraphrasiert gelegentlich. `<seg type="psalm">` ist ehrlicher.
+**`<seg>` statt `<quote>` für Psalmzitate.** Notker zitiert den Psalmtext nicht immer wörtlich — er paraphrasiert. Ein `<quote>` würde behaupten, der Text sei ein direktes Zitat; das wäre in Teilen unzutreffend. `<seg type="psalm">` beschreibt die Textfunktion, ohne eine Aussage über Wörtlichkeit zu treffen.
 
-**`<cit>` statt `<app>` für Quellen:** Die Quellen sind Notkers Vorlagen, keine textkritischen Varianten. `<app>` nur im Psaltervergleich.
+**`<cit>` statt `<app>` für Quellen.** Augustinus, Cassiodor und Co. sind Notkers Vorlagen, nicht konkurrierende Textzeugen. `<cit>` modelliert eine Zitation mit Beleg, `<app>` einen kritischen Apparat. `<app>` kommt nur im Psalmtext-Vergleich (G/R/H/A/C) zum Einsatz, wo tatsächlich Textvarianten desselben Textes gegenübergestellt werden.
 
-**`<foreign>` in allen Schichten:** Verlustfrei — nachträglich hinzufügen erfordert Neuanalyse aller 150 Psalmen. `<foreign>` kann von UI/XSLT trivial ignoriert werden.
+**`<foreign>` in allen Schichten, von Anfang an.** Das Sprachwechsel-Tagging lohnt sich nicht erst später — es nachträglich einzufügen würde eine erneute Analyse aller 150 Psalmen erfordern. Frontends oder XSLT können `<foreign>` trivial ignorieren, wenn sie die Information nicht brauchen.
 
-**Nur `@part`, nicht `@next`/`@prev`** für Verkettungen *innerhalb* eines Verses: TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter, Reihenfolge implizit.
+**Nur `@part` für Verkettungen innerhalb eines Verses.** TEI P5 erlaubt sowohl `@part="I/M/F"` als auch `@next`/`@prev`. Innerhalb eines Verses ist die Reihenfolge durch die Dokumentreihenfolge implizit — `@part` reicht und spart Attribute.
 
-**`@part="I"`/`@part="F"` plus `@xml:id`/`@next`/`@prev` für Cross-Verse-Verkettungen:** Wenn ein Wort über die Vers-Grenze geteilt ist (z.B. „han-" / „gta"), reicht `@part` allein nicht (Reihenfolge nicht implizit über Vers-Grenze). Daher zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen. Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`).
+**`@part` plus `@xml:id`/`@next`/`@prev` für Cross-Verse-Verkettungen.** Wenn ein Wort über eine Versgrenze geteilt ist („han-" / „gta"), reicht Dokumentreihenfolge nicht, weil ein anderer Leser die Verse einzeln rendern könnte. Die expliziten ID-Verweise stellen die Verbindung auch dann her, wenn die Verse isoliert dargestellt werden. Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`).
 
-**`<lg type="line-faithful">` für nhd. Übersetzung** (Iteration 2 / US-9): Die Arbeitsübersetzung ist zeilengetreu zur Handschrift gefertigt. Pro Zeile ein `<l>` unter `<note type="translation_nhd"><lg type="line-faithful">`. Daneben weiterhin `<p>` mit Fließtext für Lese-Ansicht.
+**`<lg type="line-faithful">` für nhd. Übersetzung** (Iteration 2 / US-9). Die Arbeitsübersetzung ist zeilengetreu zur Handschrift gefertigt — die Zeilenstruktur trägt Information, die im Fließtext verloren geht. Daher pro Zeile ein `<l>` unter `<note type="translation_nhd"><lg type="line-faithful">`. Daneben ein `<p>` mit Fließtext für die Lese-Ansicht, damit nicht jede Konsumform die Zeilen manuell zusammenfügen muss.
 
-**Ungeklärte Siglen:** RII und N mit `@cert="low"` in Taxonomie + `<note type="editorial">ungeklärt</note>`.
+**Ungeklärte Siglen (RII, N) mit `@cert="low"`.** Lieber transparent markieren, dass die Zuordnung provisorisch ist, als eine Klärung vorzutäuschen. Die Unsicherheit ist Teil des editorischen Befunds.
 
 ## 3. JSON-Schema (Iteration 2)
 
@@ -237,21 +241,20 @@ Single-File-Prinzip: `docs/index.html` enthält CSS und JS eingebettet.
 |---|---|
 | Manifest | `https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json` |
 | API-Version | IIIF Presentation 2.0 |
-| Psalm 2 Start | Seite 11 (Canvas-Index 10, 0-basiert) |
+| Psalm 2 Start | Seite 10 (Canvas-Index 13, 0-basiert; MS-Seite = Canvas − 3) |
 | Text-Bild-Synopse | Seiten-Ebene: Vers-Klick → korrekter Canvas |
 
 Vers→Seite-Mapping (vorläufig):
 
-| Verse | MS-Seite | Canvas-Index |
-|---|---|---|
-| 1–3 | 11 | 10 |
-| 4–6 | 12 | 11 |
-| 7–9 | 13 | 12 |
-| 10–13 | 14 | 13 |
+| Verse | MS-Seite | Canvas-Index | Edition (Tax/Sehrt) |
+|---|---|---|---|
+| 1–3 | 10 | 13 | R10 |
+| 4–6 | 11 | 14 | R11 |
+| 7–9 | 12 | 15 | R12 |
+| 10–13 | 13 | 16 | R13 |
 
 ## 6. Offene technische Fragen
 
-- [ ] Vers→Seite-Mapping gegen Facsimile verifizieren
 - [ ] Farbüberlagerung Textschicht × Quellenfilter testen (D-11)
 
 ## Verknüpfungen

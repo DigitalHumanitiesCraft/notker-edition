@@ -90,7 +90,7 @@ footer a { color: hsl(0,0%,45%); }
   <strong>Drei Phasen:</strong> (1) Analyse der Primärquelle und Aufbau des Wissensvaults → (2) Datenaufbereitung als Pipeline → (3) Interface-Entwicklung gegen den Vault. Jede Designentscheidung ist im Vault nachvollziehbar dokumentiert.
 </div>
 
-<p>Der Research Vault umfasst 11 Obsidian-kompatible Markdown-Dokumente: Domänenwissen, Probeseite-Analyse, Anforderungen, Design, Technik, Editionsrichtlinien, TEI-Modell, Journal und drei Kontextdokumente.</p>
+<p>Der Research Vault umfasst zehn Obsidian-kompatible Markdown-Dokumente: Research Plan, Domänenwissen, Probeseite-Analyse, Anforderungen (Iteration 1 und 2), Umsetzungsplan Iteration 2, Design, Technik, Editionsrichtlinien, Journal und Offene Korrekturen. Alle öffentlich einsehbar unter <a href="vault.html">vault.html</a>.</p>
 
 <h2>Datenfluss</h2>
 
@@ -107,7 +107,7 @@ footer a { color: hsl(0,0%,45%); }
   <div class="step"><span class="arrow">&darr;</span></div>
   <div class="step"><span class="script">tei_to_json.py</span> TEI → JSON (abgeleitet) <span class="stat">(432 Z.)</span></div>
   <div class="step"><span class="arrow">&darr;</span></div>
-  <div class="step"><span class="file">data/processed/psalm2.json</span> <span class="stat">~1.100 Zeilen, 92 Sections (inkl. 14 inline Glossen), 31 Quellen</span></div>
+  <div class="step"><span class="file">data/processed/psalm2.json</span> <span class="stat">Sections mit <code>line_n</code>, disambiguierte Siglen, zeilengetreue nhd.-Übersetzung</span></div>
   <div class="step"><span class="arrow">&darr;</span></div>
   <div class="step"><span class="file">docs/index.html</span> <span class="stat">Single-File-Webanwendung, ~2.850 Zeilen</span></div>
 </div>
@@ -140,7 +140,7 @@ footer a { color: hsl(0,0%,45%); }
     <tr><td>Zeilentyp-Erkennung</td><td>Heuristik (Sigle in Spalte 0, Zeilenlänge)</td><td>~95% — manuelle Nachprüfung</td></tr>
     <tr><td>Sprachwechsel-Erkennung</td><td>Regelbasiert (Morphologie, Wortlisten)</td><td>~90% — ahd./lat. morphologisch verschieden</td></tr>
     <tr><td>Segment-Verkettung</td><td>@part-Attribute + Hyphen-Merge</td><td>~95% — 1 bekannte Grenzfall-Limitation</td></tr>
-    <tr><td>Glossen-Erkennung</td><td>Heuristik (Zeilenlänge, Farbabwesenheit)</td><td>14/14 erkannt (100% für Psalm 2)</td></tr>
+    <tr><td>Glossen-Erkennung</td><td>Heuristik (Zeilenlänge, Farbabwesenheit, <code>[...]</code>-Ausschluss)</td><td>13/13 erkannt (Iteration 2: V6 als Kommentar reklassifiziert)</td></tr>
   </tbody>
 </table>
 
@@ -151,13 +151,15 @@ footer a { color: hsl(0,0%,45%); }
 <table>
   <thead><tr><th>Feature</th><th>Umsetzung</th></tr></thead>
   <tbody>
-    <tr><td>3-Panel-Layout</td><td>Quellen | Haupttext | Facsimile, Drag-to-Resize</td></tr>
-    <tr><td>6 Toggles</td><td>Psalmzitat (1), Übersetzung (2), Kommentar (3), Glossen (4), nhd. (N), lat./ahd.-Split (L)</td></tr>
-    <tr><td>Quellenapparat</td><td>Sigle-Filter mit farbigen Seitenstreifen</td></tr>
-    <tr><td>IIIF-Facsimile</td><td>OpenSeadragon, CSg 0021, Seiten-Synopse (Vers → MS-Seite)</td></tr>
+    <tr><td>Konfigurierbares 3-Slot-Layout</td><td>Pool von neun Inhaltstypen (Quellen, Notkers Text, Handschrift, nhd., Wiener Notker, Psalter G/R/H, Siglen-Legende, Psalmtext-Vergleich); pro Slot via Dropdown wählbar, per Divider skalierbar, einzeln schließbar</td></tr>
+    <tr><td>Parallel-Layout Haupttext | nhd.</td><td>Zeilengetreue Synopse: pro Notker-Zeile eine nhd.-Zeile in paralleler Spalte</td></tr>
+    <tr><td>Textschichten-Toggles</td><td>Psalmzitat (1), Übersetzung (2), Kommentar (3), Glossen (4), nhd. parallel (N), Quellen-Übersetzung (Q)</td></tr>
+    <tr><td>Quellenapparat</td><td>Sigle-Filter mit farbigen Seitenstreifen; getrennte Gruppen Patristik (A/C/R/Br) und Psalter (G/R/H) mit R-Disambiguierung</td></tr>
+    <tr><td>IIIF-Facsimile</td><td>OpenSeadragon, CSg 0021, Seiten-Synopse (Vers → MS-Seite); Handschrift startet auf Seite 10 (Psalm 2-Beginn, entspricht Tax/Sehrt R10)</td></tr>
     <tr><td>Psalmtext-Vergleich</td><td>5 Textzeugen tabellarisch (G, R, H, A-Psalter, C-Psalter)</td></tr>
     <tr><td>Wiener Notker</td><td>Paralleltext ÖNB Cod. 2681</td></tr>
     <tr><td>URL-Persistenz</td><td>UI-Zustand als Hash-Fragment, Deep Links für Gutachter</td></tr>
+    <tr><td>Research Vault</td><td>öffentlich einsehbar unter <a href="vault.html">vault.html</a></td></tr>
   </tbody>
 </table>
 

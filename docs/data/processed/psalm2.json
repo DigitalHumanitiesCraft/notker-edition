@@ -5,7 +5,7 @@
     "edition": "Tax/Sehrt (1970er)",
     "manuscript": "CSg 0021",
     "iiif_manifest": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json",
-    "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_011.json",
+    "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_010.json",
     "edition_pages": "R10–R13"
   },
   "verses": [
@@ -334,6 +334,74 @@
           "german_translation": "„Sie traten hinzu“ drückt nicht Präsenz aus, sondern Willen. Denn in der Passion des Herren steht fest, dass (sie) in keiner Weise in der Gegewart von Königen nicht stattfand. (Als) Könige der Erde aber will (er) das verstanden wird Herodes, der den Herrn verfolgend Kleinkinder tötete, (und) freilich der andere Herodes, seinen Enkel der Pontius Pilatus bei der Hinrichtung des Retters zustimmte. Passend also sind sind sie gesagt, dass sie hinzugetreten sind, die in frevelhaftem Denken zustimmend in einem Verbrechen zusammenkamen. Fürsten aber sagt er von den Pharisäern. [...]Sie kamen zusamen in einem, in einem Willen, nicht in einer Versammlung, denn auf verschiedenen Vesammlungsplätzen lesen sie, dass dieses Verbrechen geplant wurde.",
           "source_language": "la"
         }
+      ],
+      "footnotes": [
+        {
+          "n": "1",
+          "anchor": "DAVID.",
+          "body": "Der Zusatz PSALMVS DAVID, der in G und R in rot geschrieben ist, fehlt in H.",
+          "line_n": 1
+        },
+        {
+          "n": "2",
+          "anchor": "QVARE FREMVERVNT GENTES.",
+          "body": "In diesem Wortlaut in G und R. H abweichend davon „Quare turbabuntur gentes [‚Warum verwirrt werden die Völker‘]“.",
+          "line_n": 2
+        },
+        {
+          "n": "3",
+          "anchor": "̧",
+          "body": "Der Gedanke, dass (allein) die Juden die erwähnten Völker sind, findet sich bei C.",
+          "line_n": 4
+        },
+        {
+          "n": "4",
+          "anchor": "inania",
+          "body": "So in G und R, H davon abweichend „et tribus meditabuntur inania [‚und die Stämme werden nachdenken sinnlos‘]“.",
+          "line_n": 5
+        },
+        {
+          "n": "5",
+          "anchor": "frustura",
+          "body": "Diese nähere Erklärung des Wortes „inania“ stammt von A.",
+          "line_n": 5
+        },
+        {
+          "n": "6",
+          "anchor": "ardingun",
+          "body": "Der Zusatz „grundlos“ stammt wohl aus der Erklärung in A.",
+          "line_n": 6
+        },
+        {
+          "n": "7",
+          "anchor": ".",
+          "body": "In diesem Wortlaut G und R, H davon abweichend „Consurgent reges terrȩ et principes tractabunt paritum . aduersus dominum et adversus christum eius“ [‚Es werden sich gemeinsam erheben die Könige der Erde und die Fürsten werden sich gegen den Herrn und gegen seinen Gesalbten betragen.‘]",
+          "line_n": 8
+        },
+        {
+          "n": "8",
+          "anchor": "gendo",
+          "body": "Die Überlegung, dass die erwähnten Könige nicht physisch, sondern durch ihre Willensbekundung bei der Passion Christi „anwesend waren“ findet sich bei C.",
+          "line_n": 11
+        },
+        {
+          "n": "9",
+          "anchor": "dotum",
+          "body": "Der Zusatz sacerdotes, der sich im Vulgatatext nicht findet, ist in St. Gallen Cod. 27,23 interlinear angefügt (siehe Tax 1972: 4) und stammt in seiner Meinung von C, der hier die Phariseer nennt.",
+          "line_n": 12
+        },
+        {
+          "n": "10",
+          "anchor": ".",
+          "body": "Notker übersetzt (auch an anderen Stellen) lat. christus (von gr. χριστός ‚gesalbt‘), was auch dem Hebräischen entspricht, als geheiligt. Zur Salbung von Königen als göttliche Legitimation vgl. 1 Sam. 10,1.",
+          "line_n": 13
+        },
+        {
+          "n": "11",
+          "anchor": "herodes",
+          "body": "Die Verweise auf die historischen Persönlichkeiten Herodes den Großen (73 – 4 v. Chr.) und Herodes Antipas (ca. 20 v. Chr. – 39. n. Chr.) stammen von C und bilden Erzählungen aus dem Neuen Tastement ab. Herodes der Große ließ alle zur Zeit Jesu Neugeborenen töten (vgl. Mt. 2,16) und Herods (Antipas) verspottete Jesus vor der Kreuzigung (vgl. Lk. 23,6-12) (vgl. LTK, s. v. Herodes.)",
+          "line_n": 13
+        }
       ]
     },
     {
@@ -344,7 +412,8 @@
       "glosses": [],
       "translation_nhd": "",
       "translation_nhd_lines": [],
-      "sources": []
+      "sources": [],
+      "footnotes": []
     },
     {
       "number": 3,
@@ -704,6 +773,56 @@
           "german_translation": "Der Zorn Gottes folglich wird Vergeltung der Sünden genannt. [...] „Dann wird gesagt“ bezeichnet jene Zeit, wenn (er), (um zu) richten auf die Erde kommen wird.",
           "source_language": "la"
         }
+      ],
+      "footnotes": [
+        {
+          "n": "12",
+          "anchor": "ipsorum",
+          "body": "Hier der Wortlaut von G und R; H abweichend dazu: „et proiciamus a nobis laqueos eorum [‚und werfen wir von uns ihre Stricke‘]“.",
+          "line_n": 2
+        },
+        {
+          "n": "13",
+          "anchor": ".",
+          "body": "Diese Erklärung stammt aus C.",
+          "line_n": 3
+        },
+        {
+          "n": "14",
+          "anchor": ".",
+          "body": "Der Verweis auf die christliche Religion stammt aus A.",
+          "line_n": 6
+        },
+        {
+          "n": "15",
+          "anchor": ".",
+          "body": "Diesen Wortlaut zeigen G und R; H abweichend dazu: „habitator ceali ridebit. dominus subsannabit eos [‚Der Bewohner des Himmels wird lachen. Der Herr wird diese verachten‘]“.",
+          "line_n": 7
+        },
+        {
+          "n": "16",
+          "anchor": "e",
+          "body": "Notker folgt in dieser entkörperlichten Deutung C.",
+          "line_n": 9
+        },
+        {
+          "n": "17",
+          "anchor": "mida",
+          "body": "Vermutlich beneimida (vgl. Sehrt 1962: 13)",
+          "line_n": 10
+        },
+        {
+          "n": "18",
+          "anchor": ".",
+          "body": "Die Verbindung zum Obigen stammt von aus C.",
+          "line_n": 13
+        },
+        {
+          "n": "19",
+          "anchor": ".",
+          "body": "Dieser Wortalaut in G und H; R abweichend dazu „loquitur [‚sagt‘]“.",
+          "line_n": 14
+        }
       ]
     },
     {
@@ -714,7 +833,8 @@
       "glosses": [],
       "translation_nhd": "",
       "translation_nhd_lines": [],
-      "sources": []
+      "sources": [],
+      "footnotes": []
     },
     {
       "number": 5,
@@ -724,7 +844,8 @@
       "glosses": [],
       "translation_nhd": "",
       "translation_nhd_lines": [],
-      "sources": []
+      "sources": [],
+      "footnotes": []
     },
     {
       "number": 6,
@@ -940,7 +1061,14 @@
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Sion hic Ecclesiam debemus accipere, quam mοntem appellat propter eminentiam honoris et firmitatem fidei.Sion enim hebraea lingua dicitur specula, quae competenter aptatur Ecclesiae, quoniam <b>ad </b> <b>futuras</b> <b>spes</b> <b>sufficienter</b> instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur",
           "german_translation": "Zion müssen wir hier als Kirche verstehen, die (er) als Berg bezeichnet wegen dem Hervorragen der Ehre und der Festigkeit des Glaubens. „Zion“ nämlich in hebräischer Sprache wird „specula [Warte]“ genannt, was zutreffend angepasst wird an die Kirche, weil (sie) zu zukünftigen Hoffnungen ausreichend ausgebildet die Versprechen des Herren mit Voraussicht des Geistes betrachet, und nicht so sehr die gegenwärtigen, sondern die zukünftigen Wohltaten ehrt.",
-          "source_language": "la"
+          "source_language": "la",
+          "footnotes": [
+            {
+              "n": "32",
+              "anchor": "Zion müssen wir hier",
+              "body": "Im Unterschied zu anderen Stellen, an denen – wie Cassiodor zuvor erwähnt – auch Christus oder Jeruslamen gemeint sein können."
+            }
+          ]
         },
         {
           "sigle": "C",
@@ -955,6 +1083,80 @@
           "latin_text": "Sion autem arx est <b>altissima</b> <b> in </b> <b>Ierusalem</b>; hac per hoc significat sanctam Ecclesiam, <b>quia</b> <b> sancta Ecclesia terrena </b> <b>despiciens</b> <b> ad </b> <b>caelestia</b> <b>subleuatur</b> <b>.</b>",
           "german_translation": "Zion aber ist der höchste Berg in Jerusalem; dadurch bezeichnet (er) die heilige Kirche, weil die heilige Kirche auf das Irdische hinabschauend [nämlich vom Berg Zion] zu den Himmlischen erhoben wird.",
           "source_language": "la"
+        }
+      ],
+      "footnotes": [
+        {
+          "n": "20",
+          "anchor": "STIMME CHRISTI",
+          "body": "Der Zusatz „VOX CHRISTI“, der sich in den Vorlagen nicht findet und in der Hs. rot markiert ist, ist vermutlich den Kommentaren geschuldet, die sich darüber einig sind, dass es sich beim erwähnten König um Jesus Christus handelt.",
+          "line_n": 1
+        },
+        {
+          "n": "21",
+          "anchor": ".",
+          "body": "Heute ist die Übersetzung üblich, die sich an H orientiert und auch näher am hebräischen Original ist: „Ich selber habe meinen König eingesetzt auf Zion meinem heiligen Berg“. Die Passivierung dieses Satzes scheint der griechischen Übersetzung geschuldet zu sein (κατεστάθην). Notker wie auch A und C orientieren sich hingegen an den vom Griechischen beeinflussten lateinischen Übersetzungen G und R. Der Unterschied betrifft vor allem die Frage, wer spricht, Gott oder der eingesetzte König (vgl. auch Wellhausen 1895, 73).",
+          "line_n": 2
+        },
+        {
+          "n": "22",
+          "anchor": "r",
+          "body": "Notker übersetzt das Personalpronomen eo mit mînemo fáter und folgt dabei C.",
+          "line_n": 3
+        },
+        {
+          "n": "23",
+          "anchor": "gegen ihren Willen",
+          "body": "Die Ansicht, dass Christus iro undanches zum König ernannt wurde, bezeiht sich wohl auf die Geschichte der Kreuzigung, die von C. erwähnt wird.",
+          "line_n": 3
+        },
+        {
+          "n": "24",
+          "anchor": "cclesia",
+          "body": "Npw: christenheit.",
+          "line_n": 4
+        },
+        {
+          "n": "25",
+          "anchor": "die Kirche",
+          "body": "Auch der Gedanke, dass es sich bei dem Berg Zion um die Kirche handelt findet sich in beiden Kommentaren; Notker mischt hier den Psaltertext mit der interpolierten Version von A.",
+          "line_n": 4
+        },
+        {
+          "n": "26",
+          "anchor": "das Evangelium",
+          "body": "Der Gedanke, das Evangelium mit dem Gebot gleichzusetzen, findet sich bei C.",
+          "line_n": 5
+        },
+        {
+          "n": "27",
+          "anchor": "Jerusalem",
+          "body": "Der Verweis auf Jerusalem findet sich in RII.",
+          "line_n": 5
+        },
+        {
+          "n": "28",
+          "anchor": "man fern dort herabsehen kann, deshalb heißt er Zion.",
+          "body": "Die Erklärung, dass man von dort weit hinabblicken kann, stammt nicht aus den bekannten Quellen und könnte als Ergänzung Notkers zur Verbindung der einzelnen Quellen gesehen werden.",
+          "line_n": 6
+        },
+        {
+          "n": "29",
+          "anchor": "specula",
+          "body": "Npw: uualhiscon spiegel. Der Wiener Notker setzt an dieser Stelle statt latine und dem lateinischen Wort, die ins deutsche übersetzte Phrase. Auffällig ist, dass für specula nicht das direkt im Anschluss als Wort „unserer Weise“ gekennzeichnete uuarta eingesetzt wird, sondern eine andere Bedeutung von specula. Fraglich ist, ob hier nur Wort für Wort übersetzt und nicht auf den Inhalt geachtet wurde oder eine spezielle spirituelle Deutung vermittelt werden soll.",
+          "line_n": 7
+        },
+        {
+          "n": "30",
+          "anchor": "]",
+          "body": "Der Verweis auf specula stammt von C.",
+          "line_n": 7
+        },
+        {
+          "n": "31",
+          "anchor": "zu Gottes eigenem Angesicht.",
+          "body": "Auch der Verweis auf die Hoffnung auf das Anblicken Gottes findet sich in beiden Kommentaren. Das Angesicht Gottes und damit eine erneute Referenz des Wortfeldes um Sehen bringt Notker selbst mit ein.",
+          "line_n": 9
         }
       ]
     },
@@ -1131,7 +1333,19 @@
           "name": "Cassiodor, Expositio Psalmorum",
           "latin_text": "Dominum significat <b>Patrem</b> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.",
           "german_translation": "„Herr“ steht für den Vater [...] „Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.",
-          "source_language": "la"
+          "source_language": "la",
+          "footnotes": [
+            {
+              "n": "36",
+              "anchor": "[...]",
+              "body": "Auf den Einbezug einer längeren Stelle bei C, die auf das Herr-Sein Gottes und auf das Mysterium der Taufe eingeht verzichtet Notker."
+            },
+            {
+              "n": "37",
+              "anchor": "sine tempore",
+              "body": "C sieht die Geburt ohne Zeit als besonderes Alleinstellungsmerkmal Christi."
+            }
+          ]
         },
         {
           "sigle": "A",
@@ -1139,6 +1353,26 @@
           "latin_text": "[...] tamen hodie quia praesentiam significat atque in aeternitate nec <b>praeteritum</b> quidquam est, quasi esse desierit, nec <b>futurum</b>, quasi <b>nondum</b> <b>sit</b>, sed praesens tantum, quia quidquid aeternum est, semper est, diuinitus accipitur secundum id dictum Ego hodie genui te, quo sempiternam generationem uirtutis et sapientiae Dei, qui est unigenitus <b>Filius</b>, fides sincerissima et catholica praedicat.",
           "german_translation": "[...] freilich „heute“, weil es die Gegenwart darstellt und in Ewigkeit weder die Vergangenheit irgendetwas ist, quasi zu sein aufgehört haben, noch die Zukunft, quasi noch nicht sein, sondern nur die Gegenwart, weil, was auch immer ewig ist, immer ist, als göttlich angenommen wird, danach ist dieses gesagt: „Ich habe dich heute geboren“, womit das ewige Geschlecht der Tugend und der Weisheit Gottes, das der eingebornene Sohn ist, der ehrlichste und rechte (katholische) Glauben voraussagt.",
           "source_language": "la"
+        }
+      ],
+      "footnotes": [
+        {
+          "n": "33",
+          "anchor": "fáter",
+          "body": "Notker übersetzt lat. dominus mit mîn fáter und übernimmt dabei die Deutung von C direkt in die Übersetzung.",
+          "line_n": 3
+        },
+        {
+          "n": "34",
+          "anchor": "sun",
+          "body": "Der Verwis auf den Sohn tritt auch in A auf.",
+          "line_n": 8
+        },
+        {
+          "n": "35",
+          "anchor": ".",
+          "body": "Die Abfolge der Argumente folgt ziemlich genau A, wenngleich der Worlaut deutlich verändert wurde.",
+          "line_n": 8
         }
       ]
     },
@@ -1463,6 +1697,50 @@
           "german_translation": "Das heißt, du wirst in ihnen vertilgen die weltlichen Begierden.",
           "source_language": "la"
         }
+      ],
+      "footnotes": [
+        {
+          "n": "38",
+          "anchor": "mínnero",
+          "body": "Die Erläuterung basiert auf A.",
+          "line_n": 2
+        },
+        {
+          "n": "39",
+          "anchor": ".",
+          "body": "Der Verweis auf das Bitten findet sich bei A.",
+          "line_n": 5
+        },
+        {
+          "n": "40",
+          "anchor": "Reges",
+          "body": "Der hebräische Text impliziert mit der Wurzel רעע eigentlich ein Zerschlagen wie auch im folgenden Satz; das Griechische ποιμανεῖς [in Ms 44. pimanis] bringt den ins Lateinische übernommenen Aspekt des Weidens und Beherrschens.",
+          "line_n": 7
+        },
+        {
+          "n": "41",
+          "anchor": ".",
+          "body": "Dieser Wortlaut in G und R; H abweichend dazu „Pasces eos in uirga ferrea. [‚Du wirst diese mit eisernem Stab weiden lassen‘]“.",
+          "line_n": 8
+        },
+        {
+          "n": "42",
+          "anchor": ".",
+          "body": "Dieser Zusatz stammt aus A.",
+          "line_n": 9
+        },
+        {
+          "n": "43",
+          "anchor": ".",
+          "body": "Dieser Wortlaut in G und R; H abweichend dazu „ut uas figuli conteres eos [‚wie Gefäße der Töpfer wirst du sie zertreten‘]“",
+          "line_n": 10
+        },
+        {
+          "n": "44",
+          "anchor": "concupiscentias",
+          "body": "Dieser Vergleich findet sich (auffälligerweise in anderem Wortlaut) bei A.",
+          "line_n": 12
+        }
       ]
     },
     {
@@ -1473,7 +1751,8 @@
       "glosses": [],
       "translation_nhd": "",
       "translation_nhd_lines": [],
-      "sources": []
+      "sources": [],
+      "footnotes": []
     },
     {
       "number": 10,
@@ -1739,6 +2018,62 @@
           "german_translation": "Und wiederum, damit dieser jubel nicht vernachlässigend zurückgegeben wird, ergänzt er „mit Beben“, damit sie in gemeinsamer Verbindung die himmlische Ehrfurcht angemessen erfahren.",
           "source_language": "la"
         }
+      ],
+      "footnotes": [
+        {
+          "n": "45",
+          "anchor": "̧.",
+          "body": "Dieser Zusatz, der in der HS in rot geschrieben ist, übernimmt die Deutung von C.",
+          "line_n": 1
+        },
+        {
+          "n": "46",
+          "anchor": ".",
+          "body": "Dieser Satz findet sich im Wortlaut in G, und R; H abweichend dazu „Nunc ergo reges intelligite [‚nun also, Könige, erkennt‘]“.",
+          "line_n": 2
+        },
+        {
+          "n": "47",
+          "anchor": "erdo",
+          "body": "Die Erklärung, dass es um die Könige der Erde geht, stammt aus A.",
+          "line_n": 2
+        },
+        {
+          "n": "48",
+          "anchor": "isches",
+          "body": "Dass die Könige ihre eigenes Fleisch und ihren Körper kontrollieren können, findet sich sowohl bei A als auch bei C.",
+          "line_n": 3
+        },
+        {
+          "n": "49",
+          "anchor": ".",
+          "body": "Die Unterdrückung des Köpers findet sich auch bei A und C.",
+          "line_n": 4
+        },
+        {
+          "n": "50",
+          "anchor": ".",
+          "body": "Dieser Wortlaut stammt aus G; R ergänzt nach „erudimini“ noch „omnes“; H abweichend davon „erudimini iudices terrae [‚seid belehrt, Richter der Erde‘]“.",
+          "line_n": 5
+        },
+        {
+          "n": "51",
+          "anchor": ".",
+          "body": "Notker übersetzt den Nebebsatz mit einem Substantiv, das eher an den abweichenden Wortlaut von H erinnert als an den vorhergehenden lat. Satz aus G.",
+          "line_n": 5
+        },
+        {
+          "n": "52",
+          "anchor": ".",
+          "body": "Vgl. zu diesem Inhalt Br.",
+          "line_n": 7
+        },
+        {
+          "n": "53",
+          "anchor": ".",
+          "body": "Dieser Wortlaut findet sich in R; G und H zeigen statt „cum“ „in“.",
+          "line_n": 8
+        }
       ]
     },
     {
@@ -1749,7 +2084,8 @@
       "glosses": [],
       "translation_nhd": "",
       "translation_nhd_lines": [],
-      "sources": []
+      "sources": [],
+      "footnotes": []
     },
     {
       "number": 12,
@@ -1939,6 +2275,26 @@
           "latin_text": "Id est, cum <b>uindicta</b> <b>uenerit</b>, [...] Quod autem positum est <b>in </b> <b>breui</b>, hoc significare arbitror, quia repentinum aliquid erit, dum hoc remotum et longe futurum peccatores existimabunt.",
           "german_translation": "Das heißt, wenn die Strafe kommen wird [...], weil aber gesagt ist „in Kürze“, dieses erachte ich zu bedeuten, weil etwas plötzlich sein wird, während die Sünder dieses entfernt und weit in der Zukunft vermuten.",
           "source_language": "la"
+        }
+      ],
+      "footnotes": [
+        {
+          "n": "54",
+          "anchor": ".",
+          "body": "Dieser Wortlaut in G und R; H abweichend dazu „Adorate pure ne forte irascatur et pereatis de uia [‚Betete rechtschaffen an, damit (er) nicht vielleicht in Zorn gerät und ihr abkommt vom Weg‘]“.",
+          "line_n": 2
+        },
+        {
+          "n": "55",
+          "anchor": "in eo.",
+          "body": "Dieser Wortlaut in G; R endet abweichend dazu mit „eum“; H abweichend dazu: „Cum exarserit post paululum furor eius. beati omnes qui sperant in eum. [‚Wenn entbrennt nach kurzer Zeit sein Zorn, seling alle die auf ihn hoffen‘]“.",
+          "line_n": 7
+        },
+        {
+          "n": "56",
+          "anchor": "oculi",
+          "body": "Vgl. zu diesem Ausdruck 1 Kor 15,52.",
+          "line_n": 9
         }
       ]
     },

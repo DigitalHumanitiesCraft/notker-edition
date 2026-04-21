@@ -13,14 +13,18 @@ Prototyp einer digitalen Edition von Notkers Psalmenkommentar (Notker III. von S
 Notkers Psalmenkommentar verschränkt lateinischen Psalmtext, althochdeutsche Übersetzung und exegetischen Kommentar in einem Textfluss. Das Interface macht diese Schichten einzeln sichtbar:
 
 - **Drei funktionale Textschichten** farblich unterschieden (Psalmzitat / Übersetzung / Kommentar)
-- **Sechs unabhängige Toggles** (Schichten, nhd. Übersetzung, lat./ahd.-Trennung)
+- **Parallel-Layout Haupttext | nhd. Übersetzung**, zeilengetreu — pro Notker-Zeile eine nhd.-Zeile an identischer Höhe
+- **Textschichten- und Anzeige-Toggles** (Psalmzitat, Übersetzung, Kommentar, Glossen, nhd., Quellen-Übersetzung)
 - **Quellenapparat** mit patristischen Quellen (Augustinus, Cassiodor, Remigius, Breviarium)
-- **14 Interlinearglossen** inline dargestellt
+- **Psalter-Filter** (G, R, H) mit Section-Type-Disambiguierung für die Sigle „R"
+- **13 Interlinearglossen** inline dargestellt
 - **Facsimile** der Handschrift CSg 0021 via IIIF (e-codices)
+- **Konfigurierbares Drei-Slot-Layout** — jeder Slot zeigt wahlweise Quellen, Notkers Text, Handschrift, Psalter G/R/H, Wiener Notker, nhd.-Fließtext, synoptischen Vergleich oder die Siglen-Legende
 - **Synoptischer Psalmtext-Vergleich** (5 Textzeugen)
 - **Wiener Notker** als Paralleltext (ÖNB Cod. 2681)
 - **URL-Persistenz** — Deep Links für Gutachter
 - **Quellentext-Betonungen** — Schlüsselbegriffe in patristischen Zitaten fett hervorgehoben
+- **Research Vault** öffentlich einsehbar unter `docs/vault.html` — Methode, Domänenwissen, Anforderungen, Entscheidungen
 
 ## Architektur
 
@@ -66,13 +70,13 @@ kein Code-Change in `docs/index.html` nötig. Deep-Link per URL-Hash: `#psalm=3`
 
 ## Erweiterbarkeit
 
-Drei Ausbaustufen der Text-Bild-Verknüpfung:
+**Text-Bild-Verknüpfung** in drei Ausbaustufen:
 
-1. **Seiten-Synopse (implementiert):** Vers-Klick navigiert zur Handschriftenseite.
-2. **Zeilen-Synopse (nächste Stufe):** Vers-Klick zoomt auf die exakte Zeile (~4–8h Annotation).
+1. **Seiten-Synopse (implementiert):** Vers-Klick navigiert den IIIF-Viewer zur Handschriftenseite.
+2. **Zeilen-Synopse (teilweise):** nhd. Übersetzung zeilengetreu zur Notker-Zeile; Rückbezug auf die Handschriftenzeile steht aus, weil die CSg-0021-Zeilenumbrüche noch nicht annotiert sind.
 3. **Token-Synopse (Gesamtprojekt):** Mouse-Over hebt korrespondierende Stelle hervor.
 
-**Slot-System** (Panel-Registry): neue Pool-Einträge (Quellen-Handschriften, weitere Überlieferungen) lassen sich deklarativ in `docs/index.html` als `POOL`-Eintrag ergänzen, ohne das Layout umzubauen.
+**Slot-System** (Panel-Registry): neue Pool-Einträge lassen sich deklarativ in `docs/index.html` als `POOL`-Eintrag ergänzen, ohne das Layout umzubauen.
 
 ## Zitierhinweis
 

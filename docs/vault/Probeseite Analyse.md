@@ -139,39 +139,35 @@ verhältnis 1:1, keine `[...]`-Auslassung.
 
 **Anmerkung:** Manche Glossen erstrecken sich über mehrere Zeilen (z.B. T3R2 hat drei Glossierungen in einer Zeile, T5R3+R5 sind eine zerteilte Glosse). Die Positionierung im Haupttext ist zeilenbasiert, nicht tokenbasiert.
 
-## Quellen-Siglen: Vollständiges Inventar
+## Siglen-Vorkommen (empirisch)
 
-### In Quellenapparat-Zeilen (Kommentarquellen)
+Die semantische Deutung der Siglen (Autor, Werk, Disambiguierung) steht in [[Domänenwissen#Quellen-Siglen]]. Hier nur, **wo** und **wie oft** jede Sigle in der Probeseite auftaucht.
 
-| Sigle | Quelle | Vorkommen (Tables) | Häufigkeit |
-|---|---|---|---|
-| C | Cassiodor, Expositio Psalmorum | 1, 2, 3, 4, 6, 7, 8, 9, 11 | Sehr häufig |
-| A | Augustinus, Enarrationes in Psalmos | 1, 3, 4, 5, 6, 7, 9, 11 | Sehr häufig |
-| R | Remigius | 1, 8 | Gelegentlich |
-| Br | Breviarium | 3, 9 | Selten |
-| RII | Unbekannt (zweite Remigius-Quelle?) | 4 (Row 15, einmalig) | Einmal |
-| N | Unbekannt | 4 (Row 5, einmalig) | Einmal |
+### Quellenapparat-Zeilen
 
-### In Siglen-Spalte der Haupttext-Zeilen
-
-| Sigle(n) | Bedeutung | Vorkommen |
+| Sigle | Tables (Vorkommen) | Häufigkeit |
 |---|---|---|
-| G, R | Vermutlich: Zeile folgt Gallicanum/Romanum-Textgestalt | Häufig (Tables 1–8, 10) |
-| A | Kontext: Augustinus als Kommentarquelle (NICHT Psalter-Zeuge) | Tables 1, 4, 5, 7, 8 |
-| C | Kontext: Cassiodor als Kommentarquelle (NICHT Psalter-Zeuge) | Tables 1, 2, 4, 7, 8 |
-| H | Unklar: Hebraicum-Psalter oder Kommentarquelle? | Tables 2, 5, 7 |
+| C | 1, 2, 3, 4, 6, 7, 8, 9, 11 | sehr häufig |
+| A | 1, 3, 4, 5, 6, 7, 9, 11 | sehr häufig |
+| R | 1, 8 | gelegentlich |
+| Br | 3, 9 | selten |
+| RII | T4 Row 15 | einmalig (ungeklärt) |
+| N | T4 Row 5 | einmalig (ungeklärt) |
 
-**Offenes Problem:** G und R in der Siglen-Spalte könnten anzeigen, welcher Psalmtext-Version die Zeile textlich folgt (= textkritische Angabe), oder sie könnten Kommentarquellen markieren. Dies ist mit dem Auftraggeber zu klären.
+### Siglen-Spalte der Haupttext-Zeilen
 
-### Im Psalmtext-Vergleich (Table 11 Rows 4–6 + Table 12)
+| Sigle(n) | Tables (Vorkommen) |
+|---|---|
+| G, R | 1–8, 10 (häufig) |
+| A | 1, 4, 5, 7, 8 |
+| C | 1, 2, 4, 7, 8 |
+| H | 2, 5, 7 |
 
-| Sigle | Zeuge | Handschrift |
-|---|---|---|
-| G | Gallicanum | nicht angegeben |
-| R | Romanum | nicht angegeben |
-| H | Hebraicum (iuxta Hebraeos) | Staatsbibliothek Bamberg Ms. 44 |
-| A | Augustinus-Psalter | St. Gallen Cod. 162 |
-| C | Cassiodor-Psalter | St. Gallen Cod. 200 |
+Was diese Rand-Siglen bedeuten (Psalmtext-Version vs. Kommentarquelle), ist nicht eindeutig aus der Probeseite ablesbar — siehe [[Domänenwissen#Siglen-in-der-Haupttext-Spalte-unklar]].
+
+### Psalmtext-Vergleichstabellen
+
+Table 11 Rows 4–6 (G, R, H) und Table 12 (A-Psalter, C-Psalter). Legende und Handschriftensignaturen siehe [[Domänenwissen#Psalmtext-Zeugen-synoptischer-Vergleich]].
 
 ## Psalmtext-Vergleich: Ausgewählte Varianten
 

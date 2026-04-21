@@ -283,6 +283,42 @@ Augustinus-2-Nachreichungen V3–5/V6).
   `knowledge/*.md` → `docs/vault/*.md` + `index.json`.
 - Links in Hauptnavigation und Footer ergänzt.
 
+## 2026-04-21 – UI-Feinschliff und Vault-Refactor
+
+Arbeit in zwei Strängen parallel: Frontend-Bugs aus laufender Review plus eine Aufräumrunde im Research Vault.
+
+**UI-Fixes** (`docs/index.html`):
+- Restore-Bar für geschlossene Slots aus dem fixierten Unterrand in die Top-Nav verschoben und mit „Ansicht zurücksetzen" zu einer `.header-view-controls`-Gruppe rechts geclustert.
+- `resetLayout()` setzt jetzt den vollständigen Startzustand wieder her (State vor DOM, keine doppelten Renders): Slot-Zuweisung, Breiten, Layer-Toggles, nhd/Quellen-Übersetzung, Filter, aktiver Vers.
+- Slot-Verhältnis auf 3 : 4 : 3 gesetzt — Notkers Text im Default breiter als die Flanken.
+- Psalter-Pool-Templates getrennt (`pool-psalter-G/R/H`), damit mehrere Psalter-Zeugen gleichzeitig in verschiedenen Slots angezeigt werden können. Der gemeinsame Template-Knoten hatte das vorher verhindert.
+- Quellen-Panel: permanenter Header „Quellen zu Vers N" plus Hinweiszeile zur Klick-Synchronisation. Empty-State zeigt, in welchen Versen eine gefilterte Sigle tatsächlich vorkommt (klickbare Sprünge).
+- Sigle-Chip CSS-Bug behoben: `color: inherit` statt `color: #fff` auf `.sigle-chip`, damit `background: currentColor` die Farbe vom Kontext erbt (Elternteil oder Inline-Style) statt Weiß-auf-Weiß zu rendern.
+- Vers-Nummern: kleineres Font + `white-space: nowrap`, damit Gruppen wie „12–13" nicht mehr umbrechen.
+- Intro-Details-Block („Psalm 2 · Einführung · Bedienung") entfernt — war statisches HTML aus Iteration 1, kam nicht aus der Pipeline und stand seit dem Slot-System ohne Bezug im Notkers-Text-Panel.
+
+**Vault-Refactor** (`knowledge/`):
+- Siglen-Tabellen vereinheitlicht: `Domänenwissen.md` ist Single Source of Truth. `Editionsrichtlinien.md` führt jetzt nur die TEI-IDs, `Probeseite Analyse.md` nur das empirische Vorkommen; beide verweisen auf das Domänenwissen.
+- Domänenwissen-Siglen klar in „gesichert" (A, C, Br, R; G, H, A-Psalter, C-Psalter) und „in Klärung" (RII, N, Haupttext-Spalte, R-Disambiguierung) geteilt.
+- `Anforderungen-Iteration-2.md` von 461 auf 243 Zeilen gekürzt; Umsetzungsplan, Teststrategie und Stand pro Story in neue Datei `Iteration-2-Umsetzungsplan.md` ausgelagert.
+- Pfeifer-Mail-Entwürfe nach `knowledge/_drafts/` verschoben (werden von `sync_vault.py` nicht mehr in den öffentlichen Vault kopiert).
+- `Technik.md` um Begründungs-Sätze pro Pipeline-Schritt angereichert: warum vier Skripte, warum Farbextraktion auf Run-Ebene, warum zwei Datenformate nebeneinander, warum `<seg>` statt `<quote>` etc.
+- `CLAUDE.md` mit den tatsächlichen Dokumenten im Vault synchronisiert, Hinweis auf `_drafts/` ergänzt.
+
+**Neuer Befund (Offene Korrekturen 2.4):** Die DOCX enthält **58 inhaltliche Fußnoten** (Textzeugen-Varianten, Quellenzuschreibungen, Übersetzungsentscheidungen), die aktuell von `parse_probeseite.py` nicht ausgelesen werden und entsprechend weder im TEI noch im JSON noch in der UI erscheinen. Beispiel FN#1: „Der Zusatz PSALMVS DAVID, der in G und R in rot geschrieben ist, fehlt in H." Priorität hoch — inhaltlich genau die Art philologischer Annotation, die eine digitale Edition von einer DOCX-Abschrift unterscheidet.
+
+**Seiten-Mapping um −1 korrigiert (am selben Tag):** UI-Beobachtung, dass Tax/Sehrt-R10 und Handschriftenseite 11 um eins auseinander lagen. Das frühere Mapping (Psalm-2-Beginn = HS-Seite 11) war mit der Edition-Seitenangabe R10 inkonsistent. Vers→Seite jetzt: V1–3 = S. 10, V4–6 = S. 11, V7–9 = S. 12, V10–13 = S. 13. Angepasst: `docs/index.html` (`VERSE_TO_PAGE`, Schema-Block, Demo-Fallback), `scripts/tei_to_json.py` (Metadata-URL), `scripts/build_tei.py` (`<facsimile>`-IIIF-URL), `knowledge/Domänenwissen.md`, `knowledge/Technik.md`, `docs/methode.html`. Pipeline regeneriert, Tests grün.
+
+**Fußnoten-Integration (nachträglich am selben Tag):** Parser, TEI-Emission, JSON-Ableitung und Frontend-Darstellung komplett durchgezogen.
+
+- Neuer Run-Feld `footnote_refs`, neue Dataclass `Footnote` mit `n`, `body`, `anchor_text`.
+- `load_footnotes()` liest `word/footnotes.xml`, `get_cell_runs()` hängt leere Referenz-Runs an den vorhergehenden Anker-Run.
+- TEI-Emission als `<note type="editorial" n="N" resp="#pfeifer"><label>anchor</label>body</note>` innerhalb des betreffenden `<ab>` bzw. `<cit>`. Erste Fassung mit `@corresp` schlug an RelaxNG an (nicht erlaubt auf `<note>`) — `<label>`-Kind ist die Schema-konforme Alternative.
+- JSON: `verse.footnotes: [{n, anchor, body, line_n}]` und `source.footnotes` für Quellen-interne Anmerkungen.
+- UI: Fußnoten-Liste unterhalb des Vers-Grids und unter den betreffenden Quelleneinträgen, je mit Nummer-Chip, Anker-Wort und Fließtext-Body. Stil bewusst unaufdringlich, damit das Haupttext-Grid nicht unterbrochen wird.
+- Bilanz: 53 von 58 Fußnoten landen an Haupttext-Zeilen, 3 an Quelleneinträgen; 2 hängen in Strukturen, die der aktuelle Parser nicht abdeckt (Psalter-Header o. ä.) — gutartig, nicht blockierend.
+- 29 / 29 Pipeline-Tests grün.
+
 ## Offene Punkte
 
 ### Nächste Schritte

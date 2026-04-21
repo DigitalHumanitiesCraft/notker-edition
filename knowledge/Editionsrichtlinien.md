@@ -166,7 +166,28 @@ Patristische Quellentexte (Augustinus, Cassiodor, Remigius, Breviarium), auf die
 
 **Warum `<cit>` statt `<app>`?** Die Quellen sind Notkers Vorlagen (Zitate), keine textkritischen Varianten. `<app>` wird nur im Psaltervergleich verwendet (siehe 1.7).
 
-### 1.6 Siglen am Zeilenrand
+### 1.6 Editorial-Fußnoten (aus der Probeseite)
+
+Die DOCX trägt philologische Fußnoten (Textzeugen-Varianten, Quellenzuschreibungen, Übersetzungsnotizen). Jede Fußnote hängt an einem bestimmten Anker-Wort im Haupttext.
+
+**Kodierung:** `<note type="editorial">` innerhalb des `<ab>`, das den Anker enthält. Anker-Wort als `<label>`-Kind (TEI-Schema erlaubt kein `@corresp` auf `<note>`), danach der Body als Fließtext nach dem `<label>`.
+
+```xml
+<ab n="1">
+  <seg type="psalm" ana="#fn-psalm" xml:lang="la">PSALVS DAVID.</seg>
+  <note type="editorial" n="1" resp="#pfeifer">
+    <label>DAVID.</label>Der Zusatz PSALMVS DAVID, der in G und R in rot geschrieben ist, fehlt in H.
+  </note>
+</ab>
+```
+
+- `@n` — laufende Fußnotennummer aus der DOCX (1-basiert)
+- `@resp="#pfeifer"` — Attribution an den Bearbeiter
+- `<label>` — Anker-Wort (zur Rückverankerung im Frontend)
+
+Fußnoten innerhalb von Quelleneinträgen werden analog im `<cit>` kodiert.
+
+### 1.7 Siglen am Zeilenrand
 
 In der Probeseite steht in der letzten Spalte jeder Haupttext-Zeile eine oder mehrere Siglen (z.B. „G, R", „A", „C, R"). Ihre genaue Semantik ist ungeklärt.
 
@@ -301,43 +322,30 @@ Im `<encodingDesc>/<classDecl>/<taxonomy xml:id="textfunction">`:
 
 ### 3.2 Quellendeklaration
 
-**Textzeugen** (Psalter-Handschriften) in `<sourceDesc>/<listWit>`:
+Autor, Werk und Semantik der Siglen sind in [[Domänenwissen#Quellen-Siglen]] dokumentiert. Hier nur die TEI-IDs, die im Header für `@wit` bzw. `@ana` referenziert werden:
 
-| ID | Zeuge | Handschrift |
+**Textzeugen in `<sourceDesc>/<listWit>`** (Psalter-Handschriften):
+
+| ID | Sigle | Handschrift |
 |---|---|---|
-| `wit-G` | Gallicanum | — |
-| `wit-R` | Romanum | — |
-| `wit-H` | Hebraicum | Bamberg Ms. 44 |
-| `wit-A-psa` | Augustinus-Psalter | St. Gallen Cod. 162 |
-| `wit-C-psa` | Cassiodor-Psalter | St. Gallen Cod. 200 |
+| `wit-G` | G (Gallicanum) | — |
+| `wit-R` | R (Romanum) | — |
+| `wit-H` | H (Hebraicum) | Bamberg Ms. 44 |
+| `wit-A-psa` | A (Augustinus-Psalter) | St. Gallen Cod. 162 |
+| `wit-C-psa` | C (Cassiodor-Psalter) | St. Gallen Cod. 200 |
 
-**Kommentarquellen** (Werke) in `<sourceDesc>/<listBibl>`:
+**Kommentarquellen in `<sourceDesc>/<listBibl>`:**
 
-| ID | Autor | Werk | Status |
-|---|---|---|---|
-| `src-A` | Augustinus | Enarrationes in Psalmos | gesichert |
-| `src-C` | Cassiodor | Expositio Psalmorum | gesichert |
-| `src-R` | Remigius | — | gesichert (Sigle teilt sich mit `wit-R` Romanum-Psalter) |
-| `src-Br` | — | Breviarium | gesichert |
-| `src-RII` | — | RII | ungeklärt (`cert="low"`) |
-| `src-N` | — | N | ungeklärt (`cert="low"`) |
+| ID | Sigle | Status |
+|---|---|---|
+| `src-A` | A (Augustinus) | gesichert |
+| `src-C` | C (Cassiodor) | gesichert |
+| `src-R` | R (Remigius) | gesichert (Sigle teilt sich mit `wit-R`) |
+| `src-Br` | Br (Breviarium) | gesichert |
+| `src-RII` | RII | ungeklärt (`cert="low"`) |
+| `src-N` | N | ungeklärt (`cert="low"`) |
 
-**R-Disambiguierung (Iteration 2):** Die Sigle „R" ist im Datenmodell ambig: sie
-bezeichnet sowohl das Romanum (`wit-R`, Psalter-Zeuge) als auch Remigius (`src-R`,
-patristische Quelle). Die JSON-Pipeline (`disambiguate_sigles()` in
-`tei_to_json.py`) löst das per Section-Type-Heuristik:
-
-- R-Marginnote auf einer Section vom Typ `psalm_citation` → Romanum (Psalter)
-- R-Marginnote auf einer Section vom Typ `commentary`/`translation`/`gloss` → Remigius (Patristik)
-
-Begründung: Wenn Notker einen Psalmtext zitiert und am Rand „R" steht, verweist
-das auf den Wortlaut der Romanum-Psalter-Tradition. Steht „R" neben einem
-Kommentar-Segment, ist es eine Quellen-Referenz auf Remigius' Auslegung. Die
-Heuristik ist plausibel und konsistent mit der Notations-Praxis in der
-Probeseite, wartet aber auf finale Bestätigung.
-
-JSON-Output pro Section: `sigles_psalter` und `sigles_sources` als zwei getrennte
-Listen. Frontend-Filter wirkt mit Präfix-Keys (`psa:R` vs. `src:R`).
+**R-Disambiguierung:** Die Sigle R bezeichnet sowohl den Romanum-Psalter (`wit-R`) als auch Remigius (`src-R`). Die JSON-Pipeline (`disambiguate_sigles()` in `tei_to_json.py`) löst das per Section-Type-Heuristik — Details und Begründung siehe [[Domänenwissen#Disambiguierungs-Heuristik-Iteration-2]]. Im JSON-Output stehen die aufgelösten Siglen in zwei getrennten Listen (`sigles_psalter`, `sigles_sources`); das Frontend filtert mit Präfix-Keys (`psa:R` vs. `src:R`).
 
 ### 3.3 Segmentierungsbeschreibung
 

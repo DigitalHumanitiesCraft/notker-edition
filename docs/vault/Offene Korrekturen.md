@@ -175,10 +175,13 @@ Entfernt die Disambiguierungs-Heuristik aus `tei_to_json.py` vollständig.
 
 ---
 
+---
+
 ## 4. Erledigt in diesem Durchgang
 
 - **Bug 3** (Psalter-Buttons G/H/R ohne Wirkung): CSS-Variablen `--color-psa-G/H/R` ergänzt, Chip-Styling pro Sigle scoped by group (R-Kollision weg), Highlight-Rendering auf linear-gradient umgestellt.
 - **Bug 4** (Mehrfachauswahl Psalterien): `break;` in `updateSourceHighlights()` entfernt, alle Matches werden gesammelt und als gestapelte 3px-Streifen am linken Rand gerendert.
+- **2.4 Word-Fußnoten integriert.** Parser liest `word/footnotes.xml` und attachiert jede Referenz an den Anker-Run. TEI-Kodierung als `<note type="editorial" n="N" resp="#pfeifer"><label>anchor</label>body</note>` am `<ab>` (RelaxNG-valide — `@corresp` ist auf `<note>` nicht erlaubt, `<label>`-Kind ist es). JSON-Feld `verse.footnotes: [{n, anchor, body, line_n}]` plus `source.footnotes` für Quellen-interne Fußnoten. Frontend rendert eine Fußnoten-Liste unterhalb jedes Vers-Grids und unter betreffenden Quelleneinträgen (Nummer-Chip, Anker-Wort, Body). 56 von 58 Fußnoten aus der DOCX jetzt sichtbar; die verbleibenden zwei liegen in Positionen, die der aktuelle Parser nicht abdeckt (z. B. Psalter-Header-Zeilen).
 
 ## 5. Verknüpfungen
 

@@ -8,6 +8,8 @@ tags: [notker, ui-design, edition-interface]
 
 # Design: Notker Psalmenkommentar – Editionsinterface
 
+> **Stand:** Dieses Dokument beschreibt das Design nach Iteration 1 (Stand 23.03.2026). Die Erweiterungen und Revisionen aus Iteration 2 (Slot-System, Panel-Dropdown, zeilengetreue Synopse, Parallel-Layout Haupttext | nhd.) sind in [[Anforderungen-Iteration-2#Getroffene-Entscheidungen]] dokumentiert; der abgeschlossene Umsetzungsstand in [[Iteration-2-Umsetzungsplan]].
+
 ## Leitgedanke
 
 Der Prototyp vermittelt Gutachtern eines Drittmittelantrags: *Diese digitale Edition löst ein reales philologisches Problem — die Schichtentrennung in Notkers Psalmenkommentar — auf eine Weise, die gedruckte Editionen nicht können.* Jede Designentscheidung dient diesem Demonstrationszweck.
@@ -210,33 +212,33 @@ Fünf Ebenen, geordnet nach visueller Prominenz. **Progressive Disclosure**: Sta
 
 ---
 
-## 6. Offene Designentscheidungen
+## 6. Designentscheidungen — Abschluss
 
-### Vor Implementierung
+### Vor Implementierung entschieden
 
 | Nr. | Frage | Entscheidung |
 |---|---|---|
-| D-1 | Glossen-Darstellung | Inline eingerückt (sichtbarer als Tooltip, ehrlicher gegenüber Textcharakter) |
-| D-2 | nhd. Übersetzung Position | Unterhalb des Verses (platzsparender als Spalte) |
-| D-3 | Quellenfilter-Farbe | Individuelle Sigle-Farben (ermöglicht mehrere Filter gleichzeitig) |
+| D-1 | Glossen-Darstellung | Inline eingerückt (sichtbarer als Tooltip, ehrlicher gegenüber dem Textcharakter) |
+| D-2 | nhd. Übersetzung Position | Parallele Spalte rechts vom Haupttext (Iteration 2 / US-9); Iteration 1 hatte sie unterhalb des Verses |
+| D-3 | Quellenfilter-Farbe | Individuelle Sigle-Farben, damit mehrere Filter gleichzeitig lesbar bleiben |
 | D-4 | Serifenschrift | Gentium Book Plus (frei, gute ahd.-Zeichenabdeckung) |
 
-### Abhängig von Scope-Klärung mit dem Auftraggeber
+### In Iteration 2 entschieden
+
+| Nr. | Frage | Entscheidung |
+|---|---|---|
+| D-5 | Psalmtext-Vergleich | Eigener Pool-Eintrag im Slot-System, als synoptische Tabelle aller fünf Zeugen |
+| D-6 | Wiener Notker | Eigener Pool-Eintrag, als Paralleltext |
+| D-10 | Facsimile-Panel | Standardmäßig offen im rechten Slot; Breite 3 : 4 : 3 (Quellen : Edition : Handschrift) |
+| D-11 | Farbüberlagerung Schicht × Filter | Schichtfarbe für den Text, Filterfarbe als Seiten-Stripe auf der `.verse-line`; mehrere Filter stapeln sich als 4px-Streifen mit 1px-Abstand |
+
+### Offen
 
 | Nr. | Frage |
 |---|---|
-| D-5 | Psalmtext-Vergleich: Eigener Tab oder Unter-Panel? |
-| D-6 | Wiener Notker: Paralleltext oder eigener Tab? |
-| D-7 | Querverweise auf Bibelstellen: Wo im Layout? |
-
-### Bei Implementierung testbar
-
-| Nr. | Frage |
-|---|---|
-| D-8 | Exakte Farbwerte (Kontrastverhältnisse, Barrierefreiheit) |
-| D-9 | Toggle-Animation (Dauer, Art) |
-| D-10 | Facsimile-Panel Standardbreite und -zustand |
-| D-11 | Farbüberlagerung Textschicht-Farben × Quellenfilter-Farben bei mehreren aktiven Filtern |
+| D-7 | Querverweise auf Bibelstellen: Wo im Layout? Daten liegen noch nicht vor |
+| D-8 | Barrierefreiheits-Review (Kontrastverhältnisse über alle Farbkombinationen) |
+| D-9 | Toggle-Animation: aktuell hart, ggf. sanfter Fade |
 
 ---
 

@@ -266,12 +266,12 @@ def build_header(psalm_number: int = 2):
 def build_facsimile():
     """Erstellt das facsimile-Element mit IIIF-Referenzen."""
     facs = E('facsimile')
-    # Seite 11 = Beginn Psalm 2 (von Philipp bestätigt)
+    # Seite 10 = Beginn Psalm 2 (entspricht Tax/Sehrt-Edition R10)
     surf = SE(facs, 'surface')
-    set_xml_attr(surf, 'id', 'facs-p11')
-    surf.set('source', 'https://www.e-codices.unifr.ch/de/csg/0021/11/0/')
+    set_xml_attr(surf, 'id', 'facs-p10')
+    surf.set('source', 'https://www.e-codices.unifr.ch/de/csg/0021/10/0/')
     graphic = SE(surf, 'graphic',
-                 url='https://www.e-codices.unifr.ch/loris/csg/csg-0021/csg-0021_011.jp2/full/max/0/default.jpg')
+                 url='https://www.e-codices.unifr.ch/loris/csg/csg-0021/csg-0021_010.jp2/full/max/0/default.jpg')
     return facs
 
 
@@ -386,6 +386,18 @@ def build_verse_div(vg: EnrichedVerseGroup, parent):
                 note = SE(ab, 'note', type='sigle', place='margin')
                 note.text = line.sigles
 
+        # Editorial-Fußnoten (aus word/footnotes.xml) als <note type="editorial">.
+        # Anker-Text als <label>-Kind (TEI-Schema erlaubt kein @corresp auf note),
+        # danach der Body als Text. Downstream liest <label> als Anker.
+        for fn in getattr(line, 'footnotes', None) or []:
+            note = SE(ab, 'note', type='editorial', n=fn.n, resp='#pfeifer')
+            if fn.anchor_text:
+                label = SE(note, 'label')
+                label.text = fn.anchor_text
+                label.tail = fn.body
+            else:
+                note.text = fn.body
+
         # nhd. Übersetzung als Attribut auf <ab> (oder eigenes Element)
         if not line.is_gloss and line.nhd:
             # Wir sammeln nhd pro Vers, nicht pro Zeile (siehe unten)
@@ -470,6 +482,17 @@ def build_source_entry(src: SourceEntry, parent):
         tr_note = SE(cit, 'note', type='translation', resp='#pfeifer')
         set_xml_attr(tr_note, 'lang', 'de')
         tr_note.text = src.german
+
+    # Editorial-Fußnoten innerhalb eines Quelleneintrags. Anker-Wort als
+    # <label>-Kind (siehe build_verse_group für denselben Mechanismus).
+    for fn in getattr(src, 'footnotes', None) or []:
+        fn_note = SE(cit, 'note', type='editorial', n=fn.n, resp='#pfeifer')
+        if fn.anchor_text:
+            label = SE(fn_note, 'label')
+            label.text = fn.anchor_text
+            label.tail = fn.body
+        else:
+            fn_note.text = fn.body
 
 
 def build_text_with_bold(parent_el, text, bold_spans):

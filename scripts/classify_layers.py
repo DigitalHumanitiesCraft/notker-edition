@@ -57,6 +57,7 @@ class EnrichedLine:
     is_gloss: bool = False
     gloss_text: str = ''
     gloss_nhd: str = ''
+    footnotes: list = field(default_factory=list)  # List[Footnote] aus parse_probeseite
 
 
 @dataclass
@@ -274,6 +275,7 @@ def classify_and_enrich(psalm: PsalmData) -> list[EnrichedVerseGroup]:
         enriched_lines = []
 
         for line in vg.lines:
+            line_fns = list(getattr(line, 'footnotes', None) or [])
             if isinstance(line, GlossLine):
                 enriched_lines.append(EnrichedLine(
                     segments=[],
@@ -284,6 +286,7 @@ def classify_and_enrich(psalm: PsalmData) -> list[EnrichedVerseGroup]:
                     is_gloss=True,
                     gloss_text=line.text,
                     gloss_nhd=line.nhd,
+                    footnotes=line_fns,
                 ))
             elif isinstance(line, TextLine):
                 enriched_segs = []
@@ -313,6 +316,7 @@ def classify_and_enrich(psalm: PsalmData) -> list[EnrichedVerseGroup]:
                     nhd_runs=list(line.nhd_runs),
                     sigles=line.sigles,
                     line_number=line.line_number,
+                    footnotes=line_fns,
                 ))
 
         # Segment-Verkettung

@@ -367,15 +367,71 @@ def collect_sources(verse_div) -> list[dict]:
         tr_note = cit.find(f'{{{TEI_NS}}}note[@type="translation"]')
         german = clean_text(text_content(tr_note)) if tr_note is not None else ''
 
-        sources.append({
+        # Editorial-Fußnoten innerhalb des <cit> (selten, aber vorhanden).
+        # Anker steht im optionalen <label>-Kind, Body im trailing text / label.tail.
+        footnotes = []
+        for fn_note in cit.findall(f'{{{TEI_NS}}}note[@type="editorial"]'):
+            if fn_note.get('n'):
+                footnotes.append(_extract_editorial_footnote(fn_note))
+
+        entry = {
             'sigle': sigle,
             'name': name,
             'latin_text': latin,
             'german_translation': german,
             'source_language': source_language or 'la',
-        })
+        }
+        if footnotes:
+            entry['footnotes'] = footnotes
+        sources.append(entry)
 
     return sources
+
+
+def _extract_editorial_footnote(fn_note) -> dict:
+    """Extrahiert Anker (<label>) und Body aus einer editorial-<note>.
+
+    Formen:
+      <note type="editorial" n="1"><label>DAVID.</label>Der Zusatz ...</note>
+      <note type="editorial" n="1">Der Zusatz ...</note>  (ohne Anker)
+    """
+    label = fn_note.find(f'{{{TEI_NS}}}label')
+    if label is not None:
+        anchor = clean_text(text_content(label))
+        # Body ist der Tail des <label> (Text nach dem Label-Tag) plus ggf. der
+        # direkte .text des <note> (Text vor dem Label, selten).
+        parts = []
+        if fn_note.text:
+            parts.append(fn_note.text)
+        if label.tail:
+            parts.append(label.tail)
+        body = clean_text(''.join(parts)) or clean_text(text_content(fn_note))
+    else:
+        anchor = ''
+        body = clean_text(text_content(fn_note))
+    return {
+        'n': fn_note.get('n', ''),
+        'anchor': anchor,
+        'body': body,
+    }
+
+
+def collect_footnotes(verse_div) -> list[dict]:
+    """Sammelt Editorial-Fußnoten eines Vers-divs (aus den <ab>-Blöcken).
+
+    Fußnoten innerhalb von <cit>-Quelleneinträgen werden in collect_sources
+    eingesammelt — hier nur die am Haupttext-<ab> hängenden.
+    """
+    fns = []
+    for ab in verse_div.findall(f'{{{TEI_NS}}}ab'):
+        for fn_note in ab.findall(f'{{{TEI_NS}}}note[@type="editorial"]'):
+            n = fn_note.get('n')
+            if not n:
+                continue
+            entry = _extract_editorial_footnote(fn_note)
+            entry['line_n'] = int(ab.get('n')) if ab.get('n', '').isdigit() else None
+            fns.append(entry)
+    return fns
 
 
 # ---------------------------------------------------------------------------
@@ -494,7 +550,7 @@ def tei_to_json(tei_path: str) -> dict:
             'edition': 'Tax/Sehrt (1970er)',
             'manuscript': 'CSg 0021',
             'iiif_manifest': 'https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json',
-            'facsimile_start_canvas': 'https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_011.json',
+            'facsimile_start_canvas': 'https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_010.json',
             'edition_pages': 'R10–R13',
         },
         'verses': [],
@@ -524,6 +580,7 @@ def tei_to_json(tei_path: str) -> dict:
         nhd = collect_nhd(verse_div)
         nhd_lines = collect_nhd_lines(verse_div)
         sources = collect_sources(verse_div)
+        footnotes = collect_footnotes(verse_div)
 
         # Für Versgruppen: alle Daten unter der ersten Versnummer,
         # zusätzliche Versnummern als leere Einträge
@@ -537,6 +594,7 @@ def tei_to_json(tei_path: str) -> dict:
                     'translation_nhd': nhd,
                     'translation_nhd_lines': nhd_lines,
                     'sources': sources,
+                    'footnotes': footnotes,
                 })
             else:
                 # Zusätzliche Verse in der Gruppe: Verweis auf Hauptvers
@@ -549,6 +607,7 @@ def tei_to_json(tei_path: str) -> dict:
                     'translation_nhd': '',
                     'translation_nhd_lines': [],
                     'sources': [],
+                    'footnotes': [],
                 })
 
     # Post-Processing: Silbentrennungen an Versgruppen-Grenzen auflösen

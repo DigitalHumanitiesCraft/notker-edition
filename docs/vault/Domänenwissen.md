@@ -81,9 +81,9 @@ Quelle: Referenzkorpus Altdeutsch (ReA), ein tiefenannotiertes Mehrebenenkorpus 
 ### 3. Facsimile
 
 e-codices, CSg 0021. IIIF-fähig.
-- Einstieg Psalm 2: [Seite 11](https://www.e-codices.unifr.ch/de/csg/0021/11/0/) (bestätigt)
-- IIIF-Manifest (zu verifizieren): `https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json`
-- Seiten-Range für Psalm 2: ab S. 11, Ende noch zu klären
+- Einstieg Psalm 2: [Seite 10](https://www.e-codices.unifr.ch/de/csg/0021/10/0/) der Handschrift, entsprechend der Tax/Sehrt-Edition-Seite R10
+- IIIF-Manifest: `https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json`
+- Seiten-Range für Psalm 2: Handschriftenseiten 10–13 (Edition R10–R13)
 
 ### 4. Quelleneditionen (De Gruyter)
 
@@ -92,64 +92,59 @@ e-codices, CSg 0021. IIIF-fähig.
 
 ## Quellen-Siglen
 
-### Kommentarquellen (gesichert)
+Notkers Kommentar nennt an zwei Stellen Siglen: im Quellenapparat (am Ende einer Versgruppe) und in der Marginalspalte jeder Haupttext-Zeile. Je nach Kontext hat dieselbe Sigle verschiedene Bedeutungen — die UI-Filter lösen diese Mehrdeutigkeit über eine Section-Type-Heuristik auf.
+
+### Gesichert: Kommentarquellen (Quellenapparat)
 
 | Sigle | Quelle | Häufigkeit in Psalm 2 |
 |---|---|---|
-| A | Augustinus, Enarrationes in Psalmos | Sehr häufig, umfangreichste Quelle |
-| C | Cassiodor, Expositio Psalmorum | Sehr häufig, zweitwichtigste Quelle |
-| Br | Breviarium | Selten, kurze Einträge |
-| R | Remigius | Gelegentlich |
+| A | Augustinus, Enarrationes in Psalmos | sehr häufig, umfangreichste Quelle |
+| C | Cassiodor, Expositio Psalmorum | sehr häufig, zweitwichtigste Quelle |
+| Br | Breviarium in Psalmos (Pseudo-Hieronymus) | selten, kurze Einträge |
+| R | Remigius von Auxerre | gelegentlich |
 
-### Kommentarquellen (ungeklärt)
-
-| Sigle | Vermutung | Vorkommen | Klärungsbedarf |
-|---|---|---|---|
-| RII | Zweite Remigius-Quelle oder -Rezension? | Table 4, Row 15 (einmalig) | Mit Auftraggeber klären |
-| N | Unbekannt | Table 4, Row 5 (einmalig) | Mit Auftraggeber klären |
-
-### Siglen in der Haupttext-Spalte (unklar)
-
-G, R, H, A, C erscheinen auch in der **Siglen-Spalte der Haupttext-Zeilen** (nicht in den Quellenapparat-Zeilen). Dort könnten sie bedeuten:
-- Welcher Psalmtext-Version die Zeile textlich folgt (textkritisch), ODER
-- Welche Kommentarquelle die Zeile inhaltlich beeinflusst hat
-
-Die Funktion von **H** in der Siglen-Spalte ist besonders unklar: Hebraicum-Psalter als Textvorlage? Oder eine eigene Kommentarquelle? Erscheint in Tables 2, 5, 7.
-
-### Psalmtext-Zeugen (synoptischer Vergleich)
+### Gesichert: Psalmtext-Zeugen (synoptischer Vergleich)
 
 | Sigle | Textzeuge | Handschrift |
 |---|---|---|
-| G | Gallicanum | (nicht angegeben) |
-| R | Romanum | (nicht angegeben) |
+| G | Gallicanum | nicht angegeben |
+| R | Romanum | nicht angegeben |
 | H | Hebraicum (iuxta Hebraeos) | Bamberg Ms. 44 |
 | A | Augustinus-Psalter | St. Gallen Cod. 162 |
 | C | Cassiodor-Psalter | St. Gallen Cod. 200 |
 
-**Siglen-Disambiguation:** A, C, R, H haben je nach Kontext verschiedene Bedeutungen. Im Quellenapparat: Kommentarwerke. Im Psalmtext-Vergleich: Psalter-Handschriften. In der Haupttext-Siglen-Spalte: unklar.
+### In Klärung: Siglen in der Haupttext-Spalte
+
+G, R, H, A, C erscheinen auch in der Marginalspalte der Haupttext-Zeilen (nicht in den Quellenapparat-Zeilen). Zwei mögliche Lesarten:
+
+- textkritisch: die Zeile folgt dem Wortlaut eines bestimmten Psalmtext-Zeugen
+- quellenbezogen: die Zeile greift inhaltlich auf eine bestimmte Kommentarquelle zurück
+
+Die Funktion von **H** in der Haupttext-Spalte ist besonders offen (Hebraicum als Textvorlage oder eine eigene Kommentarquelle?) — es erscheint in Tables 2, 5, 7. Klärung durch den Auftraggeber ausstehend.
+
+### In Klärung: Einzelvorkommen RII und N
+
+| Sigle | Vermutung | Vorkommen | Klärungsbedarf |
+|---|---|---|---|
+| RII | zweite Remigius-Quelle oder -Rezension? | Table 4 Row 15, einmalig | mit Auftraggeber klären |
+| N | unbekannt | Table 4 Row 5, einmalig | mit Auftraggeber klären |
+
+Im TEI als `@cert="low"` markiert und mit `<note type="editorial">ungeklärt</note>` kommentiert.
 
 ### Disambiguierungs-Heuristik (Iteration 2)
 
-Für die UI-Filter wird die Sigle in der Marginspalte des Notker-Textes
-disambiguiert anhand des **Section-Types**, dem die Sigle zugeordnet ist:
+Für die UI-Filter wird jede Sigle in der Marginalspalte des Notker-Textes anhand des zugehörigen Section-Types aufgelöst:
 
-| Sigle | In `psalm_citation`-Section | In `commentary`/`translation`/`gloss`-Section |
+| Sigle | bei `psalm_citation` | bei `commentary` / `translation` / `gloss` |
 |---|---|---|
 | G | Gallicanum (Psalter) | Gallicanum (Psalter) — eindeutig |
 | H | Hebraicum (Psalter) | Hebraicum (Psalter) — eindeutig |
 | **R** | **Romanum (Psalter)** | **Remigius (Patristik)** |
-| A, C, Br | Augustinus-, Cassiodor-, Br-Psalter | Augustinus, Cassiodor, Breviarium (Patristik) |
+| A, C, Br | Augustinus-/Cassiodor-/Br-Psalter | Augustinus, Cassiodor, Breviarium (Patristik) |
 
-**Begründung der R-Heuristik**: Wenn Notker einen Psalmtext zitiert und neben
-der Zeile ein „R" steht, verweist das auf den Wortlaut der Romanum-Tradition.
-Steht „R" neben einem Kommentar-Segment, verweist es auf Remigius' Auslegung.
-Diese Lesart ist mit der Notations-Praxis in der Probeseite konsistent.
+Begründung für den R-Fall: Steht neben einem Psalmzitat ein „R", verweist das auf den Wortlaut der Romanum-Tradition; neben einem Kommentar-Segment auf Remigius' Auslegung. Die Lesart ist konsistent mit der Notations-Praxis der Probeseite, eine Bestätigung durch den Auftraggeber steht aber noch aus.
 
-Implementiert in `disambiguate_sigles()` ([scripts/tei_to_json.py](../scripts/tei_to_json.py)).
-JSON-Output pro Section: `sigles_psalter` und `sigles_sources` getrennt; im
-Frontend wirken die Filter auf das semantisch passende Feld.
-
-Bestätigung der Heuristik durch den Auftraggeber steht aus.
+Implementiert in `disambiguate_sigles()` ([scripts/tei_to_json.py](../scripts/tei_to_json.py)). Im JSON stehen die aufgelösten Siglen pro Section in zwei getrennten Listen (`sigles_psalter`, `sigles_sources`); die Frontend-Filter wirken jeweils auf das semantisch passende Feld (`psa:R` vs. `src:R`).
 
 ## Referenzsysteme
 

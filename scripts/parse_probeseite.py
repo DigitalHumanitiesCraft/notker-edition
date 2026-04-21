@@ -10,12 +10,19 @@ Regelbasiert: Farben, Merged Cells, Zeilentypen, Vers-Zuordnung.
 
 import re
 import sys
+import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
 import docx
 from docx.oxml.ns import qn
+from lxml import etree as ET
+
+# Word-Fußnoten werden als dict {id: body} aus word/footnotes.xml geladen und
+# beim Run-Parsing über get_cell_runs() an den jeweiligen Anker-Run gehängt.
+# Damit erhalten Fußnoten eine Position im Text, nicht nur einen Body.
+_WORD_NS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
 
 
 # ---------------------------------------------------------------------------
@@ -177,6 +184,15 @@ class Run:
     color: Optional[str]  # '806000', '00B050', or None (=black)
     bold: bool = False
     italic: bool = False
+    footnote_refs: list = field(default_factory=list)  # list[str], IDs from word/footnotes.xml
+
+
+@dataclass
+class Footnote:
+    """Eine Fußnote aus word/footnotes.xml mit Anker-Kontext."""
+    n: str               # Fußnoten-ID (1-basiert in Word)
+    body: str            # Fließtext des Fußnoten-Inhalts
+    anchor_text: str = '' # Wort/Fragment, an dem die Fußnote sitzt (letzter nicht-leerer Run davor)
 
 
 @dataclass
@@ -196,6 +212,7 @@ class TextLine:
     nhd_runs: list = field(default_factory=list)  # Runs der nhd-Zelle mit italic-Info
     sigles: str = ''     # Siglen-Spalte (z.B. 'G, R')
     line_number: int = 0
+    footnotes: list = field(default_factory=list)  # List[Footnote], mit anchor_text auf Wort in dieser Zeile
 
 
 @dataclass
@@ -206,6 +223,7 @@ class GlossLine:
     nhd_runs: list = field(default_factory=list)  # Runs mit italic-Info
     sigles: str = ''
     line_number: int = 0
+    footnotes: list = field(default_factory=list)  # List[Footnote]
 
 
 @dataclass
@@ -215,6 +233,7 @@ class SourceEntry:
     latin: str = ''
     german: str = ''
     bold_spans: list = field(default_factory=list)  # Positionen fetter Wörter
+    footnotes: list = field(default_factory=list)  # List[Footnote]
 
 
 @dataclass
@@ -242,6 +261,7 @@ class PsalmData:
     verse_groups: list = field(default_factory=list)   # List[VerseGroup]
     psalter_witnesses: list = field(default_factory=list)  # List[PsalterWitness]
     wiener_notker: str = ''
+    footnotes: dict = field(default_factory=dict)  # {fn_id: body} aus word/footnotes.xml
 
 
 # ---------------------------------------------------------------------------
@@ -274,19 +294,77 @@ def get_run_color(run) -> Optional[str]:
     return None
 
 
-def get_cell_runs(cell) -> list[Run]:
-    """Extrahiert alle Runs einer Zelle mit Farbe und Formatierung."""
-    runs = []
+def load_footnotes(docx_path: str) -> dict:
+    """Liest word/footnotes.xml und gibt {id: body_text} zurück.
+
+    Die Bodies werden als Fließtext extrahiert (alle <w:t>-Kinder konkateniert).
+    Word-interne Marker-Fußnoten (id='-1', '0') werden übersprungen.
+    """
+    result = {}
+    try:
+        with zipfile.ZipFile(docx_path, 'r') as z:
+            if 'word/footnotes.xml' not in z.namelist():
+                return result
+            with z.open('word/footnotes.xml') as f:
+                tree = ET.parse(f)
+    except (FileNotFoundError, KeyError, ET.XMLSyntaxError):
+        return result
+    ns = {'w': _WORD_NS}
+    for fn in tree.findall(f'.//{{{_WORD_NS}}}footnote'):
+        fn_id = fn.get(f'{{{_WORD_NS}}}id')
+        if fn_id in (None, '-1', '0'):
+            continue
+        texts = fn.findall(f'.//{{{_WORD_NS}}}t')
+        body = ''.join(t.text or '' for t in texts).strip()
+        if body:
+            result[fn_id] = body
+    return result
+
+
+def get_cell_runs(cell, footnotes: Optional[dict] = None) -> list[Run]:
+    """Extrahiert alle Runs einer Zelle mit Farbe und Formatierung.
+
+    Fußnoten-Referenzen (<w:footnoteReference>) sind leere Runs direkt nach
+    dem Anker-Wort. Sie werden an den letzten textualen Run der Zelle
+    angehängt (dessen Text ist das Anker-Wort). Body-Text kommt aus
+    `footnotes` (siehe load_footnotes).
+    """
+    runs: list[Run] = []
     for para in cell.paragraphs:
         for run in para.runs:
-            if run.text:  # auch Leerzeichen bewahren
+            # Auf eine Fußnoten-Referenz prüfen — ein leerer Run mit
+            # <w:footnoteReference> hängt semantisch an den Vorgänger.
+            fn_refs = run._element.findall(qn('w:footnoteReference'))
+            fn_ids = [fn.get(qn('w:id')) for fn in fn_refs]
+            if run.text:
                 runs.append(Run(
                     text=run.text,
                     color=get_run_color(run),
                     bold=bool(run.bold),
                     italic=bool(run.italic),
+                    footnote_refs=list(fn_ids),  # meistens leer
                 ))
+            elif fn_ids and runs:
+                # Leerer Run mit Fußnote → anker ist der vorhergehende Run
+                runs[-1].footnote_refs.extend(fn_ids)
+            # rein leere Runs ohne Fußnote: ignorieren (wie bisher)
     return runs
+
+
+def collect_footnotes_from_runs(runs: list[Run], fn_bodies: dict) -> list[Footnote]:
+    """Extrahiert alle Footnote-Objekte aus einer Run-Liste.
+
+    Anker-Text ist der Text des Runs, an dem die Referenz hängt. Wenn ein
+    Run mehrere Referenzen trägt (selten), bekommen alle denselben Anker.
+    """
+    out: list[Footnote] = []
+    for r in runs:
+        for fid in r.footnote_refs:
+            body = fn_bodies.get(fid, '').strip()
+            if not body:
+                continue
+            out.append(Footnote(n=fid, body=body, anchor_text=r.text.strip()))
+    return out
 
 
 def cell_text(cell) -> str:
@@ -357,7 +435,7 @@ def runs_to_segments(runs: list[Run]) -> list[Segment]:
 # Zeilentyp-Erkennung
 # ---------------------------------------------------------------------------
 
-def detect_source_row(row) -> Optional[SourceEntry]:
+def detect_source_row(row, fn_bodies: Optional[dict] = None) -> Optional[SourceEntry]:
     """Erkennt eine Quellenapparat-Zeile: Col 0 = einzelne Sigle."""
     cells = row.cells
     col0_text = cell_text(cells[0]).strip()
@@ -389,17 +467,26 @@ def detect_source_row(row) -> Optional[SourceEntry]:
 
     # German translation: Col 2+ (kursiv)
     german = ''
+    german_runs: list[Run] = []
     for ci in range(2, len(cells)):
         ct = cell_text(cells[ci]).strip()
         if ct and ct != col1_text:  # Nicht dupliziert
             german = ct
+            german_runs = get_cell_runs(cells[ci])
             break
+
+    fn_bodies = fn_bodies or {}
+    footnotes = (
+        collect_footnotes_from_runs(col1_runs, fn_bodies)
+        + collect_footnotes_from_runs(german_runs, fn_bodies)
+    )
 
     return SourceEntry(
         sigle=normalized,
         latin=latin_text,
         german=german,
         bold_spans=bold_spans,
+        footnotes=footnotes,
     )
 
 
@@ -531,6 +618,8 @@ def parse_probeseite(docx_path: str) -> PsalmData:
 
     doc = docx.Document(docx_path)
     psalm = PsalmData()
+    # Fußnoten-Bodies vorab laden; Referenzen werden im Run-Parsing angefügt.
+    psalm.footnotes = load_footnotes(docx_path)
 
     # Phase 1: Dokument-Elemente in Reihenfolge durchgehen
     # und Paragraphen (Vers-Überschriften) von Tabellen trennen
@@ -612,7 +701,7 @@ def parse_table(table, group: VerseGroup, psalm: PsalmData):
         cells = row.cells
 
         # Prüfe auf Quellenapparat-Zeile
-        source = detect_source_row(row)
+        source = detect_source_row(row, psalm.footnotes)
         if source:
             group.sources.append(source)
             continue
@@ -624,16 +713,16 @@ def parse_table(table, group: VerseGroup, psalm: PsalmData):
 
         # Haupttext-Zeilen (Merged Cells)
         if is_merged_row(row):
-            parse_haupttext_row(row, group, ncols)
+            parse_haupttext_row(row, group, ncols, psalm.footnotes)
         elif ncols >= 3:
             # Nicht-gemergte Zeile mit ≥3 Spalten: könnte auch Haupttext sein
             # wenn Col 0 substantiellen Text hat
             col0 = cell_text(cells[0])
             if len(col0) > 3 and not SIGLE_PATTERN.match(col0.strip().replace(' ', '')):
-                parse_haupttext_row(row, group, ncols)
+                parse_haupttext_row(row, group, ncols, psalm.footnotes)
 
 
-def parse_haupttext_row(row, group: VerseGroup, ncols: int):
+def parse_haupttext_row(row, group: VerseGroup, ncols: int, fn_bodies: Optional[dict] = None):
     """Parst eine Haupttext-Zeile (gemergete oder nicht-gemergte)."""
     cells = row.cells
 
@@ -689,6 +778,13 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
         nhd_runs = get_cell_runs(cells[1])
         sigles = cell_text(cells[2])
 
+    # Footnotes, die an Runs in Haupttext oder nhd hängen
+    fn_bodies = fn_bodies or {}
+    line_footnotes = (
+        collect_footnotes_from_runs(text_runs, fn_bodies)
+        + collect_footnotes_from_runs(nhd_runs, fn_bodies)
+    )
+
     # Glossen-Erkennung
     if detect_gloss_line(text_runs, nhd, sigles):
         full_text = ''.join(r.text for r in text_runs).strip()
@@ -700,6 +796,7 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
             nhd=nhd_clean,
             nhd_runs=nhd_runs,
             sigles=sigles,
+            footnotes=line_footnotes,
         ))
     else:
         group.lines.append(TextLine(
@@ -707,6 +804,7 @@ def parse_haupttext_row(row, group: VerseGroup, ncols: int):
             nhd=nhd,
             nhd_runs=nhd_runs,
             sigles=sigles,
+            footnotes=line_footnotes,
         ))
 
 

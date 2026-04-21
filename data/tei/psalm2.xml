@@ -96,8 +96,8 @@
     </profileDesc>
   </teiHeader>
   <facsimile>
-    <surface xml:id="facs-p11" source="https://www.e-codices.unifr.ch/de/csg/0021/11/0/">
-      <graphic url="https://www.e-codices.unifr.ch/loris/csg/csg-0021/csg-0021_011.jp2/full/max/0/default.jpg"/>
+    <surface xml:id="facs-p10" source="https://www.e-codices.unifr.ch/de/csg/0021/10/0/">
+      <graphic url="https://www.e-codices.unifr.ch/loris/csg/csg-0021/csg-0021_010.jp2/full/max/0/default.jpg"/>
     </surface>
   </facsimile>
   <text>
@@ -113,12 +113,16 @@
           <ab n="1">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">PSALVS DAVID. </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="1" resp="#pfeifer">
+              <label>DAVID.</label>Der Zusatz PSALMVS DAVID, der in G und R in rot geschrieben ist, fehlt in H.</note>
           </ab>
           <ab n="2">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">QVARE FREMVERVNT GENTES. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Ziu grís-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="2" resp="#pfeifer">
+              <label>QVARE FREMVERVNT GENTES.</label>In diesem Wortlaut in G und R. H abweichend davon „Quare turbabuntur gentes [‚Warum verwirrt werden die Völker‘]“.</note>
           </ab>
           <ab ana="#fn-gloss" n="3">
             <gloss xml:lang="goh">iúdon diêt</gloss>
@@ -129,6 +133,8 @@
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Et populi medi-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="3" resp="#pfeifer">
+              <label>̧</label>Der Gedanke, dass (allein) die Juden die erwähnten Völker sind, findet sich bei C.</note>
           </ab>
           <ab n="5">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">tati sunt inania . </seg>
@@ -137,11 +143,17 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Vnde ziu dâh-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R, A</note>
+            <note type="editorial" n="4" resp="#pfeifer">
+              <label>inania</label>So in G und R, H davon abweichend „et tribus meditabuntur inania [‚und die Stämme werden nachdenken sinnlos‘]“.</note>
+            <note type="editorial" n="5" resp="#pfeifer">
+              <label>frustura</label>Diese nähere Erklärung des Wortes „inania“ stammt von A.</note>
           </ab>
           <ab n="6">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">ton sîne liûte ardingun . ín ze irloschenne? </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Sie dâhton</seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="6" resp="#pfeifer">
+              <label>ardingun</label>Der Zusatz „grundlos“ stammt wohl aus der Erklärung in A.</note>
           </ab>
           <ab n="7">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">des ín ubelo spuên solta. </seg>
@@ -151,6 +163,8 @@
           <ab n="8">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">conuenerunt in unum aduersus dominum et aduersus christum eivs. </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="7" resp="#pfeifer">
+              <label>.</label>In diesem Wortlaut G und R, H davon abweichend „Consurgent reges terrȩ et principes tractabunt paritum . aduersus dominum et adversus christum eius“ [‚Es werden sich gemeinsam erheben die Könige der Erde und die Fürsten werden sich gegen den Herrn und gegen seinen Gesalbten betragen.‘]</note>
           </ab>
           <ab ana="#fn-gloss" n="9">
             <gloss xml:lang="goh">in gotes martyro</gloss>
@@ -167,18 +181,26 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">unde <foreign xml:lang="la">principes</foreign> sacer-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="8" resp="#pfeifer">
+              <label>gendo</label>Die Überlegung, dass die erwähnten Könige nicht physisch, sondern durch ihre Willensbekundung bei der Passion Christi „anwesend waren“ findet sich bei C.</note>
           </ab>
           <ab n="12">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">
               <foreign xml:lang="la">dotum</foreign> gesamenoton sih uuider trúhtene .</seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">unde uuíder sîne-<lb break="no"/>
             </seg>
+            <note type="editorial" n="9" resp="#pfeifer">
+              <label>dotum</label>Der Zusatz sacerdotes, der sich im Vulgatatext nicht findet, ist in St. Gallen Cod. 27,23 interlinear angefügt (siehe Tax 1972: 4) und stammt in seiner Meinung von C, der hier die Phariseer nennt.</note>
           </ab>
           <ab n="13">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">mo geuuiêchten. </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I" xml:id="seg-cross-1-i" next="#seg-cross-1-f">Êin herodes uuolta ín slâhen . anderer han-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="10" resp="#pfeifer">
+              <label>.</label>Notker übersetzt (auch an anderen Stellen) lat. christus (von gr. χριστός ‚gesalbt‘), was auch dem Hebräischen entspricht, als geheiligt. Zur Salbung von Königen als göttliche Legitimation vgl. 1 Sam. 10,1.</note>
+            <note type="editorial" n="11" resp="#pfeifer">
+              <label>herodes</label>Die Verweise auf die historischen Persönlichkeiten Herodes den Großen (73 – 4 v. Chr.) und Herodes Antipas (ca. 20 v. Chr. – 39. n. Chr.) stammen von C und bilden Erzählungen aus dem Neuen Tastement ab. Herodes der Große ließ alle zur Zeit Jesu Neugeborenen töten (vgl. Mt. 2,16) und Herods (Antipas) verspottete Jesus vor der Kreuzigung (vgl. Lk. 23,6-12) (vgl. LTK, s. v. Herodes.)</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>PSALM DAVIDS WARUM LÄRMTEN DIE VÖLKER. Warum wüt- teten an Christus die hebräischen Völker? Und (warum) sind die Völker vor- bereitet sinnlos, das heißt vergeblich? Und warum dach- ten seine Leute grundlos, ihn auszulöschen? Sie gedachten dessen, (das) ihnen übel bekommen sollte. Es traten hinzu die Könige der Erde und die Fürsten kamen zusammen in einem gegen den Herren und gegen seinen Gesalbten. Die Landkönige waren zugegen bei der Passion des Herren, nicht ansehend, sondern ihren Willen zeigend und die Anführer der Pries- ter versammelten sich gegen den Herrn und gegen sei- nen Geheiligten. Ein Herodes wollte ihn erschlagen, (ein) anderer</p>
@@ -244,12 +266,16 @@
           <ab n="2">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">pamus uincula eorum . et proiciamus a nobis iugum ipsorum . </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="12" resp="#pfeifer">
+              <label>ipsorum</label>Hier der Wortlaut von G und R; H abweichend dazu: „et proiciamus a nobis laqueos eorum [‚und werfen wir von uns ihre Stricke‘]“.</note>
           </ab>
           <ab n="3">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">
               <foreign xml:lang="la">idest christi et apostolorum.</foreign> Sús einoton sie sic(h). </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Prechen cháden sie íro</seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="13" resp="#pfeifer">
+              <label>.</label>Diese Erklärung stammt aus C.</note>
           </ab>
           <ab n="4">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">gebénde . unde uuerfen ába uns íro ioch.</seg>
@@ -265,11 +291,15 @@
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Qui habitat in celis irrid-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A, G, R</note>
+            <note type="editorial" n="14" resp="#pfeifer">
+              <label>.</label>Der Verweis auf die christliche Religion stammt aus A.</note>
           </ab>
           <ab n="7">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">bit eos . et dominus subsannabit eos. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Ter in hímile bûet . ter spót-<lb break="no"/>
             </seg>
+            <note type="editorial" n="15" resp="#pfeifer">
+              <label>.</label>Diesen Wortlaut zeigen G und R; H abweichend dazu: „habitator ceali ridebit. dominus subsannabit eos [‚Der Bewohner des Himmels wird lachen. Der Herr wird diese verachten‘]“.</note>
           </ab>
           <ab n="8">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">tot íro . unde násesnûdet an_sîe. </seg>
@@ -279,10 +309,14 @@
           <ab n="9">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">unde mit násun dehêinen hûoh tûe . nube daz iz huôh-<lb break="no"/>
             </seg>
+            <note type="editorial" n="16" resp="#pfeifer">
+              <label>e</label>Notker folgt in dieser entkörperlichten Deutung C.</note>
           </ab>
           <ab ana="#fn-gloss" n="10">
             <gloss xml:lang="goh">penêmida</gloss>
             <note type="translation_gloss" xml:lang="de">Vorherbestimmung</note>
+            <note type="editorial" n="17" resp="#pfeifer">
+              <label>mida</label>Vermutlich beneimida (vgl. Sehrt 1962: 13)</note>
           </ab>
           <ab n="11">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">lîch uuas . daz sie sîna <foreign xml:lang="la">prȩdistinationem</foreign> dâhton ze iruuen-<lb break="no"/>
@@ -298,11 +332,15 @@
             </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Tunc loquetur</seg>
             <note type="sigle" place="margin">C,G,R,H</note>
+            <note type="editorial" n="18" resp="#pfeifer">
+              <label>.</label>Die Verbindung zum Obigen stammt von aus C.</note>
           </ab>
           <ab n="14">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">ad eos in ira sua . et in furore suo conturbabit eos. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Tanne</seg>
             <note type="sigle" place="margin">G, H</note>
+            <note type="editorial" n="19" resp="#pfeifer">
+              <label>.</label>Dieser Wortalaut in G und H; R abweichend dazu „loquitur [‚sagt‘]“.</note>
           </ab>
           <ab n="15">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">spríchet er in zû mit zórne . unde mit hêizmûote getrûo-<lb break="no"/>
@@ -378,15 +416,23 @@
           <ab n="1">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">VOX CHRISTI. Ego autem costitutus sum rex ab eo super syon</seg>
             <note type="sigle" place="margin">G [A, C]</note>
+            <note type="editorial" n="20" resp="#pfeifer">
+              <label>STIMME CHRISTI</label>Der Zusatz „VOX CHRISTI“, der sich in den Vorlagen nicht findet und in der Hs. rot markiert ist, ist vermutlich den Kommentaren geschuldet, die sich darüber einig sind, dass es sich beim erwähnten König um Jesus Christus handelt.</note>
           </ab>
           <ab n="2">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">montem sanctum eius prȩdicans prȩceptum eius. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">Ih pin áber fóne</seg>
             <note type="sigle" place="margin">G</note>
+            <note type="editorial" n="21" resp="#pfeifer">
+              <label>.</label>Heute ist die Übersetzung üblich, die sich an H orientiert und auch näher am hebräischen Original ist: „Ich selber habe meinen König eingesetzt auf Zion meinem heiligen Berg“. Die Passivierung dieses Satzes scheint der griechischen Übersetzung geschuldet zu sein (κατεστάθην). Notker wie auch A und C orientieren sich hingegen an den vom Griechischen beeinflussten lateinischen Übersetzungen G und R. Der Unterschied betrifft vor allem die Frage, wer spricht, Gott oder der eingesetzte König (vgl. auch Wellhausen 1895, 73).</note>
           </ab>
           <ab n="3">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="M">mînemo fáter íro úndanches ze chúninge gesezzet uber </seg>
             <note type="sigle" place="margin">G, C</note>
+            <note type="editorial" n="22" resp="#pfeifer">
+              <label>r</label>Notker übersetzt das Personalpronomen eo mit mînemo fáter und folgt dabei C.</note>
+            <note type="editorial" n="23" resp="#pfeifer">
+              <label>gegen ihren Willen</label>Die Ansicht, dass Christus iro undanches zum König ernannt wurde, bezeiht sich wohl auf die Geschichte der Kreuzigung, die von C. erwähnt wird.</note>
           </ab>
           <ab n="4">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">sînen hêiligen berg . </seg>
@@ -394,20 +440,34 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh">sîn gebot ságende </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">. daz</seg>
             <note type="sigle" place="margin">G, A, C</note>
+            <note type="editorial" n="24" resp="#pfeifer">
+              <label>cclesia</label>Npw: christenheit.</note>
+            <note type="editorial" n="25" resp="#pfeifer">
+              <label>die Kirche</label>Auch der Gedanke, dass es sich bei dem Berg Zion um die Kirche handelt findet sich in beiden Kommentaren; Notker mischt hier den Psaltertext mit der interpolierten Version von A.</note>
           </ab>
           <ab n="5">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="M">chît <foreign xml:lang="la">euangelium</foreign> lêrende. Syon stât in <foreign xml:lang="la">ierusalem</foreign> . unde uuan-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C, R</note>
+            <note type="editorial" n="26" resp="#pfeifer">
+              <label>das Evangelium</label>Der Gedanke, das Evangelium mit dem Gebot gleichzusetzen, findet sich bei C.</note>
+            <note type="editorial" n="27" resp="#pfeifer">
+              <label>Jerusalem</label>Der Verweis auf Jerusalem findet sich in RII.</note>
           </ab>
           <ab n="6">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">da man ferro dar ába séhen mag . pedîu hêizzet er syon . </seg>
             <note type="sigle" place="margin">R, N</note>
+            <note type="editorial" n="28" resp="#pfeifer">
+              <label>man fern dort herabsehen kann, deshalb heißt er Zion.</label>Die Erklärung, dass man von dort weit hinabblicken kann, stammt nicht aus den bekannten Quellen und könnte als Ergänzung Notkers zur Verbindung der einzelnen Quellen gesehen werden.</note>
           </ab>
           <ab n="7">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">daz chit <foreign xml:lang="la">latine specula</foreign> . in únsera uuîs uuarta. Der bezêichne-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="29" resp="#pfeifer">
+              <label>specula</label>Npw: uualhiscon spiegel. Der Wiener Notker setzt an dieser Stelle statt latine und dem lateinischen Wort, die ins deutsche übersetzte Phrase. Auffällig ist, dass für specula nicht das direkt im Anschluss als Wort „unserer Weise“ gekennzeichnete uuarta eingesetzt wird, sondern eine andere Bedeutung von specula. Fraglich ist, ob hier nur Wort für Wort übersetzt und nicht auf den Inhalt geachtet wurde oder eine spezielle spirituelle Deutung vermittelt werden soll.</note>
+            <note type="editorial" n="30" resp="#pfeifer">
+              <label>]</label>Der Verweis auf specula stammt von C.</note>
           </ab>
           <ab n="8">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="M">net <foreign xml:lang="la">ȩcclesiam</foreign> . uuanda íro gedíngi ist . daz sî ir-hôhet uuerde </seg>
@@ -416,6 +476,8 @@
           <ab n="9">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ze_gótes sélbes ána-sihte. [...]</seg>
             <note type="sigle" place="margin">A, C</note>
+            <note type="editorial" n="31" resp="#pfeifer">
+              <label>zu Gottes eigenem Angesicht.</label>Auch der Verweis auf die Hoffnung auf das Anblicken Gottes findet sich in beiden Kommentaren. Das Angesicht Gottes und damit eine erneute Referenz des Wortfeldes um Sehen bringt Notker selbst mit ein.</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>STIMME CHRISTI: Ich aber bin eingesetzt als König von diesem über Zion, seinen heiligen Berg, verkündend dessen Gebot. Ich bin aber von meinem Vater gegen ihren Willen zum König (ein)gesetzt über seinen heiligen Berg, das ist die Kirche, sein Gebot sagend, das heißt das Evangelium lehrend. Zion steht in Jerusalem und weil man fern dort herabsehen kann, deshalb heißt er Zion. Das heißt in Latein Specula [Warte] in unserer Weise Warte. Diese be- zeichnet die Kirche, weil ihre Hoffnung ist, dass sie erhöht werde zu Gottes eigenem Angesicht. [...]</p>
@@ -475,6 +537,8 @@
                 <hi rend="bold">spes</hi>
                 <hi rend="bold">sufficienter</hi> instructa promissiones Domini mentis prouidentia contuetur, nec tantum praesentibus quantum futuris beneficiis gloriatur</quote>
               <note type="translation" resp="#pfeifer" xml:lang="de">Zion müssen wir hier als Kirche verstehen, die (er) als Berg bezeichnet wegen dem Hervorragen der Ehre und der Festigkeit des Glaubens. „Zion“ nämlich in hebräischer Sprache wird „specula [Warte]“ genannt, was zutreffend angepasst wird an die Kirche, weil (sie) zu zukünftigen Hoffnungen ausreichend ausgebildet die Versprechen des Herren mit Voraussicht des Geistes betrachet, und nicht so sehr die gegenwärtigen, sondern die zukünftigen Wohltaten ehrt.</note>
+              <note type="editorial" n="32" resp="#pfeifer">
+                <label>Zion müssen wir hier</label>Im Unterschied zu anderen Stellen, an denen – wie Cassiodor zuvor erwähnt – auch Christus oder Jeruslamen gemeint sein können.</note>
             </cit>
             <cit ana="#src-C">
               <bibl>Cassiodor</bibl>
@@ -515,6 +579,8 @@
             </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Min fáter chád ze mír .</seg>
             <note type="sigle" place="margin">C</note>
+            <note type="editorial" n="33" resp="#pfeifer">
+              <label>fáter</label>Notker übersetzt lat. dominus mit mîn fáter und übernimmt dabei die Deutung von C direkt in die Übersetzung.</note>
           </ab>
           <ab ana="#fn-gloss" n="4">
             <gloss xml:lang="goh">irgân-</gloss>
@@ -538,6 +604,10 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">geschêhen sol. Pediû ist sin sun hiûto gebórn. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Postula a me et </seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="34" resp="#pfeifer">
+              <label>sun</label>Der Verwis auf den Sohn tritt auch in A auf.</note>
+            <note type="editorial" n="35" resp="#pfeifer">
+              <label>.</label>Die Abfolge der Argumente folgt ziemlich genau A, wenngleich der Worlaut deutlich verändert wurde.</note>
           </ab>
           <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
             <p>Der Herr sagte zu mir: Mein Sohn bist du, ich habe dich heute geboren, d.h. ohne Zeit. Mein Vater sagte zu mir, mein Sohn bist du, heute gebar ich dich. Gott nicht ist keine Zeit (weder) ver- gegangen noh zukünftig. Ihm ist heute, alles was je geschah oder noch geschehen soll/wird. Deshalb ist sein Sohn heute geboren. Bitte von mir und</p>
@@ -558,6 +628,10 @@
               <bibl>Cassiodor</bibl>
               <quote xml:lang="la">Dominum significat <hi rend="bold">Patrem</hi> [...]Ego hodie genui te, quod nulli alteri proabatur edictum, sed solus ille sine tempore genitus est, per quem creata constat uniuersa.</quote>
               <note type="translation" resp="#pfeifer" xml:lang="de">„Herr“ steht für den Vater [...] „Ich habe dich heute geboren“, weil niemand anderer wurde für gut befunden, sondern nur jener ist ohne Zeit geboren worden, durch den bekannt ist, dass das gesamte Universum geschaffen worden ist.</note>
+              <note type="editorial" n="36" resp="#pfeifer">
+                <label>[...]</label>Auf den Einbezug einer längeren Stelle bei C, die auf das Herr-Sein Gottes und auf das Mysterium der Taufe eingeht verzichtet Notker.</note>
+              <note type="editorial" n="37" resp="#pfeifer">
+                <label>sine tempore</label>C sieht die Geburt ohne Zeit als besonderes Alleinstellungsmerkmal Christi.</note>
             </cit>
             <cit ana="#src-A">
               <bibl>Augustinus</bibl>
@@ -579,6 +653,8 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">nischo bist . unde an diû mín mínnero bist . </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">sô gîbo ih tîr dîn érbe</seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="38" resp="#pfeifer">
+              <label>mínnero</label>Die Erläuterung basiert auf A.</note>
           </ab>
           <ab ana="#fn-gloss" n="3">
             <gloss xml:lang="goh">alle liûte</gloss>
@@ -593,6 +669,8 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde gíbo ih tir ze_besízzene . énde déro erdo . </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">déro dû bítest.</seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="39" resp="#pfeifer">
+              <label>.</label>Der Verweis auf das Bitten findet sich bei A.</note>
           </ab>
           <ab n="6">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Daz ist fóne diû gespróchen . uuanda CHRISTVS pat íro gnôto . dô er</seg>
@@ -602,6 +680,8 @@
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Reges eos in virga ferre-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="40" resp="#pfeifer">
+              <label>Reges</label>Der hebräische Text impliziert mit der Wurzel רעע eigentlich ein Zerschlagen wie auch im folgenden Satz; das Griechische ποιμανεῖς [in Ms 44. pimanis] bringt den ins Lateinische übernommenen Aspekt des Weidens und Beherrschens.</note>
           </ab>
           <ab n="8">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">a .</seg>
@@ -609,16 +689,22 @@
               <foreign xml:lang="la">idest</foreign> in-flexibili iustitia. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Tiê rihtest tu mit îseninro gérto . </seg>
             <note type="sigle" place="margin">G, R</note>
+            <note type="editorial" n="41" resp="#pfeifer">
+              <label>.</label>Dieser Wortlaut in G und R; H abweichend dazu „Pasces eos in uirga ferrea. [‚Du wirst diese mit eisernem Stab weiden lassen‘]“.</note>
           </ab>
           <ab n="9">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">daz chît mit ún-uuendigemo rehte. Dih ne-mag tar ába nie- <lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="42" resp="#pfeifer">
+              <label>.</label>Dieser Zusatz stammt aus A.</note>
           </ab>
           <ab n="10">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">man genemen. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Tamquam uas figuli confringes eos. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Sámoso</seg>
+            <note type="editorial" n="43" resp="#pfeifer">
+              <label>.</label>Dieser Wortlaut in G und R; H abweichend dazu „ut uas figuli conteres eos [‚wie Gefäße der Töpfer wirst du sie zertreten‘]“</note>
           </ab>
           <ab ana="#fn-gloss" n="11">
             <gloss xml:lang="goh">uuerlt-lúste</gloss>
@@ -630,6 +716,8 @@
               <foreign xml:lang="la">Terrenas concupiscentias</foreign> fér-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">A</note>
+            <note type="editorial" n="44" resp="#pfeifer">
+              <label>concupiscentias</label>Dieser Vergleich findet sich (auffälligerweise in anderem Wortlaut) bei A.</note>
           </ab>
           <ab n="13">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">bríchest tu an ín.</seg>
@@ -687,20 +775,30 @@
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">VOX PROPHETȨ. Et nunc reges intel-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G, R, C</note>
+            <note type="editorial" n="45" resp="#pfeifer">
+              <label>̧.</label>Dieser Zusatz, der in der HS in rot geschrieben ist, übernimmt die Deutung von C.</note>
           </ab>
           <ab n="2">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">legite. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde nu fernément chúninga.</seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh"> Chúninga déro erdo . </seg>
+            <note type="editorial" n="46" resp="#pfeifer">
+              <label>.</label>Dieser Satz findet sich im Wortlaut in G, und R; H abweichend dazu „Nunc ergo reges intelligite [‚nun also, Könige, erkennt‘]“.</note>
+            <note type="editorial" n="47" resp="#pfeifer">
+              <label>erdo</label>Die Erklärung, dass es um die Könige der Erde geht, stammt aus A.</note>
           </ab>
           <ab n="3">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">chuninga des flêisches . chuninga fóne diu . uuánda ir dôuboNT</seg>
             <note type="sigle" place="margin">A, C</note>
+            <note type="editorial" n="48" resp="#pfeifer">
+              <label>isches</label>Dass die Könige ihre eigenes Fleisch und ihren Körper kontrollieren können, findet sich sowohl bei A als auch bei C.</note>
           </ab>
           <ab n="4">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">ten lîchamen. Gehôrrent mînen rat. </seg>
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="I">Erudimini qui iudicatis </seg>
             <note type="sigle" place="margin">A, C</note>
+            <note type="editorial" n="49" resp="#pfeifer">
+              <label>.</label>Die Unterdrückung des Köpers findet sich auch bei A und C.</note>
           </ab>
           <ab n="5">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">terram. </seg>
@@ -708,6 +806,10 @@
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I"> Mêistera des lîcha-<lb break="no"/>
             </seg>
             <note type="sigle" place="margin">G</note>
+            <note type="editorial" n="50" resp="#pfeifer">
+              <label>.</label>Dieser Wortlaut stammt aus G; R ergänzt nach „erudimini“ noch „omnes“; H abweichend davon „erudimini iudices terrae [‚seid belehrt, Richter der Erde‘]“.</note>
+            <note type="editorial" n="51" resp="#pfeifer">
+              <label>.</label>Notker übersetzt den Nebebsatz mit einem Substantiv, das eher an den abweichenden Wortlaut von H erinnert als an den vorhergehenden lat. Satz aus G.</note>
           </ab>
           <ab n="6">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">men fernément. </seg>
@@ -719,12 +821,16 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="F">fórhtun. </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">Daz nehéue iûuh . daz ir <foreign xml:lang="la">reges</foreign> kenámot pirnt. </seg>
             <note type="sigle" place="margin">Br</note>
+            <note type="editorial" n="52" resp="#pfeifer">
+              <label>.</label>Vgl. zu diesem Inhalt Br.</note>
           </ab>
           <ab n="8">
             <seg type="psalm" ana="#fn-psalm" xml:lang="la">Et exultate ei cum tremore. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Vnde rîdono sînt ímo frô. </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="I">Ímo</seg>
             <note type="sigle" place="margin">R</note>
+            <note type="editorial" n="53" resp="#pfeifer">
+              <label>.</label>Dieser Wortlaut findet sich in R; G und H zeigen statt „cum“ „in“.</note>
           </ab>
           <ab n="9">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh" part="F">danchont sóliches námen . ioh mit fréuui . ioh mit fórhtun. </seg>
@@ -793,6 +899,8 @@
             <seg type="psalm" ana="#fn-psalm" xml:lang="la" part="F">atis de uia iusta. </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">Lírnent zúht . unde uuésent in égi .</seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="I">daz </seg>
+            <note type="editorial" n="54" resp="#pfeifer">
+              <label>.</label>Dieser Wortlaut in G und R; H abweichend dazu „Adorate pure ne forte irascatur et pereatis de uia [‚Betete rechtschaffen an, damit (er) nicht vielleicht in Zorn gerät und ihr abkommt vom Weg‘]“.</note>
           </ab>
           <ab n="3">
             <seg type="translation" ana="#fn-transl" xml:lang="goh" part="M">sih gót éteuuenne ne-bélge . und ir neg[l]eslîphent ába re-<lb break="no"/>
@@ -816,6 +924,8 @@
             <seg type="translation" ana="#fn-transl" xml:lang="goh">So sîn zorn irhêizzet in spûote </seg>
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">. unde <foreign xml:lang="la">uindicta</foreign>
             </seg>
+            <note type="editorial" n="55" resp="#pfeifer">
+              <label>in eo.</label>Dieser Wortlaut in G; R endet abweichend dazu mit „eum“; H abweichend dazu: „Cum exarserit post paululum furor eius. beati omnes qui sperant in eum. [‚Wenn entbrennt nach kurzer Zeit sein Zorn, seling alle die auf ihn hoffen‘]“.</note>
           </ab>
           <ab ana="#fn-gloss" n="8">
             <gloss xml:lang="goh">in slago dero brâuuo</gloss>
@@ -824,6 +934,8 @@
           <ab n="9">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">chúmet in <foreign xml:lang="la">ictu oculi</foreign> . </seg>
             <seg type="translation" ana="#fn-transl" xml:lang="goh">so sint sâlig . diê sih ze_ímo fersêhent. </seg>
+            <note type="editorial" n="56" resp="#pfeifer">
+              <label>oculi</label>Vgl. zu diesem Ausdruck 1 Kor 15,52.</note>
           </ab>
           <ab n="10">
             <seg type="commentary" ana="#fn-comm" xml:lang="goh">(Staatsbibliothek Bamberg Ms. 44)</seg>

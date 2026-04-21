@@ -19,7 +19,7 @@
       "edition": "Tax/Sehrt (1970er)",
       "manuscript": "CSg 0021",
       "iiif_manifest": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json",
-      "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_011.json",
+      "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_010.json",
       "edition_pages": "R10–R13"
     },
     "verses": [
@@ -234,7 +234,6 @@ body {
   display: flex;
   gap: 2px;
   align-items: center;
-  margin-left: auto;
   flex-shrink: 0;
 }
 .psalm-nav-item {
@@ -263,9 +262,20 @@ body {
   opacity: 0.6;
 }
 
+/* View-Controls-Gruppe rechts in der Top-Nav:
+   restore-bar (Buttons fuer geschlossene Felder) + Reset-Button.
+   margin-left: auto schiebt die gesamte Gruppe nach rechts, unabhaengig
+   davon, ob die psalm-nav dazwischen Inhalte hat (leer bei einzelnem Psalm). */
+.header-view-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 /* Reset-Button in der Top-Nav (rechts): setzt Slot-Breiten + geschlossene Slots zurueck */
 .header-reset {
-  margin-left: 0.6rem;
   padding: 0.3rem 0.65rem;
   background: transparent;
   border: 1px solid var(--color-border);
@@ -420,7 +430,12 @@ body {
   align-items: center;
   gap: var(--sp-2);
 }
-.source-sigle .sigle-chip {
+/* Chip-Hintergrund via currentColor: der Chip erbt die Textfarbe seines
+   Kontexts (Sigel-Farbe vom Elternteil oder Inline-Style), daraus wird der
+   Hintergrund; das innere <span> ueberschreibt die Farbe auf weiss fuer den
+   sichtbaren Sigel-Buchstaben. Wichtig: `color: #fff` hier waere falsch —
+   dann wuerde currentColor=#fff und der Chip weiss auf weiss. */
+.sigle-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -428,12 +443,14 @@ body {
   height: 1.5rem;
   padding: 0 var(--sp-1);
   border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: var(--size-ui-sm);
-  color: #fff;
+  color: inherit;
   background: currentColor;
+  vertical-align: middle;
 }
-.source-sigle .sigle-chip span { color: #fff; }
+.sigle-chip > span { color: #fff; }
 .source-sigle .source-name {
   color: var(--color-muted);
   font-weight: 400;
@@ -468,13 +485,49 @@ body {
 .sources-empty {
   color: var(--color-faint);
   font-size: var(--size-ui);
-  font-style: italic;
-  padding: 1rem;
+  padding: 0.75rem 0;
+  line-height: 1.55;
 }
-.sources-verse-label {
+.sources-empty .sigle-chip {
+  /* Chip in Empty-State erbt Farbe via inline style, kleiner als im Eintrag */
+  min-width: 1.4rem; height: 1.3rem; padding: 0 0.3rem;
+}
+.sources-empty-hint {
   font-size: var(--size-ui-sm);
   color: var(--color-muted);
+  padding: 0.45rem 0;
+  border-top: 1px dashed var(--color-border-light);
+  line-height: 1.55;
+}
+.sources-empty-hint:first-of-type { border-top: none; }
+.sources-verse-jump {
+  color: var(--color-psalm);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+}
+.sources-verse-jump:hover {
+  border-bottom-color: var(--color-psalm);
+  cursor: pointer;
+}
+.sources-verse-label {
+  font-family: var(--font-ui);
+  font-size: var(--size-ui);
+  color: var(--color-text-secondary);
   margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.sources-verse-label strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+.sources-verse-label-hint {
+  display: block;
+  font-size: var(--size-ui-sm);
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-top: 0.15rem;
 }
 
 /* ========================================================================
@@ -578,50 +631,6 @@ body {
   padding: 1.25rem 2rem 2rem;
 }
 
-/* Introduction text */
-.intro-details {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border-light);
-  max-width: 680px;
-}
-.intro-summary {
-  cursor: pointer;
-  list-style: none;
-  padding: 0.6rem 0;
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  font-family: var(--font-ui);
-}
-.intro-summary::-webkit-details-marker { display: none; }
-.intro-summary::before {
-  content: '▸';
-  font-size: 0.7rem;
-  color: var(--color-muted);
-  transition: transform 0.15s;
-  flex-shrink: 0;
-}
-.intro-details[open] .intro-summary::before { transform: rotate(90deg); }
-.intro-summary strong {
-  font-family: var(--font-ui);
-  font-size: 0.95rem;
-  color: hsl(0, 0%, 20%);
-}
-.intro-summary-meta {
-  font-size: 0.72rem;
-  color: var(--color-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-.intro-details[open] .intro-summary-meta { display: none; }
-.intro-text {
-  font-family: var(--font-ui);
-  font-size: var(--size-ui);
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  padding: 0.5rem 0 1rem 1.15rem;
-}
 /* Hinweis, wenn alle Schichten ausgeblendet sind: verhindert leere Struktur */
 .layers-empty-hint {
   font-family: var(--font-ui);
@@ -674,13 +683,17 @@ body {
 .verse-number {
   position: absolute;
   left: 0;
-  top: 0.75rem;
+  top: 0.85rem;
   width: 2rem;
   text-align: right;
   font-family: var(--font-ui);
-  font-size: var(--size-ui);
+  font-size: var(--size-ui-sm);
   font-weight: 600;
   color: var(--color-muted);
+  white-space: nowrap;
+  /* Bei Vers-Gruppen wie „12–13" bricht 2rem zu eng; kleineres Label mit
+     no-wrap haelt die Nummer auf einer Zeile, ohne die Haupttext-Einrueckung
+     zu verbreitern. */
 }
 
 /* Edition page marker */
@@ -723,6 +736,20 @@ body {
   column-gap: 1.5rem;
   row-gap: 0.2rem;
   align-items: start;
+  /* Container-Queries-Anker: .verse-grid definiert die Inline-Size, anhand derer
+     unten bei schmalen Panels dezente Zeilentrenner eingeblendet werden. */
+  container-type: inline-size;
+}
+/* Dezente Trennlinien zwischen Zeilenpaaren — nur bei schmalem Haupttext-Panel,
+   wenn Notker-Zeilen umbrechen und sonst nicht mehr erkennbar ist, wo eine
+   Zeile endet. Bei breitem Panel greift die Regel nicht und die Linien sind
+   unsichtbar. Schwelle ca. 1100px Grid-Breite (≈ 540px pro Spalte). */
+@container (max-width: 1100px) {
+  .verse-grid > .verse-line,
+  .verse-grid > .verse-nhd {
+    border-bottom: 1px solid hsl(0, 0%, 93%);
+    padding-bottom: 0.3rem;
+  }
 }
 /* Wenn nhd. abgeschaltet: nur Haupttext-Spalte, rechte Zellen verborgen. */
 .verse.nhd-hidden .verse-grid {
@@ -778,6 +805,72 @@ body {
 .verse-line[data-highlight].verse-line--continues-above.verse-line--continues-below {
   background-position: left 0;
   background-size: auto 100%;
+}
+
+/* Editorial-Fußnoten pro Vers (aus word/footnotes.xml extrahiert).
+   Sichtbarkeit: standardmaessig nur unter dem aktiven Vers, damit die
+   Gesamtseite lesbar bleibt. Globaler Toggle (Taste F) kann sie ganz
+   ausblenden. Kein Rendering-Aufwand spart das — die Knoten bleiben im
+   DOM, Sichtbarkeit ist rein CSS. */
+.verse-footnotes {
+  grid-column: 1 / -1;
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--color-border-light);
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.verse.active .verse-footnotes { display: flex; }
+/* Spezifitaet hochhalten: Selektor muss .verse.active mitfuehren, damit
+   er die Default-Reveal-Regel ueberschreibt. */
+body.footnotes-off .verse.active .verse-footnotes { display: none; }
+.verse-footnote {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  column-gap: 0.5rem;
+  align-items: baseline;
+  font-size: var(--size-ui-sm);
+  line-height: 1.5;
+}
+.verse-footnote-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.3rem;
+  padding: 0 0.3rem;
+  border-radius: var(--radius-sm);
+  background: hsl(0, 0%, 92%);
+  color: var(--color-muted);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.verse-footnote-anchor {
+  font-family: var(--font-edition);
+  font-style: italic;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.verse-footnote-anchor::after { content: ' —'; font-style: normal; color: var(--color-muted); }
+.verse-footnote-body {
+  font-family: var(--font-ui);
+  color: var(--color-text);
+}
+
+/* Fußnoten-Liste in einem Quelleneintrag (Cassiodor-/Augustinus-Stellen mit
+   Pfeifer-Anmerkungen). Nutzt die Chip-Struktur von .verse-footnote. */
+.source-footnotes {
+  margin-top: 0.5rem;
+  padding-top: 0.45rem;
+  border-top: 1px dashed var(--color-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 /* ========================================================================
@@ -847,8 +940,12 @@ body {
   border-right: 1px solid var(--color-border);
   overflow: hidden;
   min-width: 240px;
-  flex: 1 1 0;
+  flex: 3 1 0;
 }
+/* Mittlerer Slot (Notkers Text im Default) startet etwas breiter als die Flanken.
+   Per Divider-Drag setzt der Nutzer explizite Pixel-Breiten; resetLayout()
+   entfernt die wieder und dieses Verhaeltnis greift erneut. */
+.slot[data-slot="B"] { flex: 4 1 0; }
 .slot:last-child { border-right: none; }
 .slot.collapsed {
   display: none;
@@ -960,35 +1057,34 @@ body {
   border-bottom: 1px solid var(--color-border-light);
 }
 
-/* Restore-Bar — appears when slots are closed */
+/* Restore-Bar — inline in der Top-Nav, rechts neben den anderen View-Controls.
+   Erscheint nur, wenn mindestens ein Slot geschlossen ist (:empty). */
 .restore-bar {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  background: hsl(0, 0%, 98%);
-  border: 1px solid var(--color-border);
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
-  z-index: 50;
+  gap: 0.3rem;
+  align-items: center;
   font-family: var(--font-ui);
   font-size: var(--size-ui-sm);
+  flex-shrink: 0;
 }
 .restore-bar:empty { display: none; }
 .restore-btn {
   cursor: pointer;
-  padding: 0.3rem 0.7rem;
+  padding: 0.3rem 0.6rem;
   border-radius: var(--radius-sm);
   background: transparent;
-  border: 1px solid var(--color-border-light);
-  color: hsl(0, 0%, 35%);
-  transition: background 0.15s, border-color 0.15s;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-family: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.restore-btn:hover { background: hsl(0, 0%, 92%); border-color: var(--color-border); }
+.restore-btn:hover {
+  background: hsl(0, 0%, 95%);
+  color: var(--color-text);
+  border-color: var(--color-border-light);
+}
 
 /* Panel-divider used between slots — keep existing .panel-divider rules */
 .panel-divider.hidden { display: none; }
@@ -1138,9 +1234,12 @@ body {
     <a href="vault.html" title="Research-Vault: Domänenwissen, Anforderungen, Entscheidungen">Vault</a>
   </nav>
   <nav class="psalm-nav" aria-label="Psalm-Navigation" id="psalm-nav"></nav>
-  <button class="header-reset" type="button" onclick="resetLayout()" title="Alle Felder wieder öffnen und Breiten auf Startzustand zurücksetzen" aria-label="Ansicht zurücksetzen">
-    <span aria-hidden="true">↺</span> Ansicht zurücksetzen
-  </button>
+  <div class="header-view-controls">
+    <div class="restore-bar" id="restore-bar" aria-label="Geschlossene Felder wieder öffnen"></div>
+    <button class="header-reset" type="button" onclick="resetLayout()" title="Komplette Ansicht auf Start-Zustand zurücksetzen: Panel-Zuweisung, Breiten, alle Toggles, Filter und aktiver Vers" aria-label="Ansicht zurücksetzen">
+      <span aria-hidden="true">↺</span> Ansicht zurücksetzen
+    </button>
+  </div>
 </header>
 
 <!-- ===== MAIN ===== -->
@@ -1151,7 +1250,7 @@ body {
   <section class="slot" data-slot="A">
     <header class="slot-header">
       <select class="slot-picker" data-slot="A" onchange="onSlotPick('A', this.value)" aria-label="Inhalt linkes Feld"></select>
-      <button class="slot-close" onclick="closeSlot('A')" title="Feld schließen (Inhalt bleibt unten als Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
+      <button class="slot-close" onclick="closeSlot('A')" title="Feld schließen (oben rechts in der Navigation erscheint eine Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
     </header>
     <div class="slot-body" id="slot-body-A"></div>
   </section>
@@ -1161,7 +1260,7 @@ body {
   <section class="slot" data-slot="B">
     <header class="slot-header">
       <select class="slot-picker" data-slot="B" onchange="onSlotPick('B', this.value)" aria-label="Inhalt mittleres Feld"></select>
-      <button class="slot-close" onclick="closeSlot('B')" title="Feld schließen (Inhalt bleibt unten als Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
+      <button class="slot-close" onclick="closeSlot('B')" title="Feld schließen (oben rechts in der Navigation erscheint eine Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
     </header>
     <div class="slot-body" id="slot-body-B"></div>
   </section>
@@ -1171,14 +1270,13 @@ body {
   <section class="slot" data-slot="C">
     <header class="slot-header">
       <select class="slot-picker" data-slot="C" onchange="onSlotPick('C', this.value)" aria-label="Inhalt rechtes Feld"></select>
-      <button class="slot-close" onclick="closeSlot('C')" title="Feld schließen (Inhalt bleibt unten als Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
+      <button class="slot-close" onclick="closeSlot('C')" title="Feld schließen (oben rechts in der Navigation erscheint eine Schaltfläche zum Wiederöffnen)" aria-label="Feld schließen">&#x2715;</button>
     </header>
     <div class="slot-body" id="slot-body-C"></div>
   </section>
 </div>
 
-<!-- Restore-Bar — populated dynamically when slots are closed -->
-<div class="restore-bar" id="restore-bar"></div>
+<!-- Restore-Bar lebt jetzt in der Top-Nav (siehe <header>). -->
 
 <!-- Pool content templates — live detached, moved into slots by mountSlot() -->
 <div id="pool-templates" style="display:none">
@@ -1192,7 +1290,7 @@ body {
       </button>
     </div>
     <div class="sources-content" id="sources-content">
-      <div class="sources-empty">Klicken Sie auf einen Vers, um die zugehörigen Quellen anzuzeigen.</div>
+      <div class="sources-empty">Klicken Sie auf einen Vers in Notkers Text, um die zugehörigen Kommentarquellen anzuzeigen.</div>
     </div>
   </div>
 
@@ -1215,27 +1313,12 @@ body {
       <button class="toggle-btn active" data-toggle="nhd" onclick="toggleNhd()" title="Neuhochdeutsche Arbeitsübersetzung (Philipp Pfeifer) parallel anzeigen (Taste N)">
         nhd.<span class="kbd">N</span>
       </button>
+      <button class="toggle-btn active" data-toggle="footnotes" onclick="toggleFootnotes()" title="Editorial-Anmerkungen aus der Probeseite (nur unter dem aktiven Vers sichtbar, Taste F)">
+        Anmerkungen<span class="kbd">F</span>
+      </button>
     </div>
 
     <div class="text-content" id="text-content">
-      <details class="intro-details" id="intro-details">
-        <summary class="intro-summary">
-          <strong id="intro-psalm-title">Psalm 2</strong>
-          <span class="intro-summary-meta">Einführung · Bedienung · Hs.</span>
-        </summary>
-        <div class="intro-text">
-          <span id="intro-psalm-body">Notker III. von St. Gallen (ca. 950–1022) verschränkt in seinem
-          Psalmenkommentar lateinische Psalmzitate, althochdeutsche Übersetzungen und exegetischen
-          Kommentar zu einem mehrschichtigen Text. Diese digitale Edition macht die Schichten erstmals
-          einzeln sichtbar und navigierbar.</span>
-          <span style="display:block; margin-top: 0.4rem; color: hsl(0,0%,55%);">Nutzen Sie die <strong style="color:hsl(0,0%,40%)">Toggles</strong> oben, um Textschichten ein-/auszublenden (Tasten 1–4, N, L). Über die <strong style="color:hsl(0,0%,40%)">Auswahl-Felder</strong> jedes Bereichs können Sie wählen, was links, in der Mitte und rechts angezeigt wird.
-          Klicken Sie auf einen Vers, um den Quellenapparat und das Digitalisat zu synchronisieren.</span>
-          <span style="display:block; margin-top: 0.4rem;">Hs.: CSg 0021 · Ed.: Tax/Sehrt, S. R10–R13 ·
-          <a href="richtlinien.html" style="color: var(--color-psalm); text-decoration: none;">Editionsrichtlinien</a> ·
-          <a href="methode.html" style="color: var(--color-psalm); text-decoration: none;">Methode</a> ·
-          <a href="vault.html" style="color: var(--color-psalm); text-decoration: none;">Vault</a></span>
-        </div>
-      </details>
       <!-- Iteration 2 / US-8: Wiener Notker und Psalmtext-Vergleich sind jetzt
            eigene Pool-Eintraege. Edition zeigt nur noch Notkers Text. -->
       <div id="verses-container"></div>
@@ -1262,10 +1345,21 @@ body {
     <div class="pool-nhd-text" id="pool-wiener-body"></div>
   </div>
 
-  <!-- Pool: Psalter G/R/H (eines reicht — Inhalt wird beim Mount neu befüllt) -->
-  <div class="pool-content" id="pool-psalter">
-    <div class="pool-psalter-meta" id="pool-psalter-meta"></div>
-    <div class="pool-psalter-text" id="pool-psalter-body"></div>
+  <!-- Pool: Psalter G/R/H — je ein eigener Template-Knoten, damit zwei oder drei
+       Psalter-Zeugen gleichzeitig in verschiedenen Slots angezeigt werden koennen.
+       (Frueher teilten sich alle drei Entries denselben Knoten, wodurch beim
+       Mounten des zweiten der erste Slot leer wurde.) -->
+  <div class="pool-content" id="pool-psalter-G">
+    <div class="pool-psalter-meta"></div>
+    <div class="pool-psalter-text"></div>
+  </div>
+  <div class="pool-content" id="pool-psalter-R">
+    <div class="pool-psalter-meta"></div>
+    <div class="pool-psalter-text"></div>
+  </div>
+  <div class="pool-content" id="pool-psalter-H">
+    <div class="pool-psalter-meta"></div>
+    <div class="pool-psalter-text"></div>
   </div>
 
   <!-- Pool: Psalmtext-Vergleich (synoptische Tabelle aller fuenf Zeugen) -->
@@ -1302,7 +1396,7 @@ const FALLBACK_DATA = {
     "edition": "Tax/Sehrt (1970er)",
     "manuscript": "CSg 0021",
     "iiif_manifest": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/manifest.json",
-    "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_011.json",
+    "facsimile_start_canvas": "https://www.e-codices.unifr.ch/metadata/iiif/csg-0021/canvas/csg-0021_010.json",
     "edition_pages": "R10–R13"
   },
   "verses": [
@@ -2672,6 +2766,7 @@ function stateToHash() {
   // nhd. ist default AN; nur bei !showNhd in den Hash schreiben.
   if (!state.showNhd) p.set('nhd', '0');
   if (!state.showSourceNhd) p.set('qnhd', '0');
+  if (!state.showFootnotes) p.set('fn', '0');
   const src = [...state.sourceFilter].join(',');
   if (src) p.set('src', src);
   // Iteration 2 / US-8: slot configuration. Format: A:sources,B:edition,C:facsimile
@@ -2697,6 +2792,7 @@ function parseUrlHash() {
   // nhd. default AN; nur explizit nhd=0 schaltet ab.
   if (p.has('nhd')) state.showNhd = p.get('nhd') !== '0';
   if (p.has('qnhd')) state.showSourceNhd = p.get('qnhd') !== '0';
+  if (p.has('fn')) state.showFootnotes = p.get('fn') !== '0';
   if (p.has('src')) {
     // Iteration 2 / US-10.2: filter-keys haben jetzt Praefix "src:" oder "psa:".
     // Legacy-Format (nur Sigle, ohne Praefix) wird nach "src:" mit fallback
@@ -2748,20 +2844,22 @@ function updateUrlHash() {
 // ============================================================================
 // CSg 0021 manifest has 4 prefixed leaves (cover, paste-down, V1, V2)
 // before page 1 starts at canvas index 4. So page N = canvas index N+3.
+// Konvention: Vers 1 beginnt auf Seite 10 der Handschrift (entspricht der
+// Tax/Sehrt-Edition-Seite R10). Jede Folio-Seite trägt ~3 Verse.
 const VERSE_TO_PAGE = {
-  1: 14,   // Page 11 = canvas 14: Psalm title + Verse 1
-  2: 14,   // Page 11: Verse 2 (continues from 1)
-  3: 14,   // Page 11: Verse 3
-  4: 15,   // Page 12 = canvas 15: Verse 4
-  5: 15,   // Page 12: Verse 5
-  6: 15,   // Page 12: Verse 6
-  7: 16,   // Page 13 = canvas 16: Verse 7
-  8: 16,   // Page 13: Verse 8
-  9: 16,   // Page 13: Verse 9
-  10: 17,  // Page 14 = canvas 17: Verse 10
-  11: 17,  // Page 14: Verse 11
-  12: 17,  // Page 14: Verse 12
-  13: 17,  // Page 14: Verse 13
+  1: 13,   // Page 10 = canvas 13: Psalm title + Verse 1
+  2: 13,   // Page 10: Verse 2 (continues from 1)
+  3: 13,   // Page 10: Verse 3
+  4: 14,   // Page 11 = canvas 14: Verse 4
+  5: 14,   // Page 11: Verse 5
+  6: 14,   // Page 11: Verse 6
+  7: 15,   // Page 12 = canvas 15: Verse 7
+  8: 15,   // Page 12: Verse 8
+  9: 15,   // Page 12: Verse 9
+  10: 16,  // Page 13 = canvas 16: Verse 10
+  11: 16,  // Page 13: Verse 11
+  12: 16,  // Page 13: Verse 12
+  13: 16,  // Page 13: Verse 13
 };
 
 const state = {
@@ -2770,6 +2868,7 @@ const state = {
   // Parallel-Layout: nhd. default AN (Standard-Zwei-Spalten-Ansicht).
   showNhd: true,
   showSourceNhd: true,  // Iteration 2 / US-1.3-Erweiterung: default visible
+  showFootnotes: true,  // Editorial-Anmerkungen pro Vers, default AN
   sourceFilter: new Set(),
   // Iteration 2 / US-8: pro Slot wird ein Pool-Eintrag montiert.
   slots: { A: 'sources', B: 'edition', C: 'facsimile' },
@@ -2812,17 +2911,17 @@ const POOL = {
   },
   psalter_g: {
     label: 'Psalter G (Gallicanum)',
-    templateId: 'pool-psalter',
+    templateId: 'pool-psalter-G',
     onMount: () => renderPoolPsalter('G')
   },
   psalter_r: {
     label: 'Psalter R (Romanum)',
-    templateId: 'pool-psalter',
+    templateId: 'pool-psalter-R',
     onMount: () => renderPoolPsalter('R')
   },
   psalter_h: {
     label: 'Psalter H (Hebraicum)',
-    templateId: 'pool-psalter',
+    templateId: 'pool-psalter-H',
     onMount: () => renderPoolPsalter('H')
   },
   facsimile: {
@@ -2934,7 +3033,7 @@ function closeSlot(slotId) {
       btn.title = 'Letztes offenes Feld — mindestens eines muss sichtbar bleiben';
       setTimeout(() => {
         btn.classList.remove('shake');
-        btn.title = 'Feld schließen (Inhalt bleibt unten als Schaltfläche zum Wiederöffnen)';
+        btn.title = 'Feld schließen (oben rechts in der Navigation erscheint eine Schaltfläche zum Wiederöffnen)';
       }, 1200);
     }
     return;
@@ -2988,8 +3087,8 @@ function renderRestoreBar() {
     const label = POOL[poolId]?.label || poolId;
     const btn = document.createElement('button');
     btn.className = 'restore-btn';
-    btn.textContent = '▸ ' + label;
-    btn.title = `Feld „${label}“ wieder oben als Spalte einblenden`;
+    btn.textContent = '+ ' + label;
+    btn.title = `Feld „${label}“ wieder einblenden`;
     btn.onclick = () => restoreSlot(slotId);
     bar.appendChild(btn);
   });
@@ -3027,9 +3126,6 @@ async function init() {
   syncUiToState();
   // Hinweis anzeigen, falls Deep-Link alle Schichten ausgeblendet hat
   updateLayersEmptyHint();
-  // Intro-Titel auf aktiven Psalm setzen (Multi-Psalm-ready)
-  const titleEl = document.getElementById('intro-psalm-title');
-  if (titleEl) titleEl.textContent = `Psalm ${ACTIVE_PSALM}`;
 }
 
 function syncUiToState() {
@@ -3038,6 +3134,8 @@ function syncUiToState() {
   });
   document.querySelector('.toggle-btn[data-toggle="nhd"]')?.classList.toggle('active', state.showNhd);
   document.querySelector('.toggle-btn[data-toggle="source-nhd"]')?.classList.toggle('active', state.showSourceNhd);
+  document.querySelector('.toggle-btn[data-toggle="footnotes"]')?.classList.toggle('active', state.showFootnotes);
+  document.body.classList.toggle('footnotes-off', !state.showFootnotes);
   document.getElementById('sources-panel')?.classList.toggle('hide-source-german', !state.showSourceNhd);
   document.querySelectorAll('.source-filter').forEach(el => {
     el.classList.toggle('active', state.sourceFilter.has(el.dataset.filterKey));
@@ -3285,6 +3383,43 @@ function renderVerses() {
       }
     });
 
+    // Editorial-Fußnoten: aus der Probeseite extrahiert (siehe word/footnotes.xml).
+    // Liste unter dem Vers-Grid, sortiert nach Zeilennummer; jeder Eintrag hat
+    // Anker-Wort und Body. Die Fußnoten zu Quellen-Einträgen landen im Source-Panel.
+    const footnotes = Array.isArray(verse.footnotes) ? verse.footnotes : [];
+    if (footnotes.length) {
+      const fnWrap = document.createElement('div');
+      fnWrap.className = 'verse-footnotes';
+      const sorted = [...footnotes].sort((a, b) => {
+        const la = a.line_n ?? 0, lb = b.line_n ?? 0;
+        if (la !== lb) return la - lb;
+        return parseInt(a.n || '0', 10) - parseInt(b.n || '0', 10);
+      });
+      sorted.forEach(fn => {
+        const row = document.createElement('div');
+        row.className = 'verse-footnote';
+
+        const numEl = document.createElement('span');
+        numEl.className = 'verse-footnote-n';
+        numEl.textContent = fn.n || '';
+        numEl.title = fn.line_n != null ? `Zeile ${fn.line_n}` : '';
+        row.appendChild(numEl);
+
+        const anchorEl = document.createElement('span');
+        anchorEl.className = 'verse-footnote-anchor';
+        anchorEl.textContent = (fn.anchor || '').trim() || '(ohne Anker)';
+        row.appendChild(anchorEl);
+
+        const bodyEl = document.createElement('span');
+        bodyEl.className = 'verse-footnote-body';
+        bodyEl.textContent = fn.body || '';
+        row.appendChild(bodyEl);
+
+        fnWrap.appendChild(row);
+      });
+      grid.appendChild(fnWrap);
+    }
+
     el.appendChild(grid);
 
     container.appendChild(el);
@@ -3407,6 +3542,16 @@ function toggleNhd() {
   updateUrlHash();
 }
 
+function toggleFootnotes() {
+  // Globaler Toggle fuer Editorial-Anmerkungen. Ein .body.footnotes-off
+  // blendet alle .verse-footnotes aus; andernfalls greift die Default-CSS-
+  // Regel, die nur unter .verse.active rendert.
+  state.showFootnotes = !state.showFootnotes;
+  document.querySelector('.toggle-btn[data-toggle="footnotes"]')?.classList.toggle('active', state.showFootnotes);
+  document.body.classList.toggle('footnotes-off', !state.showFootnotes);
+  updateUrlHash();
+}
+
 function toggleSourceNhd() {
   state.showSourceNhd = !state.showSourceNhd;
   const btn = document.querySelector('.toggle-btn[data-toggle="source-nhd"]');
@@ -3518,42 +3663,100 @@ function updateSourceHighlights() {
 function updateSourcesPanel() {
   const container = document.getElementById('sources-content');
   const verse = EDITION_DATA.verses.find(v => v.number === state.activeVerse);
-  if (!verse || !verse.sources || verse.sources.length === 0) {
-    container.innerHTML = '<div class="sources-empty">Keine Quellen für diesen Vers verfügbar.</div>';
-    return;
-  }
 
-  let filtered = verse.sources;
-  // Iteration 2 / US-10.2: Quellen-Apparat zeigt nur Quellen-Sigles (src:X),
-  // nicht Psalter-Filter (psa:X). Wenn nur Psalter aktiv sind, alles zeigen.
-  const srcFilterActive = [...state.sourceFilter].filter(k => k.startsWith('src:'));
-  if (srcFilterActive.length > 0) {
-    const wantedSigles = new Set(srcFilterActive.map(k => k.split(':')[1]));
-    filtered = filtered.filter(s => wantedSigles.has(s.sigle));
-  }
-
-  if (filtered.length === 0) {
-    container.innerHTML = '<div class="sources-empty">Keine Quellen für den aktiven Filter.</div>';
-    return;
-  }
-
-  // Verse group label
+  // Vers-Gruppen-Label (z.B. "Vers 3–5" wenn Vers 3 Vers 4 und 5 einschliesst)
   const groupEnd = {};
   EDITION_DATA.verses.forEach(v => {
     if (v.included_in != null) groupEnd[v.included_in] = Math.max(groupEnd[v.included_in] || 0, v.number);
   });
-  const end = groupEnd[verse.number];
-  const verseLabel = end ? `Vers ${verse.number}–${end}` : `Vers ${verse.number}`;
+  const end = verse ? groupEnd[verse.number] : null;
+  const verseLabel = verse ? (end ? `Vers ${verse.number}–${end}` : `Vers ${verse.number}`) : '–';
 
-  container.innerHTML = `<div class="sources-verse-label">${verseLabel}</div>` +
-    filtered.map(s => `
+  // Aktive Quellen-Siglen-Filter (Psalter-Filter beeinflussen Quellenapparat nicht)
+  const srcFilterActive = [...state.sourceFilter].filter(k => k.startsWith('src:'));
+  const wantedSigles = srcFilterActive.map(k => k.split(':')[1]);
+
+  // Header: immer sichtbar, macht den aktiven Vers klar — auch in Empty-States.
+  // Hinweiszeile erklaert die Klick-Synchronisation, damit Nutzer verstehen,
+  // warum der Inhalt sich an den ausgewaehlten Vers koppelt.
+  const header = `
+    <div class="sources-verse-label">
+      Quellen zu <strong>${verseLabel}</strong>
+      <span class="sources-verse-label-hint">synchronisiert mit dem aktiven Vers — auf einen anderen Vers klicken, um dessen Quellen zu sehen</span>
+    </div>`;
+
+  if (!verse || !verse.sources || verse.sources.length === 0) {
+    container.innerHTML = header +
+      `<div class="sources-empty">Für <strong>${verseLabel}</strong> sind keine Kommentarquellen hinterlegt.</div>`;
+    return;
+  }
+
+  let filtered = verse.sources;
+  if (wantedSigles.length > 0) {
+    const set = new Set(wantedSigles);
+    filtered = filtered.filter(s => set.has(s.sigle));
+  }
+
+  if (filtered.length === 0) {
+    // Empty-State mit Kontext: welche Filter-Siglen sind aktiv und in welchen
+    // Versen kommen sie stattdessen vor (klickbare Sprung-Links).
+    const chipsHtml = wantedSigles.map(sig =>
+      `<span class="sigle-chip" style="color: var(--color-src-${sig})"><span>${escHtml(sig)}</span></span>`
+    ).join(' ');
+
+    const availabilityHtml = wantedSigles.map(sig => {
+      const versesWithSig = EDITION_DATA.verses
+        .filter(v => (v.sources || []).some(s => s.sigle === sig))
+        .map(v => v.number);
+      const chip = `<span class="sigle-chip" style="color: var(--color-src-${sig})"><span>${escHtml(sig)}</span></span>`;
+      if (versesWithSig.length === 0) {
+        return `<div class="sources-empty-hint">${chip} kommt in Psalm ${ACTIVE_PSALM} nicht vor.</div>`;
+      }
+      const links = versesWithSig.map(n =>
+        `<a class="sources-verse-jump" data-verse="${n}">Vers ${n}</a>`
+      ).join(', ');
+      return `<div class="sources-empty-hint">${chip} erscheint in ${links}</div>`;
+    }).join('');
+
+    container.innerHTML = header + `
+      <div class="sources-empty">
+        Für <strong>${verseLabel}</strong> kein Treffer mit Filter ${chipsHtml}.
+      </div>
+      ${availabilityHtml}`;
+
+    // Klick-Handler fuer die Vers-Sprung-Links
+    container.querySelectorAll('.sources-verse-jump').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const n = parseInt(a.dataset.verse, 10);
+        if (!isNaN(n)) selectVerse(n);
+      });
+    });
+    return;
+  }
+
+  container.innerHTML = header +
+    filtered.map(s => {
+      // Fußnoten, die zu diesem Quelleneintrag gehören (selten, aber vorhanden —
+      // z.B. Pfeifers Anmerkungen zu einer Cassiodor-Stelle).
+      const fns = Array.isArray(s.footnotes) ? s.footnotes : [];
+      const fnHtml = fns.length
+        ? `<div class="source-footnotes">${fns.map(fn => `
+            <div class="verse-footnote">
+              <span class="verse-footnote-n">${escHtml(fn.n || '')}</span>
+              <span class="verse-footnote-anchor">${escHtml((fn.anchor || '').trim() || '(ohne Anker)')}</span>
+              <span class="verse-footnote-body">${escHtml(fn.body || '')}</span>
+            </div>`).join('')}</div>`
+        : '';
+      return `
       <div class="source-entry">
         <div class="source-sigle" style="color: var(--color-src-${s.sigle})"><span class="sigle-chip"><span>${s.sigle}</span></span><span class="source-name">${escHtml(s.name)}</span></div>
         <div class="source-latin">${safeBoldHtml(s.latin_text)}</div>
         <div class="source-divider"></div>
         <div class="source-german" data-source-language="${escHtml(s.source_language || 'la')}">${escHtml(s.german_translation)}</div>
-      </div>
-    `).join('');
+        ${fnHtml}
+      </div>`;
+    }).join('');
 }
 
 // ============================================================================
@@ -3646,6 +3849,7 @@ function setupKeyboardShortcuts() {
       case '4': toggleLayer('glosses'); break;
       case 'n': case 'N': toggleNhd(); break;
       case 'q': case 'Q': toggleSourceNhd(); break;
+      case 'f': case 'F': toggleFootnotes(); break;
     }
   });
 }
@@ -3701,11 +3905,55 @@ function setupSlotDrag(dividerId, leftSlotId, rightSlotId) {
   });
 }
 
-// Reset-Button (Top-Nav): alle Slots wieder oeffnen + explizite Breiten entfernen,
-// sodass .slot auf `flex: 1 1 0` zurueckfaellt (gleichmaessige Drittel-Verteilung).
+// Reset-Button (Top-Nav): stellt den kompletten Startzustand wieder her.
+// Reihenfolge: State → DOM → Sync. Wichtig: State-Felder werden VOR den
+// mountSlot-Aufrufen zurueckgesetzt, damit onMount-Callbacks (z.B.
+// POOL.sources.onMount -> renderSourceFilters + updateSourcesPanel) bereits
+// gegen sauberen State rendern.
+// Nicht zurueckgesetzt werden: aktiver Psalm (das ist der Content an sich) und
+// der OSD-Viewport des Faksimiles (wird durch selectVerse(1) ohnehin neu
+// positioniert, falls die Handschrift zum aktiven Vers zurueckspringt).
 function resetLayout() {
+  // --- 1. State auf Defaults setzen (zuerst, siehe Header-Kommentar). ---
+  state.visibleLayers = new Set(['psalm_citation', 'translation', 'commentary', 'glosses']);
+  state.showNhd = true;
+  state.showSourceNhd = true;
+  state.showFootnotes = true;
+  state.sourceFilter.clear();
+
+  // --- 2. Geschlossene Slots oeffnen (mutiert state.slotsClosed). ---
   Array.from(state.slotsClosed).forEach(sid => restoreSlot(sid));
+
+  // --- 3. Slot-Zuweisungen auf Default; mountSlot laeuft jetzt
+  // mit bereits zurueckgesetztem State. ---
+  const DEFAULT_SLOTS = { A: 'sources', B: 'edition', C: 'facsimile' };
+  SLOT_IDS.forEach(sid => {
+    if (state.slots[sid] !== DEFAULT_SLOTS[sid]) mountSlot(sid, DEFAULT_SLOTS[sid]);
+  });
+  refreshSlotPickers();
+
+  // --- 4. Explizite Slot-Breiten entfernen -> CSS-Defaults uebernehmen. ---
   document.querySelectorAll('.slot').forEach(s => { s.style.flex = ''; });
+
+  // --- 5. DOM an den zurueckgesetzten State angleichen. ---
+  document.querySelectorAll('.toggle-btn[data-layer]').forEach(btn => btn.classList.add('active'));
+  document.querySelectorAll('.section, .verse-line--gloss, .verse-nhd--gloss').forEach(el => el.classList.remove('hidden'));
+  updateLayersEmptyHint();
+  document.querySelector('.toggle-btn[data-toggle="nhd"]')?.classList.add('active');
+  document.querySelectorAll('.verse').forEach(el => el.classList.remove('nhd-hidden'));
+  document.querySelector('.toggle-btn[data-toggle="source-nhd"]')?.classList.add('active');
+  document.getElementById('sources-panel')?.classList.remove('hide-source-german');
+  document.querySelector('.toggle-btn[data-toggle="footnotes"]')?.classList.add('active');
+  document.body.classList.remove('footnotes-off');
+  document.querySelectorAll('.source-filter').forEach(el => el.classList.remove('active'));
+
+  // --- 6. Ersten Vers selektieren. selectVerse ruft intern bereits
+  // updateSourcesPanel + updateUrlHash auf -> nicht doppelt aufrufen. ---
+  selectVerse(1);
+
+  // --- 7. Sigel-Highlights neu rechnen. Wird NICHT von selectVerse
+  // abgedeckt (operiert auf .verse-line, liest state.sourceFilter). ---
+  updateSourceHighlights();
 }
 
 // ============================================================================
@@ -3786,8 +4034,13 @@ function renderPoolWiener() {
 function renderPoolPsalter(siglum) {
   const witnesses = EDITION_DATA.psalm_text_comparison?.witnesses || [];
   const w = witnesses.find(x => x.sigle === siglum);
-  const meta = document.getElementById('pool-psalter-meta');
-  const body = document.getElementById('pool-psalter-body');
+  // Jeder Psalter-Zeuge hat seinen eigenen Template-Knoten (pool-psalter-G/R/H),
+  // damit mehrere Zeugen gleichzeitig in verschiedenen Slots angezeigt werden
+  // koennen.
+  const container = document.getElementById('pool-psalter-' + siglum);
+  if (!container) return;
+  const meta = container.querySelector('.pool-psalter-meta');
+  const body = container.querySelector('.pool-psalter-text');
   if (!w) {
     if (meta) meta.textContent = `Psalter ${siglum} — keine Daten verfügbar.`;
     if (body) body.innerHTML = '';

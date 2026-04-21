@@ -22,13 +22,17 @@ Repository: https://github.com/DigitalHumanitiesCraft/notker-edition
 |---|---|
 | `knowledge/Research Plan.md` | Gesamtplan, Scope, Arbeitsphasen |
 | `knowledge/Domänenwissen.md` | Textschichten, Siglen, Datenquellen, ReA-Korpus |
-| `knowledge/Probeseite Analyse.md` | DOCX-Struktur, Farbcodierung, 14 Glossen |
-| `knowledge/Anforderungen.md` | 7 Epics, 13 User Stories, Priorisierung |
+| `knowledge/Probeseite Analyse.md` | DOCX-Struktur, Farbcodierung, Glossen-Inventar |
+| `knowledge/Anforderungen.md` | Iteration 1: Epics, User Stories, Priorisierung |
+| `knowledge/Anforderungen-Iteration-2.md` | Iteration 2: Erweiterte Stories und Entscheidungen |
+| `knowledge/Iteration-2-Umsetzungsplan.md` | Iteration 2: Phasenplan, Teststrategie, Stand pro Story |
 | `knowledge/Design.md` | Editionsinterface, Toggles, Farbsystem |
 | `knowledge/Technik.md` | Pipeline, TEI-Modell, JSON-Schema, Web-Stack, IIIF |
 | `knowledge/Editionsrichtlinien.md` | TEI-Kodierungsregeln für alle Textphänomene |
 | `knowledge/Journal.md` | Projektchronologie, Entscheidungen |
-| `knowledge/Offene Korrekturen.md` | Bug-Tracker auf tieferer Ebene (TEI, Pipeline, UI) |
+| `knowledge/Offene Korrekturen.md` | Tech-Debt-Tracker (TEI, Pipeline, UI) |
+
+Nicht-indexiert: `knowledge/_drafts/` enthält Mail-Entwürfe und andere interne Arbeitsdokumente. Wird von `sync_vault.py` nicht in den öffentlichen Vault kopiert.
 
 ## Architektur
 

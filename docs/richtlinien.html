@@ -109,12 +109,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid hsl(0,0%,88%
   <tbody>
     <tr><td><strong>A</strong></td><td>Augustinus, Enarrationes in Psalmos</td><td>gesichert</td></tr>
     <tr><td><strong>C</strong></td><td>Cassiodor, Expositio Psalmorum</td><td>gesichert</td></tr>
-    <tr><td><strong>R</strong></td><td>Remigius</td><td>gesichert</td></tr>
-    <tr><td><strong>Br</strong></td><td>Breviarium</td><td>gesichert</td></tr>
-    <tr><td><strong>RII</strong></td><td>Unbekannt</td><td>ungeklärt</td></tr>
-    <tr><td><strong>N</strong></td><td>Unbekannt</td><td>ungeklärt</td></tr>
+    <tr><td><strong>R</strong></td><td>Remigius von Auxerre</td><td>gesichert</td></tr>
+    <tr><td><strong>Br</strong></td><td>Breviarium in Psalmos (Pseudo-Hieronymus)</td><td>gesichert</td></tr>
+    <tr><td><strong>RII</strong></td><td>Unbekannt</td><td>ungeklärt (<code>@cert="low"</code>)</td></tr>
+    <tr><td><strong>N</strong></td><td>Unbekannt</td><td>ungeklärt (<code>@cert="low"</code>)</td></tr>
   </tbody>
 </table>
+
+<p>Die Sigle <strong>R</strong> ist im Datenmodell ambig — sie steht im Quellenapparat für Remigius, in der synoptischen Psalter-Vergleichstabelle für den Romanum-Psalter. Die UI-Filter lösen das per Section-Type-Heuristik auf: eine R-Marginalnote an einem Psalmzitat verweist auf Romanum, an Übersetzung oder Kommentar auf Remigius. Die JSON-Ableitung trennt beide Fälle in <code>sigles_psalter</code> und <code>sigles_sources</code>.</p>
 
 <h2>4. Physische Struktur</h2>
 
