@@ -1,17 +1,15 @@
 {
   "files": [
-    "Anforderungen-Iteration-2.md",
-    "Anforderungen.md",
-    "Design.md",
-    "Domänenwissen.md",
-    "Editionsrichtlinien.md",
-    "Iteration-2-Umsetzungsplan.md",
-    "Journal.md",
-    "Offene Korrekturen.md",
-    "Probeseite Analyse.md",
-    "Research Plan.md",
-    "Technik.md"
+    "architecture.md",
+    "data.md",
+    "design.md",
+    "editorial-guidelines.md",
+    "INDEX.md",
+    "journal.md",
+    "offene-korrekturen.md",
+    "project.md",
+    "specification.md"
   ],
-  "generated": "2026-04-21T18:31",
-  "commit": "08876c2741f1a53466d2fb99c52cc4d94802f478"
+  "generated": "2026-05-09T19:33",
+  "commit": "fb480a73feec6629a26978cf6cab7ff79a712048"
 }

@@ -18,19 +18,21 @@ Repository: https://github.com/DigitalHumanitiesCraft/notker-edition
 
 ## Wissensdokumente
 
-| Dokument | Inhalt |
-|---|---|
-| `knowledge/Research Plan.md` | Gesamtplan, Scope, Arbeitsphasen |
-| `knowledge/Domänenwissen.md` | Textschichten, Siglen, Datenquellen, ReA-Korpus |
-| `knowledge/Probeseite Analyse.md` | DOCX-Struktur, Farbcodierung, Glossen-Inventar |
-| `knowledge/Anforderungen.md` | Iteration 1: Epics, User Stories, Priorisierung |
-| `knowledge/Anforderungen-Iteration-2.md` | Iteration 2: Erweiterte Stories und Entscheidungen |
-| `knowledge/Iteration-2-Umsetzungsplan.md` | Iteration 2: Phasenplan, Teststrategie, Stand pro Story |
-| `knowledge/Design.md` | Editionsinterface, Toggles, Farbsystem |
-| `knowledge/Technik.md` | Pipeline, TEI-Modell, JSON-Schema, Web-Stack, IIIF |
-| `knowledge/Editionsrichtlinien.md` | TEI-Kodierungsregeln für alle Textphänomene |
-| `knowledge/Journal.md` | Projektchronologie, Entscheidungen |
-| `knowledge/Offene Korrekturen.md` | Tech-Debt-Tracker (TEI, Pipeline, UI) |
+Der `knowledge/`-Ordner folgt der [Konvention Promptotyping Documents](https://github.com/DigitalHumanitiesCraft/Promptotyping). Frontmatter-Schema-Version `0.2`.
+
+| Dokument | Funktion | Inhalt |
+|---|---|---|
+| `knowledge/INDEX.md` | Navigation + Begriffslexikon | Lesereihenfolge, Funktionsraster, Begriffslexikon |
+| `knowledge/project.md` | Identität | Projektkontext, Phasen, was bewusst nicht geleistet wird |
+| `knowledge/data.md` | Material | Domäne, Textschichten, Siglen, Datenquellen, ReA-Korpus, Probeseite-Strukturanalyse |
+| `knowledge/specification.md` | Substanz | Anforderungen Iteration 1+2, Entscheidungen, Phasenplan, Stand pro Story, 2c-Follow-up |
+| `knowledge/design.md` | Gestalt | Editionsinterface, Slot-System, Toggles, Farbsystem |
+| `knowledge/architecture.md` | Bauweise | Pipeline, TEI-Modell, JSON-Schema, Web-Stack, IIIF |
+| `knowledge/editorial-guidelines.md` | Bauweise (TEI-Spezialisierung) | TEI-Kodierungsregeln für alle Textphänomene |
+| `knowledge/journal.md` | Genese | Projektchronologie, Entscheidungen pro Session |
+| `knowledge/offene-korrekturen.md` | Process | Tech-Debt-Tracker (TEI, Pipeline, UI) |
+
+Empfohlene Lese-Reihenfolge bei neuer Session: `INDEX.md` → `project.md` → `data.md` → `specification.md` → `design.md` → `architecture.md` → `editorial-guidelines.md`. `journal.md` und `offene-korrekturen.md` punktuell.
 
 Nicht-indexiert: `knowledge/_drafts/` enthält Mail-Entwürfe und andere interne Arbeitsdokumente. Wird von `sync_vault.py` nicht in den öffentlichen Vault kopiert.
 

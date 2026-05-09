@@ -1,26 +1,44 @@
 ---
-type: design
+title: "Editionsinterface — Designhaltung und Designsystem"
+project:
+  name: "notker-edition"
+  repository: "https://github.com/DigitalHumanitiesCraft/notker-edition"
+method:
+  name: "Promptotyping"
+  url: "https://dhcraft.org/excellence/blog/Promptotyping"
+status: active
+version: "0.2"
 created: 2026-02-27
-updated: 2026-04-16
-status: draft
-tags: [notker, ui-design, edition-interface]
+updated: 2026-05-09
+language: de
+authors:
+  - "Christopher Pollin"
+generated-with: "Claude (Anthropic)"
+topics:
+  - "[[Information Visualisation]]"
+  - "[[Scholar-Centered Design]]"
+  - "[[Synoptic Edition]]"
+related:
+  - "[[INDEX]]"
+  - "[[project]]"
+  - "[[specification]]"
+  - "[[data]]"
+  - "[[architecture]]"
 ---
 
-# Design: Notker Psalmenkommentar – Editionsinterface
+# Editionsinterface — Designhaltung und Designsystem
 
-> **Stand:** Dieses Dokument beschreibt das Design nach Iteration 1 (Stand 23.03.2026). Die Erweiterungen und Revisionen aus Iteration 2 (Slot-System, Panel-Dropdown, zeilengetreue Synopse, Parallel-Layout Haupttext | nhd.) sind in [[Anforderungen-Iteration-2#Getroffene-Entscheidungen]] dokumentiert; der abgeschlossene Umsetzungsstand in [[Iteration-2-Umsetzungsplan]].
+> **Stand:** Dieses Dokument beschreibt das Design nach Iteration 2 (Slot-System, Panel-Dropdown, zeilengetreue Synopse, Parallel-Layout Haupttext | nhd.). Die Iterations-Geschichte und die getroffenen Designentscheidungen pro Iteration sind in [[specification]] dokumentiert; der aktuelle Umsetzungsstand pro Story ebenfalls dort.
 
 ## Leitgedanke
 
 Der Prototyp vermittelt Gutachtern eines Drittmittelantrags: *Diese digitale Edition löst ein reales philologisches Problem — die Schichtentrennung in Notkers Psalmenkommentar — auf eine Weise, die gedruckte Editionen nicht können.* Jede Designentscheidung dient diesem Demonstrationszweck.
 
-Die zentrale editorische Leistung ist die **Sichtbarmachung von Informationsschichten**, die in der Handschrift verschränkt, in der Probeseite farbcodiert und in bisherigen Druckeditionen unaufgelöst geblieben sind. Das Interface trennt nach **Textfunktion** (Zitat/Übersetzung/Kommentar), nicht nach Sprache (lat./ahd.) — das ist die philologisch bedeutsamere Unterscheidung und der Kern der editorischen Entscheidung. Sprachbasierte Trennung wird als sekundäre Ansicht angeboten.
-
----
+Die zentrale editorische Leistung ist die Sichtbarmachung von Informationsschichten, die in der Handschrift verschränkt, in der Probeseite farbcodiert und in bisherigen Druckeditionen unaufgelöst geblieben sind. Das Interface trennt nach Textfunktion (Zitat/Übersetzung/Kommentar), nicht nach Sprache (lat./ahd.) — das ist die philologisch bedeutsamere Unterscheidung und der Kern der editorischen Entscheidung. Sprachbasierte Trennung wird als sekundäre Ansicht angeboten.
 
 ## 1. Synoptische Darstellung
 
-Notkers Text ist ein Geflecht aus drei funktionalen Schichten (vgl. [[Probeseite Analyse#Farbcodierung]]):
+Notkers Text ist ein Geflecht aus drei funktionalen Schichten (vgl. [[data#Textfunktionale Schichten]]):
 
 | Schicht | Funktion | Handschrift | Probeseite |
 |---|---|---|---|
@@ -36,13 +54,11 @@ Drei Ansichtsmodi bauen aufeinander auf:
 
 **Zweispaltige Ansicht (lat./ahd.-Split).** Orthogonal zu den Schicht-Toggles. Trennt den sichtbaren Text nach Sprache in zwei synchron scrollende Spalten. Das ist das Demonstrationsfeature für Gutachter: ein Klick verwandelt den verschränkten Text in ein übersichtliches Nebeneinander.
 
----
-
 ## 2. Komponenten
 
 ### 2.1 Glossierung
 
-Interlinearglossen aus Psalm 2 (vgl. [[Probeseite Analyse#Interlinearglossen]]). Darstellung **inline**, eingerückt, in reduziertem Schriftgrad (0.85rem), Blaugrau. Per Toggle abschaltbar (Standard: AN). So erscheinen Glossen als das, was sie sind: eine Annotationsebene zwischen Zeile und Rand, weder Haupttext noch Fußnote.
+Interlinearglossen aus Psalm 2 (vgl. [[data#Interlinearglossen-Inventar]]). Darstellung inline, eingerückt, in reduziertem Schriftgrad (0.85rem), Blaugrau. Per Toggle abschaltbar (Standard: AN). So erscheinen Glossen als das, was sie sind: eine Annotationsebene zwischen Zeile und Rand, weder Haupttext noch Fußnote.
 
 ### 2.2 Quellenapparat
 
@@ -50,7 +66,7 @@ Persistentes Panel links vom Haupttext. Begründung: Gutachter und Forscher lese
 
 Aufbau: Filterbereich oben (Checkboxen pro Sigle), darunter Quelleneinträge zum ausgewählten Vers mit Sigle, Quellenname, lateinischem Text und deutscher Übersetzung. Aktive Filter markieren zugehörige Haupttext-Zeilen mit farbigem Seitenstreifen.
 
-Quellenfarben: A (Augustinus) = Blau, C (Cassiodor) = Grün, R (Remigius) = Orange, Br (Breviarium) = Violett. Diese Farben sind bewusst als dezente Seitenstreifen umgesetzt, um Interferenz mit den Textschicht-Farben zu minimieren. Das Überlagerungsrisiko bei mehreren gleichzeitig aktiven Filtern bleibt ein offener Testpunkt (→ D-11).
+Quellenfarben: A (Augustinus) = Blau, C (Cassiodor) = Grün, R (Remigius) = Orange, Br (Breviarium) = Violett. Diese Farben sind bewusst als dezente Seitenstreifen umgesetzt, um Interferenz mit den Textschicht-Farben zu minimieren. Das Überlagerungsrisiko bei mehreren gleichzeitig aktiven Filtern bleibt ein offener Testpunkt.
 
 ### 2.3 Facsimile-Anbindung
 
@@ -62,7 +78,7 @@ Einschränkung, die benannt werden muss: Auf einer dicht beschriebenen Handschri
 
 ### 2.4 Neuhochdeutsche Übersetzung
 
-Per Toggle zuschaltbar (Standard: AUS). Darstellung unterhalb jedes Verses, kursiv, gedämpfter Grauton. Nicht als Spalte (zu viel Platz im 3-Panel-Layout), nicht als Tooltip (zu flüchtig).
+Zwei Darstellungsmodi nebeneinander. In der Edition zeilengenau pro Notker-Zeile auf identischer Höhe (Iteration 2 / US-9). Im Pool als Fließtext-Lese-Ansicht mit aufgelösten Bindestrichen. Toggle steuert Sichtbarkeit auch im Quellenapparat (Iteration 2 / US-1.3-Erweiterung).
 
 ### 2.5 Navigation
 
@@ -72,17 +88,13 @@ Per Toggle zuschaltbar (Standard: AUS). Darstellung unterhalb jedes Verses, kurs
 
 **Editions-Seitenumbrüche.** Referenzen R10–R13 (Tax/Sehrt-Edition) als dezente Randnotiz.
 
----
-
 ## 3. Layout und Designsystem
 
-### 3.1 Gesamtlayout (Iteration 2: Slot-System)
+### 3.1 Gesamtlayout (Slot-System)
 
-Dreispaltiges Grundraster mit drei generischen **Slots** A · B · C. Jeder Slot hat
-einen Auswahl-Dropdown im Header und einen Schließen-Button. Die Default-Belegung
-entspricht dem Iteration-1-Layout: A=Quellen, B=Notkers Edition, C=Facsimile.
+Dreispaltiges Grundraster mit drei generischen Slots A · B · C. Jeder Slot hat einen Auswahl-Dropdown im Header und einen Schließen-Button. Die Default-Belegung entspricht dem Iteration-1-Layout: A=Quellen, B=Notkers Edition, C=Facsimile.
 
-Aus dem **Pool** kann pro Slot ein Inhaltstyp gewählt werden:
+Aus dem Pool kann pro Slot ein Inhaltstyp gewählt werden:
 
 | Pool-Eintrag | Inhalt | Quelle |
 |---|---|---|
@@ -97,13 +109,9 @@ Aus dem **Pool** kann pro Slot ein Inhaltstyp gewählt werden:
 | Anmerkungen | Siglen-Schlüssel + editorische Hinweise | NEU |
 | Psalmtext-Vergleich | Synoptische Tabelle aller fünf Zeugen | NEU |
 
-Single-Instance-Pool: jeder Eintrag existiert genau einmal im DOM. Pickt man in
-Slot B einen Eintrag, der schon in A montiert ist, **tauschen die Slots**
-transparent ihren Inhalt. Geschlossene Slots erscheinen als Buttons in einer
-**Wiederherstellungsleiste** am unteren Bildschirmrand.
+Single-Instance-Pool: jeder Eintrag existiert genau einmal im DOM. Pickt man in Slot B einen Eintrag, der schon in A montiert ist, tauschen die Slots transparent ihren Inhalt. Geschlossene Slots erscheinen als Buttons in einer Wiederherstellungsleiste am unteren Bildschirmrand.
 
-Panels durch verschiebbare Trenner (*drag-to-resize*). Header mit Projekttitel
-und Psalmleiste, Footer mit Zitierhinweis, Projektkontext, Lizenz.
+Panels durch verschiebbare Trenner (drag-to-resize). Header mit Projekttitel und Psalmleiste, Footer mit Zitierhinweis, Projektkontext, Lizenz.
 
 Slot-Belegung wird im URL-Hash persistiert: `#slots=A:nhd,B:edition,C:psalter_g&closed=`.
 
@@ -122,14 +130,14 @@ Editionstext in Serifenschrift (Gentium Book Plus via Google Fonts, Fallback Pal
 
 ### 3.3 Farbsystem
 
-Drei Farblogiken existieren im Projekt (vgl. [[Domänenwissen#Drei überlagernde Farblogiken]]). Das UI definiert die dritte:
+Drei Farblogiken existieren im Projekt (vgl. [[data#Drei überlagernde Farblogiken]]). Das UI definiert die dritte.
 
 **Textschicht-Farben:**
 
 | Schicht | Farbe | HSL | Begründung |
 |---|---|---|---|
 | Psalmzitation | Terracotta | hsl(15, 60%, 40%) | Reminiszenz an rote Tinte der Handschrift |
-| Übersetzung | Schwarzbraun | hsl(25, 30%, 18%) | Reminiszenz an schwarze Tinte, visuell "Hauptstimme" |
+| Übersetzung | Schwarzbraun | hsl(25, 30%, 18%) | Reminiszenz an schwarze Tinte, visuell Hauptstimme |
 | Kommentar | Dunkelgrau | hsl(0, 0%, 35%) | Notkers eigene Stimme, lesbar aber nicht dominant |
 | Glossen | Blaugrau | hsl(210, 20%, 50%) | Eigene Farbe, abgesetzt vom Textfluss |
 
@@ -139,15 +147,13 @@ Drei Farblogiken existieren im Projekt (vgl. [[Domänenwissen#Drei überlagernde
 
 ### 3.4 Responsivität
 
-Primäre Zielgröße: Laptop (1280–1440px). ≥1200px drei Panels, 900–1199px zwei Panels, <900px Einzelpanel mit Tabs. Mobile ist kein Ziel.
-
----
+Primäre Zielgröße: Laptop (1280–1440 px). ≥1200px drei Panels, 900–1199px zwei Panels, <900px Einzelpanel mit Tabs. Mobile ist kein Ziel.
 
 ## 4. Interaktion
 
 ### 4.1 Toggle-System
 
-Sechs Toggles in zwei orthogonalen Gruppen:
+Sechs Toggles in zwei orthogonalen Gruppen.
 
 **Gruppe A — Textschichten:** Psalmzitation (1), Übersetzung (2), Kommentar (3), Glossen (4). Alle initial AN.
 
@@ -196,11 +202,9 @@ panelState: { sources: 'open' | 'closed', facsimile: 'open' | 'closed' }
 └─────────────────────────────────────────┘
 ```
 
----
-
 ## 5. Informationshierarchie
 
-Fünf Ebenen, geordnet nach visueller Prominenz. **Progressive Disclosure**: Standardzustand zeigt Ebene 1–3, Ebene 4 wird aktiv zugeschaltet. Ein Gutachter sieht beim ersten Laden ein lesbares Interface, nicht ein überfrachtetes.
+Fünf Ebenen, geordnet nach visueller Prominenz. Progressive Disclosure: Standardzustand zeigt Ebene 1–3, Ebene 4 wird aktiv zugeschaltet. Ein Gutachter sieht beim ersten Laden ein lesbares Interface, nicht ein überfrachtetes.
 
 | Ebene | Inhalt | Sichtbarkeit |
 |---|---|---|
@@ -210,42 +214,18 @@ Fünf Ebenen, geordnet nach visueller Prominenz. **Progressive Disclosure**: Sta
 | 4 | nhd. Übersetzung, Facsimile | Optional, zuschaltbar |
 | 5 | Editions-Seitenumbrüche, Zitierhinweise | Kontext, statisch |
 
----
+## 6. Negative Selbstdefinition
 
-## 6. Designentscheidungen — Abschluss
+Was die Designhaltung bewusst nicht leistet, gehört zur Identität des Prototyps. Das Interface ist nicht responsive auf Mobile. Es bietet keine zeilengenaue Bild-Text-Synopse (zu hoher Annotationsaufwand). Es vermischt Schichtfarbe und Filterfarbe nicht in einer Hervorhebung — Schichtfarbe trägt den Text, Filterfarbe trägt einen Seiten-Stripe. Es führt keine animierten Übergänge ein, die Lesefluss stören würden. Es zeigt keine Statistik-Sidebar (keine „Zeichenzahl", keine „Schichtverteilung") — das wären Metriken, die vom Lesegegenstand ablenken.
 
-### Vor Implementierung entschieden
+## 7. Anschluss an den Action-Layer
 
-| Nr. | Frage | Entscheidung |
-|---|---|---|
-| D-1 | Glossen-Darstellung | Inline eingerückt (sichtbarer als Tooltip, ehrlicher gegenüber dem Textcharakter) |
-| D-2 | nhd. Übersetzung Position | Parallele Spalte rechts vom Haupttext (Iteration 2 / US-9); Iteration 1 hatte sie unterhalb des Verses |
-| D-3 | Quellenfilter-Farbe | Individuelle Sigle-Farben, damit mehrere Filter gleichzeitig lesbar bleiben |
-| D-4 | Serifenschrift | Gentium Book Plus (frei, gute ahd.-Zeichenabdeckung) |
-
-### In Iteration 2 entschieden
-
-| Nr. | Frage | Entscheidung |
-|---|---|---|
-| D-5 | Psalmtext-Vergleich | Eigener Pool-Eintrag im Slot-System, als synoptische Tabelle aller fünf Zeugen |
-| D-6 | Wiener Notker | Eigener Pool-Eintrag, als Paralleltext |
-| D-10 | Facsimile-Panel | Standardmäßig offen im rechten Slot; Breite 3 : 4 : 3 (Quellen : Edition : Handschrift) |
-| D-11 | Farbüberlagerung Schicht × Filter | Schichtfarbe für den Text, Filterfarbe als Seiten-Stripe auf der `.verse-line`; mehrere Filter stapeln sich als 4px-Streifen mit 1px-Abstand |
-
-### Offen
-
-| Nr. | Frage |
-|---|---|
-| D-7 | Querverweise auf Bibelstellen: Wo im Layout? Daten liegen noch nicht vor |
-| D-8 | Barrierefreiheits-Review (Kontrastverhältnisse über alle Farbkombinationen) |
-| D-9 | Toggle-Animation: aktuell hart, ggf. sanfter Fade |
-
----
+Diese Designhaltung ist deklarativ. Die imperative Übersetzung in Designprinzipien für den Coding-Agenten gehört in `CLAUDE.md` im Repo-Root, das auf dieses Dokument als Wertequelle verweist. Kandidaten für imperative Sätze, die `CLAUDE.md` aus dieser Haltung ableiten könnte: „Generiere CSS, das Schichtfarbe und Filterfarbe trennt." „Wähle bei Layout-Fragen das philologische Werkzeug, nicht das marketing-orientierte Interface." „Nutze Farbe nur funktional, nie dekorativ." Die imperative Form lebt nicht hier.
 
 ## Verknüpfungen
 
-- [[Anforderungen]] — User Stories, die dieses Design umsetzt
-- [[Probeseite Analyse]] — Datengrundlage für Farblogik und Glosseninventar
-- [[Domänenwissen]] — Textschichten und Farblogiken
-- [[Research Plan]] — Arbeitsphasen und Scope-Bewertung
-- [[Technik]] — Stack, Datenmodell, Pipeline
+- [[INDEX]] — Navigation und Begriffslexikon
+- [[project]] — Projektidentität und Demonstrationszweck
+- [[specification]] — User Stories, die dieses Design umsetzt; Iterations-Geschichte und Designentscheidungen pro Iteration
+- [[data]] — Datengrundlage für Farblogik und Glosseninventar
+- [[architecture]] — Stack, Datenmodell, Pipeline

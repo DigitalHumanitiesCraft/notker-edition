@@ -1,13 +1,49 @@
 ---
-type: technical
+title: "Architektur — Pipeline, TEI, JSON, Web-Stack"
+project:
+  name: "notker-edition"
+  repository: "https://github.com/DigitalHumanitiesCraft/notker-edition"
+method:
+  name: "Promptotyping"
+  url: "https://dhcraft.org/excellence/blog/Promptotyping"
+status: active
+version: "0.2"
 created: 2026-02-27
-updated: 2026-04-16
-tags: [notker, technical, tei, pipeline]
+updated: 2026-05-09
+language: de
+authors:
+  - "Christopher Pollin"
+generated-with: "Claude (Anthropic)"
+topics:
+  - "[[TEI]]"
+  - "[[Data Pipeline]]"
+  - "[[IIIF]]"
+related:
+  - "[[INDEX]]"
+  - "[[project]]"
+  - "[[data]]"
+  - "[[editorial-guidelines]]"
+  - "[[design]]"
+knowledge-sources:
+  standards:
+    - label: "TEI P5 Guidelines"
+      uri: "https://tei-c.org/release/doc/tei-p5-doc/"
+    - label: "TEI All RelaxNG Schema"
+      uri: "https://tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng"
+    - label: "IIIF Presentation API 2.0"
+      uri: "https://iiif.io/api/presentation/2.0/"
+  methods:
+    - label: "OpenSeadragon"
+      uri: "https://openseadragon.github.io/"
+    - label: "lxml"
+      uri: "https://lxml.de/"
+    - label: "python-docx"
+      uri: "https://python-docx.readthedocs.io/"
 ---
 
-# Technik: Notker Psalmenkommentar Prototyp
+# Architektur — Pipeline, TEI, JSON, Web-Stack
 
-Technische Referenz für Pipeline, TEI-Modell, JSON-Schema und Web-Stack. Für editorische Kodierungsregeln siehe [[Editionsrichtlinien]].
+Technische Referenz für Pipeline, TEI-Modell, JSON-Schema und Web-Stack. Für editorische Kodierungsregeln siehe [[editorial-guidelines]].
 
 ## 1. Pipeline
 
@@ -36,7 +72,7 @@ Der ehemalige Errata-Layer (`apply_errata.py` + `errata.yaml` + `tests/test_erra
 
 Extrahiert Haupttext, Quellenapparat, Glossen und Übersetzung aus der DOCX. Die Probeseite wurde für eine Druckausgabe gesetzt, nicht für eine digitale Weiterverarbeitung — die Pipeline muss die tabellarische Satzstruktur zurück in eine semantische Struktur überführen.
 
-13 Tabellen in 3 Gruppen (Details in [[Probeseite Analyse]]):
+13 Tabellen in 3 Gruppen (Details in [[data#Probeseiten-Strukturanalyse]]):
 
 | Gruppe | Tables | Erkennung |
 |---|---|---|
@@ -75,15 +111,16 @@ Serialisiert die klassifizierten Dataclasses in TEI-konformes XML mit `lxml.etre
 
 Traversiert das TEI und erzeugt ein flaches, UI-freundliches JSON: `<ab>`-Zeilen werden zu Vers-Sections aggregiert, `@part`-Ketten und Silbentrennungen textlich aufgelöst, Siglen disambiguiert. Zwei Formate nebeneinander zu führen kostet Pipeline-Komplexität, macht aber die UI unabhängig vom TEI-Traversal — ein Frontend-Redesign oder ein Wechsel des Viewer-Frameworks erfordert keine XML-Verarbeitung im Browser.
 
-**Besondere Features:**
-- **Siglen-Parsing:** Klammernotation `G [A, C]` wird korrekt als separate Siglen geparst (Regex: `[A-Z][a-z]*(?:II)?`)
-- **R-Disambiguierung** (`disambiguate_sigles()`): R ist ambig (Romanum-Psalter vs. Remigius-Patristik). Heuristik anhand Section-Type: R in `psalm_citation` → `sigles_psalter`, sonst → `sigles_sources`. G/H sind eindeutig Psalter, A/C/Br/RII/N eindeutig Patristik.
-- **Notker-Zeilennummer**: jede Section trägt `line_n` aus dem `<ab n="X">` (Iteration 2 / US-9.2) — Frontend setzt `data-line` Attribut.
-- **nhd. line-faithful**: `collect_nhd_lines()` liest die `<l>`-Elemente unter `<lg type="line-faithful">` als `translation_nhd_lines: [str]`. Frontend rendert Edition zeilengetreu, Pool-View als Fließtext.
-- **Bold-Preservation:** `<hi rend="bold">` in `<quote>`-Elementen wird als `<b>`-Tags im JSON erhalten (`rich_text_content()`)
-- **Gloss-Interleaving:** Glossen (`<ab ana="#fn-gloss">`) werden als `type: "gloss"` Sections an ihrer korrekten Position im Textfluss eingefügt, nicht separat am Versende
-- **Hyphen-Merge über Glossen hinweg:** Silbentrennungen werden auch dann zusammengeführt, wenn eine Glosse dazwischen liegt (z.B. "grís-" [Glosse] "cramoton" → "gríscramoton")
-- **Cross-Verse-Hyphen-Merge** (`merge_cross_verse_hyphens()`): textliche Zusammenführung im JSON parallel zur semantischen `@part`-Verkettung im TEI (V1-2 „han-" + V3-5 „gta" → „hangta")
+Besondere Features:
+
+- **Siglen-Parsing.** Klammernotation `G [A, C]` wird korrekt als separate Siglen geparst (Regex: `[A-Z][a-z]*(?:II)?`)
+- **R-Disambiguierung** (`disambiguate_sigles()`). R ist ambig (Romanum-Psalter vs. Remigius-Patristik). Heuristik anhand Section-Type: R in `psalm_citation` → `sigles_psalter`, sonst → `sigles_sources`. G/H sind eindeutig Psalter, A/C/Br/RII/N eindeutig Patristik.
+- **Notker-Zeilennummer.** Jede Section trägt `line_n` aus dem `<ab n="X">` (Iteration 2 / US-9.2) — Frontend setzt `data-line` Attribut.
+- **nhd. line-faithful.** `collect_nhd_lines()` liest die `<l>`-Elemente unter `<lg type="line-faithful">` als `translation_nhd_lines: [str]`. Frontend rendert Edition zeilengetreu, Pool-View als Fließtext.
+- **Bold-Preservation.** `<hi rend="bold">` in `<quote>`-Elementen wird als `<b>`-Tags im JSON erhalten (`rich_text_content()`)
+- **Gloss-Interleaving.** Glossen (`<ab ana="#fn-gloss">`) werden als `type: "gloss"` Sections an ihrer korrekten Position im Textfluss eingefügt, nicht separat am Versende
+- **Hyphen-Merge über Glossen hinweg.** Silbentrennungen werden auch dann zusammengeführt, wenn eine Glosse dazwischen liegt (z.B. „grís-" [Glosse] „cramoton" → „gríscramoton")
+- **Cross-Verse-Hyphen-Merge** (`merge_cross_verse_hyphens()`). Textliche Zusammenführung im JSON parallel zur semantischen `@part`-Verkettung im TEI (V1-2 „han-" + V3-5 „gta" → „hangta")
 
 ### 1.5 Validierung und Tests
 
@@ -219,9 +256,7 @@ Traversiert das TEI und erzeugt ein flaches, UI-freundliches JSON: `<ab>`-Zeilen
 }
 ```
 
-Silbentrennungen werden im JSON aufgelöst (sowohl innerhalb eines Verses als
-auch über Vers-Grenzen, parallel zur semantischen `@part`-Verkettung im TEI).
-Die Zeilenstruktur bleibt im TEI (`<ab n="X">`) und im JSON (`line_n`).
+Silbentrennungen werden im JSON aufgelöst (sowohl innerhalb eines Verses als auch über Vers-Grenzen, parallel zur semantischen `@part`-Verkettung im TEI). Die Zeilenstruktur bleibt im TEI (`<ab n="X">`) und im JSON (`line_n`).
 
 ## 4. Web-Stack
 
@@ -255,11 +290,12 @@ Vers→Seite-Mapping (vorläufig):
 
 ## 6. Offene technische Fragen
 
-- [ ] Farbüberlagerung Textschicht × Quellenfilter testen (D-11)
+- Farbüberlagerung Textschicht × Quellenfilter testen (siehe [[specification#D-11]])
 
 ## Verknüpfungen
 
-- [[Editionsrichtlinien]] — Kodierungsregeln für TEI
-- [[Design]] — UI-Konzept, Toggle-System, Farbsystem
-- [[Probeseite Analyse]] — DOCX-Struktur und Parsing-Implikationen
-- [[Research Plan]] — Arbeitsphasen und Abhängigkeiten
+- [[INDEX]] — Navigation und Begriffslexikon
+- [[project]] — Projektidentität und Phasen
+- [[data]] — Substrat, das die Pipeline verarbeitet, inkl. Probeseiten-Strukturanalyse
+- [[editorial-guidelines]] — Kodierungsregeln für TEI
+- [[design]] — UI-Konzept, Toggle-System, Farbsystem

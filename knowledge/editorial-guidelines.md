@@ -1,16 +1,45 @@
 ---
-type: encoding-guidelines
-created: 2026-03-23
-updated: 2026-04-16
+title: "Editorial Guidelines — TEI-Kodierung Notker Psalmenkommentar"
+project:
+  name: "notker-edition"
+  repository: "https://github.com/DigitalHumanitiesCraft/notker-edition"
+method:
+  name: "Promptotyping"
+  url: "https://dhcraft.org/excellence/blog/Promptotyping"
 status: active
-tags: [notker, tei, encoding, guidelines]
+version: "0.2"
+created: 2026-03-23
+updated: 2026-05-09
+language: de
+authors:
+  - "Christopher Pollin"
+generated-with: "Claude (Anthropic)"
+topics:
+  - "[[TEI]]"
+  - "[[Editorial Guidelines]]"
+  - "[[Old High German]]"
+related:
+  - "[[INDEX]]"
+  - "[[data]]"
+  - "[[architecture]]"
+knowledge-sources:
+  standards:
+    - label: "TEI P5 Guidelines"
+      uri: "https://tei-c.org/release/doc/tei-p5-doc/"
+    - label: "TEI P5 Critical Apparatus (Kap. 12)"
+      uri: "https://tei-c.org/release/doc/tei-p5-doc/en/html/TC.html"
+    - label: "ISO 639-3 (goh — Old High German)"
+      uri: "https://iso639-3.sil.org/code/goh"
+  vocabularies:
+    - label: "BIBLINDEX — patristische Bibelzitate"
+      uri: "https://biblindex.org/"
+    - label: "Patristic Text Archive"
+      uri: "https://pta.bbaw.de/"
 ---
 
-# Editionsrichtlinien: Notkers Psalmenkommentar
+# Editorial Guidelines — TEI-Kodierung Notker Psalmenkommentar
 
 Kodierungsrichtlinien für die digitale Edition von Notkers Psalmenkommentar in TEI-XML. Dieses Dokument beschreibt alle Textphänomene, die in der Probeseite vorkommen, und legt fest, wie sie kodiert werden. Es dient als Referenz für die manuelle Nachbearbeitung, die Erweiterung auf alle 150 Psalmen und die Kommunikation mit dem Auftraggeber.
-
----
 
 ## 1. Textphänomene und ihre Kodierung
 
@@ -87,13 +116,14 @@ Notkers Text wechselt ständig zwischen Althochdeutsch und Latein, oft mitten im
 **Prinzip:** Die Default-Sprache des `<seg>` bestimmt, was *nicht* getaggt wird. Nur die jeweils fremde Sprache bekommt `<foreign>`. Wenn ein ganzes Segment in der anderen Sprache steht, wird `@xml:lang` auf dem `<seg>` selbst gesetzt.
 
 **Grenzfälle:**
-- Integrierte Lehnwörter (z.B. `christum` in ahd. Kontext): werden mit `<foreign>` getaggt, weil sie morphologisch lat. sind
-- Ahd. Funktionswörter in lat. Kontext (z.B. `in` als Präposition): werden *nicht* getaggt, wenn sie in beiden Sprachen identisch sind und der Kontext eindeutig lat. ist
-- Eigennamen (z.B. `herodes`, `ierusalem`): werden nicht mit `<foreign>` getaggt, da sprachlich neutral
+
+- Integrierte Lehnwörter (z.B. `christum` in ahd. Kontext) — werden mit `<foreign>` getaggt, weil sie morphologisch lat. sind
+- Ahd. Funktionswörter in lat. Kontext (z.B. `in` als Präposition) — werden nicht getaggt, wenn sie in beiden Sprachen identisch sind und der Kontext eindeutig lat. ist
+- Eigennamen (z.B. `herodes`, `ierusalem`) — werden nicht mit `<foreign>` getaggt, da sprachlich neutral
 
 ### 1.3 Interlinearglossen
 
-Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erscheinen. 14 Stück in Psalm 2. Übersetzen typischerweise einen lateinischen Fachterminus ins Althochdeutsche.
+Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erscheinen. 13 Stück in Psalm 2. Übersetzen typischerweise einen lateinischen Fachterminus ins Althochdeutsche.
 
 **Kodierung:** Eigene `<ab>` mit `@ana="#fn-gloss"`, darin `<gloss>`.
 
@@ -105,6 +135,7 @@ Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erschein
 ```
 
 **Erkennungsmerkmale im DOCX:**
+
 - Kurze Zeile (≤ 5 Wörter)
 - Nur schwarze Runs (keine olive/grüne Farbe)
 - nhd-Spalte hat ebenfalls kurze Übersetzung
@@ -116,8 +147,7 @@ Einzelwort- oder Kurzübersetzungen, die im Textfluss als eigene Zeilen erschein
 
 Arbeitsübersetzung des Auftraggebers zum gesamten Notker-Text. Zeilenweise in der Probeseite (kursiv, keine Farbe). Ist nicht Teil der Edition im engeren Sinn, sondern philologische Arbeitsgrundlage.
 
-**Kodierung:** Pro Versgruppe als `<note type="translation_nhd" resp="#pfeifer" xml:lang="de">`
-mit zwei parallelen Repräsentationen — Fließtext und zeilengetreue Aufteilung:
+**Kodierung:** Pro Versgruppe als `<note type="translation_nhd" resp="#pfeifer" xml:lang="de">` mit zwei parallelen Repräsentationen — Fließtext und zeilengetreue Aufteilung:
 
 ```xml
 <note type="translation_nhd" resp="#pfeifer" xml:lang="de">
@@ -134,8 +164,7 @@ mit zwei parallelen Repräsentationen — Fließtext und zeilengetreue Aufteilun
 - `@resp="#pfeifer"` — Attribution an den Übersetzer (deklariert im Header als `<editor>`)
 - Im `<note>`, nicht als `<seg>`, weil es kein Teil von Notkers Text ist
 - `<p>` ist Lese-Ansicht (Fließtext, Review-Korrekturen einschließlich Cross-Line-Patterns)
-- `<lg type="line-faithful">` mit `<l>` pro Zeile bildet die zeilengetreue
-  Aufteilung ab. Trailing-Bindestriche bleiben (markieren Zeilen-Trennung wie in der Druckedition).
+- `<lg type="line-faithful">` mit `<l>` pro Zeile bildet die zeilengetreue Aufteilung ab. Trailing-Bindestriche bleiben (markieren Zeilen-Trennung wie in der Druckedition).
 - Iteration 2 / US-9: Frontend rendert Edition zeilengenau, Pool nhd. als Fließtext mit aufgelösten Bindestrichen.
 
 ### 1.5 Quellenapparat
@@ -201,7 +230,7 @@ In der Probeseite steht in der letzten Spalte jeder Haupttext-Zeile eine oder me
 
 Bis zur Klärung: keine semantische Auszeichnung über `<note>` hinaus.
 
-### 1.7 Psaltervergleich
+### 1.8 Psaltervergleich
 
 Fünf Psalmtext-Versionen synoptisch (Gallicanum, Romanum, Hebraicum, Augustinus-Psalter, Cassiodor-Psalter). In der Probeseite als eigene Tabellen am Ende.
 
@@ -220,7 +249,7 @@ Fünf Psalmtext-Versionen synoptisch (Gallicanum, Romanum, Hebraicum, Augustinus
 - Im `<back>`, nicht `<body>` (nicht Teil von Notkers Text)
 - `<variantEncoding method="parallel-segmentation" location="internal"/>` im Header deklariert
 
-### 1.8 Wiener Notker
+### 1.9 Wiener Notker
 
 Paralleltext zu Psalm 2 aus ÖNB Cod. 2681 (Edition Heinzle & Scherrer). Zeigt eine spätere/andere Überlieferungsstufe desselben Textes.
 
@@ -234,8 +263,6 @@ Paralleltext zu Psalm 2 aus ÖNB Cod. 2681 (Edition Heinzle & Scherrer). Zeigt e
 ```
 
 Keine Feincodierung (Schichten, Sprachtrennung) im Prototyp. Das Gesamtprojekt kann den Wiener Notker separat aufbereiten.
-
----
 
 ## 2. Physische vs. logische Struktur
 
@@ -270,10 +297,7 @@ Wenn ein Segment über die Zeilengrenze hinausgeht (z.B. durch Silbentrennung), 
 
 **Entscheidung:** Innerhalb eines Verses nur `@part`, nicht `@next`/`@prev`. TEI P5 dokumentiert beide als äquivalent. `@part` ist kompakter und die Reihenfolge im Dokument ist implizit.
 
-**Cross-Verse-Verkettung (Iteration 2):** Wenn ein Wort über die Vers-Grenze geteilt
-ist (z.B. V1-2 endet mit „han-" und V3-5 beginnt mit „gta"), reicht `@part` allein
-nicht — die Reihenfolge ist über die Vers-Grenze hinweg nicht implizit. Daher
-zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen:
+**Cross-Verse-Verkettung (Iteration 2):** Wenn ein Wort über die Vers-Grenze geteilt ist (z.B. V1-2 endet mit „han-" und V3-5 beginnt mit „gta"), reicht `@part` allein nicht — die Reihenfolge ist über die Vers-Grenze hinweg nicht implizit. Daher zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen:
 
 ```xml
 <!-- Vers 1-2 letzte Zeile -->
@@ -287,9 +311,7 @@ zusätzlich `@xml:id="seg-cross-N-i"`/`-f"` mit `@next`/`@prev`-Verweisen:
 </seg>
 ```
 
-Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`). Die textliche
-Zusammenführung („han-" + „gta" → „hangta") erfolgt im JSON via
-`merge_cross_verse_hyphens()` für die UI-Lese-Ansicht.
+Implementiert in `chain_cross_verse_hyphens()` (`build_tei.py`). Die textliche Zusammenführung („han-" + „gta" → „hangta") erfolgt im JSON via `merge_cross_verse_hyphens()` für die UI-Lese-Ansicht.
 
 ### 2.3 Silbentrennung
 
@@ -299,13 +321,11 @@ Wörter, die am Zeilenende getrennt werden, werden mit `<lb break="no"/>` markie
 <seg ...>Ziu grís-<lb break="no"/></seg>
 ```
 
-**Achtung:** Althochdeutsche Komposita mit Bindestrich (z.B. `lánt-chuninga`, `ne-lâzen`) sind *keine* Silbentrennungen. Der Bindestrich gehört zum Wort. Der Parser unterscheidet: Trennung nur am Zeilenende, wenn die nächste Zeile mit dem gleichen Segmenttyp fortfährt (`@part`).
+**Achtung:** Althochdeutsche Komposita mit Bindestrich (z.B. `lánt-chuninga`, `ne-lâzen`) sind keine Silbentrennungen. Der Bindestrich gehört zum Wort. Der Parser unterscheidet: Trennung nur am Zeilenende, wenn die nächste Zeile mit dem gleichen Segmenttyp fortfährt (`@part`).
 
 ### 2.4 Akzentzeichen
 
 Notkers Text verwendet Akzentzeichen (z.B. `grís`, `dâhton`, `hêiligen`). Diese werden als Unicode-Zeichen bewahrt, nicht normalisiert. Sie sind Teil der Edition.
-
----
 
 ## 3. Header-Deklarationen
 
@@ -322,7 +342,7 @@ Im `<encodingDesc>/<classDecl>/<taxonomy xml:id="textfunction">`:
 
 ### 3.2 Quellendeklaration
 
-Autor, Werk und Semantik der Siglen sind in [[Domänenwissen#Quellen-Siglen]] dokumentiert. Hier nur die TEI-IDs, die im Header für `@wit` bzw. `@ana` referenziert werden:
+Autor, Werk und Semantik der Siglen sind in [[data#Quellen-Siglen]] dokumentiert. Hier nur die TEI-IDs, die im Header für `@wit` bzw. `@ana` referenziert werden.
 
 **Textzeugen in `<sourceDesc>/<listWit>`** (Psalter-Handschriften):
 
@@ -345,7 +365,7 @@ Autor, Werk und Semantik der Siglen sind in [[Domänenwissen#Quellen-Siglen]] do
 | `src-RII` | RII | ungeklärt (`cert="low"`) |
 | `src-N` | N | ungeklärt (`cert="low"`) |
 
-**R-Disambiguierung:** Die Sigle R bezeichnet sowohl den Romanum-Psalter (`wit-R`) als auch Remigius (`src-R`). Die JSON-Pipeline (`disambiguate_sigles()` in `tei_to_json.py`) löst das per Section-Type-Heuristik — Details und Begründung siehe [[Domänenwissen#Disambiguierungs-Heuristik-Iteration-2]]. Im JSON-Output stehen die aufgelösten Siglen in zwei getrennten Listen (`sigles_psalter`, `sigles_sources`); das Frontend filtert mit Präfix-Keys (`psa:R` vs. `src:R`).
+**R-Disambiguierung:** Die Sigle R bezeichnet sowohl den Romanum-Psalter (`wit-R`) als auch Remigius (`src-R`). Die JSON-Pipeline (`disambiguate_sigles()` in `tei_to_json.py`) löst das per Section-Type-Heuristik — Details und Begründung siehe [[data#Disambiguierungs-Heuristik (Iteration 2)]]. Im JSON-Output stehen die aufgelösten Siglen in zwei getrennten Listen (`sigles_psalter`, `sigles_sources`); das Frontend filtert mit Präfix-Keys (`psa:R` vs. `src:R`).
 
 ### 3.3 Segmentierungsbeschreibung
 
@@ -354,8 +374,6 @@ Im `<encodingDesc>/<segmentation>`: Beschreibung der funktionalen Textschichten-
 ### 3.4 Variantenkodierung
 
 `<variantEncoding method="parallel-segmentation" location="internal"/>` — deklariert die Methode für `<app>/<rdg>` im Psaltervergleich.
-
----
 
 ## 4. Ungeklärte Phänomene
 
@@ -366,8 +384,6 @@ Im `<encodingDesc>/<segmentation>`: Beschreibung der funktionalen Textschichten-
 | Siglen RII, N | Mit Auftraggeber klären | `<bibl cert="low">` mit `<note type="editorial">` |
 | Querverweise auf Bibelstellen | Daten fehlen | Nicht kodiert, im Datenmodell vorbereitet |
 | Versgrenze 12/13 | DOCX hat nur „2,12" | Vers 13 als Stub, Daten in Vers 12 |
-
----
 
 ## 5. Konventionen für das Gesamtprojekt
 
@@ -382,9 +398,9 @@ Die Kodierung ist für Psalm 2 entwickelt, aber auf alle 150 Psalmen skalierbar:
 
 ### 5.2 Referenzprojekte
 
-- **BIBLINDEX** (biblindex.org): Patristische Bibelzitate, `<cit>`-Konvention
-- **Patristic Text Archive** (pta.bbaw.de): Encoding-Guidelines für patristische Kommentare, EpiDoc + CapiTainS
-- **TEI P5 Guidelines**: Kap. 12 (Critical Apparatus), Kap. 13 (Names, Dates, People, Places), Kap. 16 (Linking), Kap. 17 (Simple Analytic Mechanisms)
+- BIBLINDEX (biblindex.org): Patristische Bibelzitate, `<cit>`-Konvention
+- Patristic Text Archive (pta.bbaw.de): Encoding-Guidelines für patristische Kommentare, EpiDoc + CapiTainS
+- TEI P5 Guidelines: Kap. 12 (Critical Apparatus), Kap. 13 (Names, Dates, People, Places), Kap. 16 (Linking), Kap. 17 (Simple Analytic Mechanisms)
 
 ### 5.3 Sprach-Codes
 
@@ -394,10 +410,9 @@ Die Kodierung ist für Psalm 2 entwickelt, aber auf alle 150 Psalmen skalierbar:
 | `la` | Latein | ISO 639-1 |
 | `de` | Neuhochdeutsch | ISO 639-1 |
 
----
-
 ## Verknüpfungen
 
-- [[Probeseite Analyse]] — Empirische Grundlage (Tabellenstruktur, Farben, Glossen)
-- [[Domänenwissen]] — Textschichten, Siglen, Referenzsysteme
-- [[Technik]] — Pipeline, TEI-Modell, JSON-Schema und Web-Stack
+- [[INDEX]] — Navigation und Begriffslexikon
+- [[data]] — Empirische Grundlage (Tabellenstruktur, Farben, Glossen)
+- [[architecture]] — Pipeline, TEI-Modell, JSON-Schema und Web-Stack
+- [[design]] — UI-Konzept, das auf diesen Kodierungsentscheidungen aufsetzt
