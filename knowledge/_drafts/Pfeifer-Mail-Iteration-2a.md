@@ -1,11 +1,21 @@
 ---
+title: "Mail-Draft an Pfeifer — Iteration 2a"
 type: draft
-created: 2026-04-15
-tags: [notker, pfeifer, email-draft]
+project:
+  name: "notker-edition"
+  repository: "https://github.com/DigitalHumanitiesCraft/notker-edition"
+method:
+  name: "Promptotyping"
+  url: "https://dhcraft.org/excellence/blog/Promptotyping"
 status: draft
+created: 2026-04-15
+updated: 2026-04-21
+tags: [notker, pfeifer, email-draft]
 ---
 
 # Mail-Draft an Pfeifer — Iteration 2a
+
+Entwurf der Begleitmail an den Auftraggeber zur Auslieferung von Iteration 2a der Edition, mit der Ankündigung der umgesetzten Korrekturen und zwei inhaltlichen Rückfragen.
 
 **Betreff:** Notker-Edition: Iteration 2 umgesetzt, zwei Bitten
 

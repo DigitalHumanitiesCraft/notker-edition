@@ -6,7 +6,7 @@ project:
 method:
   name: "Promptotyping"
   url: "https://dhcraft.org/excellence/blog/Promptotyping"
-status: active
+status: complete
 version: "0.2"
 created: 2026-03-23
 updated: 2026-05-09

@@ -1,12 +1,22 @@
 ---
+title: "Mail-Draft an Philipp Pfeifer — Iteration 2c Auslieferung"
 type: mail-draft
-created: 2026-04-16
-tags: [notker, pfeifer, mail, iteration-2c]
-recipient: Philipp Pfeifer
+project:
+  name: "notker-edition"
+  repository: "https://github.com/DigitalHumanitiesCraft/notker-edition"
+method:
+  name: "Promptotyping"
+  url: "https://dhcraft.org/excellence/blog/Promptotyping"
 status: draft
+created: 2026-04-16
+updated: 2026-04-21
+recipient: Philipp Pfeifer
+tags: [notker, pfeifer, mail, iteration-2c]
 ---
 
 # Mail-Draft an Philipp Pfeifer — Iteration 2c Auslieferung
+
+Entwurf der Auslieferungsmail zur zweiten Review-Runde der Edition, die den seither umgesetzten Stand zusammenfasst und drei offene Rückfragen an den Auftraggeber stellt.
 
 **Betreff:** Notker-Prototyp — zweite Review-Runde, drei offene Rückfragen
 
