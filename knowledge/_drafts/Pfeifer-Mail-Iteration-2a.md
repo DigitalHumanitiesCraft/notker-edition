@@ -69,5 +69,5 @@ Christian
 
 - **Anpassen vor Versand:** Optionale Bullets je nach Merge-Stand von Phase B/C aktivieren oder löschen.
 - **Terminvorschläge:** zwei bis drei Slots einfügen (eigene Kalender-Lage prüfen).
-- **Antragseinreichungsdatum fehlt noch im Vault** — falls Pfeifer es mitteilt, ACTIVE-WORK und Projekt-Overview nachziehen.
-- **Augustinus-2-Korrekturen V3-5/V6** sind der einzige Textkorrektur-Rest, der von Pfeifer noch erwartet wird (blockiert durch BUG-11.2 — jetzt entblockt).
+- **Antragseinreichungsdatum fehlt noch im Vault** — falls der Auftraggeber es mitteilt, ACTIVE-WORK und Projekt-Overview nachziehen.
+- **Augustinus-2-Korrekturen V3-5/V6** sind der einzige Textkorrektur-Rest, der vom Auftraggeber noch erwartet wird (blockiert durch BUG-11.2 — jetzt entblockt).
