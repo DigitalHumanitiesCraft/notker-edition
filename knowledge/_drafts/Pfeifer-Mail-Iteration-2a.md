@@ -1,5 +1,5 @@
 ---
-title: "Mail-Draft an Pfeifer — Iteration 2a"
+title: "Mail-Draft an den Auftraggeber — Iteration 2a"
 type: draft
 project:
   name: "notker-edition"
@@ -10,21 +10,21 @@ method:
 status: draft
 created: 2026-04-15
 updated: 2026-04-21
-tags: [notker, pfeifer, email-draft]
+tags: [notker, email-draft]
 ---
 
-# Mail-Draft an Pfeifer — Iteration 2a
+# Mail-Draft an den Auftraggeber — Iteration 2a
 
 Entwurf der Begleitmail an den Auftraggeber zur Auslieferung von Iteration 2a der Edition, mit der Ankündigung der umgesetzten Korrekturen und zwei inhaltlichen Rückfragen.
 
 **Betreff:** Notker-Edition: Iteration 2 umgesetzt, zwei Bitten
 
-**An:** philipp.pfeifer@uni-graz.at
-**CC:** christopher.pollin@dhcraft.org
+**An:** [Auftraggeber, Adresse separat verwaltet]
+**CC:** [DH Craft, Adresse separat verwaltet]
 
 ---
 
-Lieber Philipp,
+Lieber Auftraggeber,
 
 danke für das ausführliche Feedback vom 15.04. Wir haben die komplette Liste umgesetzt und eine zweite Iteration live. Der Link ist derselbe: https://dhcraft.org/notker-edition
 

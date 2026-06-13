@@ -1,5 +1,5 @@
 ---
-title: "Mail-Draft an Philipp Pfeifer — Iteration 2c Auslieferung"
+title: "Mail-Draft an den Auftraggeber — Iteration 2c Auslieferung"
 type: mail-draft
 project:
   name: "notker-edition"
@@ -10,11 +10,11 @@ method:
 status: draft
 created: 2026-04-16
 updated: 2026-04-21
-recipient: Philipp Pfeifer
-tags: [notker, pfeifer, mail, iteration-2c]
+recipient: Auftraggeber
+tags: [notker, mail, iteration-2c]
 ---
 
-# Mail-Draft an Philipp Pfeifer — Iteration 2c Auslieferung
+# Mail-Draft an den Auftraggeber — Iteration 2c Auslieferung
 
 Entwurf der Auslieferungsmail zur zweiten Review-Runde der Edition, die den seither umgesetzten Stand zusammenfasst und drei offene Rückfragen an den Auftraggeber stellt.
 
@@ -22,7 +22,7 @@ Entwurf der Auslieferungsmail zur zweiten Review-Runde der Edition, die den seit
 
 ---
 
-Sehr geehrter Herr Pfeifer,
+Sehr geehrter Auftraggeber,
 
 ich melde mich mit dem Zwischenstand zum Notker-Prototyp. Alle Punkte aus
 Ihrem Review vom 15. April sind umgesetzt, die Edition liegt unter
