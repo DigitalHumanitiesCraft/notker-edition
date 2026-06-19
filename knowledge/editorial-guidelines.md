@@ -203,7 +203,7 @@ Die DOCX trägt philologische Fußnoten (Textzeugen-Varianten, Quellenzuschreibu
 
 ```xml
 <ab n="1">
-  <seg type="psalm" ana="#fn-psalm" xml:lang="la">PSALVS DAVID.</seg>
+  <seg type="psalm" ana="#fn-psalm" xml:lang="la">PSALMVS DAVID.</seg>
   <note type="editorial" n="1" resp="#pfeifer">
     <label>DAVID.</label>Der Zusatz PSALMVS DAVID, der in G und R in rot geschrieben ist, fehlt in H.
   </note>

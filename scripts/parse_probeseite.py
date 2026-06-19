@@ -35,9 +35,12 @@ _WORD_NS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
 #
 # Wenn Pfeifer eine korrigierte DOCX liefert, in der die Stellen bereits
 # stimmen, sind die Replacements No-Ops (str.replace findet nichts).
-# Quelle aller Korrekturen: Pfeifer-Review 2026-04-15.
+# Quelle der Korrekturen: Pfeifer-Review 2026-04-15 sowie spaetere Einzelkorrekturen.
 
 PFEIFER_CORRECTIONS: list[tuple[str, str]] = [
+    # Psalmzitation V1 (lat.) — Ueberschrift: Notkers Ausgangstext hat "PSALVS",
+    # korrekte Lesung ist "PSALMVS" (deckt sich mit dem Apparat-Eintrag zu DAVID.).
+    ('PSALVS DAVID', 'PSALMVS DAVID'),
     # Cassiodor V1-2 (German)
     ('In vier Teilen ist dieses Psalms', 'In vier Teile ist dieses Psalms'),
     ('als sie Grüde des Zorns', 'als sie Gründe des Zorns'),
