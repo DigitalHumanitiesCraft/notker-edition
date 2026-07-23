@@ -1,0 +1,22 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "name": "notker-edition",
+  "description": "Prototype of a digital edition of Notker III's Old High German Psalm commentary, built as a proof of concept for a funding proposal.",
+  "codeRepository": "https://github.com/DigitalHumanitiesCraft/notker-edition",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Christopher",
+      "familyName": "Pollin",
+      "@id": "https://orcid.org/0000-0002-4879-129X",
+      "sameAs": "https://github.com/chpollin",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Digital Humanities Craft OG"
+      }
+    }
+  ],
+  "license": "https://spdx.org/licenses/MIT",
+  "dateModified": "2026-07-23"
+}

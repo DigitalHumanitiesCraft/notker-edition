@@ -86,6 +86,8 @@ Haupttext-Daten basieren auf dem [Referenzkorpus Altdeutsch (ReA/DDD)](https://k
 
 Facsimile: [e-codices, CSg 0021](https://www.e-codices.unifr.ch/de/csg/0021/11/0/)
 
-## Lizenz
+## Licence
 
-Quellcode: MIT. Textdaten und Übersetzungen: Rechte beim jeweiligen Urheber.
+- Code: MIT (see [LICENSE](LICENSE)).
+- Documentation and knowledge documents (`knowledge/`, research vault): CC BY 4.0.
+- Third-party research data is excluded from these licences and the rights remain with their holders. The Old High German text base derives from the Referenzkorpus Altdeutsch (ReA/DDD), Humboldt-Universitaet zu Berlin; manuscript facsimiles are provided by e-codices and the Stiftsbibliothek St. Gallen (CSg 0021) and the Oesterreichische Nationalbibliothek (Cod. 2681). Edition text and modern German translations remain with their respective authors.
