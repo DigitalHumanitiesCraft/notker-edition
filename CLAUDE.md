@@ -71,8 +71,12 @@ Web-Stack: Vanilla JS + HTML/CSS, Gentium Book Plus, OpenSeadragon (CDN), GitHub
 notker-edition/
 ├── CLAUDE.md
 ├── ReadMe.md
+├── LICENSE                                # MIT für Code, CC BY 4.0 für Dokumentation (siehe ReadMe)
+├── CITATION.cff, codemeta.json            # Publikationsmetadaten
 ├── index.html                             # Root-Redirect → docs/index.html
 ├── knowledge/                             # Research Vault (Markdown-Dokumente)
+│   └── _drafts/                           # Mail-Entwürfe, nicht synchronisiert
+├── screenshots/iteration-2/               # Vorher/Nachher-Aufnahmen der BUG-11-Korrekturen
 ├── data/
 │   ├── Probeseite_Notker.docx             # Primärdatenquelle
 │   ├── tei/psalm{N}.xml                   # Kanonisches TEI-XML (normalisiert)
@@ -87,7 +91,8 @@ notker-edition/
 │   ├── tei_to_json.py                     # → psalm{N}.json (single oder alle)
 │   ├── sync_vault.py                      # knowledge/*.md → docs/vault/ (mit Git-Hash)
 │   ├── test_pipeline.py                   # Integration/Regression-Tests
-│   └── validate_tei.py                    # TEI-Validierung gegen RelaxNG
+│   ├── validate_tei.py                    # TEI-Validierung gegen RelaxNG
+│   └── capture_bug_screenshots.py         # Playwright-Aufnahmen für screenshots/
 ├── tests/
 │   ├── test_gloss_classification.py       # Unit-Tests Glossen-Heuristik
 │   └── test_crossverse_nhd.py             # Unit-Tests Cross-Verse-nhd-Drift

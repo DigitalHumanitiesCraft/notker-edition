@@ -9,7 +9,7 @@ method:
 status: draft
 version: "0.2"
 created: 2026-02-24
-updated: 2026-05-09
+updated: 2026-11-10
 language: de
 authors:
   - "Christopher Pollin"
@@ -158,6 +158,12 @@ Datei-Operationen: `Research Plan.md` → `project.md`. `Domänenwissen.md` + `P
 Frontmatter-Refactor: Pflichtkern (`title`, `project`, `method`, `status`, `version: 0.2`, `created`, `updated`); Empfehlungen (`language`, `authors`, `generated-with`, `topics` als Wikilinks, `related`); kontextabhängig (`knowledge-sources` als verschachteltes URI-Mapping in `project.md`, `data.md`, `architecture.md`, `editorial-guidelines.md`).
 
 Inhaltlich keine Änderung an Substanz oder Entscheidungen — die Konsolidierungen erhalten die Iterations-Hierarchie und die Detail-Inhalte der Quelldokumente. Alte Cross-Links auf umbenannte Dokumente überall im Vault aktualisiert. `CLAUDE.md` im Repo-Root auf neue Dateinamen synchronisiert.
+
+## 2026-11-10 — Repository-Pflege
+
+Abgleich der Wissensbasis mit der Git-Historie seit dem Eintrag vom 2026-05-09. Am 2026-06-13 wurde das Frontmatter von `knowledge/` auf den reduzierten Pflichtkern migriert, und die Mail-Entwürfe unter `knowledge/_drafts/` wurden anonymisiert. Am 2026-06-19 wurde die Überschrift von Psalm 2 zu PSALMVS korrigiert und `docs/vault/` nachgezogen. Am 2026-07-23 kamen `LICENSE`, `CITATION.cff` und `codemeta.json` hinzu, Code steht unter MIT, Dokumentation und Wissensdokumente unter CC BY 4.0. Der entfernte Review-Zweig der Iteration 2 ist vollständig in `main` enthalten.
+
+`CLAUDE.md` führt die seither hinzugekommenen Dateien in der Dateistruktur. `python scripts/test_pipeline.py`, `python -m pytest tests` und `python scripts/validate_tei.py` laufen fehlerfrei. Die öffentliche Kopie unter `docs/vault/` ist nicht neu synchronisiert und enthält diesen Eintrag deshalb nicht.
 
 ## Offene Punkte
 
