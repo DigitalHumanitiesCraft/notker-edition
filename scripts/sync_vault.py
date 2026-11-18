@@ -53,9 +53,13 @@ def main():
     # Mail-Entwuerfe sind interne Arbeitsdokumente und gehoeren nicht in den
     # oeffentlichen Vault. Alle Dateien mit Prefix "Pfeifer-Mail-" oder generell
     # "_"-Prefix werden uebersprungen.
+    # Journal und Korrekturliste sind Arbeitsstaende und werden ebenfalls
+    # nicht veroeffentlicht (Entscheidung des Operators vom 2026-11-18).
+    internal = {'journal.md', 'offene-korrekturen.md'}
     files = []
     for md in sorted(src_dir.glob('*.md')):
-        if md.name.startswith('Pfeifer-Mail-') or md.name.startswith('_'):
+        if (md.name.startswith('Pfeifer-Mail-') or md.name.startswith('_')
+                or md.name.lower() in internal):
             print(f'  skip:   {md.name} (intern)')
             continue
         dst = dst_dir / md.name
